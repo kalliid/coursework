@@ -93,8 +93,5 @@ breaklines=true}
 \lstinputlisting{vec3d.py}
 (Example-run is shown on the next page.)
 
-\clearpage
-\lstinputlisting{vec3d_example.py}
-
 
 \end{document}

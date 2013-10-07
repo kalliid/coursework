@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.1.17)  3 OCT 2013 12:08
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.1.17)  7 OCT 2013 14:26
 entering extended mode
  %&-line parsing enabled.
 **week6.tex
@@ -484,30 +484,33 @@ File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ) (./findprograms.py)
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./old_and_large.py
+[2
 
-] (./dice2.py)
-[3
+]) [3] (./dice2.py) [4
 
-] (./dice4.py) [4
+] (./dice4.py) [5
 
-] (./vec3d.py [5
+] (./vec3d.py) [6
 
-]) [6] (./week6.aux) ) 
+] (./vec3d_example.py) [7
+
+] (./week6.aux) ) 
 Here is how much of TeX's memory you used:
- 6973 strings out of 495061
- 94149 string characters out of 1182621
- 444562 words of memory out of 3000000
- 10067 multiletter control sequences out of 15000+50000
+ 7012 strings out of 495061
+ 94600 string characters out of 1182621
+ 439562 words of memory out of 3000000
+ 10100 multiletter control sequences out of 15000+50000
  7640 words of font info for 21 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  36i,6n,40p,230b,1603s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ec
-tt0800.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.60
-0pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk>
-Output written on week6.pdf (6 pages, 58244 bytes).
+ </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm109
+5.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0800.600pk> 
+</home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> </home/jv
+brink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk>
+Output written on week6.pdf (7 pages, 75857 bytes).
 PDF statistics:
- 166 PDF objects out of 1000 (max. 8388607)
+ 201 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
