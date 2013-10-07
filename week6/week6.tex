@@ -1,0 +1,94 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel, textcomp}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color, xcolor}
+\usepackage{framed, parskip}
+\usepackage{flafter, caption, multicol}
+\usepackage{verbatim, listings, fancyvrb}
+
+%\DeclareCaptionLabelSeparator{colon}{. }
+\renewcommand{\captionfont}{\small\sffamily}
+\renewcommand{\captionlabelfont}{\bf\sffamily}
+\setlength{\captionmargin}{20pt}
+
+\setcounter{tocdepth}{2}
+
+\DeclareMathAlphabet{\mathbfit}{OML}{cmm}{b}{it}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=python,
+basicstyle=\ttfamily\scriptsize,
+keywordstyle=\color{javapurple},%\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+% numbers=left,
+% numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+captionpos=b,
+showstringspaces=false,
+frame= single,
+breaklines=true}
+% 
+% \makeatletter
+% \def\lst@lettertrue{\let\lst@ifletter\iffalse}
+% \makeatother
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=20mm, bottom=20mm, left=34mm, right=34mm}
+
+
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand{\bt}[1]{\mathbfit{#1}}
+\newcommand{\p}{\partial}
+\renewcommand{\d}{\text{d}}
+\newcommand{\D}{\text{D}}
+\newcommand{\N}{\text{N}}
+\newcommand{\R}{\text{R}}
+\renewcommand{\c}{\cdot}
+
+\usepackage{calc}
+
+\title{INF3331 - Week 4}
+\author{Jonas van den Brink \\ \texttt{j.v.d.brink@fys.uio.no}}
+
+\begin{document}
+\pagestyle{empty}
+\subsection*{Jonas van den Brink, jvbrink}
+\texttt{j.v.d.brink@fys.uio.no}
+\subsection*{6.1---Find the paths to a collection of programs}
+\lstinputlisting{findprograms.py}
+\clearpage
+\subsection*{6.2---Find old and large files in a directory tree}
+% \lstinputlisting{join.py}
+\clearpage
+\subsection*{6.3---Estimate the chance of an event in a dice game}
+\lstinputlisting{dice2.py}
+\clearpage
+\subsection*{6.4---Determine if you win or loose a hazard game}
+\lstinputlisting{dice4.py}
+\clearpage
+\subsection*{6.5---Implement a class for vectors in 3D}
+\lstinputlisting{vec3d.py}
+\end{document}
