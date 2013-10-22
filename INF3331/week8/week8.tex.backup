@@ -1,0 +1,116 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel, textcomp}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color, xcolor}
+\usepackage{framed, parskip}
+\usepackage{flafter, caption, multicol}
+\usepackage{verbatim, listings, fancyvrb}
+
+%\DeclareCaptionLabelSeparator{colon}{. }
+\renewcommand{\captionfont}{\small\sffamily}
+\renewcommand{\captionlabelfont}{\bf\sffamily}
+\setlength{\captionmargin}{20pt}
+
+\setcounter{tocdepth}{2}
+
+\DeclareMathAlphabet{\mathbfit}{OML}{cmm}{b}{it}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=python,
+basicstyle=\ttfamily\scriptsize,
+keywordstyle=\color{javapurple},%\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+% numbers=left,
+% numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+captionpos=b,
+showstringspaces=false,
+frame= single,
+breaklines=true}
+% 
+% \makeatletter
+% \def\lst@lettertrue{\let\lst@ifletter\iffalse}
+% \makeatother
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=20mm, bottom=20mm, left=34mm, right=34mm}
+
+
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand{\bt}[1]{\mathbfit{#1}}
+\newcommand{\p}{\partial}
+\renewcommand{\d}{\text{d}}
+\newcommand{\D}{\text{D}}
+\newcommand{\N}{\text{N}}
+\newcommand{\R}{\text{R}}
+  \renewcommand{\c}{\cdot}
+
+\usepackage{calc}
+
+\title{INF3331 - Week 8}
+\author{Jonas van den Brink \\ \texttt{j.v.d.brink@fys.uio.no}}
+
+\begin{document}
+\pagestyle{empty}
+\subsection*{Jonas van den Brink, jvbrink}
+\texttt{j.v.d.brink@fys.uio.no}
+\subsection*{8.1---Assignment and in-place modifications of NumPy arrays}
+The code does not work as intended because the assignments \verb+y = x+ and \verb+z = x+ produces \emph{shallow copies} of the NumPy-array \verb+x+. This effectively means that the variables \verb+y+ and \verb+z+ point to the same array in memory as \verb+x+, so changing one of them, will change all of them simultaneously.
+
+To fix this, we should instead use the \verb+npdarray+-method \verb+copy()+, which returns a deep copy of the array. So we have the code
+\begin{lstlisting}
+from scitools.numpytools import *
+x = sequence(0, 1, 0.5)
+y = x.copy(); y *=2; y += 1
+z = x.copy(); z *= 4; 
+print x, y, z
+\end{lstlisting}
+This is equivalent to the syntax
+\begin{lstlisting}
+from scitools.numpytools import *
+x = sequence(0, 1, 0.5)
+y = 2*x + 1
+z = 4*x - 4
+print x, y, z
+\end{lstlisting}
+Both of these programs produce the output
+\begin{lstlisting}
+[ 0.   0.5  1. ] [ 1.  2.  3.] [-4. -2.  0.]
+\end{lstlisting}
+
+\subsection*{8.2---Process comma-separated numbers in a file}
+The exercise asked for a compact script, so readability has not been emphasized
+\lstinputlisting{process_spreadsheet.py}
+
+\clearpage
+
+\subsection*{8.3---Matrix-vector multiply with NumPy arrays}
+\lstinputlisting{matvec.py}
+
+\clearpage
+
+
+\end{document}
