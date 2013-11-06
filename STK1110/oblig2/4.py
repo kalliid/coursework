@@ -44,7 +44,6 @@ SSE = np.sum(residuals**2)
 print SSE
 print np.sum(y**2) - 0.28*np.sum(y) - 0.5056*sum(x*y)
 
-
 # Calculate and plot probabiliy plot
 n = len(x)
 sample_percentiles = [100*(i-.375)/(n+.25) for i in range(1,n+1)]

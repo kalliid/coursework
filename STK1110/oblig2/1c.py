@@ -11,13 +11,11 @@ S2_k = sum((k - k_avg)**2)/(len(k)-1)
 
 S2_p = 0.5*S2_m + 0.5*S2_k
 
-print k_avg - m_avg
-
-print S2_k/S2_m
-
-print S2_m
-print S2_k
-print S2_p
+print "k_avg - m_avg:", k_avg - m_avg
+print "S2_k/S2_m: ", S2_k/S2_m
+print "S2_m:", S2_m
+print "S2_k:", S2_k
+print "S2_p:", S2_p
 
 se1 = np.sqrt(S2_m)/3
 se2 = np.sqrt(S2_k)/3

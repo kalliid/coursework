@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.1.17)  6 NOV 2013 14:45
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.1.17)  6 NOV 2013 14:51
 entering extended mode
  %&-line parsing enabled.
 **oblig2.tex
@@ -785,38 +785,42 @@ File: probabilityplot2.pdf Graphic file (type pdf)
 <use probabilityplot2.pdf> [15
 
  <./residuals.pdf> <./probabilityplot2.pdf>]
-(./oblig2.aux) ) 
+(./1.py) [16
+
+] (./4.py) [17
+
+] (./oblig2.aux) ) 
 Here is how much of TeX's memory you used:
- 6626 strings out of 495061
- 88073 string characters out of 1182621
- 210115 words of memory out of 3000000
- 9687 multiletter control sequences out of 15000+50000
+ 6683 strings out of 495061
+ 88606 string characters out of 1182621
+ 336115 words of memory out of 3000000
+ 9737 multiletter control sequences out of 15000+50000
  25068 words of font info for 69 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  36i,11n,40p,838b,1619s stack positions out of 5000i,500n,10000p,200000b,50000s
- </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900
-.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk> <
-/home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/jvb
-rink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0900.600pk> </home/jvbrink/.tex
-mf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk> </home/jvbrink/.texmf-var/fo
-nts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </home/jvbrink/.texmf-var/fonts/pk/lj
-four/jknappen/ec/ecrm0800.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jkna
-ppen/ec/ecti1095.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/e
-cbx1200.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecss1000.6
-00pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx1000.600pk> </h
-ome/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/jvbri
-nk/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/t
-ype1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public
-/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmsy8.pfb>
-Output written on oblig2.pdf (15 pages, 309750 bytes).
+ </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt09
+00.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1095.600pk>
+ </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </home/j
+vbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0900.600pk> </home/jvbrink/.t
+exmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk> </home/jvbrink/.texmf-var/
+fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </home/jvbrink/.texmf-var/fonts/pk/
+ljfour/jknappen/ec/ecrm0800.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jk
+nappen/ec/ecti1095.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec
+/ecbx1200.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecss1000
+.600pk> </home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx1000.600pk> <
+/home/jvbrink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/jvb
+rink/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts
+/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmsy8.pfb>
+Output written on oblig2.pdf (17 pages, 324382 bytes).
 PDF statistics:
- 644 PDF objects out of 1000 (max. 8388607)
+ 676 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
