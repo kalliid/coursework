@@ -1,0 +1,135 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=29mm, left=39mm, right=39mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inner}[2]{\langle #1 , #2 \rangle}
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{Emilie Fjørner \\[-0.4cm] \texttt{e.s.fjorner@fys.uio.no} \\[0.2cm] Jonas van den Brink \\[-0.4cm] \texttt{j.v.d.brink@fys.uio.no}}
+\title{INF5620 --- Project 1}
+
+
+\begin{document}
+The set of continuous, real functions defined on an interval $[0,T]$ is denoted $C[0,T]$. A real function $f$ defined on $[0,T]$ is said to be \emph{square integrable} if $f^2$ is Riemann-integrable, i.e., if
+$$\int_0^T f(t)^2 \ \d t < \infty.$$
+The set of all square integrable functions on $[0,T]$ is denoted $L^2[0,T]$.
+
+Both $L^2[0,T]$ and $C[0,T]$ are vector spaces, and we define the inner product on the spaces as
+$$\inner{f}{g} = \frac{1}{T}\int_0^T f(t)g(t) \ \d t,$$
+and the associated norm
+$$||f|| = \sqrt{\frac{1}{T} \int_0^T f(t)^2 \ \d t}.$$
+The reason for the $1/T$ normalization factor, is that it makes the constant-function $f(t)=1$ have the norm 1.
+
+The projection of a function $f$ onto a subspace $W$ is the function $g\in W$ which minimizes the least squares error $||f-g||$. It follows that the error function is orthogonal to the subspace $W$,
+$$\inner{f-g}{h} = 0, \quad \forall \ h \in W.$$
+If $\{\phi_i\}_{i=1}^m$ is an orthogonal basis for $W$, then
+$$g = \sum_{i=1}^m \frac{\inner{f}{\phi_i}}{\inner{\phi_i}{\phi_i}}\phi_i.$$
+
+\section*{Fourier}
+The N'th order Fourier space is denoted $V_{N,T}$, it is $2N+1$ dimensional and spanned by the set of functions
+\begin{align*}
+\mathcal{D}_{N,T} = \{1, &\cos\bigg(\frac{2\pi t}{T}\bigg), \cos\bigg(\frac{2\pi 2 t}{T}\bigg)\ldots, \cos\bigg(\frac{2\pi Nt}{T}\bigg), \\
+&\sin\bigg(\frac{2\pi t}{T}\bigg), \sin\bigg(\frac{2\pi 2t}{T}\bigg), \ldots \sin\bigg(\frac{2\pi Nt}{T}\bigg)\}.
+\end{align*}
+
+The projection of a function $f$ onto $V_{N,T}$ is denoted $f_N(t)$
+$$f_N(t) = a_0 + \sum_{n=1}^N \bigg[ a_n \cos\bigg(\frac{2\pi n t}{T}\bigg) + b_n \sin\bigg(\frac{2\pi n t}{T}\bigg)\bigg].$$
+The Fourier coefficients of $f$ are given by
+\begin{align*}
+a_0 &= \inner{f}{1}, \\
+a_n &= 2\inner{f}{\cos(2\pi n t/T)}, \\
+b_n &= 2\inner{f}{\cos(2\pi n t/T)}.
+\end{align*}
+
+\subsubsection*{Convergence of Fourier series}
+Given a periodic function $f$ with period $T$, and that 
+\begin{itemize}
+ \item $f$ has a finite set of discontinuities in each period.
+ \item $f$ contains a finite set of maxima and minima in each period.
+ \item $\int_0^T |f(t)| \ \d t < \infty$
+\end{itemize}
+Then we have that $\lim_{N\to\infty} f_N(t) = f(t)$ for all $t$, except at those points $t$ where $f$ is discontinuous. These are the Dirichlet conditions for the convergence of the Fourier series.
+
+If $f$ is antisymmetric about 0, then $a_n = 0$, i.e., the Fourier series becomes a sine-series, if $f$ is symmetric about 0, then $b_n = 0$ and the Fourier series becomes a cosine-series.
+
+
+\end{document}
+
