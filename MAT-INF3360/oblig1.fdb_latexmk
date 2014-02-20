@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1391769149 "oblig1.tex" "oblig1.pdf" "oblig1" 
+["pdflatex"] 1392894101 "oblig1.tex" "oblig1.pdf" "oblig1" 
   "/etc/texmf/tex/latex/config/color.cfg" 1254097189 802 7b8c8d72c24d795ed7720e4dfd29bff3 ""
   "/etc/texmf/tex/latex/config/graphics.cfg" 1255993321 3328 2584cfe577535f0a08f3a9717b5152ab ""
   "/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii" 1251025892 71625 fad1c4b52151c234b6873a255b0ad6b3 ""
@@ -51,8 +51,8 @@
   "/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def" 1322143080 40817 59149cdca908875781bb2f74014004ed ""
   "/usr/share/texmf-texlive/tex/latex/tools/multicol.sty" 1254151720 25118 b90b2b96011c3190a3a2cd6d74040b9e ""
   "/usr/share/texmf/tex/latex/xcolor/xcolor.sty" 1193193460 55224 a43bab84e0ac5e6efcaf9a98bde73a94 ""
-  "oblig1.aux" 1391769149 848 0b46f44e7391cd7c3cc86e550e3b4d19 ""
-  "oblig1.tex" 1391769149 15169 61060cf328908db661da8bc0e38e2e01 ""
+  "oblig1.aux" 1392894101 1012 880eaf2cadfa208c93e3c6141c3e4bc9 ""
+  "oblig1.tex" 1392894100 20120 9fa0cb0339b52401db5b1f7847c1904f ""
   "singleelement.pdf" 1391594698 8914 09163bc8562d82ba1a80fd21394b4c4a ""
   "trapezoid.pdf" 1391594171 10057 811fcf5fc0e0f3c85eff88e63c3e8ee8 ""
   (generated)
