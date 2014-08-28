@@ -1,0 +1,33 @@
+Looking at text: cogwrgaccag
+
+Warning: Empty needle, no matches exist
+Matching pattern :
+No matches found.
+
+Matching pattern c_g:
+Index: 0 Match: cog
+Index: 8 Match: cag
+
+Matching pattern _wr:
+Index: 2 Match: gwr
+
+Matching pattern _c_:
+Index: 6 Match: acc
+Index: 7 Match: cca
+
+Warning: Wildcard needle matches everything!
+Matching pattern ___:
+Index: 0 Match: cog
+Index: 1 Match: ogw
+Index: 2 Match: gwr
+Index: 3 Match: wrg
+Index: 4 Match: rga
+Index: 5 Match: gac
+Index: 6 Match: acc
+Index: 7 Match: cca
+Index: 8 Match: cag
+
+Test empty haystack: 
+
+Warning: Needle is bigger than haystack.
+No matches found.

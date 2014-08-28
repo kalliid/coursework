@@ -1,0 +1,181 @@
+\documentclass[a4paper, norsk, 12pt, twocolumn]{article}
+\usepackage[top=0.3cm, bottom=0.3cm, left=0.2cm, right=0.2cm]{geometry} 
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel, textcomp, color, amsmath, amssymb, tikz,  float}%, subfig}
+
+\title{Formelark \\ FYS-2160}
+\author{Anders Lauvland}
+\date{\today}
+
+\newcommand{\pd}[2]{\frac{\partial#1}{\partial #2}}
+\newcommand{\pdd}[2]{\frac{\partial^2#1}{\partial #2^2}}
+\newcommand{\D}{\mathrm d}
+
+\newcommand{\brac}[1]{\left[ #1\right] }
+\newcommand{\para}[1]{\left( #1 \right) }
+\newcommand{\der}[2]{\frac{\mathrm d#1}{\mathrm d #2}}
+\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}}
+\renewcommand{\d}{\mathrm d}
+\newcommand{\up}{\uparrow}
+\newcommand{\dw}{\downarrow}
+\newcommand{\tvec}[2]{\begin{pmatrix} #1\\#2 \end{pmatrix}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\dV}{\mathrm d V}
+\newcommand{\dP}{\mathrm d P}
+\newcommand{\dS}{\mathrm d S}
+\newcommand{\dT}{\mathrm d T}
+\newcommand{\dN}{\mathrm d N}
+\newcommand{\dU}{\mathrm d U}
+\newcommand{\dH}{\mathrm d H}
+\newcommand{\dG}{\mathrm d G}
+\newcommand{\dF}{\mathrm d F}
+\newcommand{\dPh}{\mathrm d \Phi}
+\newcommand{\ave}[1]{\langle #1\rangle}
+\newcommand{\Z}{\mathcal Z}
+\newcommand{\nfd}{\bar n_{\rm FD}}
+\newcommand{\nbe}{\bar n_{\rm BE}}
+\newcommand{\nbolt}{\bar n_{\rm Boltzm.}}
+\newcommand{\npl}{\bar n_{\rm Planck}}
+\begin{document}
+
+
+
+\textsc{\textbf{Kap. 3 Interactions and implications.}}
+
+\begin{description}
+
+\item[Kjemisk likevekt og min.punkt for $G$:] Reaksjonsligning: $\nu_1X_1 + \nu_2X_2 + \cdots \leftrightarrow \nu_3X_3 + \nu_3X_4 +\cdots.$ Der $\nu_i$ kalles støkiometriske koeffisienter. I en kjemisk reaksjon vil $G = U -TS + PV = \sum_i\ N_i\mu_i$ alltid ha et minimum for mengde ac stoffene som tilsvarer 'delvis gjennomført' reaksjon, fra itgnagnsstoffer til produkter. \\ Dette skyødes bidraget fra blandingsentropien $\Delta S_{bland}(x),$ der $x$ er 'gjennomført grad' av reaksjonen ($x=0$: rene utgangsstoffer. $x= 1$: rene produkter). $G$ vil falle med dervert mot $-\infty$ i punktet $x =0,$ og stige med derviert $+\infty$ i punktet $x = 1.$ Minimum må derfor være i $0<x<1.$
+\item[Likevektsbetingelser og massevirkningsloven:] Ved likevekt, der $G$ har minimum, for konst. $T, P:$
+$\dG = \sum_i \ \mu_i\dN_i = 0.$ der $\dN_i$ er støkiometriske koeffisienter med fortegn: $-$ for utangsstoffer, $+$ for produkter.\newline
+Kjemisk potensiale for ideelle gasser kan ved gitt partialtrykk $P_i$ og temperatur $T$ uttrykkes som: $\mu_i(T, P) = \mu_i(T, P_0) + kT\ln\frac{P_i}{P_0},$ der referansetrykket $P_0$ normalt er 1 atm. $P_i$ er partialtrykket for gass $i,$ og totalt trykk er $P = \sum_iP_i.$
+Setter inn de kjemiske potensialene for endring i Gibbs: $\dG(T, P_0) = -kT\sum_i\ln(P_i/P_0)^{\dN_i}.$ Dette er endringe i gibbs for 1 sett molekuler ved temp $T$ og partial trykk $P_i$ generelt gjelder at $\dG(T,P_0) \neq 0.$ Eksponensiering gir: $\Pi_i\para{\frac{P_i}{P_0}} = e^{-\Delta G(T, P_0)/RT}.$ Ved inndeling i utg.stoffer og produkter: $\Pi_{i, \mathrm{produkt}}(P_i/P_0)^{|\dN_i|} / \Pi_{i, \mathrm{utg.stoff}}(P_i/P_0)^{|\dN_i|} = e^{-\Delta G(T, P_0)/RT} = K(T).$ Som er masse virkningsloven, $K(T)$ er konst ved gitt temp. Og $P_i = P_0$ for alle gassene. \textbf{Eks:} Amoniakk $N_2 + 3H_2 \leftrightarrow2NH_3.$ Massevirkningsloven blir: $\frac{P_{NH_3}^2P_0^2}{P_{N_2}P_{H_2}^3} = e^{-\Delta G(T, P_0)/RT} = K(T.)$ \textbf{Le Chateliers prinsipp:} Når et system i likevekt forstyrres, vil det respondere på en måte som opphever forstyrrelsen.
+
+
+\item[Rotasjon av toatomige molekyler:]
+Rotasjonsenergier er kvantiserte. $E(j) = j(j+1)\eps, j=0, 1, 2,.. $. Degenerasjonsgrad er $g(j)= 2j+1.$ For diatomige molekyler med to forskjellige atomer er alle rot.kv.tall tillatt og $Z_{\rm rot} = \sum_{j=0}^\infty g(j)e^{-\beta E(j)}.$ For $kT >> \eps \rightarrow$ integral: $Z_{\rm rot} \approx \int_0^\infty(2j +1)e^{-\beta j(j+1)\eps}\d j = 1/\beta \eps.$ For $kT >> \eps$ er midlere rotasjons energi og varmekap.-bidrag per molekyl: $\ave{E_{\rm rot}} = -\pder{}{\beta}\ln Z_{\rm rot} \approx kT, \ C_{\rm rot}/N = \pder{\ave{E_{\rm rot}}}{T} =\approx k.$ I samsvar med ekvipartisjonsteoremet for $f = 2.$\newline
+\textbf{For lave T:} Nok a ta med de to første leddene i $Z,$ $j=0, 1.$ Gir $\Delta E = 2\eps,$ og $C_{\rm rot}(T) \approx 3k\para{\Delta E/kT}^2e^{-\beta \Delta E}.$
+\item[Identiske partikler i diatomisk molekyl]\textbf{, rotasjon:} Samme situasjon etter rotasjon en halv rotasjon, partisjonsfunksjon for $kT >> \eps$: $Z \approx 1/2\beta\eps.$ Ellers hvis begge atomene er:
+\begin{description}
+ \item[Bosoner:] Symmetrisk tot BF, $\Psi_{1,2} = \Psi_{2,1}.$
+\begin{itemize}
+ \item Symmetrisk - spinndel og romdel: summér over \textbf{partallige} $j$.
+\item Antisymmetrisk - spinndel og romdel: summér over \textbf{oddetallige} $j$.
+\end{itemize}
+\item[Fermioner:] Antisymmetrisk tot. BF:\\ $\Psi_{1,2} = -\Psi_{2,1}:$
+\begin{itemize}
+ \item Symmetrisk spinndel og antisymmmetrisk romdel: Summér over \textbf{oddetallige} $j.$
+\item Antisymmetrisk spinndel og symmetrisk romdel: Summér over \textbf{partallige} $j.$
+\end{itemize}
+\end{description}
+\item[Ekvipartisjonsteoremet:]
+gjelder kun for systemer der energien avhenger av kvadratiske frihetsparametre. La $E(q) = cq^2.$ $Z = \frac{1}{\Delta q}\sum_q e^{-\beta cq^2}\Delta q.$ Dersom $E(q+ \Delta q) - E(q) >> kT$ får vi: $Z \approx \frac{1}{\Delta q}\int_{-\infty}^\infty e^{-\beta cq^2}\d q = \frac{1}{\Delta q}\sqrt{\frac{\pi}{c}}\beta^{-1/2}.$
+Midlere energi blir da $\ave E = -\pder{}{\beta}\ln Z = \frac{1}{2}kT.$
+Generelt: $\ave{E} = \frac{f}{2}kT.$
+\item[Maxwells fartsfordeling:]
+Fartsfordelingsfunksjon $D(v),$ for partikler i en ideell gass. Sannsynligheten for et molekyl med fart i intervallet $(v + \d v)$ er $P(v + \d v) = D(v)\d v.$ Der $D(v)\d v \propto e^{-\beta mv^2/2}4\pi v^2\d v.$ Det siste er $\propto$ \textbf{degenerasjonsfaktoren} = antall hastighets vektorer med lengde $v.$
+Fra normalisering er finner vi $D(v)\d v = \para{\frac{m}{2\pi kT}}^{3/2}4\pi v^2 e^{-\beta mv^2/2}.$
+Noen farter: $v_{\rm max} = \sqrt{2kT/m},$ $\ave{v} = \sqrt{8kT/\pi m},$ $v_{rms} = \sqrt{\ave{v^2}} = \sqrt{3kT/m}.$
+\item[Partisjonsfunksjoner og fri energi:] For et systemi termisk likevekt med et reservoar med konst. temp $T:$ $Z = \sum_se^{-U(s)/kT} = \sum_U\Omega(U)e^{-U/kT}.$ For et stort system trenger vi bare inkludere ett, eller noen få ledd av partisjonsfunksjonen og finner $\ln Z = \ln\Omega(U) - U/kT.$ Med $S = k\ln\Omega(U)$ finner vi $$F = -kT\ln Z.$$ for \textbf{Helmhotz fri energi.}
+\item[Alterniativ def. av entropi:]
+$\\S = -k\sum_sP(s)\ln P(s).$ -$P(s)$ er sannsynligheten for at systemet er i tilstand $s.$ Gyldig for isoolerte systemer, og systemer i likevekt med omgivelsene.
+\item[Partisjonsfunksjoner for sammensatte systemer:] Viktig å skille mellom enpartikkkel-tilstander $s_1,$ som definerer enpartikkkel-partisjonsfunksjonen $Z_1 = \sum_{s_1}e^{-\beta E(s_1)}.$ Og systemtisltander $s_N = \left\lbrace s_i \right\rbrace = \left\lbrace s_1, s_2, ...\right\rbrace$ der enpartikkel tilstanden til samtlige $N$ partikler må være spesifisert: $\\Z_N =\sum_{s_N}e^{-\beta U(s_N)} =  \sum_{s_1} \cdot ...\cdot \sum_{s_N}e^{-\beta \sum_{i=1}^N E_i(s_i)}.$ En systemtilstand har totalenergi $U(s_N)=\sum_{i=1}^NE_i(s_i).$ For et system med $N$ \textbf{forskjellige} partikler gjelder:$Z_{\rm tot} = \Pi_{i=1}^N\para{\sum_{s_i}e^{-\beta E(s_i)}} = \Pi_{i=1}^NZ_i.$ Der $Z_i$ er partisjonsfunksjonen til partikkel $i.$ Permutasjoner av $N$ forskjellige enpartikkeltilstander gir $N!$ forskjellige systemtilstander.\newline
+For $N$ \textbf{identiske partikler og fortynnede systemer} ($Z_1 >> N$) gjelder med god tilnærmelse:
+$Z_{\rm tot}\approx \frac{1}{N!}Z_1\cdot ...\cdot Z_N = \frac{1}{N!}Z_1^N.$ Siden alle $Z_i$ er like for identiske partikler. $1/N!$ korrigerer for at de $N!$ forskjellige permutasjonene gir samme systemtilstand nå partiklene er identiske. \\
+Til nå neglisjert tilstander der flere partikler er i samme enpartikkeltilstand og korreksjonsfaktoren $1/N!$ ikke gjelder.
+
+\item[Z, og frihetsgrader:] Har to frihetsgrader $a$ og $b.$ Partisjonsfunksjonen blir da $Z_1 = \sum_{s_a} e^{-\beta E_a(s_a)}\sum_{s_b}e^{-\beta E_b(s_b)} = Z_aZ_b.$
+\item[Z for ideell gass:] I ideell gass (per def fortynnet) med $N$ identiske molekyler er $Z_{\rm tot} = \frac{1}{N!}Z_1^N,$ $Z_1 = Z_{\rm trans}Z_{\rm indre},$  $Z_{\rm indre} = Z_{\rm rot}Z_{\rm vib }Z_{\rm e}.$ $Z_e$ er lektronisk eksitasjon.
+\item[Z for translasjon:] Kvantiserte energinivåer for partikkel i 3D-boks med volum $V:$ $\\E({n_x, n_y, n_z}) = p^2/2m = \frac{h^2\para{n_x^2+ n_y^2+ n_z^2}}{8mV^(2/3)}, n_i = 1, 2, ...$ Partisjonsfunksjon blir da:
+$Z_{3D} = \sum_{n_x}\sum_{n_y}\sum_{n_z} e^{-\beta E(n_x, n_y, n_z)} \rightarrow \int \d^3\vec n e^{-\beta E(n_x, n_y, n_z)},$ et integral over $n_x, n_y, n_z.$ Gjør om til sfæriske koordinater, med $n^2 = n_x^2+ n_y^2+ n_z^2$ og svaret blir: $Z_{3D} = \frac{V}{v_Q},$ der $v_q$ er knvantevolumet $v_Q = \para{\frac{h^2}{2\pi mkT}}^{3/2}.$\\
+Partisjonsfunksjonen for 1 partikkel blir da: $Z_1 = \frac{V}{v_Q}Z_{\rm indre}.$ For $N$ identiske partikler i fortynnet system:  $Z_N = \frac{1}{N!}Z_1^N.$
+\item[Z og indre frihetsgrader:]
+$Z_{\rm indre} = Z_{\rm rot}Z_{\rm vib}Z_{e}.$\textbf{Rotasjon:} For diatomisk molekyl med \textbf{ulike atomer}: $Z_{\rm indre, ulike} = \sum_{j=1}^\infty\para{2j + 1}e^{-\beta j(j+1)\eps_r}\approx \frac{kT}{\eps_r}$ For \textbf{like atomer}: $Z_{\rm rot, ulike} = \sum_{j, {\rm partall}}\para{2j + 1}e^{-\beta j(j+1)\eps_r}$ eller $Z_{\rm rot, ulike} = \sum_{j, {\rm oddetall}}\para{2j + 1}e^{-\beta j(j+1)\eps_r}\approx \frac{kT}{2\eps_r}.$ Der vi antar $kT>>\eps_r.$\\
+\textbf{Vibrasjon:} $E_{\rm vib} = n\eps_v.$ Psrtisjonsfunksjon: $Z_{\rm vib} = \sum_{n=0}^\infty = e^{-\beta n\eps_v} = \frac{1}{1 - e^{-\beta \eps_v}}.$ For romtemperatur er gjerne $kT < \eps_v.$ \textbf{Elektronisk:} Partisjonsfunksjonen for elektronisk eksitasjon er bidraget fra eksitererte nivåer neglisjerbart ved normale temperaturer. $Z_e \approx g_0.$ Der $g_0$ er degenerasjonsgraden for den elektroniske grunntilstanden. 
+\item[Termodynamiske egenskaper for ideell gass:] For ideell gass er $U$ og $C_V$ gitt som summen av bidrag fra translasjon og fra indre frihetsgrader: 
+$U = -\pder{}{\beta}\ln Z_{\rm tot} = U_{\rm trans} + U_{\rm rot} + _{\rm vib} + _{\rm e}, \ C_V = \para{\pder{U}{T}}_{V,N}.$ For diatomige (like eller ulike) molekyler ved romtemp. og høyere har vi for de ulike energibidragene: $U_{\rm trans} = \frac{3}{2}NkT, \ U_{\rm rot} = NkT, \ U_{\rm vib} = \frac{N\eps_v}{e^{\eps_v/kT} - 1},\\ U_e \approx 0.$ \textbf{Varmekap.:} $C_{\rm V,trans} = \frac{3}{2}Nk, \ C_{\rm V, rot} = Nk$ For vibrasjonsbidragene får vi $\\C_{V, \rm vib} \approx Nk\para{\frac{\eps_v}{kT}}^2e^{-\eps_v/kT},$ når $kT<<\eps_v$ og  $\\C_{\rm V, vib} \approx Nk,$ når $ kT>>\eps_v.$ \\
+De andre termodynamiske egenskapene finner vi fra $F = -kT\ln Z:$ $$P = -\para{\pder{F}{V}}_{T,N} = \frac{NkT}{V},$$
+$$S = -\para{\pder{F}{T}}_{V, N} =$$
+$$ Nk\brac{\ln\para{\frac{V}{N}\para{\frac{2\pi m k T}{h^2}}^{3/2}Z_{\rm indre}}\\ + \frac{5}{2}}$$
+$$ + NkT\para{\pder{}{T}\ln Z_{\rm indre}}_{V, N}.$$ For monoatomisk gass får vi Sackur-Tetrode. For diatomisk gass med like atomer er $S = Nk\brac{\ln\para{\frac{V}{N}\para{\frac{2\pi m k T}{h^2}}^{3/2}\frac{kT}{2\eps_r}} + \frac{7}{2}}.$ \\ Kjemisk potensiale blir: 
+$$\mu = \para{\pder{F}{N}}_{T, V} $$
+$$= -kT\ln\para{\frac{V}{N}\para{\frac{2\pi m k T}{h^2}}^{3/2}Z_{\rm indre}}.$$\\
+Di- og polyatoniske ideelle gasser har høyere $S$ og større negativ $\mu$ en monoatomiske, grunnet $Z_{\rm indre}$ - bidraget som gir effektivt et mer fortynnet system.
+\end{description} 
+
+\item[Statistikk for ikke-forynnede systemer:] For fortynnede systemer ($V/N >> v_Q$) har vi at $Z_{tot} = \frac{1}{N!}Z_1^N.$ korreksjonsfaktoren $1/N!$ er kun gyldg når alle systemtisltandene har partiklene i forskjellige enpartikkeltilstander. For flere partikler i samme enpartikkeltilstand avhenger av om det er fermioner eller bosoner.\\
+Flere \textbf{identiske fermioner} kan ikke være i samme enpartikkel-kvantetilstand - Paulis eksklusjonsprisipp.\\
+Vilkårlig mange \textbf{bosoner} kan være i samme enpartikkel-kvantetilstand.
+
+\item[Eksempel på kombinatorikk for fermioner og bosoner:] Vi har et system for $g$ degenererte enpartikkeltilstander og $N$ ikke-distingverbare partikler ($q >> N$).\\
+For \textbf{Bosoner} er antall systemtilstander gitt ved: $\Omega_{boson} = \frac{(g + N-1!}{N!(g-1)!}\approx\frac{(g+N)!}{N!g!}, (g, N $store$).$\\
+For \textbf{fermioner} er antall systemtilstander gitt ved: $\Omega_{fermion} = \frac{g!}{N!(g-N)!}, (N\leq g).$\\ Til sammenligning gir \textbf{Boltzmann-tilnærmelsen} antall systemtilstander som: $\Omega_{Boltzmann} = \frac{1}{N!}g^N.$\\
+Kan vises at generelt for et gitt sett av enpartikkeltilstander: $\Omega_{fermion} < \Omega_{Boltzmann} < \Omega_{boson}.$
+\item[fordelingsfunksjoner for bosoner og fermioner:] Ser på system som en enkelt enpartikkel-kvantetilstand. Enpartikkeltilstanden har energi $\eps$ og kan være besatt av $n$ partikler, som gir tot. energi $n\eps$ for hele systemet. Sannsynligheten for at det er $n$ partikler i systemet:
+
+\begin{itemize}
+ \item \textbf{Fermioner:} $n = 0,1$ er de eneset tillatt. Gibbs-sum: $\Z = 1+ e^{-(\eps - \mu)/kT}.$ Midlere partikkeltall for fermioner kalles \textbf{Fermi-Dirac} - fordelingen: $\bar n_{FD}(\eps) = \sum_{n=0}^1nP(n) = \frac{1}{e^{(\eps-\mu)/kT}}.$ Egenskap: Step-funksjon. $\nfd \rightarrow 1$ for $\eps << \mu.$ $\nfd \rightarrow 0$ for $\eps >> \mu,$ og $\nfd = 1/2$ for $\eps = \mu.$ Bredden opp fordelingens fallende flanke er av størrelses orden $kT.$
+\item\textbf{Bosoner:} Alle $n\geq0$ tillatt. Får partisjonsfunksjon $\Z = \sum_{n=0}^\infty e^{-n(\eps - \mu)/kT} = \frac{1}{1 - e^{-(\eps - \mu)/kT}}.$ Betingelsen $\eps > \mu$ må være oppfylt for alle $\eps.$ Midlere partikkeltall, kalt \textbf{Bose-Einstein}-fordelingen blir: $\nbe(\eps) = \sum_{n=0}^\infty nP(n) = \frac{1}{e^{(\eps - \mu)/kT} - 1}.$ Egenskaper: går mot $0$ når $\eps >> \mu.$ Og mot $\infty$ når $\eps \rightarrow \mu$ ovenfra.\\
+\item\textbf{Boltzmann-partikler:} Midlere partikkeltall er, hvor $\mu = -kT\ln(Z_1/N) \Rightarrow \frac{N}{Z_1} = e^{\mu/kT}:$ $\nbolt(\eps) = NP(\eps) = \frac{N}{Z_1} e^{-\eps/kT} = \frac{1}{e^{(\eps - \mu)/kT}}.$ Egenskaper: Går mot $0$ når $\eps >> \mu.$ Lik $1$ for $\eps = \mu.$
+\end{itemize}
+For de tre gjelder: $\nfd(\eps) < \nbolt(\eps) < \nbe(\eps).$
+\item[Totalt partikkeltall $N$ og kj.pot. $\mu$:]Totalt partikkeltall må være lik summen av alle okkupasjontall for alle enpartikkkeltilstander. For bevart tot. partikkel tall $N,$ er det kjemiske potensialet $\mu$ entydfig bestemt ved følgende:
+\begin{itemize}
+ \item \textbf{Fermioner:} $$N = \sum_{j=0}^\infty\nfd(\eps_j) = \sum_j\frac{1}{e^{(\eps_j - \mu)/kT} + 1}.$$ Ved lav $T$ er $\nfd(\eps) \approx 1$ for $\eps < \mu,$ $0$ for $\eps > \mu.$ Dette betyr at $\mu \approx \eps_N$ - høyeste okkuperte enpartikkel-energinivå. $\mu = \mu_{\rm FD}$ for lave $T$ er typisk et stort og positivt tall.
+\item\textbf{Bosoner:} $$N = \sum_{j=0}^\infty \nbe(\eps_j) = \sum_{j=0}^\infty \frac{1}{e^{(\eps_j - \mu)/kT} - 1}.$$ For lav $T$ ender alle bosoner opp i laveste enpartikkel-nivå, $\eps_0$:$N = \frac{1}{e^{(\eps_0 -\mu)/kT} - 1}\Rightarrow \mu \approx \eps_0 - \frac{kT}{N}.$ $\mu = \mu_{\rm BE}$ ligger da nesten infinitesimalt under grundtilstandsenergien $\eps_0$ og synker lineært med stigende $T$.
+\item\textbf{Boltzmann-partikler:} $$N = \sum_{j=0}^\infty\nbolt(\eps_j)$$
+$$ = \sum_j\frac{1}{e^{(\eps_j - \mu)/kT}} = e^{\mu/kT}Z_1.$$ For lav $T$ bidrar bare laveste enpartikkelnivå, $Z_1 \approx e^{-\eps_0/kT}:$ $$e^{\mu/kT} = \frac{N}{Z_1} \approx \frac{N}{e^{-\eps_0/kT}}$$
+$$\Rightarrow\mu\approx\eps_0+kT\ln N.$$
+ $\mu = \mu_{\rm Boltzm.}$ stiger da lineært med $T$ inntil $Z_1$ begynner å få bidrag fra eksiterte tilstander.
+\end{itemize}
+ Det kjemiske potensialet er temperaturavhengig, $\mu = \mu(T),$ og antar alltid en verdi som bevare totalt partikkeltall $N.$\\
+For høye $T$ er $\mu$ for alle systemene stor og negativ, og faller med økende $T.$ Forstatt har vi $$\mu_{\rm FD} > \mu_{\rm Boltzm.} > \mu_{\rm BE}$$ overalt, men verdiene konvergerer i grensen høy $T.$
+\item[$\Z$ og det store potensialet $\Phi$:]
+For et system i termisk - og diffusjons likevekt med et reservoar ved konst temperatur $T$ og kjemisk pot $\mu$ er $\Z$ gitt ved:
+$$\Z = \sum_se^{-\brac{U(s) - \mu N(s)}/kT} $$
+$$= \sum_U\sum_N\Omega(U,N)e^{-U/kT}e^{\mu N/kT}.$$ For et stort system trenger vi bare inkludere ett, eller noen få ledd i $\Z,$ med $U = \ave U$ og$ N = \ave N,$ siden systemet kan antas å være sin mest sannsynlige makrotilst.:
+$$\Z \approx\Omega(U,N)e^{-U/kT}e^{\mu N/kT}$$
+$$ \Rightarrow \ln\Z \approx \ln\Omega(U,N) - \frac{U}{kT} + \frac{\mu N}{kT}.$$ Innsetting av $S = k\ln\Omega$ gir følgende nyttig relasjon mellom $\Z$ og \textbf{Det Store Potensialet, $\Phi:$}$$\Phi = -kT\ln\Z = U - TS - \mu N = F - \mu N.$$ Med termodynamisk identitet: $$\dPh = -S\dT - P\dV -N\d\mu.$$ Og vi kan finne $P, N$ og $S$ ved å derivere mhp diverse, og holde andre konst.
+\item[Degenerert Fermi-gass ved $T=0$:]For $T=0$ er $\nfd$ en eksakt step-funk. med $\nfd = 1$ for $(\eps - \mu)<0$ og $\nfd = 0$ for $(\eps- \mu) > 0.$\\ Det kjemiske potensialet $\mu(T = 0)$ er lik \textbf{fermi-energien, $\eps_f,$} som tilsvarer  det høyeste okkuperte  enparikkelnivået ved denne temperaturen. \\ For et system med $N$ fermioner ved $T=0$, fylles alltid enpartikkel-tilstandene fra laveste $\eps$ og oppover, i henhold til Paulis eksklusjonsprinsipp.\\ Grensebetingelsene for romlige bølgefunksjoner gir følgende diskrete energier i en 3-dim pot. brønn med volum $V$ (ikke-relativistiske fermioner):
+$$\eps = \frac{h^2}{8mV^{2/3}}\para{n_x^2 + n_y^2 + n_z^2} = \frac{h^2n^2}{8mv^{2/3}}$$
+$$, n_i = 1, 2, ...$$
+Antall unike enpartikkel-kvantetilstander kan bestemmes ved å telle alle mulige romlige kvantetall ($n_x, n_y, n_z$), og ta hensyn til at hvert fermion kan ha egenspinn -orienteringene $\up$ og $\dw$, som gir hver romlige orbital en degenerasjonsgrad 2. Da er \textbf{antall fermioner} i positive oktant av $n$-rommet $$N = 2\frac{1}{8}\frac{4}{3}\pi n_{max}^3 = \frac{\pi}{3}n_{max} \Rightarrow n_{max} = \para{\frac{3N}{\pi}}^{1/3}.$$ - Det dobbelte av volumet av en oktant.\\
+Totalt partikkeltall kan også finnes ved å bruke \textbf{tilstandstettheten} eller degenerasjonsgraden $g(n)\d n = 2\cdot\frac{1}{8}4\pi n^2\d n = \pi n^2 \d n.$ $$N = \int_0^{n_max}g(n)\d n.$$ \\
+Alle enpartikkeltilstander er okkupert opp til Fermi-energien $\eps_F,$ som er gitt ved: $$\eps_F = \frac{h^2n_{max}^2}{8mV^{2/3}} = \frac{h^2}{8m}\para{\frac{3N}{\pi V}}^{2/3}.$$
+Total energien for fermi-gassen er
+$$U = \int_0^{n_{max}} \eps(n)g(n)\d n$$
+$$ = \int_0^{n_{max}} \frac{h^2n^2}{8mV^{2/3}}\cdot 2\cdot \frac{4\pi}{8}n^2\d n = \frac{3}{5}N\eps_F.$$ \textbf{Fermi-temperatur} er definert som $T_F = \eps_F/k.$
+\item[Egenskaper ved deg.fermigass, $T=0:$] Energi er gitt over. Trykk er gitt ved $$P = -\para{\pder{U}{V}}_{S,N} = \frac{2}{5}\para{\frac{3}{pi}}^{2/3}\frac{h^2}{8m}\para{\frac{N}{V}}^{5/3}.$$ Degenerasjons trykket som øker dramatisk med tettheten $\propto(N/V)^{5/3}$ er ikke relatert til termisk bevegelse, men skyldes at faserommet er fullt okkupert opp til Fermienergien $\eps_F.$\\
+Vi kan også bestemme inkompressibilitet (\textbf{bulk modulus}) $B.$ Ved $T=0$ er Fermigassen i en unik grunntilstandskonfigurasjon, med $S=0,$ og \textbf{isoterm}- og \textbf{adiabatisk} inkomrpessibilitet $B_T$ og $B_S$ blir like:
+$$B_T = -V\para{\pder{P}{V}}_{T,N} = B_S = -V\para{\pder{P}{V}}_{S,N} $$
+$$= \frac{2}{3}\para{\frac{3}{\pi}}^{2/3}\frac{h^2}{8m}\para{\frac{N}{V}}^{5/3}.$$
+\item[Fermigass ved liten, endelig $T$:] Grov tilnærmelse. partikkeltallet $N'$ opp til et vilkårlig energinivå $\eps$ er gitt ved: 
+$$N' = \frac{\pi}{3}\para{\frac{8m\eps}{h^2}}.$$
+\textbf{Tilstandstettheten} $g(\eps),$ dvs. antall enpartikkeltilstander innenfor et enhets intervall i energi $\Delta\eps = 1,$ er gitt ved:
+$$\dN' = g(\eps)\d\eps = \pder{N'}{\eps}\d\eps$$
+$$ \Rightarrow g(\eps) = \pder{N'}{\eps} = \frac{\pi}{2}V\para{\frac{8m}{h^2}}^{3/2}\eps^{1/2}.$$ 
+Total energi ved temperatur $T$ kan ved en grov tilnærmelse angis som midlere eksitasjonsenergi pr. partikkel, $\Delta\eps \approx kT,$ ganger antallet eksiterbare partikler nær fermienergien, $g(\eps_F)\delta\eps:$ $$U(T)\approx U(T=0) + (\Delta\eps)^2g(\eps_F) $$
+$$\approx \frac{3}{5}N\eps_F + \frac{3}{2}(kT)^2\frac{N}{\eps_F}.$$ 
+Og varmekap. blir:
+$$C_V \approx 3Nk\frac{kT}{\eps_F}.$$ 
+En mer nøyaktig beregning som tar hensyn til Fermi-Dirac-fordelingen ved liten, endelig temperatur er \textbf{Sommerfeldt utviklingen.} Som gir kvalitativt samme resultater for tot. energi og varmekap:
+$$U = \frac{3}{5}N\eps_F + \frac{\pi^2}{4}N\frac{(kT)^2}{\eps_F}$$
+$$C_V = \para{\pder{U}{T}}_{V,N} \approx \frac{\pi^2}{2}Nk\frac{kT}{\eps_F}.$$
+\item[Tetthet i ikke-rel. fermigass:] For $T=0$ der fordelingsfunksjonen er en eksakt step-funksjon kan vi beregne partikkeltall $N$ og energi $U$ som: $$N = \int_{0}^{\eps_F}g(\eps)\d\eps, \ U = \int_{0}^{\eps_F}\eps g(\eps)\d\eps.$$ Der $g(\eps)$ er tilstandstettheten. $g(\eps)$ kan bestemmes ved å betrakte partikkeltallets avhengighet av energinivået $\eps,$ som pot.brønnen er fylt opp til. Evt kan vi se på $g(n)\d n = \pi n^2$ i 3D $n-$rommet. Der $\eps(n) = h^2n^2/8mV^{2/3}.$ Slik at: $$g(n) \d n = g(\eps) \d\eps \Rightarrow g(\eps) = g(n(\eps))\der{n}{\eps} $$ $$= \frac{\pi}{2}V\para{\frac{8m}{h^2}}^{3/2}\eps^{1/2}\\ = g_0\sqrt{\eps}.$$
+\item[Egenskaper for fermigass, ved endelig $T$:] Uttykk for tilstands tetthet $g(\eps) = g_0\sqrt{\eps}$ er gyldig for ikke-vekselvirkende spinn-1/2 fermioner. $$N = \int_0^\infty g(\eps)\nfd(\eps)\d\eps, \ U = \int_0^\infty \eps g(\eps)\nfd(\eps)\d\eps.$$ \\ $T>0$ er $\eps_F\neq \mu$ lenger. $\mu(T)$ kan bestemmes fra kravet om at tot. partikkeltall skal være bevart for enhver temp. Der $N$ er gitt av uttryket over, og skal være konst. Med andre ord må integral over ubesatte tilstander under $\eps_F$ være lik integralet over besatte tilstander over $\eps_F:$ $$\int_0^{\eps_F}g(\eps)P(0)\d\eps = \int_{\eps_F}^\infty g(\eps)\nfd(\eps)\d\eps.$$ Dette er det samme som: $$\int_0^{\eps_F}g(\eps)\frac{e^{(\eps-\mu)/kT}}{e^{(\eps-\mu)/kT} + 1}\d\eps = \int_{\eps_F}^\infty g(\eps)\frac{1}{e^{(\eps-\mu)/kT} + 1}\d\eps.$$ Finner at $\mu(T)$ må synke med økende $T$ for at $N$ bevart. \\ Om vi antar at $T<<T_F$ finner vi ved Sommerfeldt-utviklingen: $$\frac{\mu}{\eps_F}\approx 1 - \frac{\pi^2}{12}\para{\frac{kT}{\eps_F}}^2.$$ Som også gir de nevnte tilnærmingene til varmekap. og tot. energi.
+\item[Relativistisk, degenerert fermigass, $T=0$:] $\eps = \sqrt{(pc)^2 + (mc^2)^2}.$ For $pc >> mc^2$ har vi $\eps \approx pc.$ Samt. $\lambda = 2L/n,$ gir de-Broglie $$\eps = \frac{hcn}{2V^{1/3}}, n = \sqrt{n_x^2 + n_y^2 + n_z^2}.$$  Antallet enpartikkeltilstander er volumet av en oktant i $n-$rommet, med radius $n_{max} = \vec n_{max},$ ganger 2 for spinnorientering. 
+$$N = 2\cdot\frac{1}{8}\cdot\frac{4}{3}\pi n_{max}^3 \Rightarrow n_{max}= \para{\frac{3N}{\pi}}^{1/3}.$$ 
+\textbf{fermi-energien:} $\eps_F = \frac{hc}{2V^{1/3}}n_{max}.$ \textbf{Tilstandstettheten:} $N(\eps) = \frac{8\pi V}{3(hc)^3}\eps_F^3 = \int_0^{\eps_F}g(\eps)\d\eps \Rightarrow g(\eps) = \frac{8\pi V}{(hc)^3}\eps^2.$ Total energi $U$ av rel. Fermigass: $$U = \int_{0}^{\eps_F}\eps g(\eps)\d\eps = \frac{3}{4}N\eps_F.$$
+\item[Nivåstruktur for elektroner i krystaller:] Tiltrekkende krefter mellom elektroner og positive ioner i en krystall vil modifisere nivåstrukturen. Vi får \textbf{valensbånd} ($\eps\leq\eps_v$) og \textbf{ledningsbånd} ($\eps \geq\eps_c$), adskilt av energigap $\Delta \eps_{gap} = \eps_c - \eps_v.$ Tilstandstettheten kan skrives som: $$g_c (\eps) = g_0\sqrt{\eps-\eps_c}, \ g_v(\eps) = g_0\sqrt{\eps_v - \eps}, $$
+$$ g_0 = \frac{\pi}{2}V\para{\frac{8m}{h^2}}^{3/2}.$$ \textbf{Tre klasser:}
+\begin{itemize}
+ \item \textbf{leder:} $\eps_F$ lligger innenfor valensbåndet eller ledningsbåndet. Ubesatte og besatte tilst. ved samme $\eps$ gir stor mobilitet for $e^-.$
+\item\textbf{Isolatorer:} $\eps_F$ ligger mellom valensbåndet og ledningsbånd. $\Delta\eps_{gap}$ er stor (flere eV's.) Termisk eksitasjon er neglisjerb. valensbånd fullt, ledn.bånd tomt.
+\item \textbf{Halvleder:} $\eps_F$ er mellom valensbånd og ledn.bånd. $\Delta\eps_{gap}$ liten ($\sim1$eV). gir signifikant eksitasjon av elektroner fra valensb. til ledn.b. 
+\end{itemize}
+
+
+\end{description}
+\end{document}
+
+

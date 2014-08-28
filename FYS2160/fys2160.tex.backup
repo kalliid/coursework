@@ -1,0 +1,576 @@
+\documentclass[a4paper,10pt,twoside,twocolumn]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsfonts, amssymb, amsmath}
+% \usepackage{subfigure}
+\usepackage{verbatim}
+\usepackage{parskip}
+\usepackage{color}
+
+% \usepackage[squaren]{SIunits}
+\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+%\usepackage[top=0.5cm, bottom=0.5cm, left=0.5cm, right=0.5cm]{geometry}
+\setlength{\columnsep}{1cm}
+
+% \usepackage{titlesec}
+% \titleformat{\section}{\large\bfseries\color{black}}{\thesection }{0em}{ }
+% \titleformat{\subsection}{\bfseries}{\thesubsection}{1em}{ }
+% \titsleformat{\subsubsection}{\bfseries}{\thesubsubsection}{1em}{}
+
+\pagestyle{empty}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\newcommand{\E}{\vec{E}}
+\newcommand{\B}{\vec{B}}
+\newcommand{\F}{\vec{F}}
+\newcommand{\A}{\vec{A}}
+\newcommand{\D}{\vec{D}}
+\newcommand{\e}[1]{\ {\rm exp} \left[ #1 \right]}
+
+\newcommand{\bt}[1]{\textbf{#1}}
+\newcommand{\wh}{\widehat}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\dd}{\ \text{d}}
+
+\renewcommand{\i}{\hat{i}}
+\renewcommand{\j}{\hat{j}}
+\renewcommand{\k}{\hat{k}}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqn}{\begin{equation*}}
+\newcommand{\eeqn}{\end{equation*}}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\header}[1]{\subsubsection*{#1} \vspace{-0.2cm}}
+
+\begin{document}
+
+\begin{tabular}{c | c}
+Exchanged quantity & Type of equilibrium \\
+\hline
+Energy & Thermal \\
+Volume & Mechanical \\
+Particles & Diffusive  
+\end{tabular}
+
+\header{Theoretical definition of temperature}
+Temperature is the thing that's the same for two objects, after they've been in contact long enough.
+
+\header{The Laws of Thermodynamics}
+The first law 
+$$\Delta U = Q + W,$$
+Heat: any spontaneous flow of energy due to difference in temperature between objects. Work: any other transfer of energy into or out of a system. The first law is just a statement about energy conservation.
+Heat transer is divided into: Conduction, convection, radiation.
+
+The second law: \\
+Any large system in equilibrium will be found in the macrostate with the greatest entropy (aside from fluctuations that are normally to small to measure.) Entropy tends to increase.
+
+The third law: \\
+At zero temperature, a system should settle into its unique lowest energy-state, so $\Omega=1$ and $S=0$. This also means that $C_V \rightarrow 0$ as $T\rightarrow 0$.
+
+
+\header{The Ideal Gas}
+The ideal gas law (the equation of state for an ideal gas):
+$$PV = NkT = nRT$$
+Where
+$$N = n\times N_{\rm A}, \qquad nR = Nk$$
+The temperature of an ideal gas says something about the averege kinetic energy of the gas molecules
+$$\overline{K}_{\rm trans} = \frac{3}{2}kT, \qquad \qquad v_{\rm rms} \equiv \sqrt{\overline{v^2}}= \sqrt{\frac{3kT}{m}}$$
+Heat capacities
+$$C_P = C_V + Nk = C_V + nR$$
+
+\header{Macroscopic model of ideal gas}
+A cylinder contains a single gas-molecule, colliding elasticly with the walls. The pressure from the ``gas'' on the area $A$ equals averege force over time
+$$\bar{P} = \frac{\bar{F}}{A} = \frac{mv_x^2}{AL} = \frac{m v_x^2}{V}.$$
+Now assume $N$ non-interacting particles, when $N$ is large, the instaneous pressure equals the averege
+$$PV = Nm\overline{v_x^2} \qquad \Rightarrow \qquad m\overline{v_x^2} = kT.$$
+Using the same argument for $y$ and $z$ gives
+$$\overline{K_{\rm molecules}} = \frac{1}{2}m\overline{v^2} = \frac{1}{2}m(\overline{v_x^2 + v_y^2 + v_z^2}) = \frac{3}{2}kT.$$
+and we define
+$$v_{\rm rms} \equiv \sqrt{\overline{v^2}} = \sqrt{\frac{3kT}{m}}$$
+
+
+
+\header{Compression Work}
+$$W = \vec{F}\cdot \vec{\d r}$$
+$$W = -P\ \d V \qquad {\rm (quasistatic)}$$
+$$W = -\int_{V_{\rm i}}^{V_{\rm f}} P(V)\d V \qquad {\rm (quasistatic)}$$
+
+\header{Compression of Ideal Gas}
+Generally for a quasistatic process:
+$$PV^\alpha = K; \qquad \alpha=\frac{C-C_P}{C-C_V}; \qquad \Delta S = C\ln\frac{T_{\rm f}}{T_{\rm i}}$$
+$$W = \frac{K}{\alpha - 1}\bigg( \frac{1}{V_{\rm f}^{\alpha-1}-V_{\rm i}^{\alpha-1}}\bigg), \qquad Q=C\Delta T$$
+\textbf{Isothermal}
+$$PV = NkT = {\rm const.} \Rightarrow \alpha = 1. \qquad C\rightarrow\infty$$
+$$Q = -W = NkT \ln \frac{V_{\rm f}}{V_{\rm i}}, \qquad \Delta S = \frac{Q}{T} = Nk\ln\frac{V_{\rm f}}{V_{\rm i}}$$
+\textbf{Adiabatic}
+$$VT^{f/2} = {\rm const.}, \qquad PV^{\gamma} = {\rm const.}, \quad \alpha = \gamma = \frac{f+2}{f}$$
+$$Q = 0 \quad \Rightarrow \quad  C = 0 \quad \Rightarrow \quad \Delta S = 0$$
+\textbf{Isochoric}
+$$W = 0; \qquad Q = C_V\Delta T; \qquad \Delta S = C_V \ln \frac{T_{\rm f}}{T_{\rm i}}$$
+\textbf{Isobaric}
+$$C=C_P \quad \Rightarrow \quad \alpha=0; \qquad W=-P\Delta V$$
+$$ \Delta S = C_P\ln \frac{T_{\rm f}}{T_{\rm i}}; \qquad Q=C_P\Delta T$$
+
+
+
+\header{Equipartition of Energy}
+Equipartition theorem: At temperature $T$, the averege energy of any quadratic degree of freedom is $\frac{1}{2}kT$. If a system contains $N$ molecules, each with $f$ degrees of freedom, and there are no other (non-quadratic) temperature-dependant forms of energy, then its total thermal energy is
+$$U_{\rm thermal} = N\cdot f \cdot \frac{1}{2}kT.$$
+Where $f$ denotes the degrees of freedom.
+\begin{itemize}
+\item Spatial translation---3 degrees of freedom, $x$, $y$, and $z$.
+\item Rotation---2 degrees of freedom for diatomic gas, 3 degrees for a polyatomic gas.
+\item Vibration---2 degrees per vibration mode, one for kinetic, and one for potential. For diatomic gases, there are 2 degrees of freedom, but they are usually frozen out at room temperature. For solids we have 6 rotational degrees of freedom (one vib. mode in each dir. $x$, $y$, and $z$).
+\end{itemize}
+
+\header{Heat Capacity}
+The heat capacity of an object is the the amount of heat needed to raise it's temperature, per degree temperature increase:
+$$C \equiv \frac{Q}{\Delta T}.$$
+Specific heat capacity is heat capacity per unit mass:
+$$c \equiv \frac{C}{m}.$$
+This definition is ambigous!
+$$C = \frac{Q}{\Delta T} = \frac{\Delta U - W}{\Delta T}.$$
+We define heat capacity when $W=0$, meaning $\Delta V = 0$
+$$C_V = \bigg(\frac{\Delta U}{\Delta T}\bigg)_V = \bigg(\frac{\partial U}{\partial T}\bigg)_V \qquad {\rm (energy\ capacity)}$$
+and when $P = {\rm const.}$, meaning $W = -P\Delta V$
+$$C_P = \bigg(\frac{\Delta U + P\Delta V}{\Delta T}\bigg)_P = \bigg(\frac{\partial U}{\partial T} \bigg)_P + P \bigg(\frac{\partial V}{\partial T}\bigg)_P = \bigg(\frac{\partial H}{\partial T}\bigg)_P.$$
+If we only have quadratic degree of freedom, we can use the equipartition principle
+$$C_V = \frac{\d}{\d T} N f \frac{1}{2}kT = \frac{f}{2}Nk = \frac{f}{2} nR.$$
+For ideal gas we have
+$$C_P = C_V + Nk = C_v + nR.$$
+
+
+\textbf{Latent heat}
+$$C = \frac{Q}{\Delta T} = \frac{Q}{0} = \infty \qquad \text{(during a phase thransformation)}$$
+$$L \equiv \frac{Q}{m}$$
+The latent heat for boiling water is 2260 J/g, or 540 cal/g.
+
+
+\header{Two-state systems}
+Multiplicity of $n$ heads when $N$ coins are flipped:
+$$\Omega(N,n) = \frac{N!}{n!\cdot(N-n)!} = {N\choose{n}}$$
+
+\header{Two-State Paramagnet}
+System consits of $N$ dipoles that can point up or down
+$$\Omega(N_\uparrow) = {N\choose N_\uparrow} = \frac{N!}{N_\uparrow N_\downarrow!}$$
+
+\header{The Einstein Model of a Solid}
+System consits of $N$ oscillators with $q$ units of energy shared between them. Stars and bars then gives
+$$\Omega(N,q) = {q + N - 1 \choose q} = \frac{(q+N-1)!}{q!(N-1)!}$$
+For a large Einstein solid we can approximate the multiplicity
+$$\Omega(N,q) = {q + N - 1 \choose q} = \frac{(q+N-1)!}{q!(N-1)!} \approx \frac{(q+N)!}{q!N!}$$
+Using coarse Stirling
+$$\ln \Omega = (q+N)\ln(q+N) - N\ln N  - q\ln q $$
+High-temperature approxiamtion $q\gg N$: 
+$$\Omega(N,q) \approx \bigg(\frac{eq}{N}\bigg)^N$$ 
+Low-temperature approximation $N\ll q$:
+$$\Omega(N,q) \approx \bigg(\frac{eN}{q}\bigg)^q$$
+
+\textbf{Sharpness of the Multiplicity Function} \\
+Two Einstein solids with $N$ oscillators share a total of $q$ units of energy. Using high-temperature approx ($q\gg N$):
+$$\Omega = \Omega_A\Omega_B =  \bigg(\frac{eq_A}{N}\bigg)^N\bigg(\frac{eq_B}{N}\bigg)^N = \bigg(\frac{e}{N}\bigg)^{2N}(q_aq_b)^N$$
+Which has a peak of height
+$$\Omega_{\rm max} = \bigg(\frac{e}{N}\bigg)^{2N}\bigg(\frac{q}{2}\bigg)^{2N}$$
+We now look at multiplicity close to maximum, so
+$$q_A = \frac{q}{2} + x, \qquad q_B = \frac{q}{2} - x,$$
+where $x$ is any number much smaller than $q$.
+$$\Omega = \bigg(\frac{e}{2N}\bigg)^{2N}\bigg[\bigg(\frac{q}{2}\bigg)^2 - x^2\bigg]^N$$
+$$\ln\bigg[\bigg(\frac{q}{2}\bigg)^2 - x^2\bigg]^N \approx N\bigg[\ln\bigg(\frac{q}{2}\bigg)^2 - \bigg(\frac{2x}{q}\bigg)^2\bigg] $$
+Exponentiating back
+$$\Omega = \bigg(\frac{e}{N}\bigg)^{2N}\bigg(\frac{q}{2}\bigg)^{2N} e^{-N(2x/q)^2} = \Omega_{\rm max} \cdot e^{-N(2x/q)^2}$$
+which is a Gaussian function.
+
+\header{Multiplicity of a monatomic ideal gas}
+$$\Omega_N \approx \frac{1}{N!}\frac{V^N}{h^{3N}}\frac{\pi^{3N/2}}{(3N/2)!}(\sqrt{2mU})^{3N}$$
+$$\Omega(U,V,N) = f(N)V^NU^{3N/2}$$
+General theorem: For any system with only quadratic degrees of freedom, hvaing so many units of energy that energy quantization is unnoticable (high-temp limit), the multiplicity is proportional to $U^{Nf/2}$, where $Nf$ is the total number of degrees of freedom.
+
+\header{Fundamental assumption of statistical mechanics}
+In an isolated thermal equilibrium, all accessible microstates are equally probable.
+
+This is a result of detailed balance, any process that takes the system from $X$ to $Y$ is reversible, so the system can just as easily go from $Y$ to $X$. (Microscopic $T$-symmtery).
+
+\header{Very Large Numbers}
+Large numbers are much largert than small numbers, and are frequently made by exponentiating small numbers. The most important property of large numbers is that you can add a small number to large number without changing it
+$$10^{23} + 23 = 10^{23}$$
+Very large numbers are even larger than large numbers and can be made by exponentiating large numbers. Very large numbers have the property that you can multiply them by large numbers without changing them
+$$10^{10^{23}} \cdot 10^{23} = 10^{10^{23}+23} = 10^{10^{23}}$$
+
+\header{Stirling's Approximation}
+\begin{tabular}{l l}
+Fine & $ N! \approx N^N e^{-N} \sqrt{2\pi N}$ \\
+Coarse & $ N! \approx N^N e^{-N}$ \\
+Coarse & $\ln N! \approx N\ln N - N$ \\
+\end{tabular}
+
+
+\header{Approximations}
+For two numbers $a\gg b$ we can approximate (Taylor)
+\begin{align*}
+\ln(a+b) = \ln a + \ln\bigg(1+\frac{b}{a}\bigg) \approx \ln a + \frac{b}{a}
+\end{align*}
+For a small number $|\epsilon|\ll 1$ we can approximate (Taylor):
+$$(1+\epsilon)^q \approx 1 + q\epsilon$$
+For $x\ll 1$ we have
+$$\frac{1}{1 - e^{-x}} \approx \frac{1}{x}$$
+
+\header{Entropy}
+$$S \equiv k \ln \Omega$$
+$$S_{\rm tot} = k\ln \Omega_{\rm tot} = k\ln(\Omega_{A}\Omega_{B}) = k\ln\Omega_A + k\ln\Omega_B = S_A + S_B$$
+
+\header{Sackur-Tetrode Equation}
+For a monatomic ideal gas
+$$S = Nk\bigg[\ln\bigg(\frac{V}{N}\bigg(\frac{4\pi m U}{3Nh^2}\bigg)^{3/2}\bigg) + \frac{5}{2}\bigg].$$
+for distinguishable particles, replace $5/2$ with $3/2$ and $V/N$ with $N$.
+
+\header{Entropy of Mixing}
+For an ideal gas, a volume change gives a change in entropy
+$$\Delta S = Nk\ln\frac{V_{\rm f}}{V_{\rm i}}$$
+if we consider a box with a partition containing gas of $A$ and gas of $B$. Removing the partition gives change in entropy
+$$\Delta S = \Delta S_A + \Delta S_B = Nk\ln2 + Nk\ln 2 = 2Nk\ln 2$$
+If we look at $N$ total particles, let $x$ be the fraction of the particles that are of species $B$, this gives
+$$\Delta S_{\rm mixing} = -Nk\big[x\ln x + (1-x)\ln(1-x) \big]$$
+
+\header{Reversible}
+Any process where $\Delta S_{\rm Total} = 0$, is reversible. Vice versa we have that any process that universally creates new entropy must be irreversible.
+
+\header{Temperature}
+At thermal equilibrium
+$$\frac{\partial S_A}{\partial U_A}=\frac{\partial S_B}{\partial U_B} \qquad \Rightarrow \qquad \frac{1}{T}\equiv \bigg(\frac{\partial S}{\partial U}\bigg)_{N,V}$$
+$$C_V \equiv \bigg(\frac{\partial U}{\partial T}\bigg)_{N,V}$$
+
+\header{Pressure}
+At mechanical equilbrium
+$$\frac{\partial S_A}{\partial V_A}=\frac{\partial S_B}{\partial V_B} \qquad \Rightarrow \qquad P = T\bigg(\frac{\partial S}{\partial U}\bigg)_{U,N}$$
+
+\header{Chemical potential}
+At diffusive equilbrium
+$$\frac{\partial S_A}{\partial N_A} = \frac{\partial S_B}{\partial N_B}$$
+$$\mu \equiv -T\bigg(\frac{\partial S}{\partial N}\bigg)_{U,V}, \qquad \mu = \bigg(\frac{\partial U}{\partial N}\bigg)_{S, V}$$
+The chemical potential is the quantity that is the same for two systems when they are in diffusive equilbrium. If two systems are not in diffusive equilbrium, the system with the highest chemical potential will spontaneously loose particles to a system with a lower chemical potential.
+
+\header{Measurring entropy}
+
+
+\header{Chemical Thermodynamics}
+Enthalpy
+$$H \equiv U + PV$$
+Helmholtz free energy
+$$F \equiv U - TS$$
+Gibbs free energy
+$$G \equiv U -TS + PV$$
+
+$PV$: work needed to make room for system in a constant-pressure environment. \\
+$TS$: heat that needs to be dumped to get rid of a systems entropy in a constant-temperature environment.
+
+The functions $U,H,F,G$ are known as thermodynamic potentials.
+
+$$\Delta H = \Delta U + P\Delta V = Q + W_{\rm other} \qquad ({\rm constant\ }P)$$
+$$\Delta F = \Delta U - T\Delta S = Q +W -T\Delta S \leq W \qquad {\rm (constant\ }T)$$
+$$\Delta G = Q + W + P\Delta V - T\Delta S \leq W_{\rm other} \qquad {\rm (constant\ }P, T)$$
+
+\header{The Thermodynamic Identities}
+\begin{align*}
+\d U &= T\ \d S - P\ \d V + \mu\ \d N \\[0.4cm]
+\d H &= T\ \d S + V\ \d P + \mu\ \d N \\[0.4cm]
+\d F &=- S\ \d T -P\ \d V   + \mu\ \d N \\[0.4cm]
+\d G &= -S\ \d T + V\ \d P + \mu\ \d N
+\end{align*}
+\begin{align*}
+T &= \bigg(\frac{\partial H}{\partial S}\bigg)_{P,N} \qquad \;\; V = \bigg(\frac{\partial H}{\partial P}\bigg)_{S,N}, \;\; \;\qquad \mu = \bigg(\frac{\partial H}{\partial N}\bigg)_{S,P} \\[0.2cm]
+S &= - \bigg(\frac{\partial F}{\partial T}\bigg)_{V,N} \qquad  P = -\bigg(\frac{\partial F}{\partial V}\bigg)_{T,N}, \qquad \mu = \bigg(\frac{\partial F}{\partial N}\bigg)_{T,V} \\[0.2cm]
+S &= - \bigg(\frac{\partial G}{\partial T}\bigg)_{P,N} \qquad  V = \bigg(\frac{\partial G}{\partial P}\bigg)_{T,N}, \qquad \; \;\;\mu = \bigg(\frac{\partial G}{\partial N}\bigg)_{T,P}
+\end{align*}
+
+\header{Maxwell Relation}
+Mixed partial derivatives are independant of order
+$$ \frac{\partial}{\partial V}\bigg(\frac{\partial U}{\partial S}\bigg)_{V} = \frac{\partial}{\partial S}\bigg(\frac{\partial U}{\partial V}\bigg)_{S} $$
+Using the thermodynamic identity to evaluate the derivatives in the fraction we find
+$$\bigg(\frac{\partial T}{\partial V}\bigg)_{S} = - \bigg(\frac{\partial P}{\partial S}\bigg)_{V}$$
+
+\header{Force towards equilibrium}
+It is the entropy of the system and reservoir combined that always increases, so we have
+
+\begin{center}
+\begin{tabular}{c | c}
+Constant & Force towards equilibrium \\
+\hline 
+$U$, $V$ & $S$ tends to increase\\
+$T$, $V$ & $F$ tends to decrease\\
+$T$, $P$ & $G$ tends to decrease\\
+\end{tabular}
+\end{center}
+
+\header{Extensive/Intensive}
+\begin{align*}
+{\rm Extensive:} \qquad& V, N, U, H, F, G, {\rm mass} \\
+{\rm Intensive:} \qquad& T, P, \mu, {\rm density} 
+\end{align*}
+extensive $\times$ intensive $=$ extensive\\
+extensive $/$ extensive = intensive \\
+extensive $+$ extensive = extensive \\
+intensive $+$ intensive = intensive \\
+intensive $+$ extensive $ $ (Not allowed)  \\
+
+\header{Gibbs Free Energy and Chemical Potential}
+From Gibbs free energy:
+$$\mu = \bigg(\frac{\partial G}{\partial N}\bigg)_{T, P}$$
+When a particle is added to the system, the Gibbs free energy increases by $\mu$, and $\mu$ can't change as particles are added, as $T$ and $P$ are held fixed
+$$G = N\mu.$$
+The same argument doesn't hold for Helmholtz.
+$$\frac{\partial \mu}{\partial P} = \frac{1}{N}\frac{\partial G}{\partial P} = \frac{V}{N} = \frac{kT}{P}$$
+$$\mu(T,P) = \mu^\circ(T) + kT\ln(P/P^\circ)$$
+
+\header{Phase transformations for pure substances}
+$$G(T,P) = N\mu(T,P)$$
+In general, $G(T,P)$ will decrease with increasing $T$ and increase with increasing $P$
+$$\bigg(\frac{\partial G}{\partial T}\bigg)_{P,N} = -S, \qquad \bigg(\frac{\partial G}{\partial P}\bigg)_{P,N} = V$$
+At given $T$ and $P$, substances wil spontaneously be
+transformed into its most stable phase (phase with lowest $G(T,P)$.)
+Phase transformation: Discontinuous change in the properties of a sub-
+stance at a small change in conditions, typically $P$ and/or $T$.
+
+\textbf{Vapour pressure $P_v(T)$:} Pressure $P(T)$ where gas and liquid can coexist in equilibrium, phase boundry.
+
+
+\header{The van der Waals Equation}
+$$\bigg(P + \frac{an^2}{V^2}\bigg)(V-nb) = nRT$$
+
+\header{Heat Engines}
+The efficiency of an engine is defined as the benefit/cost ratio---benefit: work produced by the engine, cost: heat absorbed.
+$$e \equiv \frac{\rm benefit}{\rm cost} = \frac{W}{Q_h} = 1 - \frac{Q_c}{Q_h}$$
+To analyze heat engines we use three assumptions: the engine returns to its original state after a complete cycle, energy conservation and the fact that the entropy of the reservoirs and the engine combined can only increase, never decrease.
+$$\frac{Q_c}{T_c} \geq \frac{Q_h}{T_h} \quad \Rightarrow \quad \frac{Q_c}{Q_h} \geq \frac{T_c}{T_h}$$
+$$e \leq 1 - \frac{T_c}{T_h}$$
+The Carnot cycle realizes the maximum possible efficiency.
+
+For a refrigerator, we talk about the coefficicent of performance
+$${\rm COP} = \frac{\rm benefit}{\rm cost} = \frac{Q_c}{W}$$
+$${\rm COP} \leq \frac{T_c}{T_h - T_c}$$
+
+
+
+\header{Boltzmann' Statistics}
+The partition function
+$$Z = \sum_s e^{-\beta E_s}; \qquad \mathcal{P}(s) = \frac{1}{Z}e^{-E(s)/kT}$$
+$$\overline{X} = \sum_s X(s)\mathcal{P}(s) = \frac{1}{Z}\sum_s X(s)e^{-\beta E(s)}$$
+$$U = N\overline{E}, \qquad \overline{E}=-\frac{1}{Z}\frac{\partial Z}{\partial \beta} = -\frac{\partial}{\partial \beta}\ln Z$$
+$$F = -kT \ln Z; \qquad Z = e^{-F/kT}$$
+$$S = -\bigg(\frac{\partial F}{\partial T} \bigg)_{\rm V,N} \qquad P = -\bigg(\frac{\partial F}{\partial V} \bigg)_{\rm T,N} \qquad \mu = +\bigg(\frac{\partial F}{\partial N} \bigg)_{\rm T,V}$$
+
+\header{The Gibbs Factor}
+Consider a system that can exchange particles and energy with a reservoir. The ratio of probabilities of different microstates can be written
+$$\frac{\mathcal{P}(s_2)}{\mathcal{P}(s_1)} = \frac{\Omega_{\rm R}(s_2)}{\Omega_{\rm R}(s_2)} = \frac{e^{S_{\rm R}(s_2)/k}}{e^{S_{\rm R}(s_1)/k}} = e^{[S_{\rm R}(s_2) - S_{\rm R}(s_1)]/k}.$$
+For the reservoir, the change in entropy is small, so we can invoke the thermodynamic identity
+$$\d S_R = \frac{1}{T}( \d U_{\rm R} + P\, \d V_{\rm R} - \mu\, \d N_{\rm R})$$
+we can replace all the changes in the reservoir with minus the change for the system
+$$S_R(s_2) - S_R(s_1) = -\frac{1}{T}[E(s_2) - E(s_1) - \mu N(s_2) + \mu N(s_1)]$$
+Meaning
+$$ \text{Gibbs factor} = e^{-[E(s) - \mu N(s)]/kT} $$
+and
+$$P(s) = \frac{1}{\mathcal{Z}}e^{-[E(s) - \mu N(s)]/kT}.$$
+where $\mathcal{Z}$ is the grand partition function
+$$\mathcal{Z} = \sum_s e^{-[E(s) - \mu N(s)]/kT}.$$
+If there are two types of particles, the Gibbs factor becomes
+$$ \text{Gibbs factor} = e^{-[E(s) - \mu_A N_A(s) - \mu_B N_B(s)]/kT} $$
+
+\header{Quantum Statistics}
+The quantum volume is
+$$v_{\rm Q} = l_{\rm Q}^3 = \bigg(\frac{h}{\sqrt{2\pi mkT}}\bigg)^3,$$
+roughly the cube of the averege de Broglie wavelength. We then make the distinction 
+\begin{align*}
+V/N &\gg v_{\rm Q} \qquad \text{(Normal gas)} \\
+V/N &\approx v_{\rm Q} \qquad \text{(Quantum gas)}  
+\end{align*}
+For a quantum gas we think of the system as consisting of one single-particle state, rather than a particle itself.
+
+Think of a single-particle state whose energy is $n\epsilon$ when it is occupied by $n$ particles, we then have
+$$\mathcal{Z} = \begin{cases}
+1 + e^{-(\epsilon - \mu)/kT} \qquad \text{(fermions)}, \\[0.2cm]
+\dfrac{1}{1 - e^{-(\epsilon - \mu)}/kT} \qquad \text{(bosons)}
+\end{cases}
+$$
+We are now interested in the occupancy of the state, or how many particles inhabit the state on averege as a function of $\epsilon, \mu$, and $T$, this is given by
+$$\overline{n} = \sum_n n\cdot \mathcal{P}(n) = -\frac{1}{\mathcal{Z}}\frac{\partial \mathcal{Z}}{\partial x}$$
+From this we find that the occupancy of the states are
+$$\overline{n}_{\rm FD} = \frac{1}{e^{(\epsilon-\mu)/kT} + 1}$$
+$$\overline{n}_{\rm BE} = \frac{1}{e^{(\epsilon-\mu)/kT} - 1}$$
+Both distributions go to zero when $\epsilon \gg \mu$. As $\eps \rightarrow \mu$ Bose-Einstein goes to $\infty$. Fermi-Dirac goes to 1 when $\epsilon \ll \mu$, thus a state with energy much greater than $\mu$ tend to be unoccupied, while a state with energy much lower than $\mu$ tends to be occupied. A state at $\epsilon=\mu$ has a 50\% of being occupied. 
+
+\includegraphics[width=0.5\textwidth]{n}
+
+\subsection*{Degenerate Fermi Gas}
+Consider a gas of fermions at low temperature ($V/N \ll v_{\rm Q}$).
+
+\textbf{Zero Temperature:} At $T=0$ the Fermi-Dirac distribution becomes a step-function. All single-states with energy less than $\mu$ is occupied, none of the states with energy greater than $\mu$ are occupied. We call $\mu$ the Fermi-energy $\epsilon_{\rm F} \equiv \mu(T=0)$.
+$$\epsilon_{\rm F} = \frac{h^2n_{\rm max}^2}{8mL^2} = \frac{h^2}{8m}\bigg(\frac{3N}{\pi V} \bigg)^{2/3}$$
+The total energy of a the gas is
+$$U = \frac{3}{5}N\epsilon_{\rm F}$$
+$$ \frac{V}{N} \ll v_{\rm Q} \qquad \text{is the same as} \qquad kT \ll \epsilon_{\rm F}$$
+$$N = \sum_{{\rm all\ } s} \overline{n}_{\rm FD}$$
+\begin{align*}
+U &= \int_0^{\epsilon_{\rm F}} \epsilon g(\epsilon) \ \d \epsilon \qquad \qquad N = \int_0^{\epsilon_{\rm F}} g(\epsilon) \ \d \epsilon \qquad (T=0) \\
+U &= \int_0^\infty \epsilon g(\epsilon) \overline{n}_{\rm FD} \ \d \epsilon \qquad \, N = \int_0^\infty g(\epsilon) \overline{n}_{\rm FD} \ \d \epsilon \qquad (T>0) 
+\end{align*}
+where $g(\epsilon)$ is the density of states, $g(\epsilon) = (\d/\d \epsilon)f(\epsilon)$, where $f(\epsilon)$ denotes the number of states with energy less than $\epsilon$.
+
+\includegraphics[width=0.5\textwidth]{mu_fermi}
+
+\newpage
+
+\header{Bose-Einstein Condensation}
+Looking at gas of Bosons with a conserved particle number $N$.
+
+When $T\to 0$ all particles will go to ground state, so 
+$$N_0 = \frac{1}{e^{(\epsilon_0 - \mu)/kT} - 1} = N$$
+meaning $(\epsilon_0 - \mu)/kT$ must be very small:
+$$N_0 \approx \frac{kT}{\epsilon_0 - \mu} \qquad (N_0 >> 1)$$ 
+How large must $T$ be for $N_0$ to be large? $\mu$ is given by
+$$N = \sum_{{\rm all\ } s} \overline{n}_{\rm BE} = \sum_{{\rm all\ } s} \frac{1}{e^{(\epsilon_s - \mu)/kT} - 1}$$
+when $kT \gg \epsilon_0$, the energy spectra can be considered continous and we can approximate the sum as an integral
+$$N = \int_0^\infty g(\epsilon) \frac{1}{e^{(\epsilon_s - \mu)/kT} - 1} \ \d \epsilon$$
+For small $T$ and large $N$ we can set $\mu=0$, note that the ground state is not included in the integrand, as $\epsilon_0 - \mu_{\rm BE}\approx 0$ giving
+$$N_{\rm excited} \approx \int_0^\infty g(\epsilon) \frac{1}{e^{\epsilon_s/kT} - 1} \ \d \epsilon$$
+
+For $T<T_C$ replacing the sum is bad approx, for $T>T_C$ we see $\mu$ must be significantly less than 0.
+
+\includegraphics[width=0.4\textwidth]{mu_Bose}
+
+$$N_{\rm excited} = 2.612\ V\ \bigg(\frac{2\pi m k T}{h^2}\bigg)^{3/2}  \qquad (T < T_C),$$
+$$N_{\rm excited} = \bigg(\frac{T}{T_C}\bigg)^{3/2} N \qquad (T < T_C), \qquad N_0 = N-N_{\rm excited}$$
+$$N_0 = N-N_{\rm excited}$$
+At $T=T_C$ we get $N_{\rm excited} = N$, can be used to find $T_C$
+$$kT_C = 0.527\bigg(\frac{h^2}{2\pi m}\bigg)\bigg(\frac{N}{V}\bigg)^{2/3},$$
+the higher the density $(N/V)$, the longer the condensate survives.
+
+\includegraphics[width=0.4\textwidth]{N0}
+
+The abrupt accumulation of atoms in the ground state at temperatures below $T_C$ is known as Bose-Einstein Condensation.
+
+At high enough $T$, properties will becomes as in a classic ideal gas $\mu_{\rm BE} \to \mu_{\rm Boltzmann}$.
+
+Density of states for a Boson gas in box is
+$$g(\epsilon) = \frac{2}{\sqrt{\pi}}\bigg(\frac{2\pi m}{h^2}\bigg)^{3/2}V\sqrt{\epsilon}.$$
+The energy becomes
+$$U = \int_0^\infty \epsilon \cdot g(\epsilon) \cdot \overline{n}_{\rm BE}(\epsilon) \d \epsilon$$
+As $T<T_C$ we have $\mu = 0$, giving
+$$U = \frac{3}{2}V\bigg(\frac{2\pi m k T}{h^2}\bigg)^{3/2}\cdot kT \cdot 1.342$$.
+We see as $U$ is dependant on $T$ and $V$, but not $N$. Only excited particles contribute to $U$, and the number of excited particles is independant of $N$.
+This gives
+$$P = \bigg(\frac{2\pi m kT}{h^2}\bigg)^{3/2}kT\cdot1.342 = \frac{2U}{3V}.$$
+Meaning pressure of a Bose-Einstein condensate is only dependant of $U$, not $V$ or $N$. Only excited particles contribute to pressure, adding particles or reducing $V$ will only give more states in the ground state, and the pressure is unchanged. Note that $P\to 0$ as $T\to0$, the system shows no resistance to being compressed, unike Fermi-gases.
+
+\newpage
+
+\header{Planck Radiation}
+Allowed energies are
+$$E_n = n\cdot hf, \qquad n=0,1,2,\ldots$$
+Partition function
+$$Z = 1 + e^{-\beta hf} + e^{-2\beta hf} + \ldots = \frac{1}{1-e^{-\beta hf }}$$
+Giving averege energy
+$$\overline{E} = - \frac{1}{Z}\frac{\partial Z}{\partial \beta} = \frac{hf}{e^{hf/kT}-1}$$
+If we think of energy as coming in units of $hf$ (photons), then the averege number of units of energy is
+$$\overline{n}_{Pl} = \frac{1}{e^{hf/kT} - 1} \qquad {\rm (Planck\ distribution.)}$$
+Modes of radiation with short-wavelengths ($hf \gg kT$) are exponentially suppressed; they are ``frozen out''.
+
+\header{Photons}
+Photons are bosons, so the Planck distribution and the Bose-Einstein distribution should match. This gives $\mu=0$ for photons. This is because photons can appear and dissapear, meaning the photon number is not conserved. If $\mu>0$ photons will be created, and if $\mu<0$ photons will dissapear quickly.
+$$e \leftrightarrow e + \gamma \qquad \mu_e = \mu_e + \mu_\gamma$$
+Photons are ultrarelativistc
+$$\epsilon = pc = \frac{hcn}{2L}, \qquad p=\frac{hn}{2L}, \qquad \lambda = \frac{2L}{n}$$
+Total energy per unit volume is
+$$\frac{U}{V} = \int_0^\infty \frac{8\pi \epsilon^3/(hc)^3}{e^{\epsilon/kT}-1} \ \d \epsilon = \frac{8\pi(kT)^4}{(hc)^3}\int_0^\infty \frac{x^3}{e^x -1} \ \d x$$
+here the integrand is the energy density per unit photon energy, or the spectrum of the photons
+$$u(\epsilon) = \frac{8\pi}{(hc)^3}\frac{\epsilon}{e^{\epsilon/kT}-1}$$
+Wien's law: The spectrum peaks at
+$$\epsilon = 2.82 kT.$$
+The total energy of a photon gas is
+$$\frac{U}{V} = \frac{8\pi^5(kT)^4}{15(hc)^3} = aT^4, \qquad a \equiv \frac{8\pi^5k^4}{15(hc)^3},$$
+giving
+$$C_V = \bigg(\frac{\partial U}{\partial T}\bigg)_V = 4aVT^3.$$
+Integrating gives
+$$S(T) = \int_0^T \frac{C_V(T')}{T'}\ \d T' = 4aV \int_0^T T'^2\ \d T' = \frac{4}{3}aVT^3$$
+$$P = \frac{1}{3}aT^4$$
+\header{Stefan-Boltzmann}
+$$\text{power per unit area} = \frac{2\pi^5}{15}\frac{(kT)^4}{h^3c^2} = \sigma T^4$$
+$$\sigma = \frac{2\pi^5k^4}{15h^3 c^2} = 5.67\times10^{-8} \frac{\rm W}{\rm m^2 K^4}$$
+$$\text{Entropy flux:} \qquad \frac{4}{3}\sigma T^3$$
+
+\newpage
+
+\clearpage
+
+\section*{Random results}
+\subsubsection*{Barometric Equation}
+$$\frac{\d P}{\d z} = -\frac{mg}{kT}P$$
+
+\textbf{\large Konstanter} \\
+\begin{align*}
+k_{\rm b} &= 1.381 \cdot 10^{-23} {\rm\ J/K} \\
+&= 8.617 \cdot 10^{-5} {\rm\ eV/K} 
+\end{align*}
+$$N_{\rm A} = 6.022\cdot 10^{23}$$
+$$R = N_{\rm A}k_{\rm b} = 8.315 {\rm\ J/mol\cdot K}$$
+\begin{align*}
+h &= 6.626 \cdot 10^{-34} {\rm\ J\cdot s} \\
+&= 4.136 \cdot 10^{-15} {\rm\ eV\cdot s} 
+\end{align*}
+$$ c = 2.998 \cdot 10^8 {\rm\ m/s} $$
+$$G = 6.673 \cdot 10^{-11} {\rm\ N\cdot m^2/kg^2} $$
+$$e = 1.602 \cdot 10^{-19} {\rm\ C}$$
+$$ m_e = 9.109 \cdot 10^{-31}  {\rm\ kg} $$ 
+$$ m_p = 1.673 \cdot 10^{-27}  {\rm\ kg}$$
+
+$$1 {\rm\ atm} = 1.103 {\rm\ bar} = 1.1013 \cdot 10^5 {\rm\ N/m^2} $$
+$$(T {\rm\ in\ ^\circ{\rm C}}) = (T {\rm\ in\ {\rm K}}) - 273.15 $$
+$$(T {\rm\ in\ ^\circ{\rm F}}) = \frac{9}{5}(T {\rm\ in\ {\rm K}}) +32 $$
+$$1 ^\circ{\rm R} = \frac{5}{9}K $$
+$$1 {\rm\ cal} = 4.186 {\rm\ J} $$
+$$1 {\rm\ eV} = 1.602\cdot10^{-19} {\rm\ J}$$
+$$1 {\rm\ u} = 1.661 \cdot 10^{-27} {\rm\ kg}$$ 
+
+
+$$hc = 1240 \ {\rm eV \ nm \ (MeV \ fm)} $$ 
+$$\hbar c = 197.3 \ {\rm eV \ nm \ (MeV \ fm)} $$
+\vspace{0.1cm}
+$$ m_e = 0.511 \ {\rm MeV/c^2} $$ 
+$$ m_p = 938.3 \ {\rm MeV/c^2} $$
+$$ m_n = 938.6 \ {\rm MeV/c^2}$$
+$$ m_{\rm hydrogen} = 938.8 \ {\rm MeV/c^2} $$ 
+$$ u = 931.48 \ {\rm MeV/c^2} $$  
+\vspace{0.1cm}
+$$k_ee^2 = e^2/4\pi\epsilon_0 = 1.44 \ {\rm eV \ nm} $$
+$$h = 4.136 \cdot 10^{-15} \ {\rm eVs} $$ 
+$$\hbar = 6.582 \cdot 10^{-16} \ {\rm eVs} $$ 
+$${\rm eV} = 1.602 \times 10^{-19} \ {\rm J} $$
+$$ e = 1.602176\cdot 10^{-19} \ {\rm C} $$
+$$ a \equiv \dfrac{\hbar^2}{m_ek_ee^2} = \frac{4\pi\epsilon_0 \hbar^2}{m_ee^2} \approx 0.0529 \ {\rm nm}  \\[0.2cm]$$
+$$ E_0 = -13.6 \ {\rm eV} $$
+
+\newpage
+\textbf{\large Integraler}
+Rottman side 155
+\begin{align*}
+&\int_{-\infty}^\infty e^{-\lambda x^2} \ {\rm d}x = 2\int_0^\infty e^{-\lambda x^2} \ {\rm d}x = \sqrt{\frac{\pi}{a}} \qquad (\lambda >0) \\
+&\int_{-\infty}^\infty \e{-(ax^2 + 2bx + c)} \ {\rm d}x = \sqrt{\frac{\pi}{a}}\e{\frac{b^2 - ac}{a}} \quad (a >0) \\
+&\int_{-\infty}^\infty x\e{-(ax^2 + 2bx + c)} \ {\rm d}x = -\frac{b}{a}\sqrt{\frac{\pi}{a}}\e{\frac{b^2 - ac}{a}} \\
+&\int_{-\infty}^\infty x^2\e{-(ax^2 + 2bx + c)} \ {\rm d}x = \frac{a+2b^2}{2a^2}\sqrt{\frac{\pi}{a}}\e{\frac{b^2 - ac}{a}} \\
+&\int x\sin(ax) \ {\rm d}x = \frac{1}{a^2}\sin(ax) - \frac{x}{a}\cos(ax) \\
+&\int x\cos(ax) \ {\rm d}x = \frac{1}{a^2}\cos(ax) + \frac{x}{a}\sin(ax) \\
+&\int x\sin^2(x) \ {\rm d}x = \frac{1}{4}x^2 - \frac{1}{8}\cos(2x) - \frac{1}{4}x\sin(2x) \\
+&\int x\cos^2(x) \ {\rm d}x = \frac{1}{4}x^2 + \frac{1}{8}\cos(2x) + \frac{1}{4}x\sin(2x) \\
+&\int \sin^2 (x) = \frac{x - \sin x \cos x}{2} \\
+&\int \cos^2 (x) = \frac{x + \sin x \cos x}{2} \\
+&\int \sin^3 (x) = \frac{1}{12}\left(\cos(3x) - 9 \cos(x)\right) \\
+&\int \cos^3 (x) = \frac{1}{12}\left(\sin(3x) + 9 \sin(x)\right) \\
+&\int_0^{\infty} u^n e^{-u} \ {\rm d}u = n!
+\end{align*}
+
+
+\end{document}
+

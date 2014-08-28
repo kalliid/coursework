@@ -1,0 +1,205 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=30mm, left=39mm, right=39mm}
+
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink}
+\title{Problem set 4 \\ FYS3140}
+
+
+\begin{document}
+\maketitle
+% \newpage\null\thispagestyle{empty}\newpage
+% 
+% \setcounter{page}{1} 
+
+\section*{Problem 14.6.9 (Boas)}
+We will find the Laurent series of the function
+$$f(z) = \frac{1}{z^2-5z+6} = \frac{1}{(z-2)(z-3)},$$
+about the point $z_0=2$, and use it to find the residue of $f$ at the point $z_0$.
+
+We start by writing $f$ in the following manner:
+$$f(z) = -\frac{1}{z-2}\cdot\frac{1}{1-(z-2)},$$
+now, as we are intersted in the Laurent series that converges near $z_0$, we know that $|z-2|<1$ is fulfilled, and we recognize the last fraction as the geometric series
+$$\frac{1}{1-(z-2)} = \sum_{k=0}^\infty (z-2)^k,$$
+meaning the Laurent series of $f(z)$ around $z_0 = 2$ can be written
+$$f(z) = -\sum_{k=-1}^\infty(z-2)^k.$$
+Reading of the coefficient of the $(z-2)^{-1}$ term, we find that
+$${\rm Res}(f;2) = -1.$$
+
+\section*{Problem 14.6.19 (Boas)}
+We want to find the residue of the function
+$$f(z) = \frac{\sin^2(z)}{2z-\pi},$$
+at the point $z_0 = \pi/2$. As $\sin$ is analytic and non-zero at $z_0$, we see that $f$ has a simple pole at the point and we find the residue as
+$${\rm Res}(f,\tfrac{\pi}{2}) = \lim_{z\to\tfrac{\pi}{2}}(z-\tfrac{\pi}{2}) f(z) = \tfrac{1}{2}\sin^2 (\tfrac{\pi}{2}) = \tfrac{1}{2}.$$
+Wolfram Alpha confirms that this is correct.
+
+\section*{Problem 14.6.28 (Boas)}
+We want to find the residue of the function 
+$$f(z) = \frac{z + 2}{(z^2 + 9)(z^2 + 1)} = \frac{z+2}{(z+3i)(z-3i)(z+i)(z-i)},$$
+at the point $z = 3i$. We see that this point is a simple pole of $f$, so we get the residue
+$${\rm Res}(f,3i) = \lim_{z \to 3i} (z-3i)f(z) = \frac{2 + 3i}{6i\cdot 4i \cdot 2i} = \frac{-3 + 2i}{48} = -\frac{1}{16} + \frac{1}{24}i.$$
+Wolfram Alpha confirms that this is correct.
+
+\section*{Problem 14.7.7 (Boas)}
+We will evaluate the follwing integral
+$$I = \int_0^{2\pi} \frac{\cos 2\theta}{5+4\cos\theta} {\rm\ d}\theta.$$
+
+We make the substitution $z = e^{i\theta}$, the integral is then a closed contour integral over the unit circle $|z|=1$. We also have
+$$\d\theta = \frac{1}{iz}\ \d z, \qquad \cos2\theta = \frac{1}{2}\bigg(z^2 + z^{-2}\bigg), \qquad \cos2\theta = \frac{1}{2}\bigg(z + z^{-1}\bigg),$$
+giving
+$$I = -i\oint_{|z|=1} \frac{z^2 + z^{-2}}{4z^2 + 10z  + 4} \ \d z = -\frac{i}{4}\oint_{|z|=1} \frac{z^4 + 1}{z^2(z+2)(z+\tfrac{1}{2})} \ \d z. $$
+And by the residue theorem we then see that
+$$I = \frac{\pi}{2}\bigg({\rm Res}(f,0) + {\rm Res}(f,-\tfrac{1}{2})\bigg),$$
+where $f$ is the integrand. The pole at $z=0$ is of second order, so we have
+$$\Res{f}{0} = \lim_{z \to 0} \frac{\d}{\d z} [z^2f(z)] = \lim_{z\to 0} \frac{4z^3(z+2)(z+\tfrac{1}{2}) - (z^4 +1)(z+\tfrac{1}{2} + z + 2)}{(z+2)^2(z+\tfrac{1}{2})^2} = -\frac{5}{2},$$
+while the pole at $z=-1/2$ is a simple pole, so the residue is
+$$\Res{f}{-1/2} = \lim_{z \to -1/2} (z+1/2)f(z) = \frac{17}{16}\cdot\frac{16}{6} = \frac{17}{6}.$$
+So the integral is evaluated to be
+$$I = \frac{\pi}{2}\bigg(-\frac{5}{2} + \frac{17}{6}\bigg) = \frac{\pi}{6}.$$
+Wolfram Alpha confirms that this is correct.
+
+\clearpage
+\section*{Problem 14.7.9 (Boas)}
+We will evaluate the follwing integral
+$$I = \int_0^{2\pi} \frac{1}{1+\cos\alpha\sin\theta} \ \d\theta,$$
+where $\alpha$ is a constant. We introduce $c \equiv \cos \alpha$, and again substitute 
+$$z = e^{i\theta}, \qquad \d z = iz\ \d \theta,$$
+giving
+$$I = \oint_{|z|=1} \frac{1}{zi[1+c(z - z^{-1})/2i]} \ \d z,$$
+which can be rewritten into
+$$I = 2\oint_{|z|=1} \frac{1}{cz^2 + 2zi - c} \ \d z.$$
+The denominator is now a quadratic polynomial, so we find the roots from the quadratic formula
+$$z_0 = -\frac{i}{c} + \frac{\sqrt{c^2 - 1}}{c}, \qquad z_1 = -\frac{i}{c} - \frac{\sqrt{c^2 - 1}}{c}.$$
+To get further we must assume that $\alpha$ is real, which isn't stated in the problem text, but is a natural conclusion, as the original integral is otherwishe purely real. If the argument to $\cos$ is real, we know that $c$ is real and $|c| = |\cos\alpha| \leq 1$. If this assumption is fulfilled, we know that
+$$\sqrt{c^2 -1} = \sqrt{1-c^2}i = si, \qquad s \equiv |\sin\alpha|,$$
+so we have the integral
+$$I = \frac{2}{c}\oint_{|z|=1} \frac{1}{(z+(1+s)i/c)(z+(1-s)i/c)} \ \d z.$$
+As this integral is over a closed contour, we can use the residue-theorem to find
+$$I = \frac{2}{c} \cdot 2\pi i\sum_k \Res{f}{z_k},$$
+where $f$ is the integrand and $z_k$ are the singularities of $f$ inside the contour, in this case, inside the unit circle. Looking at the roots, we see that as long as $s\neq 0$, one root is always outside the contour ($|z_1|>1$) while the other is inside $|z_0|<1$, we therefore find the residue at $z_0$, as this is a simple pole we have
+$$\Res{f}{z_0} = \lim_{z\to -(1-s)i/c} \frac{1}{z + (1+s)i/c} = \frac{c}{2si}.$$
+Using this, we find that
+$$I = \frac{2}{c}\cdot 2\pi i \cdot \frac{c}{2si} = \frac{2\pi}{|\sin \alpha|},\qquad ({\rm for\ \sin\alpha\neq0)}.$$
+Wolfram Alpha confirms that this is correct.
+
+For $\sin\alpha=0$, one of the singularities lies on the unit circle, and the integral is divergent.
+
+
+
+\clearpage
+\section*{Problem 14.7.11 (Boas)}
+We will evaluate the follwing integral
+$$I = \int_0^{\infty} \frac{1}{(4x^2 +1)^3} {\rm\ d}x,$$
+as the integrand is a symmetric function of $x$, we can instead evaluate the integral from $-\infty$ to $\infty$, we then get twice the value of $I$, so
+$$2I = \int_{-\infty}^\infty \frac{\d x}{(4x^2 +1)^3} {\rm\ d}x.$$
+As the integrand is a fraction of two polynomials where the denominator is at least two degrees higher than the numerator, we know that the integral exists (is finite), and so we can calculate the integral as the principle value integral
+$$2I = \lim_{\rho \to \infty} \int_{-\rho}^\rho \frac{\d x}{(4x^2 +1)^3} {\rm\ d}x.$$
+
+We now look at the contour integral along the $x$-axis from the point $-\rho$ to $\rho$, and then back along a half-circle in the upper-half plane, thus we have the closed-contour integral
+$$\oint_{\Gamma_\rho} \frac{1}{(4z^2+1)^3}\ \d z = \int_{-\rho}^\rho\frac{\d x}{(4x^2 +1)^3} {\rm\ d}x + \int_{C_\rho^+} \frac{1}{(4z^2+1)^3}\ \d z,$$
+where ${C_\rho^+}$ denotes the half-circle contour. We know that the integral over the half-circle goes to zero as $\rho$ gets large, as integrand is a quotient of polynomials where the denominator is at least two degrees higher than the numerator, for large $\rho$ we then have
+$$2I = \lim_{\rho \to \infty} \int_{-\rho}^\rho \frac{\d x}{(4x^2 +1)^3} {\rm\ d}x = \oint_{\Gamma_\rho} \frac{1}{(4z^2+1)^3}\ \d z = 2\pi i\sum_k \Res(f,Z_k),$$
+where we have used the residue-theorem to evaluate the closed-contour integral. The sum is over all singularities of the integrand inside the contour $\Gamma_{\rho}$, which for large $\rho$ will be the entire upper-half plane. Let us then find the residues of the integrand
+$$f(z) = \frac{1}{(4z^2+1)^3} = \frac{1}{(2z+i)^3(2z-i)^3},$$
+so we see that the integrand has a single singularity on the upper-half plane, $z=i/2$, and we see that it is a third-order pole. We then find the residue as
+$$\Res{f}{i/2} = \lim_{z\to i/2} \frac{1}{2!}\frac{d^2}{\d z^2}[(z-i/2)^3 f(z)] = \frac{3}{2i^5} = -\frac{3i}{32}.$$
+This gives
+$$I = \pi i \Res{f}{i/2} = \frac{3\pi}{32}.$$
+Wolfram Alpha confirms that this is correct.
+
+\clearpage
+
+\section*{Problem 14.7.13 (Boas)}
+We will evaluate the follwing integral
+$$I = \int_0^{\infty} \frac{x^2}{(x^2+4)(x^2+9)} {\rm\ d}x,$$
+the technique is pretty much identical to the last exercise. 
+
+We start by recognizing that the integrand is symmetric about $x=0$, so we instead evaluate the intgrand from $-\infty$ to $\infty$. We know that the integral exists, as the denominator is a polynomial of two degrees higher than the numerator, so we calculate the principle value of the integral. We then close the contour in the upper-half plane, and recognize that the integral over the half-circle vanishes, as the denominator is of two degrees higher than the numerator. The residue-theorem then gives us
+$$I = \pi i \sum_k \Res{f(z)}{z_k},$$
+where $f(z)$ is the complex-version of the original integrand and the sum is over all singularities of $f$ in the upper-half plane
+$$f(z) = \frac{z^2}{(z + 2i)(z-2i)(z+3i)(z-3i)},$$
+we see that $f(z)$ has two first-order poles in the upper-half plane, $z_0 = 2i$ and $z_1 = 3i$, the residues are easy to find
+$$\Res{f}{2i} = \lim_{z \to 2i}(z-2i)f(z) = \frac{-4}{(4i)(5i)(-i)} = \frac{i}{5}, $$
+and
+$$\Res{f,3i} = \lim_{z \to 3i}(z-3i)f(z) = \frac{-9}{(5i)(i)(6i)} = -\frac{3i}{10}.$$
+
+And so the integral is evaluated to be
+$$I = \pi\bigg(-\frac{1}{5} + \frac{3}{10}\bigg) = \frac{\pi}{10}.$$
+Wolfram Alpha confirms that this is correct.
+
+
+\end{document}
+

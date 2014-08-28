@@ -1,0 +1,259 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=30mm, left=39mm, right=39mm}
+
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink}
+\title{Problem set 2 \\ FYS3140}
+
+
+\begin{document}
+\maketitle
+% \newpage\null\thispagestyle{empty}\newpage
+
+% \setcounter{page}{1} 
+
+\section*{Problem 2.1}
+Functions of complex variables can be written in the general form $f(z)=u(x,y) + i v(x,y)$. We will now find $u(x,y)$ and $v(x,t)$ for two different functions.
+\subsection*{a)}
+The function 
+$$\frac{-i+2z}{2+iz},$$
+we start by writing the complex variable as $z=x+iy$, and then simplify the fraction.
+$$\frac{-i+2z}{2+iz} = \frac{2x + (2y-1)i}{(2-y) + xi} = \frac{(2x + (2y-1)i)((2-y) + xi)}{(2-y)^2 + x^2},$$
+multplying out gives
+$$\frac{2x(2-y) + 2x^2i + (2y-1)(2-y)i - x(2y-1)i}{4 - 2y + y^2 + x^2},$$
+which can be written as
+$$\bigg( \frac{4x - 2xy}{x^2 + y^2 -2y + 4}\bigg) + \bigg(\frac{2x^2 -2y^2-2xy+5y+x-2}{x^2 +y^2-2y+4}\bigg)i.$$
+
+\subsection*{b)}
+The function $e^{iz}$. We start by writing the complex variable as $z = x + iy$, and then use Eulers formula:
+$$ e^{iz} = e^{i(x+iy)} = e^{-y + ix} = e^{-y}e^{ix} = e^{-y}\bigg(\cos x + i \sin x\bigg), $$
+giving
+$$u(x,y) = e^{-y}\cos x, \qquad v(x,y) = e^{-y}\sin x.$$
+
+\clearpage 
+
+\section*{Problem 2.2 (Derivatives)}
+We will now use the definition of the complex derivative
+$$\frac{\d f}{\d z} = \lim_{\Delta z \to 0} \frac{\Delta f}{\Delta z},$$
+to show that the product rule holds for the functions of complex variables.
+
+We start by using the definition of the derivative on $[f(z)g(z)]$:
+$$\frac{\d}{\d z}[f(z)g(z)] = \lim_{\Delta z \to 0} \frac{\Delta [ f(z)g(z) ]}{\Delta z},$$
+we now expand $\Delta [ f(z)g(z) ]$,
+$$\Delta [ f(z)g(z) ] = g(z) \Delta f + f(z)\Delta g,$$
+giving us
+$$\frac{\d}{\d z}[f(z)g(z)] = \lim_{\Delta z \to 0} \frac{g(z)\Delta f + f(z) \Delta g}{\Delta z},$$
+which can be further rewritten to
+$$\frac{\d}{\d z}[f(z)g(z)] = g(z) \lim_{\Delta z \to 0} \frac{\Delta f}{\Delta z} + f(z) \lim_{\Delta z \to 0} \frac{\Delta g}{\Delta z},$$
+or
+$$\frac{\d}{\d z}[f(z)g(z)] = g(z)\frac{\d f}{\d z} + f(z)\frac{\d g}{\d z}, \quad {\rm q.e.d.}$$
+
+\section*{Problem 2.3 (Cauchy-Riemann conditions)}
+We will now derive the Cauchy-Riemann conditions in polar coordinates.
+
+We have a function of a complex variable $z$, where $z= re^{i\theta}$, by partial differentiation we have
+$$\frac{\partial f}{\partial r} = \frac{\d f}{\d z} \frac{\partial z}{\partial r} = \frac{\d f}{\d z}\cdot e^{i\theta},$$
+and
+$$\frac{\partial f}{\partial \theta} = \frac{\d f}{\d z} \frac{\partial z}{\partial \theta} = \frac{\d f}{\d z}\cdot ire^{i\theta}.$$
+Since $f = u(r,\theta) + iv(r,\theta)$, we also have
+$$\frac{\partial f}{\partial r} = \frac{\partial u}{\partial r} + i\frac{\partial v}{\partial r}, \quad {\rm and} \quad \frac{\partial f}{\partial \theta} = \frac{\partial u}{\partial \theta} + i\frac{\partial v}{\partial \theta}.$$
+
+By combining these equations we find
+$$\frac{\d f}{\d z}\cdot e^{i\theta} = \frac{\partial u}{\partial r} + i\frac{\partial v}{\partial r}, \qquad {\rm and}\qquad \frac{\d f}{\d z}\cdot ire^{i\theta} = \frac{\partial u}{\partial \theta} + i\frac{\partial v}{\partial \theta}.$$
+
+We demand that the derivative $\d f/\d z$ is unique, meaning we can combine the equations to eliminate it, inserting the first into the second gives:
+$$\bigg(\frac{\partial u}{\partial r} + i\frac{\partial v}{\partial r}\bigg)ir = \frac{\partial u}{\partial \theta} + i\frac{\partial v}{\partial \theta}.$$
+Setting the real and imaginary parts equal gives the Cauchy-Riemann conditions in polar coordinates
+$$r\frac{\partial u}{\partial r} = \frac{\partial v}{\partial \theta}, \qquad r\frac{\partial v}{\partial r} = -\frac{\partial u}{\partial \theta}.$$
+
+\clearpage
+
+\section*{Problem 2.4 (Harmonic Functions)}
+\subsection*{a)}
+We will show that the following function is harmonic,
+$$u(x,y) = \frac{y}{(1-x)^2 + y^2},$$
+by definition, this means that it is a solution to Laplace's equation:
+$$\nabla^2 u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0.$$
+
+To show this, we calculate the partial derivatives seperately. We also introduce the shorthand notation
+$$\kappa \equiv \big[(1-x)^2 + y^2\big] = x^2 - 2x + y^2 + 1, \qquad u = y\kappa^{-1}.$$
+The explicit derivatives with respect to $x$ gives:
+$$\frac{\partial u}{\partial x} = 2y(1-x)\kappa^{-2}, \qquad \frac{\partial^2 u}{\partial x^2} = -2y\kappa^{-2} + 8y(1-x)^2\kappa^{-3}.$$
+And for $y$ we get
+$$\frac{\partial u}{\partial y} = \kappa^{-1} - 2y^2\kappa^{-2}, \qquad \frac{\partial^2 u}{\partial y^2} = -2y\kappa^{-2}-4y\kappa^{-2} + 8y^3\kappa^{-3}.$$
+Combining the expressions now gives
+$$\nabla^2 u = -8y\kappa^{-2} + 8y(1-x)^2\kappa^{-3} + 8y^3\kappa^{-3},$$
+which we can rewrite to
+$$\nabla^2 u = -8y\kappa^{-2} + 8y\bigg[(1-x)^2 + y^2\bigg]\kappa^{-3} = -8y\kappa^{-2} + 8y\kappa^{-2} = 0.$$
+So we see that the Laplacian does indeed vanish, and so $u$ is, by definition, a harmonic function.
+
+\clearpage
+
+\subsection*{b)}
+We will now use the Cauchy-Riemann equations to find the harmonic conjugate $v(x,y)$. 
+
+The first conditions demands
+$$ \frac{\partial v}{\partial y} = \frac{\partial u}{\partial x} = 2y(1-x)\kappa^{-2},$$
+which gives
+$$v(x,y) = \int 2y(1-x)\kappa^{-2} {\rm\ d}y =  (x-1)\kappa^{-1} + g(x).$$
+
+The second condition demands
+$$\frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y} = 2y^2\kappa^{-2} - \kappa^{-1} = \bigg[y^2 - (1-x)^2\bigg]\kappa^{-2},$$
+but we can also calculate $\partial v/\partial x$ from the expression we found for $v$ earlier:
+$$\frac{\partial v}{\partial x} = \kappa^{-1} - (1-x)^2\kappa^{-2} = \bigg[y^2 - (1-x)^2\bigg]\kappa^{-2},$$
+so we see that $g(x) = 0$, and we have
+
+$$f(z) = 
+
+
+\subsection*{c)}
+Just to check that $v$ does indeed satisfy Laplace's equation, we calculate $\partial^2 v/\partial x^2$ and $\partial^2 v/\partial y^2$. We already know the first derivatives, from the Cauchy-Riemann conditions, which gives
+$$\frac{\partial^2 v}{\partial x^2} = \frac{\partial}{\partial x}\bigg(2y^2\kappa^{-2}-\kappa^{-1}\bigg) = 8y^2(1-x)\kappa^{-3} - 2(1-x)\kappa^{-2},$$
+and
+$$\frac{\partial^2 v}{\partial y^2} = \frac{\partial}{\partial y}\bigg(2y(1-x)\kappa^{-2}\bigg) = 2(1-x)\kappa^{-2} - 8y^2(1-x)\kappa^{-3}.$$
+Summing these gives
+$$\nabla^2 v(x,y) = \frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2} = 0,$$
+so $v(x,y)$ does indeed satisfy Laplace's equation.
+
+
+\clearpage
+
+\section*{Extra problems}
+\subsection*{2.17.25}
+\textbf{(a)}---Show that $\overline{\cos(z)} = \cos \overline{z}$.
+
+This is easily shown by writing $\cos$ in term of the exponential functions:
+$$\overline{\cos(z)} = \overline{\frac{e^{iz} + e^{-iz}}{2}} = \frac{\overline{e^{iz}} + \overline{e^{-iz}}}{2} = \frac{e^{-i\overline{z}}+ e^{i\overline{z}}}{2} = \cos \overline{z}.$$
+
+\vspace{0.5cm}
+
+\textbf{(b)}---Is $\overline{\sin z} = \sin \overline{z}$?
+
+Let us try the same method as in the previous case:
+$$\overline{\sin(z)} = \overline{\bigg(\frac{e^{iz} - e^{-iz}}{2i}\bigg)} = \frac{\overline{e^{iz}} - \overline{e^{-iz}}}{\overline{2i}} = \frac{e^{-i\overline{z}}- e^{i\overline{z}}}{-2i} = \frac{e^{i\overline{z}}-e^{-i\overline{z}}}{2i} = \sin \overline{z}.$$
+So we see that the answer is yes---$\overline{\sin z} = \sin \overline{z}$ for all $z\in\mathbb{C}$.
+
+\vspace{1cm}
+
+\textbf{(c)}---If $f(z) = 1 + iz$, is $\overline{f(z)} = f(\overline{z})$?
+
+This is easy to test:
+$$\overline{f(z)} = \overline{1 + iz} = 1 + \overline{iz} = 1 - i\overline{z} \neq f(\overline{z}),$$
+We see that the two are not equivalent.
+
+\vspace{1cm}
+
+\textbf{(d)}---If the power series of $f(z)$ has only real coefficients, show $\overline{f(z)} = f(\overline{z})$.
+
+We use the fact that the coefficients are real, i.e., $\overline{a_k} = a_k$, to show:
+$$\overline{f(z)} = \overline{\sum_k a_k z^k} = \sum_k a_k \overline{z}^k = f(\overline{z}).$$
+
+\vspace{0.5cm}
+
+\textbf{(e)}---Using the result of $(d)$, verify that $i[\sinh(1+i) - \sinh(1-i)]$ is real.
+
+If we write $\sinh$ in terms of the exponential functions:
+$$\sinh z = \frac{e^{z} - e^{-z}}{2},$$
+we see that the power series of $\sinh$ only has real coefficients, meaning 
+$$\overline{\sinh(z)} = \sinh(\overline{z}),$$
+and we have
+$$i[\sinh(1+i) - \sinh(1-i)] = i[\sinh(1+i) - \overline{\sinh(1+i)}] = -\Im[\sinh(1+i)],$$
+where $\Im$ denotes the imaginary part of the argument, which is purely real, as was to be shown.
+
+\clearpage
+
+\subsection*{2.17.28}
+Evaluate the absolute square of a complex number, assume $a$ and $b$ are real.
+$$|c|^2 = \bigg|\frac{(a+bi)^2e^b - (a-bi)^2e^{-b}}{4abie^{-ia}}\bigg|^2,$$
+using the fact that $|c|^2 = \overline{c}\cdot c$, gives
+\begin{align*}
+|c|^2 &= \overline{\bigg(\frac{(a+bi)^2e^b - (a-bi)^2e^{-b}}{4abie^{-ia}}\bigg)}\bigg(\frac{(a+bi)^2e^b - (a-bi)^2e^{-b}}{4abie^{-ia}}\bigg) \\[0.2cm]
+&= \bigg(\frac{(a-bi)^2e^b - (a+bi)^2e^{-b}}{-4abie^{ia}}\bigg)\bigg(\frac{(a+bi)^2e^b - (a-bi)^2e^{-b}}{4abie^{-ia}} \bigg) \\[0.2cm]
+&= \frac{(a+bi)^2(a-bi)^2\big(e^{2b}+e^{-2b}\big) - (a+bi)^4 - (a-bi)^4}{16a^2b^2} \\[0.2cm]
+&= \frac{\big(a^2 + b^2\big)^2}{8a^2b^2}\cosh(2b) - \frac{(a+bi)^4 + (a-bi)^4}{16a^2b^2}.
+\end{align*}
+
+\vspace{1cm}
+
+\subsection*{2.17.32}
+We will show that
+$$\sum_{n=0}^\infty \frac{(1+i\pi)^n}{n!} = -e.$$
+
+We recognize the sum as the expansion of $e^z$, so we have
+$$\sum_{n=0}^\infty \frac{(1+i\pi)^n}{n!} = e^{1+i\pi} = ee^{i\pi} = e(-1) = -e, \qquad {\rm q.e.d.}$$
+
+
+\end{document}
+

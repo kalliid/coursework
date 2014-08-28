@@ -161,8 +161,25 @@ If we let $p \to \infty$, we get the sup norm:
 $$||f||_\infty = \sup_{x\in[0,1]} |f(x)|.$$
 
 
+\clearpage
 
-
+\paragraph{Triangle inequality}
+$$||f + g || \leq ||f|| + ||g|| $$
+\paragraph{Cauchy-Schwartz inequality}
+$$|\langle f, g \rangle | \leq ||f|| \cdot ||g|| $$
+\paragraph{H'o'lders inequality}
+$$\int_a^b |f||g| \ \d x \leq \bigg(\int_a^b |f|^p\ \d x\bigg)^{1/p} \bigg(\int_a^b |g|^q \ \d x\bigg)^{1/q},$$
+where $p,q>0$ and $1/p + 1/q = 1$. Special case for $p=q=2$:
+$$\int_a^b |f||g| \ \d x \leq ||f|| ||g||.$$
+\paragraph{Bessel's Inequality}
+$$||S_N(f)|| = \sum_{k=1}^N c_k^2||X_k||^2 \leq ||f|| $$
+For a full Fourier series on $[-1,1]$ we get
+$$\frac{a_0^2}{2} + \sum_{k=1}^\infty(a_k^2 + b_k^2) \leq \int_{-1}^1 f^2(x) \ \d x.$$
+\paragraph{Poincare inequality}
+$$||f|| \leq \frac{b-a}{\sqrt{2}}||f'||,$$
+where $f(a) = 0$.
+\paragraph{Gronwall's Inequality}
+$$y'(t)\leq \alpha y(t) \Rightarrow y(t) \leq e^{\alpha t}y(0).$$
 
 \end{document}
 

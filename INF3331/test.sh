@@ -1,0 +1,1 @@
+find $HOME -name ’*’ -type f -size +2000 -exec ls -s {} \;

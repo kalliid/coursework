@@ -1,0 +1,105 @@
+\documentclass[a4paper,10pt,twoside,twocolumn]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsfonts, amssymb, amsmath}
+% \usepackage{subfigure}
+\usepackage{verbatim}
+\usepackage{parskip}
+\usepackage{color}
+
+% \usepackage[squaren]{SIunits}
+\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+%\usepackage[top=0.5cm, bottom=0.5cm, left=0.5cm, right=0.5cm]{geometry}
+\setlength{\columnsep}{1cm}
+
+% \usepackage{titlesec}
+% \titleformat{\section}{\large\bfseries\color{black}}{\thesection }{0em}{ }
+% \titleformat{\subsection}{\bfseries}{\thesubsection}{1em}{ }
+% \titsleformat{\subsubsection}{\bfseries}{\thesubsubsection}{1em}{}
+
+\pagestyle{empty}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\newcommand{\brac}[1]{\left[ #1\right] }
+\newcommand{\para}[1]{\left( #1 \right) }
+\newcommand{\der}[2]{\frac{\mathrm d#1}{\mathrm d #2}}
+\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}}
+\renewcommand{\d}{\mathrm d}
+\newcommand{\up}{\uparrow}
+\newcommand{\dw}{\downarrow}
+\newcommand{\tvec}[2]{\begin{pmatrix} #1\\#2 \end{pmatrix}}
+\newcommand{\eps}{\epsilon}
+
+\newcommand{\E}{\vec{E}}
+\newcommand{\B}{\vec{B}}
+\newcommand{\F}{\vec{F}}
+\newcommand{\A}{\vec{A}}
+\newcommand{\D}{\vec{D}}
+\newcommand{\e}[1]{\ {\rm exp} \left[ #1 \right]}
+
+\newcommand{\bt}[1]{\textbf{#1}}
+\newcommand{\wh}{\widehat}
+\newcommand{\dd}{\ \text{d}}
+
+\newcommand{\dV}{\mathrm d V}
+\newcommand{\dP}{\mathrm d P}
+\newcommand{\dS}{\mathrm d S}
+\newcommand{\dT}{\mathrm d T}
+\newcommand{\dN}{\mathrm d N}
+\newcommand{\dU}{\mathrm d U}
+\newcommand{\dH}{\mathrm d H}
+\newcommand{\dG}{\mathrm d G}
+\newcommand{\dF}{\mathrm d F}
+\newcommand{\dPh}{\mathrm d \Phi}
+\newcommand{\ave}[1]{\langle #1\rangle}
+\newcommand{\Z}{\mathcal Z}
+\newcommand{\nfd}{\bar n_{\rm FD}}
+\newcommand{\nbe}{\bar n_{\rm BE}}
+\newcommand{\nbolt}{\bar n_{\rm Boltzm.}}
+\newcommand{\npl}{\bar n_{\rm Planck}}
+
+\renewcommand{\i}{\hat{i}}
+\renewcommand{\j}{\hat{j}}
+\renewcommand{\k}{\hat{k}}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqn}{\begin{equation*}}
+\newcommand{\eeqn}{\end{equation*}}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\header}[1]{\subsubsection*{#1} \vspace{-0.2cm}}
+
+\begin{document}
+
+\header{Complex Functions}
+The derivative of a complex function is defined as
+$$\frac{\d}{\d z} f(z) = \lim_{\Delta z\to 0} \frac{\Delta f}{\Delta z}.$$
+A function $f(z)$ is \textbf{Analytic} in a region of $\mathbb{C}$ if it has a unique derivative at every point of that region.
+
+An analytic function must respect complex structure, and must therefore satisfy the \textbf{Cauchy-Riemann equations}
+$$\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \qquad \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}.$$
+If $u$ and $v$ and their partial derivatives with respect to $x$ and $y$ are continuous and satisfy the Cauchy-Riemann equations in a region, then the function is analytic at all points \textbf{inside} the region (not necessarily on the boundary).
+
+A \textbf{regular point} is a point at which $f(z)$ is analytic. A \textbf{singularity} of $f(z)$ is a point at which $f(z)$ is not analytic. It is called an isolated singularity if $f(z)$ is analytic in a neighbourhood of the singularity.
+
+
+\header{Taylor Expansion}
+If $f(z)$ is analytic in a region, then it has derivatives of all orders at points inside the region and can be expanded in a Taylor series about any point $z_0$ inside the region. The power series converges inside the circle about $z_0$ that extends to the nearest singular point.
+
+\header{Harmonic Functions}
+A function which satisfies Laplace's equation is said the be harmonic
+$$\nabla^2 \phi = \frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 0.$$
+If $f(z) = u + iv$ is analytic in a region, then both $u$ and $v$ are harmonic. Any harmonic function in a simply-connected region is the real or imaginary part of an analytic function $f(z)$. The pair $u$ and $v$ are called \textbf{conjugate harmonic functions}.
+
+\header{Complex Integrals}
+If $f(z)$ is analytic on and inside the simple contour $\Gamma$, then the contour integral vanishes
+$$\oint_\Gamma f(z) \d z = 0.$$
+\textbf{Cauchy's Integral formula} states that for a function $f(z)$ analytic inside and on a simple closed contour $\Gamma$, the value of $f(z)$ at a point $z=a$ inside $\Gamma$ is given by
+$$f(z_0) = \frac{1}{2\pi i} \oint \frac{f(z)}{z-z_0}\d z.$$
+
+\end{document}
+

@@ -1,0 +1,613 @@
+Compiled from "Spellcheck.java"
+class Spellcheck extends java.lang.Object
+  SourceFile: "Spellcheck.java"
+  minor version: 0
+  major version: 50
+  Constant pool:
+const #1 = Method	#31.#87;	//  java/lang/Object."<init>":()V
+const #2 = class	#88;	//  BinarySearchTree
+const #3 = Method	#2.#87;	//  BinarySearchTree."<init>":()V
+const #4 = class	#89;	//  java/lang/String
+const #5 = String	#90;	//  ordbok1_utf.txt
+const #6 = Method	#4.#91;	//  java/lang/String."<init>":(Ljava/lang/String;)V
+const #7 = class	#92;	//  FileReader
+const #8 = Method	#7.#91;	//  FileReader."<init>":(Ljava/lang/String;)V
+const #9 = Method	#7.#93;	//  FileReader.readIntoTree:(LBinarySearchTree;)V
+const #10 = String	#94;	//  familie
+const #11 = Method	#2.#95;	//  BinarySearchTree.remove:(Ljava/lang/Comparable;)V
+const #12 = Method	#2.#96;	//  BinarySearchTree.insert:(Ljava/lang/Comparable;)V
+const #13 = Field	#97.#98;	//  java/lang/System.out:Ljava/io/PrintStream;
+const #14 = String	#99;	//  \nINF2220 Mandatory Exercise 1
+const #15 = Method	#100.#101;	//  java/io/PrintStream.println:(Ljava/lang/String;)V
+const #16 = String	#102;	//  ***Spell Checker***\n
+const #17 = class	#103;	//  java/lang/StringBuilder
+const #18 = Method	#17.#87;	//  java/lang/StringBuilder."<init>":()V
+const #19 = String	#104;	//  File '
+const #20 = Method	#17.#105;	//  java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const #21 = String	#106;	//  ' has been read into a BST.
+const #22 = Method	#17.#107;	//  java/lang/StringBuilder.toString:()Ljava/lang/String;
+const #23 = String	#108;	//  -------------------------------------------------
+const #24 = String	#109;	//  Number of words: 
+const #25 = Method	#2.#110;	//  BinarySearchTree.size:()I
+const #26 = Method	#17.#111;	//  java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+const #27 = String	#112;	//  Depth of tree:   
+const #28 = Method	#2.#113;	//  BinarySearchTree.height:()I
+const #29 = Method	#2.#114;	//  BinarySearchTree.depthArray:()[I
+const #30 = String	#115;	//  Avg. node depth: %.2f%n
+const #31 = class	#116;	//  java/lang/Object
+const #32 = Method	#117.#118;	//  java/lang/Double.valueOf:(D)Ljava/lang/Double;
+const #33 = Method	#100.#119;	//  java/io/PrintStream.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+const #34 = String	#120;	//  Number of nodes at a given depth: 
+const #35 = String	#121;	//            Depth: %2d  Num. of Nodes: %4d%n
+const #36 = Method	#122.#123;	//  java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+const #37 = String	#124;	//  Minimum in tree: 
+const #38 = Method	#2.#125;	//  BinarySearchTree.findMin:()Ljava/lang/Comparable;
+const #39 = Method	#17.#126;	//  java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+const #40 = String	#127;	//  Maximum in tree: 
+const #41 = Method	#2.#128;	//  BinarySearchTree.findMax:()Ljava/lang/Comparable;
+const #42 = String	#129;	//  \nInitiating Spell Checker\n...
+const #43 = Method	#4.#87;	//  java/lang/String."<init>":()V
+const #44 = class	#130;	//  java/util/Scanner
+const #45 = Field	#97.#131;	//  java/lang/System.in:Ljava/io/InputStream;
+const #46 = Method	#44.#132;	//  java/util/Scanner."<init>":(Ljava/io/InputStream;)V
+const #47 = String	#133;	//  Please enter a single word for lookup (write q to exit): 
+const #48 = Method	#100.#134;	//  java/io/PrintStream.print:(Ljava/lang/String;)V
+const #49 = Method	#44.#135;	//  java/util/Scanner.next:()Ljava/lang/String;
+const #50 = String	#136;	//  q
+const #51 = Method	#4.#137;	//  java/lang/String.equals:(Ljava/lang/Object;)Z
+const #52 = String	#138;	//  ...\nQuitting Spell Checker
+const #53 = Method	#97.#139;	//  java/lang/System.exit:(I)V
+const #54 = String	#140;	//  Results: 
+const #55 = Method	#2.#141;	//  BinarySearchTree.contains:(Ljava/lang/Comparable;)Z
+const #56 = String	#142;	//   is found in dictionary and spelled correctly.
+const #57 = String	#143;	//   of 
+const #58 = String	#144;	//   lookups have been found.\n
+const #59 = String	#145;	//   is NOT found in dictionary.
+const #60 = String	#146;	//   lookups have been found.
+const #61 = String	#147;	//  Perhaps you meant to write one of these words:
+const #62 = Method	#148.#149;	//  SimilarWords.allSimilars:(Ljava/lang/String;)Ljava/util/HashSet;
+const #63 = Method	#150.#151;	//  java/util/HashSet.iterator:()Ljava/util/Iterator;
+const #64 = InterfaceMethod	#152.#153;	//  java/util/Iterator.hasNext:()Z
+const #65 = InterfaceMethod	#152.#154;	//  java/util/Iterator.next:()Ljava/lang/Object;
+const #66 = String	#155;	//  ----> 
+const #67 = String	#156;	//  ----> No similar words found.
+const #68 = String	#157;	//   
+const #69 = class	#158;	//  Spellcheck
+const #70 = Asciz	<init>;
+const #71 = Asciz	()V;
+const #72 = Asciz	Code;
+const #73 = Asciz	LineNumberTable;
+const #74 = Asciz	main;
+const #75 = Asciz	([Ljava/lang/String;)V;
+const #76 = Asciz	StackMapTable;
+const #77 = class	#159;	//  "[Ljava/lang/String;"
+const #78 = class	#88;	//  BinarySearchTree
+const #79 = class	#89;	//  java/lang/String
+const #80 = class	#92;	//  FileReader
+const #81 = class	#160;	//  "[I"
+const #82 = class	#130;	//  java/util/Scanner
+const #83 = class	#161;	//  java/util/HashSet
+const #84 = class	#162;	//  java/util/Iterator
+const #85 = Asciz	SourceFile;
+const #86 = Asciz	Spellcheck.java;
+const #87 = NameAndType	#70:#71;//  "<init>":()V
+const #88 = Asciz	BinarySearchTree;
+const #89 = Asciz	java/lang/String;
+const #90 = Asciz	ordbok1_utf.txt;
+const #91 = NameAndType	#70:#163;//  "<init>":(Ljava/lang/String;)V
+const #92 = Asciz	FileReader;
+const #93 = NameAndType	#164:#165;//  readIntoTree:(LBinarySearchTree;)V
+const #94 = Asciz	familie;
+const #95 = NameAndType	#166:#167;//  remove:(Ljava/lang/Comparable;)V
+const #96 = NameAndType	#168:#167;//  insert:(Ljava/lang/Comparable;)V
+const #97 = class	#169;	//  java/lang/System
+const #98 = NameAndType	#170:#171;//  out:Ljava/io/PrintStream;
+const #99 = Asciz	\nINF2220 Mandatory Exercise 1;
+const #100 = class	#172;	//  java/io/PrintStream
+const #101 = NameAndType	#173:#163;//  println:(Ljava/lang/String;)V
+const #102 = Asciz	***Spell Checker***\n;
+const #103 = Asciz	java/lang/StringBuilder;
+const #104 = Asciz	File ';
+const #105 = NameAndType	#174:#175;//  append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const #106 = Asciz	' has been read into a BST.;
+const #107 = NameAndType	#176:#177;//  toString:()Ljava/lang/String;
+const #108 = Asciz	-------------------------------------------------;
+const #109 = Asciz	Number of words: ;
+const #110 = NameAndType	#178:#179;//  size:()I
+const #111 = NameAndType	#174:#180;//  append:(I)Ljava/lang/StringBuilder;
+const #112 = Asciz	Depth of tree:   ;
+const #113 = NameAndType	#181:#179;//  height:()I
+const #114 = NameAndType	#182:#183;//  depthArray:()[I
+const #115 = Asciz	Avg. node depth: %.2f%n;
+const #116 = Asciz	java/lang/Object;
+const #117 = class	#184;	//  java/lang/Double
+const #118 = NameAndType	#185:#186;//  valueOf:(D)Ljava/lang/Double;
+const #119 = NameAndType	#187:#188;//  format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+const #120 = Asciz	Number of nodes at a given depth: ;
+const #121 = Asciz	          Depth: %2d  Num. of Nodes: %4d%n;
+const #122 = class	#189;	//  java/lang/Integer
+const #123 = NameAndType	#185:#190;//  valueOf:(I)Ljava/lang/Integer;
+const #124 = Asciz	Minimum in tree: ;
+const #125 = NameAndType	#191:#192;//  findMin:()Ljava/lang/Comparable;
+const #126 = NameAndType	#174:#193;//  append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+const #127 = Asciz	Maximum in tree: ;
+const #128 = NameAndType	#194:#192;//  findMax:()Ljava/lang/Comparable;
+const #129 = Asciz	\nInitiating Spell Checker\n...;
+const #130 = Asciz	java/util/Scanner;
+const #131 = NameAndType	#195:#196;//  in:Ljava/io/InputStream;
+const #132 = NameAndType	#70:#197;//  "<init>":(Ljava/io/InputStream;)V
+const #133 = Asciz	Please enter a single word for lookup (write q to exit): ;
+const #134 = NameAndType	#198:#163;//  print:(Ljava/lang/String;)V
+const #135 = NameAndType	#199:#177;//  next:()Ljava/lang/String;
+const #136 = Asciz	q;
+const #137 = NameAndType	#200:#201;//  equals:(Ljava/lang/Object;)Z
+const #138 = Asciz	...\nQuitting Spell Checker;
+const #139 = NameAndType	#202:#203;//  exit:(I)V
+const #140 = Asciz	Results: ;
+const #141 = NameAndType	#204:#205;//  contains:(Ljava/lang/Comparable;)Z
+const #142 = Asciz	 is found in dictionary and spelled correctly.;
+const #143 = Asciz	 of ;
+const #144 = Asciz	 lookups have been found.\n;
+const #145 = Asciz	 is NOT found in dictionary.;
+const #146 = Asciz	 lookups have been found.;
+const #147 = Asciz	Perhaps you meant to write one of these words:;
+const #148 = class	#206;	//  SimilarWords
+const #149 = NameAndType	#207:#208;//  allSimilars:(Ljava/lang/String;)Ljava/util/HashSet;
+const #150 = class	#161;	//  java/util/HashSet
+const #151 = NameAndType	#209:#210;//  iterator:()Ljava/util/Iterator;
+const #152 = class	#162;	//  java/util/Iterator
+const #153 = NameAndType	#211:#212;//  hasNext:()Z
+const #154 = NameAndType	#199:#213;//  next:()Ljava/lang/Object;
+const #155 = Asciz	----> ;
+const #156 = Asciz	----> No similar words found.;
+const #157 = Asciz	 ;
+const #158 = Asciz	Spellcheck;
+const #159 = Asciz	[Ljava/lang/String;;
+const #160 = Asciz	[I;
+const #161 = Asciz	java/util/HashSet;
+const #162 = Asciz	java/util/Iterator;
+const #163 = Asciz	(Ljava/lang/String;)V;
+const #164 = Asciz	readIntoTree;
+const #165 = Asciz	(LBinarySearchTree;)V;
+const #166 = Asciz	remove;
+const #167 = Asciz	(Ljava/lang/Comparable;)V;
+const #168 = Asciz	insert;
+const #169 = Asciz	java/lang/System;
+const #170 = Asciz	out;
+const #171 = Asciz	Ljava/io/PrintStream;;
+const #172 = Asciz	java/io/PrintStream;
+const #173 = Asciz	println;
+const #174 = Asciz	append;
+const #175 = Asciz	(Ljava/lang/String;)Ljava/lang/StringBuilder;;
+const #176 = Asciz	toString;
+const #177 = Asciz	()Ljava/lang/String;;
+const #178 = Asciz	size;
+const #179 = Asciz	()I;
+const #180 = Asciz	(I)Ljava/lang/StringBuilder;;
+const #181 = Asciz	height;
+const #182 = Asciz	depthArray;
+const #183 = Asciz	()[I;
+const #184 = Asciz	java/lang/Double;
+const #185 = Asciz	valueOf;
+const #186 = Asciz	(D)Ljava/lang/Double;;
+const #187 = Asciz	format;
+const #188 = Asciz	(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;;
+const #189 = Asciz	java/lang/Integer;
+const #190 = Asciz	(I)Ljava/lang/Integer;;
+const #191 = Asciz	findMin;
+const #192 = Asciz	()Ljava/lang/Comparable;;
+const #193 = Asciz	(Ljava/lang/Object;)Ljava/lang/StringBuilder;;
+const #194 = Asciz	findMax;
+const #195 = Asciz	in;
+const #196 = Asciz	Ljava/io/InputStream;;
+const #197 = Asciz	(Ljava/io/InputStream;)V;
+const #198 = Asciz	print;
+const #199 = Asciz	next;
+const #200 = Asciz	equals;
+const #201 = Asciz	(Ljava/lang/Object;)Z;
+const #202 = Asciz	exit;
+const #203 = Asciz	(I)V;
+const #204 = Asciz	contains;
+const #205 = Asciz	(Ljava/lang/Comparable;)Z;
+const #206 = Asciz	SimilarWords;
+const #207 = Asciz	allSimilars;
+const #208 = Asciz	(Ljava/lang/String;)Ljava/util/HashSet;;
+const #209 = Asciz	iterator;
+const #210 = Asciz	()Ljava/util/Iterator;;
+const #211 = Asciz	hasNext;
+const #212 = Asciz	()Z;
+const #213 = Asciz	()Ljava/lang/Object;;
+
+{
+Spellcheck();
+  Code:
+   Stack=1, Locals=1, Args_size=1
+   0:	aload_0
+   1:	invokespecial	#1; //Method java/lang/Object."<init>":()V
+   4:	return
+  LineNumberTable: 
+   line 143: 0
+
+
+public static void main(java.lang.String[]);
+  Code:
+   Stack=7, Locals=15, Args_size=1
+   0:	new	#2; //class BinarySearchTree
+   3:	dup
+   4:	invokespecial	#3; //Method BinarySearchTree."<init>":()V
+   7:	astore_1
+   8:	new	#4; //class java/lang/String
+   11:	dup
+   12:	ldc	#5; //String ordbok1_utf.txt
+   14:	invokespecial	#6; //Method java/lang/String."<init>":(Ljava/lang/String;)V
+   17:	astore_2
+   18:	new	#7; //class FileReader
+   21:	dup
+   22:	aload_2
+   23:	invokespecial	#8; //Method FileReader."<init>":(Ljava/lang/String;)V
+   26:	astore_3
+   27:	aload_3
+   28:	aload_1
+   29:	invokevirtual	#9; //Method FileReader.readIntoTree:(LBinarySearchTree;)V
+   32:	aload_1
+   33:	ldc	#10; //String familie
+   35:	invokevirtual	#11; //Method BinarySearchTree.remove:(Ljava/lang/Comparable;)V
+   38:	aload_1
+   39:	ldc	#10; //String familie
+   41:	invokevirtual	#12; //Method BinarySearchTree.insert:(Ljava/lang/Comparable;)V
+   44:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   47:	ldc	#14; //String \nINF2220 Mandatory Exercise 1
+   49:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   52:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   55:	ldc	#16; //String ***Spell Checker***\n
+   57:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   60:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   63:	new	#17; //class java/lang/StringBuilder
+   66:	dup
+   67:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   70:	ldc	#19; //String File '
+   72:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   75:	aload_2
+   76:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   79:	ldc	#21; //String ' has been read into a BST.
+   81:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   84:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   87:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   90:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   93:	ldc	#23; //String -------------------------------------------------
+   95:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   98:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   101:	new	#17; //class java/lang/StringBuilder
+   104:	dup
+   105:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   108:	ldc	#24; //String Number of words: 
+   110:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   113:	aload_1
+   114:	invokevirtual	#25; //Method BinarySearchTree.size:()I
+   117:	invokevirtual	#26; //Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+   120:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   123:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   126:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   129:	new	#17; //class java/lang/StringBuilder
+   132:	dup
+   133:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   136:	ldc	#27; //String Depth of tree:   
+   138:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   141:	aload_1
+   142:	invokevirtual	#28; //Method BinarySearchTree.height:()I
+   145:	invokevirtual	#26; //Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+   148:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   151:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   154:	aload_1
+   155:	invokevirtual	#29; //Method BinarySearchTree.depthArray:()[I
+   158:	astore	4
+   160:	dconst_0
+   161:	dstore	5
+   163:	iconst_0
+   164:	istore	7
+   166:	iload	7
+   168:	aload	4
+   170:	arraylength
+   171:	if_icmpge	194
+   174:	dload	5
+   176:	iload	7
+   178:	aload	4
+   180:	iload	7
+   182:	iaload
+   183:	imul
+   184:	i2d
+   185:	dadd
+   186:	dstore	5
+   188:	iinc	7, 1
+   191:	goto	166
+   194:	dload	5
+   196:	aload_1
+   197:	invokevirtual	#25; //Method BinarySearchTree.size:()I
+   200:	i2d
+   201:	ddiv
+   202:	dstore	5
+   204:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   207:	ldc	#30; //String Avg. node depth: %.2f%n
+   209:	iconst_1
+   210:	anewarray	#31; //class java/lang/Object
+   213:	dup
+   214:	iconst_0
+   215:	dload	5
+   217:	invokestatic	#32; //Method java/lang/Double.valueOf:(D)Ljava/lang/Double;
+   220:	aastore
+   221:	invokevirtual	#33; //Method java/io/PrintStream.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+   224:	pop
+   225:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   228:	ldc	#34; //String Number of nodes at a given depth: 
+   230:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   233:	iconst_0
+   234:	istore	7
+   236:	iload	7
+   238:	aload	4
+   240:	arraylength
+   241:	if_icmpge	282
+   244:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   247:	ldc	#35; //String           Depth: %2d  Num. of Nodes: %4d%n
+   249:	iconst_2
+   250:	anewarray	#31; //class java/lang/Object
+   253:	dup
+   254:	iconst_0
+   255:	iload	7
+   257:	invokestatic	#36; //Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+   260:	aastore
+   261:	dup
+   262:	iconst_1
+   263:	aload	4
+   265:	iload	7
+   267:	iaload
+   268:	invokestatic	#36; //Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+   271:	aastore
+   272:	invokevirtual	#33; //Method java/io/PrintStream.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/io/PrintStream;
+   275:	pop
+   276:	iinc	7, 1
+   279:	goto	236
+   282:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   285:	new	#17; //class java/lang/StringBuilder
+   288:	dup
+   289:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   292:	ldc	#37; //String Minimum in tree: 
+   294:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   297:	aload_1
+   298:	invokevirtual	#38; //Method BinarySearchTree.findMin:()Ljava/lang/Comparable;
+   301:	invokevirtual	#39; //Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+   304:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   307:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   310:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   313:	new	#17; //class java/lang/StringBuilder
+   316:	dup
+   317:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   320:	ldc	#40; //String Maximum in tree: 
+   322:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   325:	aload_1
+   326:	invokevirtual	#41; //Method BinarySearchTree.findMax:()Ljava/lang/Comparable;
+   329:	invokevirtual	#39; //Method java/lang/StringBuilder.append:(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+   332:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   335:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   338:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   341:	ldc	#23; //String -------------------------------------------------
+   343:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   346:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   349:	ldc	#42; //String \nInitiating Spell Checker\n...
+   351:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   354:	new	#4; //class java/lang/String
+   357:	dup
+   358:	invokespecial	#43; //Method java/lang/String."<init>":()V
+   361:	astore	7
+   363:	new	#44; //class java/util/Scanner
+   366:	dup
+   367:	getstatic	#45; //Field java/lang/System.in:Ljava/io/InputStream;
+   370:	invokespecial	#46; //Method java/util/Scanner."<init>":(Ljava/io/InputStream;)V
+   373:	astore	8
+   375:	iconst_0
+   376:	istore	10
+   378:	iconst_0
+   379:	istore	11
+   381:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   384:	ldc	#47; //String Please enter a single word for lookup (write q to exit): 
+   386:	invokevirtual	#48; //Method java/io/PrintStream.print:(Ljava/lang/String;)V
+   389:	aload	8
+   391:	invokevirtual	#49; //Method java/util/Scanner.next:()Ljava/lang/String;
+   394:	astore	7
+   396:	aload	7
+   398:	ldc	#50; //String q
+   400:	invokevirtual	#51; //Method java/lang/String.equals:(Ljava/lang/Object;)Z
+   403:	ifeq	418
+   406:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   409:	ldc	#52; //String ...\nQuitting Spell Checker
+   411:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   414:	iconst_0
+   415:	invokestatic	#53; //Method java/lang/System.exit:(I)V
+   418:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   421:	ldc	#54; //String Results: 
+   423:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   426:	aload_1
+   427:	aload	7
+   429:	invokevirtual	#55; //Method BinarySearchTree.contains:(Ljava/lang/Comparable;)Z
+   432:	ifeq	506
+   435:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   438:	new	#17; //class java/lang/StringBuilder
+   441:	dup
+   442:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   445:	aload	7
+   447:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   450:	ldc	#56; //String  is found in dictionary and spelled correctly.
+   452:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   455:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   458:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   461:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   464:	new	#17; //class java/lang/StringBuilder
+   467:	dup
+   468:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   471:	iinc	10, 1
+   474:	iload	10
+   476:	invokevirtual	#26; //Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+   479:	ldc	#57; //String  of 
+   481:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   484:	iinc	11, 1
+   487:	iload	11
+   489:	invokevirtual	#26; //Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+   492:	ldc	#58; //String  lookups have been found.\n
+   494:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   497:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   500:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   503:	goto	381
+   506:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   509:	new	#17; //class java/lang/StringBuilder
+   512:	dup
+   513:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   516:	aload	7
+   518:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   521:	ldc	#59; //String  is NOT found in dictionary.
+   523:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   526:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   529:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   532:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   535:	new	#17; //class java/lang/StringBuilder
+   538:	dup
+   539:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   542:	iload	10
+   544:	invokevirtual	#26; //Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+   547:	ldc	#57; //String  of 
+   549:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   552:	iinc	11, 1
+   555:	iload	11
+   557:	invokevirtual	#26; //Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
+   560:	ldc	#60; //String  lookups have been found.
+   562:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   565:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   568:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   571:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   574:	ldc	#61; //String Perhaps you meant to write one of these words:
+   576:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   579:	aload	7
+   581:	invokestatic	#62; //Method SimilarWords.allSimilars:(Ljava/lang/String;)Ljava/util/HashSet;
+   584:	astore	9
+   586:	iconst_1
+   587:	istore	12
+   589:	aload	9
+   591:	invokevirtual	#63; //Method java/util/HashSet.iterator:()Ljava/util/Iterator;
+   594:	astore	13
+   596:	aload	13
+   598:	invokeinterface	#64,  1; //InterfaceMethod java/util/Iterator.hasNext:()Z
+   603:	ifeq	659
+   606:	aload	13
+   608:	invokeinterface	#65,  1; //InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+   613:	checkcast	#4; //class java/lang/String
+   616:	astore	14
+   618:	aload_1
+   619:	aload	14
+   621:	invokevirtual	#55; //Method BinarySearchTree.contains:(Ljava/lang/Comparable;)Z
+   624:	ifeq	656
+   627:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   630:	new	#17; //class java/lang/StringBuilder
+   633:	dup
+   634:	invokespecial	#18; //Method java/lang/StringBuilder."<init>":()V
+   637:	ldc	#66; //String ----> 
+   639:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   642:	aload	14
+   644:	invokevirtual	#20; //Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+   647:	invokevirtual	#22; //Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+   650:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   653:	iconst_0
+   654:	istore	12
+   656:	goto	596
+   659:	iload	12
+   661:	ifeq	672
+   664:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   667:	ldc	#67; //String ----> No similar words found.
+   669:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   672:	getstatic	#13; //Field java/lang/System.out:Ljava/io/PrintStream;
+   675:	ldc	#68; //String  
+   677:	invokevirtual	#15; //Method java/io/PrintStream.println:(Ljava/lang/String;)V
+   680:	goto	381
+  LineNumberTable: 
+   line 146: 0
+   line 149: 8
+   line 150: 18
+   line 151: 27
+   line 154: 32
+   line 155: 38
+   line 158: 44
+   line 159: 52
+   line 160: 60
+   line 161: 90
+   line 162: 98
+   line 163: 126
+   line 165: 154
+   line 166: 160
+   line 167: 163
+   line 168: 174
+   line 167: 188
+   line 169: 194
+   line 171: 204
+   line 173: 225
+   line 174: 233
+   line 175: 244
+   line 174: 276
+   line 177: 282
+   line 178: 310
+   line 179: 338
+   line 182: 346
+   line 183: 354
+   line 184: 363
+   line 186: 375
+   line 187: 378
+   line 190: 381
+   line 192: 389
+   line 194: 396
+   line 195: 406
+   line 196: 414
+   line 199: 418
+   line 201: 426
+   line 202: 435
+   line 203: 461
+   line 205: 506
+   line 206: 532
+   line 208: 571
+   line 211: 579
+   line 212: 586
+   line 214: 589
+   line 215: 618
+   line 216: 627
+   line 217: 653
+   line 220: 659
+   line 221: 664
+   line 222: 672
+   line 223: 680
+
+  StackMapTable: number_of_entries = 11
+   frame_type = 255 /* full_frame */
+     offset_delta = 166
+     locals = [ class "[Ljava/lang/String;", class BinarySearchTree, class java/lang/String, class FileReader, class "[I", double, int ]
+     stack = []
+   frame_type = 250 /* chop */
+     offset_delta = 27
+   frame_type = 252 /* append */
+     offset_delta = 41
+     locals = [ int ]
+   frame_type = 250 /* chop */
+     offset_delta = 45
+   frame_type = 255 /* full_frame */
+     offset_delta = 98
+     locals = [ class "[Ljava/lang/String;", class BinarySearchTree, class java/lang/String, class FileReader, class "[I", double, class java/lang/String, class java/util/Scanner, bogus, int, int ]
+     stack = []
+   frame_type = 36 /* same */
+   frame_type = 251 /* same_frame_extended */
+     offset_delta = 87
+   frame_type = 255 /* full_frame */
+     offset_delta = 89
+     locals = [ class "[Ljava/lang/String;", class BinarySearchTree, class java/lang/String, class FileReader, class "[I", double, class java/lang/String, class java/util/Scanner, class java/util/HashSet, int, int, int, class java/util/Iterator ]
+     stack = []
+   frame_type = 59 /* same */
+   frame_type = 250 /* chop */
+     offset_delta = 2
+   frame_type = 12 /* same */
+
+
+}
+

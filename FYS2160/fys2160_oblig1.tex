@@ -1,0 +1,515 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=30mm, left=39mm, right=39mm}
+
+
+
+
+
+
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | \op{#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%
+% Navn og tittel
+%
+\author{Candidate number }
+\title{Take home exam in FYS3110\\ Quantum mechanics}
+
+
+\begin{document}
+\maketitle
+%\newpage\null\thispagestyle{empty}\newpage
+
+\setcounter{page}{1} 
+
+\section*{Problem 1}
+We have a Hamiltonian
+\begin{equation}
+\op{H} = \kappa \op{a}^\dag\op{a}, \label{eq:H}
+\end{equation}
+where $\kappa$ is a positive real constant with units of energy, and $\op{a}$ and $\op{a}^\dag$ are operators with the commutation relation
+\begin{equation}
+[\op{a},\op{a}^\dag] = \op{a}\op{a}^\dag - \op{a}^\dag\op{a} = 1. \label{eq:commutator}
+\end{equation}
+
+\subsection*{Problem 1.1}
+We will find the energy eigenvalues of the Hamiltonian $\op{H}$.
+
+If we assume that $\ket{\psi}$ is an energy eigenstate with energy $E$
+$$\op{H}\ket{\psi} = E\ket{\psi},$$
+we will check if $\op{a}^\dag\ket{\psi}$ and $\op{a}\ket{\psi}$ are eigenstates of $\op{H}$. Let us start with $\op{a}^\dag\ket{\psi}$.
+\begin{align*}
+{H}\left(\op{a}^\dag \ket{\psi}\right) &= \kappa\op{a}^\dag\op{a}\op{a}^\dag \ket{\psi},
+\end{align*}
+we substitute $\op{a}\op{a}^\dag = \op{a}^\dag\op{a} + 1$
+\begin{align*}
+{H}\left(\op{a}^\dag \ket{\psi}\right) &= \kappa\op{a}^\dag\left(\op{a}^\dag\op{a} + 1\right) \ket{\psi} \\
+&= \op{a}^\dag\left(\kappa\op{a}^\dag\op{a}\ket{\psi} + \kappa\ket{\psi}\right) \\
+&= \op{a}^\dag\left(\op{H}\ket{\psi} + \kappa\ket{\psi}\right),
+\end{align*}
+from our assumption about $\ket{\psi}$, we know that $\op{H}\ket{\psi} = E\ket{\psi}$,
+\begin{align*}
+{H}\left(\op{a}^\dag \ket{\psi}\right) &= \op{a}^\dag\Bigg(E\ket{\psi} + \kappa\ket{\psi}\Bigg) \\
+&= \Bigg(E + \kappa\Bigg) \op{a}^\dag \ket{\psi},
+\end{align*}
+so if $\ket{\psi}$ is an eigenstate of $\op{H}$ with the eigenvalue $E$, then $\op{a}^\dag\ket{\psi}$ is also an eigenstate, and it has the eigenvalue $E+\kappa$.
+
+For $\op{a}\ket{\psi}$ we get
+\begin{align*}
+{H}\left(\op{a}\ket{\psi}\right) &= \kappa\op{a}^\dag\op{a}\op{a}\ket{\psi},
+\end{align*}
+we substitute $\op{a}^\dag\op{a} = \op{a}\op{a}^\dag - 1$
+\begin{align*}
+{H}\left(\op{a}\ket{\psi}\right) &= \kappa\left(\op{a}\op{a}^\dag -1 \right)\op{a}\ket{\psi} \\
+&= \kappa\op{a}\op{a}^\dag\op{a}\ket{\psi} - \kappa\op{a}\ket{\psi}, 
+\end{align*}
+constants always commutate, $\kappa \op{a} = \op{a}\kappa$
+\begin{align*}
+{H}\left(\op{a}\ket{\psi}\right) &= \op{a}\kappa\op{a}^\dag\op{a}\ket{\psi} - \kappa\op{a}\ket{\psi} \\
+&= \op{a}\op{H}\ket{\psi} - \kappa\op{a}\ket{\psi} \\
+&= \op{a}E\ket{\psi} - \kappa\op{a}\ket{\psi} \\
+&= \Bigg(E - \kappa\Bigg)\op{a}\ket{\psi}
+\end{align*}
+so if $\ket{\psi}$ is an eigenstate of $\op{H}$ with the eigenvalue $E$, then $\op{a}\ket{\psi}$ is also an eigenstate, and it has the eigenvalue $E-\kappa$.
+
+So we see that $\op{a}^\dag$ and $\op{a}$ are a raising and a lowering operator respectively, that increase and decrease the energy. The fact that the lowering operator $\op{a}$ reduces the energy by $\kappa$ means there must be some ground state $\ket{\psi_0}$ where if we apply the lowering operator one more time we get
+$$\op{a}\ket{\psi_0} = 0,$$
+or we would be able to create a state with negative energy by continually applying the lowering operator $\op{a}$. By letting the Hamiltonian work on $\ket{\psi_0}$ we can find the energy of this ground state:
+$$\op{H}\ket{\psi_0} = \kappa\op{a}^\dag\op{a}\ket{\psi_0} = \kappa \op{a}^\dag 0 = 0.$$
+We see that the ground state has the energy $E=0$. If we let the raising operator $\op{a}^\dag$ work $n$ times on the ground state, we get the state $\ket{\psi_n}$ with energy
+$$E_n = n\kappa.$$
+These are the only possible eigenvalues of $\op{H}$, if there was some energy eigenstate with an eigenvalue different from $n\kappa$, the lowering operator $\op{a}$ would let us get a state with negative energy, which can't be. There is however, no limit on how many times we can apply $\op{a}^\dag$, so there is no restriction on how large the energy can become.
+
+The eigenvalues of $\op{H}$ are
+$$E_n = n\kappa \qquad {\rm for\ }n = 0, 1, 2, \ldots.$$
+
+\subsection*{Problem 1.2}
+The operators $\op{a}$ and $\op{a}^\dag$ can be written in terms of the position $\op{x}$ and momentum operators $\op{p}$ as
+\begin{equation}
+\op{a} = i\frac{L}{\sqrt{2}\hbar}\op{p} + \frac{1}{\sqrt{2}L}\op{x} - \frac{c}{\sqrt{2}}, \qquad \op{a}^\dag = -i\frac{L}{\sqrt{2}\hbar}\op{p} + \frac{1}{\sqrt{2}L}\op{x} - \frac{c^*}{\sqrt{2}}, \label{eq:expr}
+\end{equation}
+where $c$ is a complex dimensionless number and $L$ is a positive real constant with units of length.
+
+\subsubsection*{Showing that expression (\ref{eq:expr}) satisfies the commutation relation (\ref{eq:commutator})}
+We will now show that the expressions of $\op{a}$ and $\op{a}^\dag$ (eq.\ \ref{eq:expr}) satisfy the commutation relation for these operators (eq.\ \ref{eq:commutator}). To do this, we let the operators work on a test function $f(x)$.
+\begin{align*}
+[\op{a}, \op{a}^\dag]f(x) &= \op{a}\op{a}^\dag f(x)- \op{a}^\dag\op{a}f(x) \\
+&= \left(i\frac{L}{\sqrt{2}\hbar}\op{p} + \frac{1}{\sqrt{2}L}\op{x} - \frac{c}{\sqrt{2}}\right)\left(-i\frac{L}{\sqrt{2}\hbar}\op{p}  + \frac{1}{\sqrt{2}L}\op{x} - \frac{c^*}{\sqrt{2}}\right)f(x) \\[0.4cm]
+& \qquad -\left(-i\frac{L}{\sqrt{2}\hbar}\op{p} + \frac{1}{\sqrt{2}L}\op{x} - \frac{c^*}{\sqrt{2}}\right)\left(i\frac{L}{\sqrt{2}\hbar}\op{p} + \frac{1}{\sqrt{2}L}\op{x} - \frac{c}{\sqrt{2}}\right)f(x) \\[0.4cm]
+&= \frac{L^2}{2\hbar^2}\op{p}\bigg(\op{p}f(x)\bigg) + \frac{i}{2\hbar}\op{p}\bigg(\op{x}f(x)\bigg) - \frac{iLc^*}{2\hbar}\op{p}f(x)
+- \frac{i}{2\hbar}\op{x}\bigg(\op{p}f(x)\bigg) \\
+&\qquad + \frac{1}{2L^2}\op{x}\bigg(\op{x}f(x)\bigg) - \frac{c^*}{2L}\op{x}f(x) + \frac{iLc}{2\hbar}\op{p}f(x) - \frac{c}{2L}\op{x}f(x) + \frac{cc^*}{2}f(x) \\
+&\qquad - \Bigg[ \frac{L^2}{2\hbar^2}\op{p}\bigg(\op{p}f(x)\bigg) - \frac{i}{2\hbar}\op{p}\bigg(\op{x}f(x)\bigg) + \frac{iLc}{2\hbar}\op{p}f(x)  + \frac{i}{2\hbar}\op{x}\bigg(\op{p}f(x)\bigg) \\ &\qquad + \frac{1}{2L^2}\op{x}\bigg(\op{x}f(x)\bigg) - \frac{c}{2L}\op{x}f(x) - \frac{iLc^*}{2\hbar}\op{p}f(x) - \frac{c^*}{2L}\op{x}f(x) + \frac{c^*c}{2}f(x) \Bigg].
+\end{align*}
+We now see a lot of the terms cancel each other out or add up to cancel the factor 2, and we are left with
+\begin{align*}
+[\op{a}, \op{a}^\dag]f(x) &= \frac{i}{\hbar}\op{p}\bigg(\op{x}f(x)\bigg) - \frac{i}{\hbar}\op{x}\bigg(\op{p}f(x)\bigg) \\
+&= \frac{i}{\hbar}\Bigg(\op{p}\op{x} - \op{x}\op{p}\Bigg)f(x) \\
+&= \frac{i}{h}\left[\op{p}, \op{x}\right]f(x).
+\end{align*}
+We can now drop the test function, and insert for the canonical commutation relation $[\op{p}, \op{x}] = -i\hbar$,
+$$ [\op{a}, \op{a}^\dag] = \frac{i}{\hbar}(-i\hbar) = 1,$$
+so we see that the expressions for $\op{a}$ and $\op{a}^\dag$ satisfy the commutation relation for the operators.
+
+\clearpage
+\subsubsection*{Writing the Hamiltonian in terms of $\op{x}$ and $\op{p}$}
+We will now write the Hamiltonian $\op{H}$ in terms of the position operator $\op{x}$ and the momentum operator $\op{p}$. We start with our original expression for the Hamiltonian (eq.\ \ref{eq:H}), and substitute with our expressions for $\op{a}$ and $\op{a}^\dag$ (eq.\ \ref{eq:expr}):
+\begin{align*}
+\op{H} &= \kappa\op{a}^\dag\op{a} \\[0.4cm]
+&= \kappa\left(-i\frac{L}{\sqrt{2}\hbar}\op{p} + \frac{1}{\sqrt{2}L}\op{x} - \frac{c^*}{\sqrt{2}}\right)\left(i\frac{L}{\sqrt{2}\hbar}\op{p} + \frac{1}{\sqrt{2}L}\op{x} - \frac{c}{\sqrt{2}}\right) \\[0.4cm]
+&= \kappa\left[\frac{L^2}{2\hbar^2}\op{p}\op{p} - \frac{i}{2\hbar}\op{p}\op{x} + \frac{iLc}{2\hbar}\op{p}  + \frac{i}{2\hbar}\op{x}\op{p}  + \frac{1}{2L^2}\op{x}\op{x} \right. \\ &\qquad\qquad \left.- \frac{c}{2L}\op{x} - \frac{iLc^*}{2\hbar}\op{p} - \frac{c^*}{2L}\op{x} + \frac{|c|^2}{2} \right] \\[0.4cm]
+&= \frac{\kappa}{2}\left[\frac{L^2}{\hbar^2}\op{p}^2  + \frac{1}{L^2}\op{x}^2 + \frac{i}{\hbar}\left(\op{x}\op{p} - \op{p}\op{x}\right) + \frac{iL(c-c^*)}{\hbar}\op{p} - \frac{(c+c^*)}{L}\op{x} + |c|^2 \right],
+\end{align*}
+we now substitute in the canonical commutation relation $\op{x}\op{p} - \op{p}\op{x} = [\op{x}, \op{p}] = i\hbar$. We also write $c+c^* = 2\Re(c)$ and $c-c^* = 2i\Im(c)$. Where $\Re(c)$ and $\Im(c)$ are respectively the real and imaginary parts of the complex number $c$. We then have
+\begin{equation}
+\op{H} = \frac{\kappa}{2}\left[\frac{L^2}{\hbar^2}\op{p}^2 + \frac{1}{L^2}\op{x^2} - \frac{2L\Im(c)}{\hbar}\op{p} - \frac{2\Re(c)}{L}\op{x} + |c|^2 -1 \right].
+\end{equation}
+
+\subsection*{Problem 1.3}
+We will find the lowest energy eigenstate in the position representation and normalize it.
+
+\subsubsection*{Finding the ground state wavefunction---$\psi_0(x)$}
+To find the lowest energy eigenstate, $\ket{\psi_0}$, we use the fact that it must terminate if we let the lowering operator $\op{a}$ work on it
+$$\op{a}\ket{\psi_0} = 0,$$
+we insert our expression for $\op{a}$ (eq.\ \ref{eq:expr})
+$$ \left( i\frac{L}{\sqrt{2}\hbar}\op{p} + \frac{1}{\sqrt{2}L}\op{x} - \frac{c}{\sqrt{2}} \right) \ket{\psi_0} = 0. $$
+We want to find this state in the position representation, so we use
+$$\op{x} = x, \qquad \op{p} = -i\hbar\frac{d}{dx},$$
+and we write $\ket{\psi_0} \simeq \psi_0(x)$, this gives us the differential equation
+$$\frac{L}{\sqrt{2}}\frac{d\psi_0(x)}{dx} + \frac{1}{\sqrt{2}L}x\psi_0(x) - \frac{c}{\sqrt{2}}\psi_0(x) = 0, $$
+we multiply the equation with $\sqrt{2}/L$, and then separate the differential equation
+$$\frac{d\psi_0(x)}{\psi_0(x)} = \left(-\frac{1}{L^2}x+ \frac{c}{L} \right) dx.$$
+Integrating on both sides of the equation gives
+$$\ln \psi_0(x) = -\frac{1}{2L^2}x^2 + \frac{c}{L}x + {\rm const.} $$
+Exponentiating both sides of the equation, and calling the integration constant $D$ gives us
+$$\psi_0(x) = D{\rm\ exp}\left[-\left(\frac{1}{2L^2}x^2 - \frac{c}{L}x\right) \right]$$
+
+\subsubsection*{Normalizing the ground state wavefunction}
+We will normalize the ground state wavefunction. $\psi_0(x)$ is normalized if
+$$\braket{\psi_0}{\psi_0} = \int_{-\infty}^{\infty} \psi_0^*(x)\psi_0(x) {\rm\ dx} = 1.$$
+The challenge is to choose the integration constant $D$ in such a way that this is the case. We start by performing the inner product.
+Remembering that $c\in\mathbb{C}$ and $L\in\mathbb{R}$ we get:
+\begin{align*}
+\braket{\psi_0}{\psi_0} &= \int_{-\infty}^{\infty} \psi_0^*(x)\psi_0(x) {\rm\ dx} \\
+&= \int_{-\infty}^{\infty} D^*{\rm\ exp}\left[-\left(\frac{1}{2L^2}x^2 - \frac{c^*}{L}x\right) \right]D{\rm\ exp}\left[-\left(\frac{1}{2L^2}x^2 - \frac{c}{L}x\right) \right] {\rm\ dx} \\
+&= |D|^2 \int_{-\infty}^{\infty} {\rm\ exp}\left[-\left(\frac{1}{L^2}x^2 - \frac{2\Re(c)}{L}x\right) \right] {\rm\ dx}.
+\end{align*}
+This is a Gaussian integral with a known answer\footnote{See \emph{Rottmann} p.\ ??.}
+\begin{equation}
+\int_{-\infty}^\infty e^{-(ax^2+2bx+c)} {\rm\ dx} = \sqrt{\frac{\pi}{a}}{\rm\ exp}\left[\frac{b^2-ac}{a}\right], \qquad {a > 0}. \label{eq:e}
+\end{equation}
+Where in our case $a = 1/L^2$, $b=-\Re(c)/L$ and $c=0$. The constant $L$ is positive, so $a>0$ and we get
+$$\braket{\psi_0}{\psi_0} = |D|^2 \sqrt{\pi L^2}{\rm\ exp}\left[\Re(c)^2\right].$$
+For $\psi_0$ to be normalized, this inner product must be 1, so we get
+$$|D|^2 \sqrt{\pi L^2}{\rm\ exp}\left[\Re(c)^2\right] = 1 \qquad \Rightarrow \qquad |D| = \left(\frac{{\rm exp}\left[-\Re(c^2)\right]}{\sqrt{\pi L}}\right)^{1/2},$$
+we choose $D$ to be both real and positive and get the normalized ground state waveform
+$$\psi_0(x) =  \left(\frac{{\rm exp}\left[-\Re(c^2)\right]}{\sqrt{\pi L}}\right)^{1/2}{\rm exp} \left[-\left(\frac{1}{2L^2}x^2 - \frac{c}{L}\right)\right].$$
+
+\subsection*{Problem 1.4}
+We will calculate the expectation values of the position and momentum for the lowest energy state of $\op H$.
+
+\subsubsection*{Calculating the expectation value of the position}
+The expectation value is given by
+$$\langle x \rangle = \braopket{\psi_0}{x}{\psi_0} = \int_{-\infty}^\infty \psi_0^*(x)x \psi_0(x)  {\rm\ d}x.$$
+We use the expression for the normalized ground state waveform $\psi_0(x)$:
+\begin{align*}
+\langle x \rangle  &=  \frac{{\rm exp}\left[-\Re(c^2)\right]}{\sqrt{\pi L}}\int_{-\infty}^\infty x{\rm\ exp}\left[-\left(\frac{1}{L^2}x^2 - \frac{2\Re(c)}{L}x \right) \right] {\rm\ d}x,
+\end{align*}
+An integral on this form has a known solution\footnote{See \emph{Rottmann} p.\ ??.}
+\begin{equation}
+\int_{-\infty}^\infty xe^{-(ax^2+2bx+c)} {\rm\ d}x = ,\qquad a>0. \label{eq:xe}
+\end{equation}
+
+\subsubsection*{Calculating the expectation value of the momentum}
+The expectation value is given by
+$$\langle p \rangle = \braopket{\psi_0}{p}{\psi_0} = \int_{-\infty}^\infty \psi_0^*(x) (-i\hbar\frac{d}{dx}) \psi_0(x)  {\rm\ d}x.$$
+We use the expression for the normalized ground state waveform $\psi_0(x)$:
+\begin{align*}
+\langle p \rangle  &= -i\hbar\left(\frac{{\rm exp}\left[-\Re(c^2)\right]}{\sqrt{\pi L}}\right)^{1/2} \int_{-\infty}^\infty\psi_0^*(x) \frac{d}{dx}{\rm\ exp}\left[-\left(\frac{1}{2L^2}x^2 - \frac{c}{L}x \right) \right] {\rm\ d}x \\
+&= -i\hbar\left(\frac{{\rm exp}\left[-\Re(c^2)\right]}{\sqrt{\pi L}}\right)^{1/2}\int_{-\infty}^\infty\psi_0^*(x) \left(-\frac{1}{L}x + \frac{c}{L}\right){\rm exp}\left[-\left(\frac{1}{2L^2}x^2 - \frac{c}{L}x \right) \right] {\rm\ d}x \\
+&= i\hbar \frac{{\rm exp}\left[-\Re(c^2)\right]}{\sqrt{\pi L}L} \int_{-\infty}^\infty \left(x - c \right){\rm exp}\left[-\left(\frac{1}{L^2}x^2 - 2\frac{\Re(c)}{L}x \right)\right] {\rm\ d}x,
+\end{align*}
+we split the integral up into parts
+\begin{align*}
+\langle p \rangle  &= i\hbar\frac{{\rm exp}\left[-\Re(c^2)\right]}{\sqrt{\pi L}L}\left(
+x\int_{-\infty}^\infty {\rm exp}\left[-\left(\frac{1}{L^2}x^2 - 2\frac{\Re(c)}{L}x \right)\right] {\rm\ d}x \right. \\ 
+&\qquad\qquad  \left. - c\int_{-\infty}^\infty {\rm\ exp}\left[-\left(\frac{1}{L^2}x^2 - 2\frac{\Re(c)}{L}x\right)\right] {\rm\ d}x\right).
+\end{align*}
+These two integrals are Gaussian integrals, and we can use the known answers (eq.\ \ref{eq:e} and eq. \ref{eq:xe}),
+
+
+
+\clearpage
+\section*{Problem 2}
+We will denote the components of the spin-1/2 operators as $\op{S}_i$, where \mbox{$i = \{x, y, z\}$}. These components can be represented as
+$$\op{S}_i \simeq \frac{\hbar}{2}\sigma_i,$$
+where $\sigma_i$ are the Pauli matrices:
+$$\sigma_x = \begin{pmatrix}
+0 & 1 \\ 1 & 0 
+\end{pmatrix}, \qquad \sigma_y = \begin{pmatrix}
+0 & -i \\ i & 0 
+\end{pmatrix}, \qquad
+\sigma_z = \begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix}.$$
+In this representation, the eigenkets of $\op{S}_z$ are $\up\simeq\begin{pmatrix}
+1 \\ 0
+\end{pmatrix}$ and $\down\simeq\begin{pmatrix}
+0 \\ 1
+\end{pmatrix}$
+$$\op{S}_z\up = \frac{\hbar}{2}\up, \qquad \op{S}_z\down = -\frac{\hbar}{2}\down.$$
+
+\subsection*{Problem 2.1}
+We will expand the exponentials
+$$e^{-i\phi\sigma_z/2} \qquad {\rm and} \qquad e^{-i\theta\sigma_y/2},$$
+we do this using the Taylor expansion
+\begin{align*}
+e^{-x} &= 1 - x + \frac{x^2}{2!} - \frac{x^3}{3!} + \frac{x^4}{4!} - \frac{x^5}{5!} + \ldots \\
+&= \sum_{n=0}^\infty (-1)^n \frac{x^n}{n!},
+\end{align*}
+note that this is \emph{not} an approximation, as we keep all the terms in the expansion.
+
+\subsubsection*{Expanding the exponential $e^{-i\phi\sigma_z/2}$}
+Expanding the exponential, we get
+\begin{align*}
+e^{-i\phi\sigma_z/2} &= \sum_{n=0}^\infty \frac{(-1)^n i^n}{n!}\left(\frac{\phi}{2}\right)^n\sigma_z^n,
+\end{align*}
+we see that every even numbered term is purely real, and every odd numbered term is purely imaginary
+$$(-1)^{2n}i^{2n} = (-1)^n, \qquad (-1)^{2n+1}i^{2n+1} = -i(-1)^n, \quad {\rm for\ } n=0,1,2,\ldots.$$
+We group these terms separately and get two sums
+$$e^{-i\phi\sigma_z/2} = \sum_{n=0}^\infty \frac{(-1)^{n}}{(2n)!}\left(\frac{\phi}{2}\right)^{2n}\sigma_z^{2n} - i\sum_{n=0}^\infty \frac{(-1)^{n}}{(2n+1)!}\left(\frac{\phi}{2}\right)^{2n+1}\sigma_z^{2n+1}$$
+we need to find an expression for
+$$\sigma_z^n \quad {\rm for\ } n=1,2,\ldots,$$
+matrix multiplication gives
+$$\sigma_z = \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}, \qquad \sigma_z^2 = \sigma_z\sigma_z = \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}\begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix} = \begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix} = I_2, $$
+where $I_2$ is the $2\times2$ identity matrix. So we find
+$$\sigma_z^{2n} = (\sigma_z^2)^n = \left(I_2\right)^n = I_2, \qquad \sigma_z^{2n+1} = (\sigma_z^2)^n \sigma_z = I_2 \sigma_n = \sigma_n.$$
+
+Returning to our expanded exponential we find
+$$e^{-i\phi\sigma_z/2} = \sum_{n=0}^\infty \frac{(-1)^{n}}{(2n)!}\left(\frac{\phi}{2}\right)^{2n}I_2 - i\sum_{n=0}^\infty \frac{(-1)^{n}}{(2n+1)!}\left(\frac{\phi}{2}\right)^{2n+1}\sigma_z,$$
+as the matrices $I_2$ and $\sigma_z$ are independent of $n$, we can move them outside the sums, which are now simply the Taylor expansions of $\cos$ and $\sin$:
+$$e^{-i\phi\sigma_z/2} = \underbrace{\left[\sum_{n=0}^\infty \frac{(-1)^{n}}{(2n)!}\left(\frac{\phi}{2}\right)^{2n}\right]}_{\cos\left(\frac{\phi}{2}\right)}I_2 - i\underbrace{\left[\sum_{n=0}^\infty \frac{(-1)^{n}}{(2n+1)!}\left(\frac{\phi}{2}\right)^{2n+1}\right]}_{\sin\left(\frac{\phi}{2}\right)}\sigma_z,$$
+so we get
+$$e^{-i\phi\sigma_z/2} = \cos\left(\frac{\phi}{2}\right)I_2 - i\cos\left(\frac{\phi}{2}\right)\sigma_z.$$ \\
+
+\subsubsection*{Expanding the exponential $e^{-i\theta\sigma_y/2}$}
+The expansion of $e^{-i\theta\sigma_y/2}$ is very similar, we expand and get
+$$e^{-i\theta\sigma_y/2} = \sum_{n=0}^\infty \frac{(-1)^{n}}{(2n)!}\left(\frac{\theta}{2}\right)^{2n}\sigma_y^{2n} - i\sum_{n=0}^\infty \frac{(-1)^{n}}{(2n+1)!}\left(\frac{\theta}{2}\right)^{2n+1}\sigma_y^{2n+1},$$
+and again we need to find $\sigma_y^n$ for $n=1,2,\ldots$
+$$\sigma_y = \begin{pmatrix}
+0 & -i \\ i & 0 \end{pmatrix}, \qquad \sigma_y^2 = \begin{pmatrix}
+0 & -i \\ i & 0 \end{pmatrix}\begin{pmatrix}
+0 & -i \\ i & 0 \end{pmatrix} = \begin{pmatrix}
+1 &0 \\ 0 & 1
+\end{pmatrix} = I_2.
+$$
+So we get
+$$\sigma_y^2n = \left(\sigma_y^2\right)^n = I_2^n = I_2, \qquad \sigma_y^{2n+1} = \left(\sigma_y^{2}\right)^n\sigma_y = I_2 \sigma_y = \sigma_y.$$
+Putting these results into the expanded exponential gives
+$$e^{-i\theta\sigma_y/2} = \underbrace{\left[\sum_{n=0}^\infty \frac{(-1)^{n}}{(2n)!}\left(\frac{\theta}{2}\right)^{2n}\right]}_{\cos\left(\frac{\theta}{2}\right)}I_2 - i\underbrace{\left[\sum_{n=0}^\infty \frac{(-1)^{n}}{(2n+1)!}\left(\frac{\theta}{2}\right)^{2n+1}\right]}_{\sin\left(\frac{\theta}{2}\right)}\sigma_y,$$
+$$e^{-i\theta\sigma_y/2} = \cos\left(\frac{\theta}{2}\right)I_2 - i\cos\left(\frac{\theta}{2}\right)\sigma_y.$$
+
+\subsection*{Problem 2.2}
+We will show that the state 
+$$\ket{\theta, \phi, +} = e^{-i\op{S}_z\phi/\hbar}e^{-i\op{S}_y\theta/\hbar}\up,$$
+is an eigenstate of the operator $\vec{n}\cdot\op{\vec{S}}$, where
+$$\vec n = (\sin \theta \cos \phi, \sin \theta \sin \phi, \cos \theta) \qquad {\rm and} \qquad \op{\vec{S}} = (\op{S}_x, \op{S}_y, \op{S}_z),$$
+with eigenvalue $+\hbar/2$. We will also find the eigenstate of $\vec{n}\cdot\op{\vec{S}}$ with eigenvalue $-\hbar/2$.
+
+\subsubsection*{Showing that $\ket{\theta, \phi, +}$ is an eigenstate}
+We write the state in matrix representation, using
+$$\op{S}_i \simeq \frac{\hbar}{2}\sigma_i,$$
+we get 
+$$\ket{\theta, \phi, +} \simeq e^{-i\phi\sigma_z/2}e^{-i\theta\sigma_y/2}\begin{pmatrix} 1 \\ 0 \end{pmatrix}. $$
+We now use the result of problem 2.1 to replace the exponentitals
+$$\ket{\theta, \phi, +} \simeq \left(\cos\left(\frac{\phi}{2}\right)I_2 - i\cos\left(\frac{\phi}{2}\right)\sigma_z\right)\left(\cos\left(\frac{\theta}{2}\right)I_2 - i\cos\left(\frac{\theta}{2}\right)\sigma_y\right)
+\begin{pmatrix} 1 \\ 0 \end{pmatrix}.$$
+Inserting the matrices $I_2$, $\sigma_z$ and $\sigma_y$ gives
+\begin{align*}
+\ket{\theta, \phi, +} \simeq 
+\begin{pmatrix}
+\cos\frac{\phi}{2}-i\cos\frac{\phi}{2} & 0 \\
+0 & \cos\frac{\phi}{2}+i\cos\frac{\phi}{2}
+\end{pmatrix}
+\begin{pmatrix}
+\cos\frac{\theta}{2} & -\sin\frac{\theta}{2} \\[0.4cm]
+\sin\frac{\theta}{2} & \cos\frac{\theta}{2}
+\end{pmatrix} 
+\begin{pmatrix} 1 \\ 0 \end{pmatrix}.
+\end{align*}
+We rewrite
+$$\cos\frac{\phi}{2}\pm i\cos\frac{\phi}{2} = e^{\pm i\phi/2},$$
+from normal matrix multiplication we then get
+$$\ket{\theta, \phi, +} \simeq \begin{pmatrix}
+\cos\frac{\theta}{2}e^{-i\phi/2} \\[0.4cm]
+ \sin{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix}.$$
+
+If we let the operator $\vec{n}\cdot\op{\vec{s}}$ work on the state $\ket{\theta, \phi, +}$ we get
+\begin{align*}
+ \vec{n}\cdot\op{\vec{s}}\ \ket{\theta, \phi, +} &= \sin\theta\cos\phi \op{S}_x\ \ket{\theta, \phi, +} \\ &\qquad +  \sin\theta\sin\phi\op{S}_y\ \ket{\theta, \phi, +} \\ &\qquad\qquad + \cos\theta \op{S}_z\ \ket{\theta, \phi, +}.
+\end{align*}
+Using the matrix representation of $\op{S}_i$ and $\ket{\theta, \phi, +}$, we get
+\begin{align*}
+ \vec{n}\cdot\op{\vec{s}}\ \ket{\theta, \phi, +} &= \frac{\hbar}{2}\Bigg[
+\begin{pmatrix}
+0 & \sin\theta\cos\phi \\ \sin\theta\cos\phi & 0  
+\end{pmatrix} \begin{pmatrix}
+\cos\frac{\theta}{2}e^{-i\phi/2} \\[0.4cm]
+ \sin{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix} \\
+% 
+&\qquad + \begin{pmatrix}
+0 & -i\sin\theta\sin\phi \\ i\sin\theta\sin\phi & 0  
+\end{pmatrix} \begin{pmatrix}
+\cos\frac{\theta}{2}e^{-i\phi/2} \\[0.4cm]
+ \sin{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix} \\
+% 
+&\qquad\qquad + \begin{pmatrix}
+\cos\theta & 0 \\ 0 & -\cos\theta  
+\end{pmatrix} \begin{pmatrix}
+\cos\frac{\theta}{2}e^{-i\phi/2} \\[0.4cm]
+ \sin{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix} \Bigg],
+\end{align*}
+normal matrix multiplication gives
+\begin{align*}
+\vec{n}\cdot\op{\vec{s}}\ \ket{\theta, \phi, +} &= \frac{\hbar}{2} 
+\begin{pmatrix} 
+\sin\theta\cos\phi\sin{\frac{\theta}{2}}e^{i\phi/2} -i\sin\theta\sin\phi \sin{\frac{\theta}{2}}e^{i\phi/2} + \cos\theta\cos\frac{\theta}{2}e^{-i\phi/2} \\[0.1cm]
+\sin\theta\cos\phi\cos\frac{\theta}{2}e^{-i\phi/2} + i\sin\theta\sin\phi\cos\frac{\theta}{2}e^{-i\phi/2} -\cos\theta\sin{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix} \\[0.5cm]
+&= 
+\frac{\hbar}{2} 
+\begin{pmatrix}
+\left(\cos\phi - i\sin\phi\right)\sin\theta\sin{\frac{\theta}{2}}e^{i\phi/2} + \cos\theta\cos\frac{\theta}{2}e^{-i\phi/2}  \\[0.1cm]
+\left(\cos\phi + i\sin\phi\right)\sin\theta\cos\frac{\theta}{2}e^{-i\phi/2} - \cos\theta\sin{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix} \\[0.5cm]
+&= \frac{\hbar}{2} 
+\begin{pmatrix}
+e^{-i\phi}\sin\theta\sin{\frac{\theta}{2}}e^{i\phi/2} + \cos\theta\cos\frac{\theta}{2}e^{-i\phi/2}  \\[0.1cm]
+e^{i\phi}\sin\theta\cos\frac{\theta}{2}e^{-i\phi/2} - \cos\theta\sin{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix}\\[0.5cm]
+&= \frac{\hbar}{2}
+\begin{pmatrix}
+\left[\sin\theta\sin{\frac{\theta}{2}} + \cos\theta\cos\frac{\theta}{2}\right]e^{-i\phi/2}  \\[0.1cm]
+\left[\sin\theta\cos\frac{\theta}{2} - \cos\theta\sin{\frac{\theta}{2}}\right]e^{i\phi/2}
+\end{pmatrix}.
+\end{align*}
+Now we need some trigonometry identites
+\begin{equation}
+\sin \theta = 2\sin\frac{\theta}{2}\cos\frac{\theta}{2}, \qquad \cos \theta = \cos^2\frac{\theta}{2} - \sin^2\frac{\theta}{2}. \label{eq:trig}
+\end{equation}
+Using these we get
+\begin{align*}
+\vec{n}\cdot\op{\vec{s}}\ \ket{\theta, \phi, +} &=\frac{\hbar}{2}
+\begin{pmatrix}
+\left[2\sin^2{\frac{\theta}{2}} + \cos^2\frac{\theta}{2} - \sin^2{\frac{\theta}{2}}\right]\cos\frac{\theta}{2} e^{-i\phi/2}  \\[0.1cm]
+\left[2\cos^2\frac{\theta}{2} - \cos^2\frac{\theta}{2} + \sin^2{\frac{\theta}{2}}\right]\sin{\frac{\theta}{2}} e^{i\phi/2}  \\
+\end{pmatrix}. \\[0.5cm] &=\frac{\hbar}{2}
+\begin{pmatrix}
+\cos\frac{\theta}{2}e^{-i\phi/2}  \\[0.1cm]
+\sin\frac{\theta}{2}e^{i\phi/2}  \\
+\end{pmatrix}.
+\end{align*}
+
+So we have shown that
+$$\vec{n}\cdot\op{\vec{S}} \ \ket{\theta, \phi, +} = \frac{\hbar}{2} \ \ket{\theta, \phi, +}, $$
+this means that $\ket{\theta, \phi, +}$ is an eigenstate for the operator with eigenvalue $\hbar/2$.
+
+\clearpage
+\subsubsection*{Finding the eigenstate of $\vec{n}\cdot\op{\vec{S}}$ with eigenvalue $-\hbar/2$}
+We know that 
+$$\ket{\theta, \phi, +} = e^{-i\op{S}_z\phi/\hbar}e^{-i\op{S}_y\theta/\hbar}\up,$$
+is an eigenstate with eigenvalue $+\hbar/2$. We want to test if
+$$\ket{\theta, \phi, -} = e^{-i\op{S}_z\phi/\hbar}e^{-i\op{S}_y\theta/\hbar}\down,$$
+is an eigenstate with eigenvalue $-\hbar/2$. We do this in the same manner as we did for $\ket{\theta, \phi, +}$.
+
+Using the matrix representation we get
+$$\ket{\theta, \phi, -} \simeq e^{-i\phi\sigma_z/2}e^{-i\theta\sigma_y/2}\begin{pmatrix} 0 \\ 1 \end{pmatrix}. $$
+Expanding the exponentials and inserting the matrices yields
+\begin{align*}
+\ket{\theta, \phi, -} \simeq 
+\begin{pmatrix}
+e^{-i\phi/2} & 0 \\
+0 & e^{i\phi/2}
+\end{pmatrix}
+\begin{pmatrix}
+\cos\frac{\theta}{2} & -\sin\frac{\theta}{2} \\[0.4cm]
+\sin\frac{\theta}{2} & \cos\frac{\theta}{2}
+\end{pmatrix} 
+\begin{pmatrix} 0 \\ 1 \end{pmatrix}.
+\end{align*}
+So we get
+$$\ket{\theta, \phi, -} \simeq \begin{pmatrix}
+-\sin\frac{\theta}{2}e^{-i\phi/2} \\[0.4cm]
+ \cos{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix}.$$
+
+We now let the operator $\vec{n}\cdot\op{\vec{S}}$ work on the state
+\begin{align*}
+\vec{n}\cdot\op{\vec{s}}\ \ket{\theta, \phi, -} &= \frac{\hbar}{2} 
+\begin{pmatrix} 
+\sin\theta\cos\phi\cos{\frac{\theta}{2}}e^{i\phi/2} - i\sin\theta\sin\phi \sin{\frac{\theta}{2}}e^{-i\phi/2} - \cos\theta\sin\frac{\theta}{2}e^{-i\phi/2} \\[0.1cm]
+-\sin\theta\cos\phi\sin\frac{\theta}{2}e^{-i\phi/2} - i\sin\theta\sin\phi\sin\frac{\theta}{2}e^{-i\phi/2} -\cos\theta\cos{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix} \\[0.5cm]
+&= 
+\frac{\hbar}{2} 
+\begin{pmatrix}
+\left(\cos\phi - i\sin\phi\right)\sin\theta\cos{\frac{\theta}{2}}e^{i\phi/2} - \cos\theta\sin\frac{\theta}{2}e^{-i\phi/2}  \\[0.1cm]
+-\left(\cos\phi + i\sin\phi\right)\sin\theta\sin\frac{\theta}{2}e^{-i\phi/2} - \cos\theta\cos{\frac{\theta}{2}}e^{i\phi/2}
+\end{pmatrix} \\[0.5cm]
+&= \frac{\hbar}{2}
+\begin{pmatrix}
+\left[\sin\theta\cos\frac{\theta}{2} - \cos\theta\sin\frac{\theta}{2}\right]e^{-i\phi/2}  \\[0.1cm]
+-\left[\sin\theta\sin\frac{\theta}{2} + \cos\theta\cos{\frac{\theta}{2}}\right]e^{i\phi/2}
+\end{pmatrix}.
+\end{align*}
+Using trigonometric identites for $\sin\theta$ and $\cos\theta$ (eq. \ref{eq:trig}) we get
+\begin{align*}
+\vec{n}\cdot\op{\vec{s}}\ \ket{\theta, \phi, +} &= -\frac{\hbar}{2}
+\begin{pmatrix}
+-\left[2\cos^2\frac{\theta}{2} - \cos^2\frac{\theta}{2} + \sin^2{\frac{\theta}{2}}\right]\sin\frac{\theta}{2} e^{-i\phi/2}  \\[0.1cm]
+\left[2\sin^2{\frac{\theta}{2}} + \cos^2\frac{\theta}{2}  - \sin^2{\frac{\theta}{2}}\right]\cos\frac{\theta}{2}e^{i\phi/2}  \\
+\end{pmatrix}. \\[0.5cm] &= -\frac{\hbar}{2}
+\begin{pmatrix}
+-\sin\frac{\theta}{2}e^{-i\phi/2}  \\[0.1cm]
+\cos\frac{\theta}{2}e^{i\phi/2}  \\
+\end{pmatrix}.
+\end{align*}
+So we see that $\ket{\theta,\phi,-}$ is indeed the eigenstate of $\op{n}\cdot\op{\vec{S}}$ with eigenvalue $-\hbar/2$. 
+
+\clearpage
+\subsection*{Problem 2.3}
+
+
+
+\end{document}
+

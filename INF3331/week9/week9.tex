@@ -1,0 +1,134 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel, textcomp}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color, xcolor}
+\usepackage{framed, parskip}
+\usepackage{flafter, caption, multicol}
+\usepackage{verbatim, listings, fancyvrb}
+
+%\DeclareCaptionLabelSeparator{colon}{. }
+\renewcommand{\captionfont}{\small\sffamily}
+\renewcommand{\captionlabelfont}{\bf\sffamily}
+\setlength{\captionmargin}{20pt}
+
+\setcounter{tocdepth}{2}
+
+\DeclareMathAlphabet{\mathbfit}{OML}{cmm}{b}{it}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=python,
+basicstyle=\ttfamily\scriptsize,
+keywordstyle=\color{javapurple},%\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+morekeywords={super, with},
+% numbers=left,
+% numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+captionpos=b,
+showstringspaces=false,
+frame= single,
+breaklines=true}
+% 
+% \makeatletter
+% \def\lst@lettertrue{\let\lst@ifletter\iffalse}
+% \makeatother
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=20mm, bottom=20mm, left=34mm, right=34mm}
+
+
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand{\bt}[1]{\mathbfit{#1}}
+\newcommand{\p}{\partial}
+\renewcommand{\d}{\text{d}}
+\newcommand{\D}{\text{D}}
+\newcommand{\N}{\text{N}}
+\newcommand{\R}{\text{R}}
+  \renewcommand{\c}{\cdot}
+
+\usepackage{calc}
+
+\title{INF3331 - Week 9}
+\author{Jonas van den Brink \texttt{j.v.d.brink@fys.uio.no}}
+
+\begin{document}
+\pagestyle{empty}
+\subsection*{Jonas van den Brink, jvbrink, \texttt{j.v.d.brink@fys.uio.no}}
+\subsection*{9.2---Literary Analysis}
+\lstinputlisting{gutenberg.py}
+
+
+\clearpage
+
+\subsection*{9.3---Math Quiz}
+
+\lstinputlisting{math_quiz.py}
+Example run is shown on the next page.
+
+\clearpage
+
+\begin{lstlisting}
+'''
+user$ python math_quiz.py 
+How many questions do you want? 3
+What difficulty level do you want?
+    1. Beginner
+    2. Intermediate
+    3. Advanced
+Pick a number: 2
+What type of questions do you want?
+    1. Addition
+    2. Subtraction
+    3. Multiplication
+    4. Mixed
+Pick a number: 4
+
+What's 25 + 9?
+Answer: 34
+That's right -- well done.
+
+What's 13 * 23?
+Answer: 282
+No, I'm afraid the answer is 299.
+
+
+What's 3 - 10?
+Answer: 7
+No, I'm afraid the answer is -7.
+
+
+**************************
+I asked you 3 questions. You got 1 of them right.
+Please ask your math teacher for help!
+
+Would you like to play again? (y/n)
+Answer: n
+'''
+\end{lstlisting}
+
+
+
+\end{document}

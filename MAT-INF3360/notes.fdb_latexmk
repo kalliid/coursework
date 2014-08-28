@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1390827467 "notes.tex" "notes.pdf" "notes" 
+["pdflatex"] 1402317117 "notes.tex" "notes.pdf" "notes" 
   "/etc/texmf/tex/latex/config/color.cfg" 1254097189 802 7b8c8d72c24d795ed7720e4dfd29bff3 ""
   "/etc/texmf/tex/latex/config/graphics.cfg" 1255993321 3328 2584cfe577535f0a08f3a9717b5152ab ""
   "/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii" 1251025892 71625 fad1c4b52151c234b6873a255b0ad6b3 ""
@@ -48,8 +48,8 @@
   "/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def" 1322143080 40817 59149cdca908875781bb2f74014004ed ""
   "/usr/share/texmf-texlive/tex/latex/tools/multicol.sty" 1254151720 25118 b90b2b96011c3190a3a2cd6d74040b9e ""
   "/usr/share/texmf/tex/latex/xcolor/xcolor.sty" 1193193460 55224 a43bab84e0ac5e6efcaf9a98bde73a94 ""
-  "notes.aux" 1390827467 805 0063589d561ce82a423411ba05fa39c6 ""
-  "notes.tex" 1390827466 5420 ce74d7b1754e3efcd830e08dd2580804 ""
+  "notes.aux" 1402317117 1223 b118819177a307857d5bd8fde53afbf9 ""
+  "notes.tex" 1402317117 6253 6361938801e12aeea033280b60d74cc9 ""
   (generated)
   "notes.aux"
   "notes.pdf"

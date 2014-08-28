@@ -1,0 +1,3 @@
+Loaded ODE model 'hodgkin_huxley_squid_axon_1952' with:
+     Num full states: 4
+      Num parameters: 5

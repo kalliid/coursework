@@ -1,0 +1,729 @@
+\documentclass[a4paper,norsk,10pt,twoside,twocolumn]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[norsk]{babel}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsfonts, amssymb, amsmath}
+% \usepackage{subfigure}
+\usepackage{verbatim}
+\usepackage{parskip}
+\usepackage{color}
+
+% \usepackage[squaren]{SIunits}
+\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+%\usepackage[top=0.5cm, bottom=0.5cm, left=0.5cm, right=0.5cm]{geometry}
+
+% \usepackage{titlesec}
+% \titleformat{\section}{\large\bfseries\color{black}}{\thesection }{0em}{ }
+% \titleformat{\subsection}{\bfseries}{\thesubsection}{1em}{ }
+% \titsleformat{\subsubsection}{\bfseries}{\thesubsubsection}{1em}{}
+
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\newcommand{\E}{\vec{E}}
+\newcommand{\B}{\vec{B}}
+\newcommand{\F}{\vec{F}}
+\newcommand{\A}{\vec{A}}
+\newcommand{\D}{\vec{D}}
+
+\newcommand{\bt}[1]{\textbf{#1}}
+\newcommand{\wh}{\widehat}
+\newcommand{\eps}{\varepsilon}
+
+\renewcommand{\i}{\hat{i}}
+\renewcommand{\j}{\hat{j}}
+\renewcommand{\k}{\hat{k}}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqn}{\begin{equation*}}
+\newcommand{\eeqn}{\end{equation*}}
+
+\begin{document}
+
+\section{Elektriske ladninger og felt}
+Elektrisk ladning er kvantiseringen av elektronladningen
+\beq
+e = 1.602176 \times 10^{-19} C. 
+\eeq
+den algebraiske summen av alle elektriske ladninger i et isolert system er konstant.
+%
+
+\subsection{Coloumbkraften}
+Den elektrostatiske kraften mellom to ladninger $q_1$ og $q_2$, som har en inbyrdes avstand $r$ er gitt ved
+\beq
+\F = \frac{1}{4\pi \eps_0} \frac{q_1 q_2}{r^2} \bf{u}_r .
+\eeq
+Coloumbkraften følger lineær superposisjonering.
+%
+
+\subsection{Elektrisk feltstyrke}
+Vi definerer elektrisk feltstyrke som
+$$ {\bf E} = \lim_{\Delta q\rightarrow 0} \frac{\Delta{\bf F}}{\Delta q} \qquad \bt{E} = \frac{\bt F}{q}$$
+Vi måler elektrisk feltstyrke i enten $N/C$ eller $V/m$.
+%
+
+\subsection*{Kjente elektriske felt}
+\begin{itemize}
+\item Aksen fra en ladet sirkel: $E_x = \frac{Q}{4\pi\eps_0}\frac{x}{(x^2 + y^2)^{3/2}} $
+\item Uendelig stav med ladningstetthet $\lambda$: $E_z = \frac{\lambda}{2\pi \eps_0} \frac{1}{z} $
+\item Aksen midt på endelig lang stav: $E_z = \frac{2\lambda z}{4\pi \eps_0}\frac{1}{z^2}\frac{L}{\sqrt{L^2 + z^2}} $
+\item Uendelig flate med ladningstetthet $\sigma$: $\frac{\sigma}{2\eps_0}$
+\item Innenfor en kule med ladningstetthet $\rho$: $\frac{\rho \bt r}{3\eps_0}$
+\end{itemize}
+
+
+\subsection{Elektrisk felt fra ladninger}
+Skal vi finne det elektriske feltet fra et ladet objekt ser vi først på et lite bidrag i er vilkårlig punkt:
+\begin{equation}
+d{\bf E} = \frac{1}{4 \pi \eps_0}\frac{\bt u_r}{r^2} dq \qquad \bt E = \int \frac{1}{4\pi \eps_0} \frac{\bt u_r}{r^2} dq
+\end{equation}
+$$
+	1D:\; dq = \lambda dl, \quad
+	2D: \;dq = \sigma dA, \quad
+	3D: \;dq = \rho dV
+$$
+%
+
+\subsection{Elektriske feltlinjer}
+Vi fremstiller det elektriske feltet ved hjelp av elektriske feltlinjer, de har følgende egenskaper
+\begin{itemize}
+\item Kontinuerlige i rommet utenfor punktladningene.
+\item Tangenten til ethvert punkt på feltlinjen vil ha lik retning som feltet i dette punktet.
+\item Styrken av feltet er proporsjonal med tettheten av feltlinjene rundt dette punktet.
+\end{itemize}
+%
+
+\subsection{Gauss' lov}
+Sier at den totale elektriske fluksen gjennom en lukket flate er gitt ved den totale summen av ladninger som flaten omslutter.
+$$ \oint_A \bt E  \cdot d\bt A = \frac{Q_{enclosed}}{\eps_0} \qquad \oint_A \bt D \cdot d\bt A = Q_f $$
+På differensialform kan Gauss' lov skrives som
+$$ \nabla \cdot \bf E = \frac{\rho}{\eps_0} \qquad \nabla \cdot \bt D = \rho_f $$
+%
+
+\section{Elektrostatisk potensial}
+Det elektrostatiske feltet er et konservativt felt. Vi kan derfor utlede det elektriske feltet fra et potensial, slik at
+\beq
+\bt E = - \nabla V \qquad \text{eller} \qquad \bt E \cdot d\bt r = - dV
+\eeq
+Generelt kan vi uttrykke potensialforskjellen mellom to punker
+\beq
+\Delta V = V(P_1) - V(P_2) = \int_{P_1}^{P_2} \bt E \cdot d\bt r
+\eeq
+Dersom vi har en kontinuerlig ladningsfordeling kan vi finne potensialet i et punkt $P$ ved integralet
+\beq
+V(P) = \frac{1}{4 \pi \eps_0} \int \frac{\rho dV}{r}
+\eeq
+Enhten for elektrisk potensial er volt (V = J/C)
+%
+
+
+\subsubsection*{Eksempel: Potensial fra flate}
+En tynn, ikke-ledende skive med radius $a$ ligger i xy-planet med senter i origo. Skiven har uniform ladningsfordeling $\sigma$. Vi finner potensialet på et punkt $P$ langs z-aksen ved å integrere opp bidragene fra ringer med radius $r$ og bredde $dr$. Alle punktene på en slik ring har samme avstand fra $P$, nemlig $d = \sqrt{r^2 + z^2}$. Ladningen på ringen er $dq = \sigma dA = \sigma(2\pi r dr)$.
+\beqn
+V(P) = \frac{1}{4 \pi \eps_0}\int_0^a \frac{dq}{d} = \frac{\sigma}{2 \eps_0} \int \frac{r}{\sqrt{r^2 + z^2}}dr = \frac{\sigma}{2\eps_0}\left(\sqrt{a^2 + z^2} - z \right)
+\eeqn
+når $z >> a$ blir $a/z << 1$, slik at vi kan forenkle
+\beqn
+(a^2 + z^2)^{1/2} = z\left( 1 + \left(\frac{a}{z}\right)^2\right)^{1/2} \approx z\left( 1 + \frac{1}{2}\left(\frac{a}{z}\right)^2\right)
+\eeqn
+hvor vi har brukt at $(1+\eps)^k \approx (1+k\eps)$, da får vi
+\beqn
+V(z >> a) = \frac{\sigma}{2\eps_0} \left[ z\left( 1 + \frac{1}{2}\left(\frac{a}{z}\right)^2\right) - z \right] = \frac{\sigma}{2\eps_0} \frac{a^2}{2z} = \frac{Q}{4 \pi \eps_0 }\frac{1}{z}
+\eeqn
+Fra $\bt E = -\nabla \cdot V$ finner vi nå at $\bt E = \frac{\sigma}{2 \eps_0}\hat k$ når $a >> z$.
+
+\subsection{Elektrostatisk potensiell energi}
+Siden kraften $\bt F$ på en punktladning q i et elektrisk felt $\bt E$ er gitt ved $\bt F = q \bt E$, vil den potensielle energien være gitt ved $dU = qdV$. Det elektriske potensialet er derfor det samme som potensiell energi per ladningsenhet. Forskjellen i potensiell energi mellom to punkter vil være
+\beq
+\Delta U = q\Delta V = q\int_{P_1}^{P_2} \bt E \cdot d \bt l = \int_{P1}^{P2} \bt F \cdot d\bt l
+\eeq
+%
+
+\subsection{Elektrisk energi}
+Elektrisk energi for en ladningsfordeling kan finnes på 3 måter. 
+\begin{itemize}
+\item Se på energien som må til for å lage det elektriske feltet, der $u_E = \frac{1}{2}\eps_0 E^2 \qquad dU_E = u_E dV$
+\item Se på den potensielle energien til hvert ladningselement i ladningsfordelingen, der $dU_E = \frac{1}{2}\rho(r) V(r) dV$
+\item Se på arbeidet vi må utføre for å bringe hvert ladningselement fra uendeligheten inn til ladningsfordelingen, der $W = \int_r^\infty \bt E(\bt r) \cdot d\bt r $
+\end{itemize}
+
+\subsubsection*{Elektrisk energi for kjente ladningsfordelinger}
+\begin{itemize}
+\item Uniformt ladet kule: $\frac{3}{5}\frac{Q^2}{4\pi \eps_0 R}$
+\item Ladet ledende kule
+\end{itemize}
+
+\subsection{Energitetthet i elektriske felt}
+$$u_e = \frac{energi}{volum} = \frac{1}{2}\eps_0 E^2 \qquad U = \int \frac{1}{2}\eps_0 E^2 dV$$
+Om det elektriske feltet er i et medie med $\kappa$, vil den elektriske energitettheten ha formen
+$$u_e = \frac{1}{2}\eps E^2$$
+%
+
+\section{Elektrostatiske egenskaper for ledere}
+\begin{itemize}
+\item $\bt E = 0$ overalt inne i lederen.
+\item $\rho = 0$ overalt inne i lederen.
+\item All netto ladning vil samle seg på overflaten av lederen.
+\item En leder er et ekvipotensial.
+\item $\bt E$ står vinkelrett på overflaten av lederen.
+\item Gauss' lov viser at $E = \sigma / \eps_0$ rett utenfor lederen.
+\end{itemize}
+%
+
+\section{Elektrisk dipol}
+En elektrisk dipol består av en positiv og en negativ punktladning, begge med ladningstørrelse $q$. Vi definerer det elektriske dipolmomentet ved
+$\bt p = q\bt d$ der $\bt d$ er vektoren fra den negative til den positive punktladningen. Setter vi dipolen i et elektrisk felt er kraften på den gitt ved 
+\beqn
+{\bt F} = q{\bt E} - q{\bt E'} = q({\bt E - \bt E'})
+\eeqn
+Dersom feltet er uniformt slik at $\bt E = \bt E'$ blir nettokraften $F = 0$, men vi får fortsatt et netto kraftmoment
+\beq
+\mathbf{\tau} = \bt p \times \bt E
+\eeq
+Kraftmomentet prøver å rotere dipolen parallelt med det elektriske feltet. Den potensielle energien til en dipol i et elektrisk felt $\bt E$ er gitt ved
+\beq
+U = -\bt p \cdot \bt E
+\eeq
+Da ser vi at den potensielle energien får et minimum når dipolen $p$ er rettet parallelt med feltet $E$, og et maksimum når dipolen er antiparallell, og vi har satt at $U = 0$ når $\bt p \perp \bt E$.
+
+\section{Kondensatorer}
+En kondensator er en enhet som lagrer elektrisk ladning. Basiskonfigurasjonen er to ledere med like stor, motsatte ladninger. Når den lades flyttes en ladning $Q$ fra den ene lederen til den andre, og lager en potensialdifferanse $\Delta V$. $Q$ er altså størrelsen av ladningen på hver av lederene, mens nettoladningen er 0. 
+%
+
+\subsection{Kapasitans}
+$C$ definert som kapasitans - et mål på kondensatorens evne til å lagre elektriske ladninger for et gitt potensial. Måles i farad ($F = C/V = C^2/Nm$). Kapasitansen er gitt ved
+\beq
+C = \frac{Q}{\Delta V}
+\eeq
+%
+
+\subsubsection*{Eksempel: Kapasitans til sylindrisk kondensator}
+En sylindrisk kondensator, f.eks en koaksialkabel, består av en sentral leder med radius $a$, omgitt av en ledende sylinderkappe med indre radius $b$. Vi finner først potensialforskjellen mellom de to lederene, vi gjør dette ved å bruke Gauss lov for å finne det elektriske feltet for en $a < r < b$
+\beqn
+\bt E = \frac{\lambda}{2\pi \eps_0 r}\bt u_r
+\eeqn
+\beqn
+\Delta V_l = V_a - V_b = \int_a^b \bt E \cdot d\bt r = \frac{\lambda}{2\pi\eps_0}ln\left(\frac{b}{a}\right)
+\eeqn
+Kapasitans per lengdeenhet blir dermed
+$$ C_l = \frac{\lambda}{\Delta V_l} = \frac{2\pi\eps_0 \lambda}{\lambda ln(b/a)} = \frac{2\pi\eps_0}{ln(b/a)} $$
+
+\subsection{Kjente kapasitanser}
+\begin{align*}
+\text{Paralellplatekondensator:} &\quad C = \eps_0 \frac{A}{d}  \\
+\text{Sylindrisk kondensator:} &\quad C = \frac{2\pi\eps_0 L}{ln(r_2/r_1)} \\ 
+\text{Kulekondensator:} &\quad C = 4\pi\eps_0\frac{r_1 r_2}{r_2-r_1} \\  
+\text{Isolert ladet kule:} &\quad C = 4\pi \eps_0 R \\
+\end{align*}
+%
+
+\subsection{Kobling av kondensatorer}
+Når vi parallellkobler flere kondensatorer vet vi at spenning over hver enkelt av dem må være den samme $\Delta V$
+$$\frac{q_i}{C_i} =  \Delta V \qquad Q = q_1 + \dots + q_n = \Delta V \left(C_1 + \dots + C_n\right)$$
+$$C_{parallell} = \frac{Q}{\Delta V} = \displaystyle\sum\limits_{i=1}^n C_i $$
+Når vi seriekobler flere kondensatorer vet vi at de indre lederene vil være isolert, dermed må ladningen som induseres over hver kondensator være lik.
+$$\Delta V_i = \frac{Q}{C_i} \qquad \Delta V = Q\left(\frac{1}{C_1} + \dots + \frac{1}{C_n} \right)$$
+$$\frac{1}{C_{serie}} = \frac{\Delta V}{Q} = \displaystyle\sum\limits_{i=1}^n \frac{1}{C_i} $$
+%
+
+\subsection{Potensiell energi i kondensator}
+En kondensator kan brukes til å lagre elektrisk energi. Mengden energi lagret er lik arbeidet gjort for å lade den opp. I ladeprosessen flyttes ladninger $dq$ fra den ene lederen over til den andre, totalsummen av ladningene er $Q$.
+$$ W = \int_0^Q |\Delta V| dq = \int_0^Q \frac{q}{C}dq = \frac{1}{2} \frac{Q^2}{C} $$
+$$ U = \frac{1}{2} \frac{Q^2}{C} = \frac{1}{2}Q\Delta V = \frac{1}{2}C(\Delta V)^2 $$
+%
+
+\section{Dielektrikum}
+Molekyler med permanente elektriske dipolmomenter kalles polare. Uten et ytre elektrisk felt vil dipolmomentene være tilfeldig orientert slik at mediet har null netto dipolmoment. Under et ytre felt vil noen av dipolene rette seg etter feltet, og mediet får et netto makroskopisk dipolmoment rettet langs feltet. I et polarisert matriale er de elektriske dipolene blitt orientert langs en felles retning. Et ikke-ledende materiale som kan bli polarisert er et \textbf{dielektrikum}. 
+
+Et polarisert dielektrikum vil ha et overskudd av positive og negative ladninger på hver ende av dielektrikumet. Disse induserte ladningene vil sette opp et elektrisk felt inne i mediet som er motsatt rettet av det påtrykte feltet. Det totale feltet $\bt E$ er derfor mindre enn feltet fra de frie ladningene alene.
+\beq
+E = \frac{1}{\kappa}E_f
+\eeq
+der $\kappa \geq 1$. Vi kan se på en leder som om det har $\kappa \rightarrow \infty$, fordi det induserte feltet være slik at det totale elektriske feltet inne i lederen er null.
+%
+
+\subsection{Dielektrikum i kondensator}
+Dersom vi fører et dielektrikum inn i en kondensator vil kapasitansen forandre seg
+$$\bt E = \frac{1}{\kappa} E_0 \Rightarrow \Delta V = \frac{1}{\kappa}\Delta V_0  \Rightarrow C = \kappa C_0$$
+%
+
+\section{Polarisasjon}
+I et polarisert medium vil polarisasjonsladningene være bundet til bestemte molekyler kalles derfor \textbf{bundne eller induserte ladninger}. I ledere så kan elektroner bevege seg fritt i mediet og kalles da \textbf{frie ladninger}. Det totale elektriske feltet i et dielektrikum er summen av feltene fra de frie og bundne ladningene:
+\beq
+\E = \E_f + \E_b
+\eeq
+Vi definerer \textbf{polarisasjonsvektoren} $\vec{P}$ som
+\beq
+\vec{P} = \frac{\text{indusert dipolmoment}}{\text{volum}} = \frac{\Delta \vec{p}}{\Delta V}
+\eeq
+Polarisasjonsvektoren angir tettheten til de bundne ladningene i et polarisert materiale og har benevningen C/m$^2$. Polarisasjonen av mediet fører til en indusert overflateladningstetthet
+\beq
+\sigma_b = \bt P \cdot \bt u_n 
+\eeq 
+der $u_n$ står normalt på overflaten og peker ut av det polariserte mediet. Om vi ser på arealelementer på infinitesimal størrelse kan vi skrive netto indusert ladning innenfor en vilkårlig, lukket flate $A$ av mediet
+\beq
+Q_b = -\oint_A \bt P \cdot d\bt A
+\eeq
+Når $\bt{P} = konstant$ er den induserte ladningen inne i flaten $Q_b = 0$. Vi kan også skrive
+\beq
+Q_b = \int_V \rho_b\; dV.
+\eeq 
+Her er $\rho_b$ volumtettheten av bundne ladninger innenfor $V$. Bruker vi divergensteoremet får vi at at
+\beqn
+Q_b = \int_V \rho_b\; dV = -\oint_A \vec{P}\cdot d\vec{A} = - \int_V(\nabla\cdot\vec{P})dV.
+\eeqn
+som gir oss at
+\beq
+\rho_b = -\nabla\cdot\vec{P}.
+\eeq
+%
+
+\subsection{Forskyvningsvektoren}
+Både frie og bundne ladninger bidrar til elektriske felt. Bestemmer vi et elektrisk felt med Gauss' lov må vi derfor ta med begge typer ladning:
+\beq
+\oint_A \E\cdot d\vec{A} = \frac{Q_f + Q_b}{\eps_0}
+\eeq
+Om vi da setter inn et uttrykk for $Q_b$ får vi 
+\beqn
+Q_f = \oint_A (\eps_0 \E + \vec{P} )\cdot d\vec{A}.
+\eeqn
+Vi definerer \textbf{forskyvningsvektoren} som
+\beq
+\vec{D} \equiv \eps_0 \E + \vec{P}.
+\eeq
+Gaussintegralet for frie ladninger blir da
+\beq
+\oint_A \vec{D}\cdot d\vec{A} = Q_f.
+\eeq	
+Forskyvningsvektoren er en nyttig hjelpestørrelse som bare ser de frie ladningene. Bruker vi divergensteoremet kan vi skrive
+\beq
+\nabla \cdot \vec{D} = \rho_f.
+\eeq
+I et lineært, homogent og isotropt medium er $\vec{P} \propto \E$:
+\beq 
+\vec{P} = \chi_e\eps_0\E.= \frac{\chi_e\eps_0}{\kappa}\E_0
+\eeq
+Størrelsen $\chi_e$ kalles \textbf{den elektriske susceptibiliteten} til mediet, det er et tall uten benevning siden både $\bt P$ og $\eps_0 \bt E$ har enheten C/m$^2$. Det kan vises at $\chi_e$ generelt er
+\beq
+\chi_e = \kappa - 1
+\eeq
+Vi kan nå skrive forskyvningsvektoren som
+\beq
+\vec{D} = \eps \E = \eps_0 \bt E_0
+\eeq
+hvor $\eps = \kappa\eps_0$ kalles \textbf{permitiviteten} til materialet. Vi kan nå skrive om det Gaussiske integralet for den frie ladningen til
+\beqn
+Q_f = \oint_A \vec{D}\cdot d\vec{A} = \oint_A \varepsilon \E \cdot d\vec{A}.
+\eeqn
+Om mediet er homogent, så er $\varepsilon$ konstant og kan settes utenfor, slik at
+\beq
+\oint_A \E \cdot d\vec{A} = \frac{Q_f}{\varepsilon} .
+\eeq
+%
+
+\subsubsection*{Eksempel: Elektrisk felt i dielektrikum}
+Et dielektrisk medium med dielektrisitetskonstant $\kappa$ blir plasser i et elektrisk felt $\bt E$. Vi ønsker å finne det elektriske feltet $\bt E'$ inne i mediet, polarisasjonsvektoren $\bt P$ og forskyvningsvektoren $\bt D$.
+\beqn
+\bt E' = \frac{1}{\kappa}\bt E
+\eeqn
+\beqn
+\bt P = \chi_e\eps_0\E' = (\kappa - 1)\eps_0\frac{1}{\kappa}\bt E = \frac{\kappa - 1}{\kappa}\eps_0 \bt E
+\eeqn
+\beqn
+\bt D = \eps \bt E' = \kappa\eps_0 \frac{1}{\kappa}\bt E = \eps_0 \bt E
+\eeqn
+Vi ønsker nå å finne ladningstettheten for den induserte overflateladningen på de to endeflatene A og B for det dielektriske mediet. Vi ser at $\bt P$ peker samme vei som det elektriske feltet, og $\bt u_n$ peker ut av mediet.
+\beqn
+\sigma_A = \bt P \cdot \bt u_n = - P = -\frac{\kappa - 1}{\kappa}\eps_0 \bt E
+\eeqn
+\beqn
+\sigma_B = \bt P \cdot \bt u_n = P = \frac{\kappa - 1}{\kappa}\eps_0 \bt E
+\eeqn
+%
+
+
+\subsection*{Eksempel: Det elektriske feltet fra en kule}
+Vi har en ledende kule med radius $R$ og ladning $Q$. Vi ønsker å finne $\bt E$ og $V$ for både $r < R$ og $r > R$, samt $U$. \\ Vi bruker Gauss' lov
+$$ \bt E = 0 \; \text{for $r < R$} \qquad \bt E = \frac{Q}{4\pi \eps_0}\frac{1}{r^2} \bt u_r \; \text{for $r > R$} $$
+Potensialet $V$ finner vi ved å integrere opp
+$$ V(r) = \int_r^{\infty} \bt E \cdot d\bt r = \int_r^{\infty } E dr \qquad V_\infty = 0 $$
+slik at vi finner
+$$ V(r) = \frac{Q}{4\pi \eps_0 R} \; \text{for $r < R$} \qquad \; V(r) = \frac{Q}{4\pi \eps_0 r} \; \text{for $r > R$}$$
+Energien $U$ kan vi finne på 2 måter, begge må gi samme svar
+$$ U = \int_0^Q \frac{q}{4\pi \eps_0 R} = \frac{Q^2}{8\pi \eps_0 R} $$
+$$ U = \int_0^\infty \frac{1}{2}\eps_0 E^2 4\pi r^2 dr = \int_R^\infty \frac{Q^2}{4\pi \eps_0 r^2} dr = \frac{Q^2}{8\pi \eps_0 R}$$ \\
+
+Ser nå på en ikke-ledende kule med dielektrikumkonstant $\kappa$ med konstant fri ladningstetthet, en total fri ladning $Q$ og radius $R$. Vi ønsker å finne det elektriske feltet og potensialet for $r < R$ og $r > R$. Gauss' lov gir oss at det elektriske feltet utenfor kulen er som fra en punktladning og for å finne det elektriske feltet inne i kulen bruker vi forflyttningsvektoren $D$.
+\beqn
+\eps E 4\pi r^2 = Q_f = \frac{r^3}{R^3}Q \Rightarrow E = \frac{Qr}{4\pi \kappa \eps_0 R^3}
+\eeqn 
+Igjen finner vi potensialet ved å integrere opp, og finner at $V_r$ for $r > R$ er likt som for en punktladning. 
+\beqn
+V_r = \int_r^R \bt E \cdot d\bt r + \frac{Q}{4\pi \eps_0 R} = \frac{Q}{4\pi \eps_0 R} \left(1 + \frac{1}{2\kappa}\left(1-\frac{r^2}{R^2}\right) \right)
+\eeqn
+Vi finner nå den totale elektriske energien i det elektriske feltet ved å se på energitettheten
+\begin{align*}
+U &= \int_0^R \frac{1}{2}\eps E^2 4\pi r^2 dr + \int_R^{\infty} \frac{1}{2}\eps_0 E^2 4\pi r^2 dr \\
+U &= \frac{Q^2}{8\pi\eps_0 R}\left(1 + \frac{1}{5\kappa}\right) 
+\end{align*}
+%
+
+
+
+\section{Elektrisk Strøm}
+Elektrisk strøm er flyt av elektriske ladninger. Defineres ved
+\beq
+I_{avg} = \frac{\Delta Q}{\Delta t}, \quad I = \lim_{\Delta t \rightarrow 0} \frac{\Delta Q}{\Delta t} = \frac{dQ}{dt}
+\eeq
+Vi kan også se på den momentane elektriske flyten ved antall ladninger per volum, $n$ - med ladning, $q$, som beveger seg med \textbf{drifthastigheten}, $v_d$ - et mål på snitthastigheten til ladningsbærerene gjennom et areal $A$
+\beq
+I = \frac{d Q}{dt} = \sigma A v_d = nq A v_d.
+\eeq
+Vi ser at strømstyrken er proporsjonal med driftshastigheten.
+%
+
+\subsection{Strømtetthet}
+Elektrisk strømtetthet betegnes med ${\bf J}.$ Total strøm gjennom en flate er
+\beq
+I = \oint \vec{J}\cdot d\vec{A}
+\eeq
+For en leder med tverrsnitt $A$ og strømstyrke $I$, vil tallverdien av strømtettheten derfor være gitt ved
+\beq
+J = \frac{I}{A}
+\eeq
+Ser vi på gennomsnittet av strømen og finner strømtettheten: 
+$$ I_{avg} = \frac{\Delta Q}{\Delta t} = \sigma v_d A= nqv_dA \quad  \Rightarrow \vec{J} = nq\vec{v}_d. $$
+Strømtettheten $\bt J$ har samme retning som $\bt v$, eller motsatt retning, avhengig av om $q$ er positiv eller negativ. Strømtettheten måles i $A/m^2$.
+%
+
+\subsection{Ohms lov}
+I mange materialer er strømtettheten lineært avhengig av et eksternt strømfelt (et materiale kalles Ohmsk hvis dette er tilfellet):
+$$ \vec{J} = \sigma \vec{E}, \quad \sigma \rightarrow \text{ ledningsevne}.$$
+Denne relasjonen kalles Ohms lov for mikroskopiske tilstander. Fra strømtettheten har vi at $\sigma$ kan skrives som
+$$ \sigma =\frac{ne^2\tau}{m_e} $$
+Ohms lov for makroskopiske tilstander:\\
+Vi ser på en ledning(sylinder) med spenningsforskjell $\Delta V = V_2-V_1$
+% \begin{center}
+% \includegraphics[scale=0.45]{Ohmslov_ledning.png}
+% \end{center}
+Fra definisjonen av spenning er
+$$ \Delta V = V_2 - V_1 = - \int \vec{E}\cdot d\vec{s} = El \quad \Rightarrow E = \frac{\Delta V}{l}. $$
+Strømtettheten kan nå skrives som 
+$$ J = \sigma E = \frac{\sigma \Delta V}{l}. $$
+Bruker vi at $J = I/A$ og løser for spenningen får vi at
+$$ \Delta V = \frac{l}{\sigma A} I = RI, \quad \text{hvor } R \equiv \frac{l}{\sigma A} = \rho \frac{l}{A}.$$
+Det er vanlig å definere et materialets \textbf{resistivitet}(spesifikk motstand) som
+\begin{equation}
+\rho = \frac{1}{\sigma}.
+\end{equation}
+Ligningen 
+\begin{equation}
+\Delta V = RI
+\end{equation}
+er \textbf{Ohms lov} for makroskopiske tilstander. Enheten for motsand(R) er Ohm($\Omega = V/A$).
+%
+
+\section{Kobling av motstander}
+Når vi kobler motstander i serie, så må strømmen gjennom hver av dem være lik, spenningen over hele koblingen er da
+$$ \Delta V = R_1I + \dots R_nI = (R_1 + \dots R_n)I \qquad R_{serie} = \displaystyle\sum\limits_{i=1}^n R_i $$
+Når vi kobler motstander i parallell, så må spenningen over hver av dem være lik, strømmen gjennom hele koblingen er da
+$$ I = \frac{V}{R_1} + \dots + \frac{V}{R_n} \qquad \frac{1}{R_{parallell}} = \displaystyle\sum\limits_{i=1}^n \frac{1}{R_i}$$
+
+%
+\subsection{Drude's modell}
+Når $\tau$ er tiden mellom hver kollisjon, så vil elektronets tap av bevegelsesmenge per tidsenhet være
+\beqn
+\frac{\Delta p}{\Delta t} = \frac{m_e v_d}{\tau}
+\eeqn
+På den andre siden vil elektronet vinne en tilsvarende bevegelsesmengde fra det elektriske feltet, slik at $\Delta p / \Delta t$, etter Newtons 2. lov, er det samme som den gjennomsnittlige kraften på elektronet fra elektriske feltet. Vi kan dermed skrive
+\beqn
+\frac{\Delta p}{\Delta t} = eE = \frac{m_e v_d}{\tau}
+\eeqn
+der $e$ er elektronladningen. Dette gir elektronets driftshastighet
+\beqn
+v_d = \frac{\tau e E}{m_e}
+\eeqn
+Setter vi dette inn i uttrykket vårt for strømtettheten finner vi
+\beq
+J = nev_d = \frac{b\tau e^2}{m_e}E \Rightarrow \sigma = \frac{n\tau e^2}{m_e}
+\eeq
+Dersom konduktiviteten er uavhengig av det elektriske feltet vil denne enkle modellen føre til Ohms lov. Imidlertidig vil verdien vi finner for resistiviteten fra denne modellen være nesten en faktor 10 forskjellig fra den målte verdien. For å komme frem til en korrekt teoretisk verdi må vi ta i bruk kvantefysikken.
+%
+
+\subsection{Batteri og elektromotorisk spenning}
+Et batteris elektriske potensialforskjell betegnes med størrelsen $\eps$ og kalles elektromotorisk spenning (ofte forkortet ems). Når batteriet lades ut utfører det positivt arbeid på ladninger, når det lades opp utfører det negativt arbeid på partikler. Vi må være oppmerksomme på at batterier kan ha en liten indre motstand, slik at noe av den kjemiske energien vil gå tapt som varme i batteriet. 
+%
+
+\subsection{Elektrisk energi og effekt}
+Elektrisk effekt er endring i elektrisk energi per endring i tid:
+$$ P = \frac{dU}{dt} = \frac{VdQ}{dt} = VI$$
+Bruker vi Ohms lov kan vi skrive effekten som
+\beq
+P = VI = RI^2 = \frac{\Delta V^2}{R}.
+\eeq
+Den elektriske energien som går over til termisk energi i en motstand, kalles joulesk varme. 
+%
+
+\subsection{Kirchoffs regler}
+Kirchoffs regler går på bevaring av strøm og spenning i en krets.
+\begin{itemize}
+\item Vi har alltid samme strøm inn en knute, som ut av den.  
+$\Sigma I_{inn} = \Sigma I_{ut}$
+\item Det totale spenningsfallet i en lukket sløyfe vil alltid være lik null. Husk å ta hensyn til hva som er positiv og negativ spenning.
+$\Sigma V_{sloyfe}  = 0$
+\end{itemize}
+%
+
+\section{RC-kretser}
+$$ I = \frac{dq}{dt} \qquad V_c = \frac{q}{C} $$
+Strømmen fortsetter helt til kondensatoren er fulladet. Bruker vi Kirchoffs sløyfelov har vi 
+$$ \eps - \frac{q}{C} - RI = 0 \qquad R\frac{dq}{dt} = \eps - \frac{q}{C} = -\frac{1}{C}(q-\eps C) $$
+$$ \frac{dq}{q - \eps C} = -\frac{dt}{RC}$$
+Vi kan da integrere for å finne ladningen $q$ og får
+$$ q = \eps C \left(1 - exp \left(-\frac{t}{RC}\right)\right) \qquad \tau = RC$$
+$$ I = \frac{dq}{dt} = \frac{\eps}{R}exp\left(-\frac{t}{RC}\right) $$
+% 
+
+\section{Det magnetiske feltet}
+Ladninger i bevegelse vil oppleve krafter fra et magnetisk felt
+$$ \bt F = q\bt v \times \bt B \qquad F = |vqB \; \sin (\theta)|$$
+$$ \bt v \perp \bt F \Rightarrow dW = 0 $$
+Det magnetiske feltet kan altså utføre noe arbeid på ladningen, dermed kan den ikke forandre partikkelens fart, $v$, bare retningen på ladningens hastighet $\bt v$.
+%
+
+
+\subsection{Syklotronfrekvens}
+Når en partikkel med ladning $q$ og masse $m$ beveger seg med hastighet $\bt v$ i et omeråde med konstant magnetfelt $\bt B$. Vi antar at $\bt E = 0$ og at $\bt v \perp \bt B$. Da finner vi at ladningens bane blir en sirkel med radius R gitt ved ligningen 
+\beq
+R = \frac{mv}{qB} = \frac{p}{qB}
+\eeq 
+Partikkelens vinkelhastighet $\omega$ i sirkelbanen blir da 
+\beq
+\omega = \frac{v}{R} = \frac{q}{m} B
+\eeq
+som er uavhengig av partikkelbanens radius. Denne størelsen blir ofte kallt partikkelens syklotronfrekvens $\omega_c$.
+%
+
+
+\subsection{Kraften på en strømførende leder}
+Kraften på et infinitesimalt linjeelement $d\bt l$ som fører strømmen $I$ er gitt ved
+$$ d\bt F = I(d\bt l \times \bt B) \qquad F = I\int (d\bt l \times \bt B) $$
+Dersom $\bt B$ er uniformt og alltid normalt på $d\bt l$ så får vi
+$$ F = I (\int d\bt l) \times \bt B = I(\bt l_1 - \bt l_0) \times B$$
+%
+
+\subsection{Kraftmomentet på en strømførende sløyfe}
+Kraftmoment $\tau$ for en kraft $\bt F$ som angriper i et punkt med posisjon $\bt r$ i forhold til momentpunktet er gitt ved
+\beq
+\tau = \bt r \times \bt F
+\eeq
+Hvis vi nå ser på en strømførende sløyfe som vi tenker kan rotere om en akse. Vi definerer en vektor $\bt A$ som står vinkelrett på sløyfen og med størrelse lik arealet av strømsløyfen. Retningen på $\bt A$ er slik at strømretningen i sløyfen er positiv (mot klokka) i forhold til $\bt A$. Vi finner da at kraftmomentet på denne sløyfen er gitt ved
+\beq
+\tau = I \bt A \times \bt B
+\eeq
+for å få et litt penere uttrykk innfører vi det magnetiske dipolmomentet $\bt m$ for strømsløyfe, slik at $\bt m = I\bt A$. Da er det totale kraftmomentet på en strømførende sløyfe med magnetisk dipolmoment gitt ved
+\beq
+\tau = \bt m \times \bt B
+\eeq
+Om vi istedenfor en enkel sløyfe har en spole med $N$ viklinger, og strømmen $I$, blir dipolmomentet for hver sløyfe addert, slik at det totale dipolmomentet for spolen blir $\bt m = N I \bt A$. 
+$$ W = \int_{\theta_0}^\theta \tau d\theta = \int_{\theta_0}^\theta \mu B \sin \theta d\theta = \mu B(\cos \theta_0 - \cos \theta) = U - U_0$$
+$$U = - \mu B \cos \theta $$
+%
+
+\subsection{Lorentzkraften}
+Elektriske ladninger beveger seg ofte i kombinerte elektriske og magnetiske felt, den kombinerte kraften kaller vi ofte Lorentzkraften
+$$\bt F_L = \bt F_E + \bt F_B = q\bt E + q\bt v \times \bt B = q\left(\bt E + \bt v \times \bt B \right) $$
+
+\subsubsection*{Eksempel: Hastighetsfilter}
+Et kombinert magnetisk og elektrisk felt kan brukes til å velge ut partikler med en bestemt hastighet. Om en ladet partikkel beveger seg i et omeråde der et elektrisk felt vil dra partikkelen oppover, og et magnetisk felt vil dra den nedover, så vil partikkelen kun gå rett om lorentzkraften på partikkelen er 0. Altså får vi
+\beq
+q\bt E = -q\bt v \times \bt B \Rightarrow v = \frac{E}{B}
+\eeq
+
+\subsection{Halleffekten}
+Vi har en leder som fører strøm i y-retningen med et uniformt magnetfelt i x-retningen. Ladningsbærere i lederen vil føle en magnetisk kraft som dytter dem i negativ z-retning. Dette skaper et elektrisk felt i z-retningen slik at kraften på ladede partikler i lederen blir $F_L = q\left(\bt E + \bt v \times \bt B \right) = 0 \Rightarrow \bt E = \bt v \times \bt B$ Da får vi en spenningsforskjell mellom endene av lederen i z-retning, retningen på $\bt E$-feltet forteller oss om vi har positive eller negative ladningsbærere.
+
+
+\subsection{Biot-Savarts lov}
+En rettlinjet strømførende leder vil skape et magnetfelt rundt seg, hvor de magnetiske feltlinjene danner konsentriske sirkler rundt lederen. Biot-Svarts lov sier at magnetfeltet $d\bt B$ i en avstand $\bt r = r\bt u_r$ fra strømelementet $Id\bt l$ er gitt ved
+$$ d\bt B = \frac{\mu_0}{4\pi}\frac{Id\bt l \times \bt u_r}{r^2} $$
+Denne kan også brukes på enkelt partikler, og har da formen
+$$ \bt B = \frac{\mu_0}{4\pi} \frac{q\bt v \times (\bt r - \bt r')}{|\bt r - \bt r'|^3} $$
+% 
+
+% For å finne magnetfeltet $\bt B$ fra en endelig lengde av lederen kan vi integrere
+% \beq
+% \bt B = \frac{\mu_0}{4\pi}\int \frac{Id\bt l \times \bt u_r}{r^2}
+% \eeq
+% Fra en uendelig lang leder vil da det magnetiske feltet være gitt ved
+% \beq
+% B = \frac{\mu_0 I }{2\pi R}
+% \eeq
+% Denne kan også brukes på enkelt partikler, og har da formen
+% \beq
+% \bt B = \frac{\mu_0}{4\pi} \frac{q\bt v \times (\bt r - \bt r')}{|\bt r - \bt r'|^3}
+% \eeq
+
+\subsubsection*{Eksempel: Kraft mellom to strømførende ledere}
+La oss anta at vi har 2 parallelle lederes som har avstand R og fører strømmene $I_1$ og $I_2$ i samme retning. La oss videre anta at lederen med strømmen $I_1$ er kilden til et magnetfelt, dette magnetfeltet vil da stå vinkelrett på lederen med strømmen $I_2$ og kraften F på et linjestykke $L$ av denne lederen er dermed gitt ved
+\beqn
+F = I_2LB = I_2L\frac{\mu_0I_1}{2\pi R}
+\eeqn
+På grunn av symmetri mellom de to lederende kan vi skrive den gjensidige kraften $F$ som
+\beq
+F = \frac{\mu_0}{2\pi}\frac{I_1 I_2}{R}L
+\eeq
+Denne ligningen brukes til å definere 1 ampere som den strømmen som går i to uendelig lange, rettlinjete og parallelle ledere i avstanden 1 m, når kraften på en enhetslengde (1 m) av en av lederne er nøyaktig lik $2 \times 10^{-7} $ N.
+%
+
+\section{Ampere's lov}
+$$ \oint \bt B \cdot d\bt r = \mu_0\left( I + \frac{\partial \Phi_D}{\partial t}\right) \qquad \Phi_D = \int_A \bt D \cdot d\bt A $$
+$$ \nabla \times \bt B = \mu_0\left(\bt J + \frac{\partial \bt D}{\partial t}\right) $$
+% 
+
+\section{Kjente magnetiske felt}
+\begin{itemize}
+\item Idéel spole: $B = \mu_0 I n$
+\item Uendelig lang rett leder: $B = \frac{\mu_0 I}{2\pi a} $
+\item Aksen fra strømsløyfe: $B_z = \frac{\mu_0}{2} \frac{a^2 I}{(x^2 + a^2)^{3/2}} $
+\item Strømsløyfe-taylor for $x > a$: $B = \frac{\mu_0 I a^2}{2x^3}( 1 - \frac{3a^2}{2x^2})$
+\item Strømsløyfe-taylor for $x >> a$: $B = \frac{\mu_0 m}{2\pi x^3} \quad m = I\pi a^2$s
+\item Helmholtz-spole: $B = \left(\frac{4}{5}\right)^{3/2} \frac{\mu_0 n I}{a} \qquad d = a $
+\item Endelig spole: $B = \frac{1}{2} \mu_0 n I (\cos \theta_1 - \cos \theta_2)$ 
+\item Endelig lang rett leder: $B = \frac{\mu_0 I}{4 \pi a}(\cos \theta_1 - \cos \theta_2) $
+\end{itemize}
+
+% 
+
+\section{Faraday's lov}
+$$\eps = -\frac{d\Phi_B}{dt}$$
+Len'z lov sier at retningen på den induserte strømmen er slik at den motsetter seg fluksforandringen.
+$$\eps = \oint \bt E \cdot d\bt l $$
+$$\nabla \times \bt E = -\frac{d\bt B}{dt} $$
+Indusert ems i en spole som roterer med konstant vinkelhastighet er sinusformet $ \eps = \eps_0 \sin(\omega t) $
+% 
+
+\section{Induktor}
+$$\Phi_B = LI$$
+$L$ er sløyfens selvinduktans og bestemmes av sløyfens geometri
+$$\eps_L = -\frac{d\Phi_B}{dt} = -L\frac{dI}{dt} $$
+Induktanse har enhet henry (1 H = 1 Vs/A) \\
+$$U = \frac{1}{2}LI^2 $$
+
+\subsection*{Eksempel: Induktans i ideel spole}
+Magnetfeltet i en idéel spole er $B = \mu_0 n I$
+$$ LI = N\Phi_B \qquad \Phi_B = \mu_0 n I A $$
+$$ LI = \mu_0 n^2 I A l \qquad L = \mu_0 n^2 A l$$
+
+\section{RL-krets}
+Induktor lades opp, strøm øker fra $0$ til $\frac{\eps}{R}$
+$$ I = \frac{\eps}{R}\left[ 1 - \exp\left(-\frac{R}{L}t \right)\right] \qquad \tau = \frac{L}{R} $$
+Induktor lades ut, strøm avtar fra $\frac{\eps}{R}$ til $0$
+$$ I = \frac{\eps}{R}\exp\left(-\frac{R}{L} \right) $$
+
+\section{LC-krets}
+$$ q = Q_m \cos (\omega_0 t) \qquad I = I_m \cos(\omega t + \frac{\pi}{2})$$
+$$ \omega_0 = \frac{1}{\sqrt{LC}} \qquad I_m = \omega_0 Q_m$$
+Totalenergien i en LC-krets er konservert, slik at
+$$U_L + U_C = \frac{1}{2}L\omega_0^2Q_m^2\sin^2(\omega_0 t) + \frac{1}{2}\frac{Q_m^2}{C}\cos^2(\omega_0 t) = \frac{1}{2} \frac{Q_m^2}{C}$$
+
+
+\section{Magnetisering}
+$$\bt B = \bt B_0 + \mu_0 \bt M \qquad \bt H = \frac{\bt B_0}{\mu_0} \qquad \bt B = \mu_0 (\bt H + \bt M)$$
+$$ \bt M = \chi_m \bt H \qquad \bt B = \mu_0(1+\chi_m) \bt H \qquad \bt B = \mu \bt H = (1 + \chi_m) \bt B_0$$
+$$\oint \bt H \cdot d \bt r = \int \bt J_{fri} \cdot d\bt A = I_{fri}$$
+
+\section{Magnetiske materialer}
+\begin{itemize}
+\item Diamagnetisme skjer med alle materialer. Elektronbaner opphever hverandre parvis, men under ytre felt vil det oppstå en svak negativ magnetisering $\chi_m \lesssim 0$. Effekten er ikke temperaturavhengig. 
+\item I paramagnetiske materialer er det uparede elektroner som har permanent magnetisk dipolmoment, uten ytre felt er disse tilfeldig slik at netto dipolmoment blir 0. Et ytre felt vil rette noen av de permanente momentene parallelt med feltet og skape en positiv magnetisering $\chi_m \gtrsim 0$. Effekten er temperaturavhenging og er styrt av Curies lov: $\bt M = \bt B\frac{C}{T}$. Stoffet vil ikke være magnetisert etter at det ytre feltet fjernes
+\item Ferromagnetiske materialer er paramagnetiske materialer hvor dipolene befinner seg i domener hvor de alle er parallelle. Under et ytre felt vil flere av disse domenene innrette seg etter feltet og vi får en positiv magnetisering som ofte kan være ekstremt stor $\chi_m >> 0$. Mange av domenene vil ikke flippe tilbake når det ytre feltet fjernes og vi har fått en permanent magnet, dette beskrives av hysteresekurver. Ferromagnetisme er temperaturavhengig, og ved en bestemt kritisk tempratur vil domenene falle fra hverandre og alle ferromagnetisk egenskaper går tapt.
+\end{itemize}
+
+\section{Transformator}
+Består av primær- og sekundærspole, ofte viklet omkring en ferromagnetisk kjerne
+$$\frac{V_2}{V_1} = \frac{N_2}{N_1}$$
+Merk at transformatorer fungerer på grunn av induksjon, og dermed bare AC. \\ 
+
+Fluksen gjennom de 2 spolene er lik.
+
+
+\section{Enkel RLC-krets}
+Spenning lik $ V = V_0 \cos(\omega t)$ gir strøm lik
+$$I = \frac{V_0}{Z} \cos(\omega t - \phi) \qquad \tan \phi =  \left(\frac{X_L - X_C}{R}\right)$$
+Impedansen til kretsen er $Z = \sqrt{R^2 + (\omega L - \frac{1}{\omega C})^2}$ \\
+Resonansfrekvensen $\omega_0$ gir størst $I_m$, gitt når $Z = R$ \\
+Kvaliteten er gitt ved $Q = \frac{\omega_0}{\Delta \omega} = \frac{\omega_0 L}{R}$
+% 
+
+\section{Effekt i RLC}
+$$P = VI = RI^2 = R I_m^2 \sin^2 (\omega t - \phi)$$
+$$<P> = RI_m^2 \frac{1}{T} \int_0^T \sin^2(\omega t - \phi) $$
+$$<P> = \frac{1}{2}R I_m^2 = R I_{rms}^2$$
+$$<P> = V_{rms} I_{rms} \cos{\phi} $$
+
+\section{Kompleks spenning}
+Ser på krest med påtrykt spenning $V_m \sin(\omega t)$ eller $V_m \cos(\omega t)$
+$$ \wh{V} = V_m e^{i\omega t} = V_m \cos(\omega t) + i \; V_m \sin(\omega t) \qquad \wh V = \wh Z \wh I $$
+$$ \wh Z = R + iX = Ze^{i\phi} \qquad \tan \phi = \frac{X}{R} = \frac{X_L - X_C}{R}$$ 
+$$ \wh{Z}_R = R \qquad \wh{Z}_L = i\omega L \qquad \wh{Z}_C = \frac{1}{iwC} = -\frac{i}{\omega C} $$
+$$ \wh I = \frac{V_m}{Z}e^{i(\omega t - \phi)}$$
+%
+
+
+\section{Maxwell's ligninger}
+Gauss' lov
+$$ \nabla \cdot \bt D = \rho \quad \text{eller} \quad \nabla \cdot \bt E = \frac{\rho}{\eps_0} $$
+Faraday's lov
+$$ \nabla \times \bt E = - \frac{\partial \bt B}{\partial t} $$
+Det finnes ikke magnetiske monopoler
+$$ \nabla \cdot \bt B = 0 $$
+Ampere's lov
+$$ \nabla \times \bt H = \bt J + \frac{\partial \bt D}{\partial t} \quad \text{eller} \quad \nabla \times \bt B = \mu_0\left(\bt J + \frac{\partial \bt D}{\partial t} \right)$$
+%
+
+\section{Elektromagnetiske bølger}
+Maxwell's ligninger og $\bt a \times (\bt b \times \bt c) = -(\bt a \cdot \bt b)\bt c + (\bt a \cdot \bt c)\bt b$ gir bølgeligningene for elektriske og magnetiske bølger i vakum
+$$\nabla^2 \bt E = \eps_0 \mu_0 \frac{\partial^2 \bt E}{\partial t^2} \qquad \nabla^2 \bt B = \eps_0 \mu_0 \frac{\partial^2 \bt B}{\partial t^2} $$
+Som også nødvendigvis må gjelde komponentvis
+$$\nabla^2 E_i = \eps_0\mu_0 \frac{\partial^2E_i}{\partial t^2} $$
+En mulig løsning er en plan harmonisk bølge
+$$ \bt E(\bt x, t) = \bt E_0 \cos(\bt k \cdot \bt x - \omega t) \qquad \bt B(\bt x, t) = \bt B_0 \cos(\bt x \cdot \bt k - \omega t) $$
+Der $B_0 = \frac{E_0}{c}$, $\bt B_0$ står normalt på både $\bt E_0$ og $\bt k$ og  $\bt k$ er bølgetallet til bølgen, som har størrelse $\frac{\omega}{c} = \frac{2\pi}{\lambda}$ og retning lik forplantingsretningen til bølgen. Total energitetthet i en EM-bølge er $u = u_E + u_B = \eps_0 E^2 \quad u_E = u_B$
+$$ \bt S = \bt E \times \bt H \qquad <S> = I = \frac{1}{2}\eps_0E_0^2$$
+S har enhet (W/m$^2$).\\
+ Strålingstrykk for tot. absorpsjon: $p = \frac{I}{c}$ tot. refleksjon $p = \frac{2I}{c}$
+
+Summen av to plane harmoniske bølger med en faseforskyvning $\phi$, blir enten en sirkulær eller elliptisk polarisert bølge
+$$ \bt E = \bt i E_x cos(kz - \omega t)  \; + \;  \bt j E_y cos(kz - \omega t + \phi)  $$
+$$ \bt B = \bt j B_x cos(kz - \omega t + \phi) \; - \; \bt i B_y cos(kz - \omega t)  $$
+%
+
+
+
+
+
+%
+%
+%
+
+\section{Konstanter}
+\begin{center} 
+\begin{tabular}{|c|c|} 
+\hline Elektronladning & $e = 1.602176\times 10^{-19} C $\\
+\hline Elektrisk permitivitet & $\eps_0 = 8.85\times 10^{-12} C^2/(Nm^2)$ \\
+\hline Couloumb konstanten & $k_e = \frac{1}{4 \pi \eps_0} = 8.988 \times 10^9 N \cdot m^2/c^2$ \\
+\hline Magnetisk permabilitet &	$\frac{\mu_0}{4\pi} = 10^{-7} Tm/A$ \\
+\hline Elektronvolt & $eV = 1.602\times 10^{-19} J$ \\
+\hline Masse elektron & $ m_e = 9.1\times 10^{-31} kg$ \\
+\hline Masse proton & $m_p = 1.67\times 10^{-27} kg$ \\
+\hline Masse nøytron & $m_n = 1.67\times 10^{-27}kg$ \\
+\hline
+\end{tabular}
+\end{center}  
+%
+\end{document}

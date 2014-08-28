@@ -1,0 +1,86 @@
+user$ java Spellcheck
+
+INF2220 Mandatory Exercise 1
+***Spell Checker***
+
+File 'ordbok1_utf.txt' has been read into a BST.
+-------------------------------------------------
+Number of words: 14269
+Depth of tree:   28
+Avg. node depth: 15.40
+Number of nodes at a given depth: 
+          Depth:  0  Num. of Nodes:    1
+          Depth:  1  Num. of Nodes:    2
+          Depth:  2  Num. of Nodes:    4
+          Depth:  3  Num. of Nodes:    8
+          Depth:  4  Num. of Nodes:   16
+          Depth:  5  Num. of Nodes:   32
+          Depth:  6  Num. of Nodes:   62
+          Depth:  7  Num. of Nodes:  117
+          Depth:  8  Num. of Nodes:  201
+          Depth:  9  Num. of Nodes:  337
+          Depth: 10  Num. of Nodes:  532
+          Depth: 11  Num. of Nodes:  786
+          Depth: 12  Num. of Nodes: 1058
+          Depth: 13  Num. of Nodes: 1291
+          Depth: 14  Num. of Nodes: 1424
+          Depth: 15  Num. of Nodes: 1487
+          Depth: 16  Num. of Nodes: 1483
+          Depth: 17  Num. of Nodes: 1338
+          Depth: 18  Num. of Nodes: 1189
+          Depth: 19  Num. of Nodes:  942
+          Depth: 20  Num. of Nodes:  665
+          Depth: 21  Num. of Nodes:  482
+          Depth: 22  Num. of Nodes:  333
+          Depth: 23  Num. of Nodes:  219
+          Depth: 24  Num. of Nodes:  126
+          Depth: 25  Num. of Nodes:   71
+          Depth: 26  Num. of Nodes:   43
+          Depth: 27  Num. of Nodes:   16
+          Depth: 28  Num. of Nodes:    4
+Minimum in tree: elektrolytt
+Maximum in tree: familiefellesskaps
+-------------------------------------------------
+
+Initiating Spell Checker
+...
+Please enter a single word for lookup (write q to exit): etterfølger
+Results: 
+etterfølger is found in dictionary and spelled correctly.
+1 of 1 lookups have been found.
+
+Please enter a single word for lookup (write q to exit): eterfølger
+Results: 
+eterfølger is NOT found in dictionary.
+1 of 2 lookups have been found.
+Perhaps you meant to write one of these words:
+----> etterfølger
+ 
+Please enter a single word for lookup (write q to exit): etterfolger
+Results: 
+etterfolger is NOT found in dictionary.
+1 of 3 lookups have been found.
+Perhaps you meant to write one of these words:
+----> etterfølger
+ 
+Please enter a single word for lookup (write q to exit): etterfølgern
+Results: 
+etterfølgern is NOT found in dictionary.
+1 of 4 lookups have been found.
+Perhaps you meant to write one of these words:
+----> etterfølgerne
+----> etterfølger
+----> etterfølgere
+----> etterfølgeren
+----> etterfølgers
+ 
+Please enter a single word for lookup (write q to exit): tterfølger
+Results: 
+tterfølger is NOT found in dictionary.
+1 of 5 lookups have been found.
+Perhaps you meant to write one of these words:
+----> etterfølger
+ 
+Please enter a single word for lookup (write q to exit): q
+...
+Quitting Spell Checker

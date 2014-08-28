@@ -1,0 +1,12 @@
+Oblig 2
+
+For å kompilere kan du bruke kommandoene:
+
+mpicc -O2 -fopenmp -c -o oblig2.o oblig2.c
+mpicc -O2 -fopenmp oblig2.o -o oblig2 
+
+og for å kjøre bruker du kommandoen
+
+mpirun -np [number of processes] ./oblig2 [infile matrix A] [infile matrix B] [outfile]
+
+Merk at antall prosesser må være et kvadrattall pluss 1, ettersom at mastertråden ikke regnes som en arbeiderprosess.

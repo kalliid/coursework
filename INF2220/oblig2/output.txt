@@ -1,0 +1,550 @@
+user$ java Oblig2 buildhouse1.txt 999
+**** Information on all tasks ****
+
+Id: 1
+Name: Build-walls
+Time: 4
+Staff: 2
+Slack: 0
+Latest starting time: 4
+The following tasks depend on this:
+	Task 2, Build-roofs
+	Task 3, Put-on-wallpapers
+
+Id: 2
+Name: Build-roofs
+Time: 6
+Staff: 4
+Slack: 0
+Latest starting time: 8
+The following tasks depend on this:
+	Task 3, Put-on-wallpapers
+	Task 4, Put-on-tiles
+	Task 7, Put-carpet-floor
+
+Id: 3
+Name: Put-on-wallpapers
+Time: 1
+Staff: 2
+Slack: 3
+Latest starting time: 17
+The following tasks depend on this:
+	Task 8, Move-in
+
+Id: 4
+Name: Put-on-tiles
+Time: 1
+Staff: 3
+Slack: 7
+Latest starting time: 21
+No tasks depend on this.
+
+Id: 5
+Name: Build-foundation
+Time: 4
+Staff: 2
+Slack: 0
+Latest starting time: 0
+The following tasks depend on this:
+	Task 1, Build-walls
+	Task 6, Make-floor
+
+Id: 6
+Name: Make-floor
+Time: 2
+Staff: 2
+Slack: 8
+Latest starting time: 12
+The following tasks depend on this:
+	Task 7, Put-carpet-floor
+
+Id: 7
+Name: Put-carpet-floor
+Time: 4
+Staff: 2
+Slack: 0
+Latest starting time: 14
+The following tasks depend on this:
+	Task 8, Move-in
+
+Id: 8
+Name: Move-in
+Time: 4
+Staff: 4
+Slack: 0
+Latest starting time: 18
+No tasks depend on this.
+
+**** Critical Tasks ****
+Task 1, Build-walls
+Task 2, Build-roofs
+Task 5, Build-foundation
+Task 7, Put-carpet-floor
+Task 8, Move-in
+
+**** Project work log ****
+Time: 0
+         Starting: 5
+    Current Staff: 2
+Time: 4
+         Starting: 1
+         Finished: 5
+         Starting: 6
+    Current Staff: 4
+Time: 6
+         Finished: 6
+    Current Staff: 2
+Time: 8
+         Finished: 1
+         Starting: 2
+    Current Staff: 4
+Time: 14
+         Finished: 2
+         Starting: 3
+         Starting: 4
+         Starting: 7
+    Current Staff: 7
+Time: 15
+         Finished: 3
+         Finished: 4
+    Current Staff: 2
+Time: 18
+         Finished: 7
+         Starting: 8
+    Current Staff: 4
+Time: 22
+         Finished: 8
+    Current Staff: 0
+
+**** Shortest possible project execution is 22 ****
+
+user$ java Oblig2 buildhouse2.txt 999
+Project is not realizable, cycle:
+Build-walls <- Put-on-wallpapers <- Make-floor <- Build-walls
+Exiting program.
+
+user$ java Oblig2 buildrail.txt 999
+**** Information on all tasks ****
+
+Id: 1
+Name: Install-pavement
+Time: 20
+Staff: 10
+Slack: 12
+Latest starting time: 198
+No tasks depend on this.
+
+Id: 2
+Name: Install-railing
+Time: 7
+Staff: 10
+Slack: 206
+Latest starting time: 211
+No tasks depend on this.
+
+Id: 3
+Name: Install-ticketmachine
+Time: 1
+Staff: 10
+Slack: 154
+Latest starting time: 217
+No tasks depend on this.
+
+Id: 4
+Name: Paint-tower-1-with-arch
+Time: 15
+Staff: 6
+Slack: 84
+Latest starting time: 203
+No tasks depend on this.
+
+Id: 5
+Name: Paint-tower-2
+Time: 12
+Staff: 6
+Slack: 82
+Latest starting time: 206
+No tasks depend on this.
+
+Id: 6
+Name: Paint-trusses
+Time: 27
+Staff: 6
+Slack: 5
+Latest starting time: 191
+No tasks depend on this.
+
+Id: 7
+Name: Paint-cables-and-rods
+Time: 18
+Staff: 6
+Slack: 14
+Latest starting time: 200
+No tasks depend on this.
+
+Id: 8
+Name: Put-lane-tunnel-and-intersection
+Time: 12
+Staff: 7
+Slack: 143
+Latest starting time: 194
+The following tasks depend on this:
+	Task 3, Install-ticketmachine
+	Task 31, Polish-lane-on-arch
+
+Id: 9
+Name: Setup-barrack
+Time: 3
+Staff: 10
+Slack: 0
+Latest starting time: 0
+The following tasks depend on this:
+	Task 10, Prepare-storage
+	Task 11, Rig-ramspace-reinforcing
+	Task 12, Build-tunnel
+	Task 14, Build-intersection
+	Task 16, Build-towerfoundation-1
+	Task 17, Build-towerfoundation-2
+
+Id: 10
+Name: Prepare-storage
+Time: 2
+Staff: 4
+Slack: 206
+Latest starting time: 209
+The following tasks depend on this:
+	Task 2, Install-railing
+
+Id: 11
+Name: Rig-ramspace-reinforcing
+Time: 1
+Staff: 4
+Slack: 5
+Latest starting time: 8
+The following tasks depend on this:
+	Task 18, Make-armouring-tower-1
+	Task 19, Make-armouring-tower-2
+	Task 20, Make-armouring-arch
+
+Id: 12
+Name: Build-tunnel
+Time: 30
+Staff: 12
+Slack: 143
+Latest starting time: 146
+The following tasks depend on this:
+	Task 13, Clean-tunnel
+
+Id: 13
+Name: Clean-tunnel
+Time: 18
+Staff: 12
+Slack: 143
+Latest starting time: 176
+The following tasks depend on this:
+	Task 8, Put-lane-tunnel-and-intersection
+
+Id: 14
+Name: Build-intersection
+Time: 25
+Staff: 12
+Slack: 146
+Latest starting time: 149
+The following tasks depend on this:
+	Task 15, Clean-intersection
+
+Id: 15
+Name: Clean-intersection
+Time: 20
+Staff: 12
+Slack: 146
+Latest starting time: 174
+The following tasks depend on this:
+	Task 8, Put-lane-tunnel-and-intersection
+
+Id: 16
+Name: Build-towerfoundation-1
+Time: 35
+Staff: 12
+Slack: 11
+Latest starting time: 14
+The following tasks depend on this:
+	Task 21, Encase-and-armour-tower-1
+
+Id: 17
+Name: Build-towerfoundation-2
+Time: 45
+Staff: 12
+Slack: 0
+Latest starting time: 3
+The following tasks depend on this:
+	Task 22, Encase-and-armour-tower-2
+
+Id: 18
+Name: Make-armouring-tower-1
+Time: 40
+Staff: 4
+Slack: 5
+Latest starting time: 9
+The following tasks depend on this:
+	Task 21, Encase-and-armour-tower-1
+
+Id: 19
+Name: Make-armouring-tower-2
+Time: 25
+Staff: 4
+Slack: 19
+Latest starting time: 23
+The following tasks depend on this:
+	Task 22, Encase-and-armour-tower-2
+
+Id: 20
+Name: Make-armouring-arch
+Time: 12
+Staff: 4
+Slack: 140
+Latest starting time: 144
+The following tasks depend on this:
+	Task 23, Encase-and-armour-arch
+
+Id: 21
+Name: Encase-and-armour-tower-1
+Time: 15
+Staff: 5
+Slack: 5
+Latest starting time: 49
+The following tasks depend on this:
+	Task 24, Cast-tower-1
+
+Id: 22
+Name: Encase-and-armour-tower-2
+Time: 16
+Staff: 5
+Slack: 0
+Latest starting time: 48
+The following tasks depend on this:
+	Task 25, Cast-tower-2
+
+Id: 23
+Name: Encase-and-armour-arch
+Time: 30
+Staff: 5
+Slack: 140
+Latest starting time: 156
+The following tasks depend on this:
+	Task 26, Cast-arch
+
+Id: 24
+Name: Cast-tower-1
+Time: 60
+Staff: 7
+Slack: 5
+Latest starting time: 64
+The following tasks depend on this:
+	Task 4, Paint-tower-1-with-arch
+	Task 27, Stretch-two-maincables
+
+Id: 25
+Name: Cast-tower-2
+Time: 60
+Staff: 7
+Slack: 0
+Latest starting time: 64
+The following tasks depend on this:
+	Task 5, Paint-tower-2
+	Task 27, Stretch-two-maincables
+
+Id: 26
+Name: Cast-arch
+Time: 20
+Staff: 7
+Slack: 140
+Latest starting time: 186
+The following tasks depend on this:
+	Task 31, Polish-lane-on-arch
+
+Id: 27
+Name: Stretch-two-maincables
+Time: 25
+Staff: 10
+Slack: 0
+Latest starting time: 124
+The following tasks depend on this:
+	Task 28, Build-truss-1-with-rods
+	Task 29, Build-truss-2-with-rods
+
+Id: 28
+Name: Build-truss-1-with-rods
+Time: 30
+Staff: 10
+Slack: 7
+Latest starting time: 156
+The following tasks depend on this:
+	Task 1, Install-pavement
+	Task 6, Paint-trusses
+	Task 7, Paint-cables-and-rods
+	Task 30, Cast-lane-on-truss
+
+Id: 29
+Name: Build-truss-2-with-rods
+Time: 37
+Staff: 10
+Slack: 0
+Latest starting time: 149
+The following tasks depend on this:
+	Task 1, Install-pavement
+	Task 6, Paint-trusses
+	Task 7, Paint-cables-and-rods
+	Task 30, Cast-lane-on-truss
+
+Id: 30
+Name: Cast-lane-on-truss
+Time: 20
+Staff: 7
+Slack: 0
+Latest starting time: 186
+The following tasks depend on this:
+	Task 31, Polish-lane-on-arch
+
+Id: 31
+Name: Polish-lane-on-arch
+Time: 12
+Staff: 7
+Slack: 0
+Latest starting time: 206
+No tasks depend on this.
+
+**** Critical Tasks ****
+Task 9, Setup-barrack
+Task 17, Build-towerfoundation-2
+Task 22, Encase-and-armour-tower-2
+Task 25, Cast-tower-2
+Task 27, Stretch-two-maincables
+Task 29, Build-truss-2-with-rods
+Task 30, Cast-lane-on-truss
+Task 31, Polish-lane-on-arch
+
+**** Project work log ****
+Time: 0
+         Starting: 9
+    Current Staff: 10
+Time: 3
+         Finished: 9
+         Starting: 10
+         Starting: 11
+         Starting: 12
+         Starting: 14
+         Starting: 16
+         Starting: 17
+    Current Staff: 56
+Time: 4
+         Finished: 11
+         Starting: 18
+         Starting: 19
+         Starting: 20
+    Current Staff: 64
+Time: 5
+         Starting: 2
+         Finished: 10
+    Current Staff: 70
+Time: 12
+         Finished: 2
+    Current Staff: 60
+Time: 16
+         Finished: 20
+         Starting: 23
+    Current Staff: 61
+Time: 28
+         Finished: 14
+         Starting: 15
+    Current Staff: 61
+Time: 29
+         Finished: 19
+    Current Staff: 57
+Time: 33
+         Finished: 12
+         Starting: 13
+    Current Staff: 57
+Time: 38
+         Finished: 16
+    Current Staff: 45
+Time: 44
+         Finished: 18
+         Starting: 21
+    Current Staff: 46
+Time: 46
+         Finished: 23
+         Starting: 26
+    Current Staff: 48
+Time: 48
+         Finished: 15
+         Finished: 17
+         Starting: 22
+    Current Staff: 29
+Time: 51
+         Starting: 8
+         Finished: 13
+    Current Staff: 24
+Time: 59
+         Finished: 21
+         Starting: 24
+    Current Staff: 26
+Time: 63
+         Starting: 3
+         Finished: 8
+    Current Staff: 29
+Time: 64
+         Finished: 3
+         Finished: 22
+         Starting: 25
+    Current Staff: 21
+Time: 66
+         Finished: 26
+    Current Staff: 14
+Time: 119
+         Starting: 4
+         Finished: 24
+    Current Staff: 13
+Time: 124
+         Starting: 5
+         Finished: 25
+         Starting: 27
+    Current Staff: 22
+Time: 134
+         Finished: 4
+    Current Staff: 16
+Time: 136
+         Finished: 5
+    Current Staff: 10
+Time: 149
+         Finished: 27
+         Starting: 28
+         Starting: 29
+    Current Staff: 20
+Time: 179
+         Finished: 28
+    Current Staff: 10
+Time: 186
+         Starting: 1
+         Starting: 6
+         Starting: 7
+         Finished: 29
+         Starting: 30
+    Current Staff: 29
+Time: 204
+         Finished: 7
+    Current Staff: 23
+Time: 206
+         Finished: 1
+         Finished: 30
+         Starting: 31
+    Current Staff: 13
+Time: 213
+         Finished: 6
+    Current Staff: 7
+Time: 218
+         Finished: 31
+    Current Staff: 0
+
+**** Shortest possible project execution is 218 ****
+

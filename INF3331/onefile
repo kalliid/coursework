@@ -1,0 +1,11 @@
+echo unpacking file file1
+cat > file1 <<EOF
+aEOF
+echo unpacking file file2
+cat > file2 <<EOF
+b
+EOF
+echo unpacking file file2
+cat > file2 <<EOF
+b
+EOF

@@ -1,0 +1,195 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=30mm, left=39mm, right=39mm}
+
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink}
+\title{Problem set 3 \\ FYS3140}
+
+
+\begin{document}
+\maketitle
+% \newpage\null\thispagestyle{empty}\newpage
+
+% \setcounter{page}{1} 
+
+\section*{Problem 3.1 (Cauchy's Theorem and integral formula)}
+\subsection*{a)}
+We will evaulate the integral
+$$\oint_\Gamma \frac{\sin z}{2z - \pi} \ \d z,$$
+where $\Gamma$ is the circle $|z|=3$, as $\sin(z)$ is an entire function, we know that it is analytic on and inside $\Gamma$ and we can apply Cauchy's integral formula, giving
+$$\oint_\Gamma \frac{\sin z}{2z - \pi} \ \d z = \frac{1}{2}\oint_\Gamma \frac{\sin z}{z - \pi/2} = \pi i \sin\bigg(\frac{\pi}{2}\bigg) = \pi i.$$
+
+\subsection*{b)}
+We will evaulate the integral
+$$\oint_\Gamma \frac{\sin z}{2z - \pi} \ \d z,$$
+where $\Gamma$ is the circle $|z|=1$, as the integrand has no poles inside $\Gamma$, Cauchy's theorem tells us that
+$$\oint_\Gamma \frac{\sin z}{2z - \pi} \ \d z = 0.$$
+
+\subsection*{c)}
+We will evaulate the integral
+$$\oint_\Gamma \frac{\sin z}{6z - \pi} \ \d z,$$
+where $\Gamma$ is the circle $|z|=1$, as $\sin(z)$ is an entire function, we know that it is analytic on and inside $\Gamma$ and we can apply Cauchy's integral formula, giving
+$$\oint_\Gamma \frac{\sin z}{6z - \pi} \ \d z = \frac{1}{6}\oint_\Gamma \frac{\sin z}{z - \pi/6} = \frac{\pi}{3} i \sin\bigg(\frac{\pi}{6}\bigg) = \frac{\pi}{6}i.$$
+
+\subsection*{d)}
+We will evaulate the integral
+$$\oint_\Gamma \frac{e^{2z}}{z-\ln 2} \ \d z,$$
+where $\Gamma$ is the square with vertices $\pm 2, \pm 2i$. As the exponential function is entire, we know that it is analytic on and inside $\Gamma$ and we can apply Cauchy's integral formula, giving
+$$\oint_\Gamma \frac{e^{2z}}{z-\ln 2} \ \d z = 2\pi i e^{2\ln 2} = 8\pi i.$$
+
+\clearpage
+
+\section*{Problem 3.2 (Generalized Cauchy integral formula)}
+We will now derive the generalized Cauchy integral formula,
+$$f^{(n)}(z) = \frac{n!}{2\pi i} \oint_\Gamma \frac{f(\omega)}{(\omega-z)^{n+1}} \ \d \omega.$$
+
+We start from the standard Cauchy integral formula
+$$f(z) = \frac{1}{2\pi i} \oint_\Gamma \frac{f(\omega)}{(\omega-z)} \ \d \omega,$$
+and we derivate with respect to $z$, as the integration is with respect to the introduced variable $\omega$, the derivative can be interchanged with the integration. Note also that as we demand that $f$ be analytic on and inside $\Gamma$, the derivatives of $f$ exist and are also analytic on and inside $\Gamma$. 
+
+The first derivative then becomes
+$$f'(z) = \frac{1}{2\pi i} \oint_\Gamma \frac{f(\omega)}{(\omega-z)^2} \ \d \omega,$$
+derivativing again gives
+$$f''(z) = \frac{2}{2\pi i} \oint_\Gamma \frac{f(\omega)}{(\omega-z)^3} \ \d \omega,$$
+and so on. Through induction we easily achieve the generalized formula
+$$f^{(n)}(z) = \frac{n!}{2\pi i} \oint_\Gamma \frac{f(\omega)}{(\omega-z)^{n+1}} \ \d \omega, \qquad (n=1,2,3,\ldots).$$
+
+We will now use this formula to evaluate the integral
+$$\oint_\Gamma \frac{\sin 2z}{(6z-\pi)^3},$$
+where $\Gamma$ is the circle $|z| = 2$. Once again, we know that the sine-function is entire, and so Cauchy's generalized integral formula can be used, giving
+\begin{align*}
+\oint_\Gamma \frac{\sin 2z}{(6z-\pi)^3} &= \frac{1}{6^3}\oint_\Gamma \frac{\sin 2z}{(z-\pi/6)^3} \\[0.2cm]
+&= \frac{1}{6^3}\frac{2\pi i}{2!}(-4)\sin\bigg(2\cdot\frac{\pi}{6}\bigg) \\
+&= -\frac{\sqrt{3}}{108}i.
+\end{align*}
+
+\clearpage
+
+\section*{Problem 3.3 (Laurent series)}
+We will find the Laurent series about the origin of the function
+$$f(z) = \frac{z-1}{z^2(z-2)},$$
+in different domains.
+
+\subsection*{a)}
+In the punctured disk $0 < |z| < 2$. We first rewrite the function to the form
+$$f(z) = \frac{z-1}{z^2(z-2)} = \frac{1-z}{2z^2}\cdot\frac{1}{1-\frac{z}{2}},$$
+as $|z|<2$ in the disc, we see that $|z/2|<1$, recognizing the last fraction as the geometric series we get 
+$$f(z)  = \frac{1-z}{2z^2}\sum_{k=0}^\infty \frac{z^k}{2^k} = \sum_{k=0}^\infty \bigg(\frac{z^{k-2}}{2^{k+1}} - \frac{z^{k-1}}{2^{k+1}}\bigg),$$
+writing out the first few terms gives
+$$f(z) = \frac{1}{2z^2} - \frac{1}{4z} - \sum_{k=0}^\infty \frac{z^k}{2^{k+3}}.$$
+
+\subsection*{b)}
+For $|z| > 2$. We start by rewriting $f(z)$ to the form:
+$$f(z) = \frac{z-1}{z^3} \frac{1}{1-\frac{2}{z}},$$
+as $|z|>2$, we see that $|2/z|<1$ and again we recognize the fraction as the geometric series, giving
+$$f(z) =  \frac{z-1}{z^3} \sum_{k=0}^\infty \frac{2^k}{z^k} = \sum_{k=0}^\infty \bigg(\frac{2^k}{z^{k+2}} - \frac{2^k}{z^{k+3}}\bigg).$$
+
+\subsection*{c)}
+The residue of $f(z)$ at the origin we have already found in problem 3.3a, as the Laurent series converges inside the punctured disk $0 < |z| < 2$, the residue at the singular point $z_0 = 0$ is simply the coefficient $b_1$, meaning
+$${\rm Res}(f;0) = -\frac{1}{4}.$$
+
+\clearpage
+
+\section*{Problem 3.4 (Singularities)}
+We will now classify the singularities of some functions.
+\subsection*{a)}
+The function $f(z) = {\sin z}/{3z}$, at the origin, $z_0 = 0$. As the function has a finite limit as $z$ approaches the origin:
+$$\lim_{z\to 0} \frac{\sin z}{3z} = \frac{1}{3},$$
+the singularity is removable.
+
+\subsection*{b)}
+The function $f(z) = {\cos z}/{z^4}$, at the origin, $z_0 = 0$. As the cosine-function is non-zero at the origin, we see that this singularity is a fourth order pole.
+
+\subsection*{c)}
+The function
+$$f(z) = \frac{z^3-1}{(z-1)^3},$$
+at the point, $z_0 = 1$. We look at the function $g(z) \equiv 1/ f(z)$, as $f$ will have a pole of the same order as $g$ has order of zero in $z_0$, we see that
+$$g(z) = \frac{(z-1)^3}{z^3 - 1}.$$
+Using L'Hôpital's rule, we find
+\begin{align*}
+\lim_{z\to1} g(z) &= 0, \\
+\lim_{z\to1} g'(z) &= 0, \\
+\lim_{z\to1} g''(z) &= 2/3.
+\end{align*}
+As $g$ has a zero of second order at $z_0$, we know that $f(z)$ has a pole of second order here.
+
+\subsection*{d)}
+The function $f(z) = e^z/(z-1)$ at the point $z_0 = 1$. As $e^z$ is analytic and non-zero at $z_0$, we see that $f$ has a pole of first order at $z_0$.
+
+
+
+
+\end{document}
+

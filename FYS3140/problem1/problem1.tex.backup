@@ -1,0 +1,283 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=30mm, left=39mm, right=39mm}
+
+
+
+
+
+
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink}
+\title{Problem set 1 \\ FYS3140}
+
+
+\begin{document}
+\maketitle
+%\newpage\null\thispagestyle{empty}\newpage
+
+\setcounter{page}{1} 
+
+\section*{Problem 1.1 (Complex power series)}
+\subsection*{a)}
+We will find the disk of convergence for the power series
+$$\sum_{n=0}^\infty n(n+1)(z-2i)^n.$$
+We use the ratio test to find for what values of $z$ the series is absolutely convergent
+$$\rho = \lim_{n\rightarrow \infty} \bigg|\frac{a_{n+1}}{a_n} \bigg| = \lim_{n\rightarrow \infty} \bigg|\frac{(n+1)(n+2)}{n(n+1)}\bigg|\bigg|\frac{(z-2i)^{n+1}}{(z-2i)^n}\bigg| = \lim_{n\rightarrow \infty} \frac{n+2}{n} |(z-2i)| = |z-2i|$$
+The series converges if $\rho<1$, giving the condition on $z$:
+$$|z-2i| < 1,$$
+meaning the disk of convergence for the power series has a radius of 1 and is centered around $z_0 = 2i$.
+
+\subsection*{b)}
+We will find the disk of convergence for the power series
+$$\sum_{n=1}^\infty 2^n(z+i-3)^{2n}.$$
+Again we use the ratio test
+$$\rho = \lim_{n\rightarrow \infty} \bigg|\frac{a_{n+1}}{a_n} \bigg| = \lim_{n\rightarrow \infty} \bigg| \frac{2^{n+1}}{2^n}\bigg|\bigg|\frac{(z+i-3)^{2n+2}}{(z+i-3)^{2n}} \bigg| = \lim_{n\rightarrow \infty} 2|(z+i-3)|^2$$
+The series converges if $\rho<1$, giving the condition on $z$:
+$$2|z+i-3|^2 < 1 \qquad \Rightarrow \qquad |z-(3-i)| < \frac{\sqrt{2}}{2}$$
+meaning the disk of convergence for the power series has a radius of $\sqrt{2}/2$ and is centered around $z_0 = 3-i$.
+
+\clearpage
+
+\section*{Problem 1.2 (Euler's formula, powers and roots)}
+\subsection*{a)}
+\begin{align*}
+z = \sqrt{2}\ {\rm exp}\bigg[\frac{5\pi}{4}i\bigg] = \sqrt{2}\bigg[\cos\bigg(\frac{5\pi}{4}\bigg) + i\sin\bigg(\frac{5\pi}{4}\bigg)\bigg] = -1 - i.    
+\end{align*}
+
+\subsection*{b)}
+We want to simplify the fraction
+$$z = \frac{(1+i)^{48}}{(\sqrt{3}-i)^{25}}.$$
+We start by converting the base numbers to polar form
+$$1+i = \sqrt{2}e^{i \pi/4}, \qquad \qquad \sqrt{3}-i = 2e^{i11\pi/6}.$$
+We can now easily calculate
+$$(1+i)^{48} = \big(\sqrt{2}\big)^{48} e^{i 12\pi} = 2^{24}$$
+and
+$$(\sqrt{3}-i)^{25} = \big(2e^{i 11\pi/6}\big)^{25} = 2^{25}e^{275\pi/6} = 2^{25}e^{-i\pi/6}.$$
+Meaning the fraction can be written
+$$z = \frac{2^{24}}{2^{25}e^{-i\pi/6}} = \frac{1}{2}e^{i\pi/6} = \frac{\sqrt{3}}{4} + \frac{i}{4}.$$
+
+\subsection*{c)}
+We start by writing the base in polar form
+$$r = \sqrt{8^2\cdot 3 + 8^2} = 16, \qquad \theta = \frac{2\pi}{3}.$$
+We can now easily find the roots
+$$\bigg(8i-\sqrt{3}-8)^{1/4} = \bigg(16e^{i2\pi/3}\bigg)^{1/4} = 2 e^{i\pi/6 + k\cdot i\frac{\pi}{2}}$$
+where $k=0,1,2,3$, so we have the roots
+$$z_0 = 2e^{i\pi/6}, \qquad z_1 = 2e^{i2\pi/3}, \qquad z_2 = 2e^{i7\pi/6}, \qquad z_3 = 2e^{i 5\pi/3}.$$ 
+
+\clearpage
+\subsection*{d)}
+The cube roots of 8 are
+$$8^{1/3} = \bigg(8e^{i 0/\pi}\bigg)^{1/3} = 2e^{k\cdot i2\pi/3},$$
+for $k=0,1,2$, meaning the roots are
+$$z_0 = 2, \qquad z_1 = 2e^{2\pi/3}, \qquad z_2 = 2e^{4\pi/3}.$$
+The sum of the three roots becomes
+$$z_0 + z_1 + z_2 = 2 + 2\left(-\frac{1}{2} + \frac{\sqrt{3}}{2}i\right) + 2\left(-\frac{1}{2} - \frac{\sqrt{3}}{2}i\right) = 0,$$ 
+as expected.
+
+We will now show the general case that the sum of the $n$ $n$th roots of any complex number will be zero. A geneal complex number,  $z \in \mathbb{C}$, can be written in polar form as
+$$z = re^{i\theta},$$
+where $r, \theta \in \mathbb{R}$. The $n$th roots of $z$ can then be written
+$$z^{1/n} = r^{1/n} e^{i\theta/n + ik\cdot2\pi/n},$$
+where the $n$ different roots correspond to $k=0,1,\ldots,n-1$. This means that the sum of the $n$ roots can be written
+$$\sum_{k=0}^{n-1} r^{1/n}\ {\rm exp}\bigg[\frac{i\theta}{n} + i\frac{k\cdot2\pi}{n}\bigg] = r^{1/n}\ {\rm exp}\bigg[\frac{i\theta}{n}\bigg] \sum_{k=0}^{n-1}  {\rm exp}\bigg[i\frac{k\cdot2\pi}{n}\bigg].$$
+The factor 
+$$ {\rm exp}\bigg[\frac{i\theta}{n}\bigg],$$
+is never zero, and the factor
+$$ r^{1/n}$$
+is zero if, and only if, $z = 0$. 
+
+What we need to show then, is that the sum 
+$$\sum_{k=0}^{n-1}  {\rm exp}\bigg[i\frac{k\cdot2\pi}{n}\bigg],$$
+is zero for all $z \neq 0$. As the sum has a finite number of finite terms, we know that it must converge to some complex number $w \in \mathbb{C}$. As the terms in the sum correspond to the $n$th roots of unity, they are distributed along the unit circle in such a way that rotating all the points an angle $2\pi/n$ won't change the sum. Meaning
+$$w\cdot e^{i2\pi/n} = w.$$
+The only complex number that remains invariant under a rotation of an angle $\theta \neq 2\pi n$ where $n$ is an integer, is zero. Meaning $w = 0$ for all $n$ and $z$---making the sum of the $n$ $n$th roots of any complex number $z$ equal to zero.
+
+\section*{Problem 1.3 (Elementary Functions)}
+We will now use the definitions
+$$\sin(z) \equiv \frac{e^{iz}-e^{-iz}}{2i}, \qquad \cos(z)\equiv\frac{e^{iz} + e^{-iz}}{2}, $$
+$$ \sinh(z)\equiv\frac{e^z-e^{-z}}{2}, \qquad \cosh(z)\equiv\frac{e^z + e^{-z}}{2}.$$
+
+\subsection*{a)}
+We will calculate the integral
+$$I = \int_0^{2\pi} \sin^2(4x) {\rm\ d}x.$$ 
+We start by rewriting the sine-term in the following manner
+$$\sin^2(4x) = \bigg[\frac{e^{i4x}-e^{-i4x}}{2i}\bigg]^2 = \frac{1}{4}\bigg(2 - e^{i8x} - e^{-i8x}\bigg).$$
+Using this we find
+\begin{align*}
+I &=  \int_0^{2\pi} \sin^2(4x) {\rm\ d}x = \frac{1}{4}\int_0^{2\pi} \bigg(2 - e^{i8x} - e^{-i8x}\bigg) {\rm\ d}x, \\[0.2cm]
+&= \frac{1}{4}\bigg[2x - \frac{1}{8i}e^{i8x} + \frac{1}{8i}e^{-i8x}\bigg]_{0}^{2\pi} \\[0.3cm]
+&= \pi \qquad {\rm q.e.d.}
+\end{align*}
+
+\subsection*{b)}
+We will now show that the trigonometric identity 
+$$\sin 2z = 2\sin z \cos z.$$
+holds for all complex numbers, $z\in\mathbb{C}$.
+
+The left-hand side can be written as
+$$\sin 2z = \frac{e^{i2z}-e^{-i2z}}{2i},$$
+and the right-hand side can be written
+$$2\frac{e^{iz} - e^{-iz}}{2i}\frac{e^{iz} + e^{-iz}}{2} = \frac{e^{i2z}-e^{-i2z}}{2i}.$$
+So we see that the left-hand side and the right-hand side are the same, and the identity holds, for all $z\in\mathbb{C}$.
+
+\clearpage
+
+\subsection*{c)}
+We will now show that the trigonometric identity
+$$\cosh^2 z - \sinh^2 z = 1,$$
+holds for all $z \in \mathbb{C}$.
+
+Expressing $\sinh$ and $\cosh$ in terms of the exponential functions the left hand side can be written
+\begin{align*}
+\cosh^2 z - \sinh^2 z &= \bigg(\frac{e^z + e^{-z}}{2}\bigg)^2 - \bigg( \frac{e^z-e^{-z}}{2} \bigg)^2 \\[0.2cm]
+&=  \frac{1}{4}\bigg(e^{2z} + 2 + e^{-2z}\bigg) - \frac{1}{4}\bigg(e^{2z} - 2 + e^{-2z}\bigg) \\[0.2cm]
+&= 1.
+\end{align*}
+So we see that the left-hand side and the right-hand side are the same, and the identity holds, for all $z\in\mathbb{C}$.
+
+\subsection*{d)}
+We will find the $x+iy$ form of 
+$$\sin\bigg( i \ln \frac{1-i}{1+i} \bigg).$$
+
+We start by using the general fact that
+$$\sin(iz) = i\sinh(z),$$
+giving
+$$\sin\bigg( i \ln \frac{1-i}{1+i} \bigg) = i\sinh\bigg(\ln \frac{1-i}{1+i} \bigg).$$
+And writing $\sinh$ in terms of exponential functions now gives
+$$i\sinh\bigg(\ln \frac{1-i}{1+i} \bigg) = i \frac{e^{\ln (1-i)/(1+i)} - e^{\ln (1+i)/(1-i)}}{2},$$
+and using that for any $z \in \mathbb{C}$
+$$e^{\ln z} = z,$$
+we get
+$$\frac{i}{2}\bigg(\frac{1-i}{1+i} - \frac{1+i}{1-i}\bigg) = \frac{i}{4}\bigg((1-i)^2 - (1+i)^2\bigg) = 1.$$
+
+So in summary
+$$\sin\bigg( i \ln \frac{1-i}{1+i} \bigg) = 1.$$
+
+\subsection*{e)}
+We will find the $x+iy$ form of
+$$(-e)^{i\pi}.$$
+We start by writing $(-e)$ as $(-1)\cdot e$ and then writing $-1$ in polar form $-1 = e^{i\pi}$, giving
+$$(-e)^{i\pi} = (e^{i\pi})^{i\pi}e^{i\pi}.$$
+This can be further simplified
+$$e^{i^2\pi^2}(-1) = -e^{-\pi^2}.$$
+And we are done, as this is a purely real number with numerical value
+$$-e^{-\pi^2} \approx -5.17\times10^{-5}.$$
+
+\subsection*{f)}
+We now want to express the inverse hyperbolic function ${\rm arctanh}(z)$ in terms of logarithms. Let us introduce the number $w\in\mathbb{C}$ such that
+$${\rm arctanh}(z) = w,$$
+then by definition
+$$\tanh(w) = z.$$
+Expressing $\tanh$ in terms of exponentials then gives
+$$\tanh(w) = \frac{\sinh(w)}{\cosh(w)} = \frac{e^w - e^{-w}}{2}\frac{2}{e^{w}+e^{-w}} = \frac{e^w - e^{-w}}{e^{w}+e^{-w}}=z.$$
+We now have an equation we can solve to express $w$ in terms of $z$ using logarithms
+\begin{align*}
+\frac{e^w - e^{-w}}{e^{w}+e^{-w}} &= z \\
+e^w - e^{-w} &= z\bigg(e^{w}+e^{-w}\bigg) \\
+e^{2w} - 1 &= z\bigg(e^{2w}+1\bigg) \\
+(1-z)e^{2w} &= 1 + z \\
+e^{2w} &= \frac{1+z}{1-z} \\
+2w &= \ln \bigg(\frac{1+z}{1-z}\bigg) \\
+w &= \frac{1}{2}\ln \bigg(\frac{1+z}{1-z}\bigg).
+\end{align*}
+Meaning
+$${\rm arctanh\ } z = \frac{1}{2}\ln \bigg(\frac{1+z}{1-z}\bigg),\quad {\rm q.e.d.}$$
+
+\clearpage
+
+\section*{Extra Problem (Boas 2.17.30)}
+
+The Taylor expansion of $e^z$ is
+$$e^z = \sum_{k=0}^\infty \frac{z^k}{k!} = 1 + z + \frac{z^2}{2!} + \frac{z^3}{3!} + \ldots,$$
+meaning we can expand $e^{x(1+i)}$ as
+$$e^{x(1+i)} = 1 + x(1+i) + \frac{x^2(1+i)^2}{2!} + \frac{x^3(1+i)^3}{3!} + \ldots$$
+To easily obtain the powers of $(1+i)$, it's smart to write it in polar form
+$$(1+i) = \sqrt{2}e^{i\pi/4},$$
+meaning the $k$th power of $(1+i)$ is
+$$(1+i)^k = (\sqrt{2})^k e^{ik\pi/4}.$$
+
+We now want to find the Taylor expansion of $e^x\cos x$, we start by writing $\cos$ in term of exponentials
+$$e^x\cos x = e^x \frac{e^{ix} + e^{-ix}}{2} = \frac{e^{x(1+i)} + e^{x(1-i)}}{2},$$
+we can now Taylor expand the two terms seperately to find
+$$e^x\cos x = \sum_{k=0}^\infty \frac{x^k\big[ (1+i)^k + (1-i)^k\big]}{2k!}$$
+
+To understand the behaviour of the terms in the square bracket as $k$ increases, we also write $(1-i)$ in polar coordinates
+$$1-i = \sqrt{2}e^{-i\pi/4}, \qquad  
+
+
+
+
+\end{document}
+

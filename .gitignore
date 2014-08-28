@@ -1,0 +1,12 @@
+# Compiled Source #
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Latex aux files #
+*.aux
+*.log
+*.fdb_latexmk
+*.synctex.gz

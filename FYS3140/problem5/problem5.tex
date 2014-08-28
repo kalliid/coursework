@@ -1,0 +1,193 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=30mm, left=39mm, right=39mm}
+
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink}
+\title{Problem set 5 \\ FYS3140}
+
+
+\begin{document}
+\maketitle
+% \newpage\null\thispagestyle{empty}\newpage
+% 
+% \setcounter{page}{1} 
+
+\section*{Problem 5.1 (Residue theory)}
+
+\subsection*{a) (Boas 14.7.17)}
+We will evaluate the integral
+$$I = \int_{-\infty}^\infty \frac{x \sin x}{x^2 + 4x + 5} \ \d x = \int_{-\infty}^\infty \frac{x \sin x}{(x+2+i)(x+2-i)} \ \d x.$$
+Using the fact that $\sin x$ is the imaginary part of the exponential function (Euler's formula), we can write the the integral as
+$$I = \Im \bigg(\oint_{\Gamma_\rho} \int_{-\infty}^\infty \frac{z e^{iz}}{(z+2+i)(z+2-i)} \ \d z - \int_{C_\rho^+} \frac{z e^{iz}}{(z+2+i)(z+2-i)} \ \d z\bigg),$$
+where $\Gamma_\rho$ is the positvely oriented closed contour from $-\rho$ to $\rho$ along the real axis, and then back along the half-circle in the upper-half plane $C_\rho^+$. From Jordan's lemma, we know that the contour integral over the half-circle goes to zero as $\rho$ grows large. And we can evaluate the closed-contour integral using residue theory. We first find the residues of the integrand in the upper-half plane:
+$$\Res{f}{-2+i} = \lim_{z\to -2+i} (z+2-i)f(z) = \frac{(-2+i)e^{i(-2+i)}}{2i} = \bigg(\frac{1}{2}+i\bigg)e^{-1-2i}.$$
+And we then have 
+$$I = \Im\bigg(2\pi i \sum_k \Res{f}{z_k}\bigg) =  \frac{\pi}{e}\bigg(2\sin 2 + \cos 2\bigg).$$
+
+\subsection*{b) (Boas 14.7.24)}
+We will evaluate the integral
+$$I = \int_{-\infty}^\infty \frac{x \sin \pi x}{1-x^2} \ \d x.$$
+We do this in pretty much the exact same manner as the previous problem
+$$I = \Im \bigg( \oint_{\gamma^+_\rho} \frac{z e^{i\pi z}}{(1+z)(1-z)} \ \d z + \int_{C^+_\rho} \frac{z e^{i\pi z}}{(1+z)(1-z)} \bigg).$$
+Again, Jordan's lemma guarantees that the contour integral over the half-circle is equal to zero. To evaluate the closed-contour integral, we see that there are no singularities in the upper-half plane, there are however, two on the real axis, so we have
+$$ \oint_{\gamma^+_\rho} \frac{z e^{i\pi z}}{(1+z)(1-z)} \ \d z = \pi i \bigg( \Res{f}{1} + \Res{f}{-1}\bigg),$$
+and we have
+$$\Res{f}{1} = -\frac{e^{i\pi}}{2} = \frac{1}{2}, \qquad \Res{f}{-1} = -\frac{e^{-i\pi}}{2} = \frac{1}{2}.$$
+Giving
+$$ I = \Im(\pi i) = \pi.$$
+
+\clearpage
+\subsection*{c)}
+We will evaluate the integral
+$$I = \oint_C \frac{\cos(z-1)}{(z+1)(z-2)}\ \d z,$$
+where $C$ is the positvely oriented closed contour $|z|=3$.
+
+As the integrand is analytic on the contour and meromorphic inside it, we know that the integral evaluates to 
+$$I = 2\pi i \sum_k \Res{f}{z_k},$$
+where $f$ is the integrand and $z_k$ the singularities of the integrand inside the contour. We see that the integrand has two simple poles inside $C$, we find the residues at these points:
+$$\Res{f}{-1} = \lim_{z\to-1}(z+1)f(z) = \frac{\cos(-2)}{-3} = -\frac{1}{3}\cos 2 ,$$
+$$\Res{f}{2} = \lim_{z\to 2}(z-2)f(z) = \frac{\cos(1)}{3} = \frac{1}{3}\cos 1,$$
+meaning the integral evaluates to
+$$I = \frac{2\pi i}{3}\bigg(\cos1  - \cos 2\bigg).$$
+
+\subsection*{d)}
+We will evaluate the integral
+$$I = \oint_C \frac{\d z}{e^z(z^2-1)^2} = \frac{e^{-z}}{(z + 1)^2(z-1)^2} \ \d z,$$
+where $C$ is the positvely oriented closed contour $|z|=2$.
+
+Again we see that the integrand is analytic on the contour and meromorphic inside. We see that the integrand has two 2. order poles inside $C$, we find the residues at these points to be:
+$$\Res{f}{1} = \lim_{z\to1} \frac{\d}{\d z}[(z-1)^2f(z)] = \lim_{z\to 1} -\frac{e^{-z}(z+1)^2 + 2e^{-z}(z+1)}{(z+1)^4} = -\frac{e^{-1}}{2},$$
+$$\Res{f}{-1} = \lim_{z\to-1} \frac{\d}{\d z}[(z+1)^2f(z)] = \lim_{z\to -1} -\frac{e^{-z}(z-1)^2 + 2e^{-z}(z-1)}{(z-1)^4} = 0.$$
+Meaning the integral evaluates to
+$$I = -\frac{\pi i}{e}.$$
+
+\section*{Problem 5.2 (First order differential equations)}
+We know that the solution to a first order differential equation on the form
+$$y' + P(x)y = Q(x),$$
+is
+$$ye^{I(x)} = \int Q(x) e^{I(x)} \ \d x + c,$$
+where the integration factor, $I$, is given by the integral
+$$I(x) = \int P(x) \ \d x.$$
+
+\subsection*{a)}
+We will solve the following differential equation
+$$\d y  + (2xy -xe^{-x^2})\d x = 0.$$
+We start by dividing the equation by the differential $\d x$, giving
+\begin{align*}
+\frac{\d y}{\d x} + 2xy -xe^{-x^2} &= 0, \\
+y' + 2xy &= xe^{-x^2}.
+\end{align*}
+We now find the integrating factor
+$$I(x) = \int 2x \ \d x = x^2.$$
+The solution to the differential equation is then
+$$ye^{x^2} = \int xe^{-x^2} e^{x^2} \ \d x + c,$$
+$$y = (\frac{1}{2}x^2+c)e^{-x^2}.$$
+
+\subsection*{b)}
+We will solve the following differential equation
+$$y' + y\cos x = \sin 2x.$$
+The integrating factor becomes
+$$I(x) = \int \cos x \ \d x = \sin x,$$
+giving the solution
+$$ye^{\sin x} = \int \sin (2 x)\ e^{\sin x}\ \d x + c = 2\int \sin x \cos x\  e^{\sin x} \ \d x + c,$$
+using the substitution $u = \sin x$ gives
+$$y e^{\sin x} = 2\int u e^{u} \ \d u + c = 2(\sin x -1) e^{\sin x} + c,$$
+$$y = 2(\sin x -1) + ce^{-\sin x}.$$
+
+\subsection*{c)}
+We will solve the differential equation
+$$y'\cos x + y = \cos^2 x.$$
+
+We start by dividing the equation by $\cos x$, to get it to standard form
+$$y' + \sec x\ y = \cos x.$$
+The integrating factor is now found to be
+$$I(x) = \int \sec x \ \d x = \int \csc (x + \tfrac{\pi}{2}) \ \d x = \ln \bigg[\tan\bigg(\frac{x}{2} + \frac{\pi}{4}\bigg)\bigg],$$
+giving
+$$e^{I(x)} = \tan\bigg(\frac{x}{2} + \frac{\pi}{4}\bigg).$$
+Meaning the general solution can be written as
+$$y \tan\bigg(\frac{x}{2} + \frac{\pi}{4}\bigg) = \int \sin x \tan\bigg(\frac{x}{2} + \frac{\pi}{4}\bigg) \ \d x + c.$$
+We now do some trigonometric juggling
+$$\tan\bigg(\frac{x}{2} + \frac{\pi}{4}\bigg) = \frac{1 + \tan \tfrac{x}{2}}{1 - \tan\tfrac{x}{2}}.$$
+$$\tan \tfrac{x}{2} = \frac{\sin x}{1 + \cos x} \qquad \Rightarrow \qquad \tan\bigg(\frac{x}{2} + \frac{\pi}{4}\bigg) = \frac{1 + \sin x + \cos x}{1 -\sin x + \cos x}.$$
+We now need to solve the integral
+$$\int \sin x \frac{1 + \sin x + \cos x}{1 -\sin x + \cos x} \ \d x, $$
+Wolfram Alpha tells us that the solution is
+$$-\sin x - 2\ln\bigg(\cos\frac{x}{2} - \sin \frac{x}{2}\bigg),$$
+giving us the general solution
+$$y = \cot\bigg(\frac{x}{2} + \frac{\pi}{4}\bigg)\bigg[c - \sin x - 2\ln\bigg(\cos\frac{x}{2} - \sin \frac{x}{2} \bigg)\bigg].$$
+
+\end{document}
+

@@ -1,0 +1,299 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=30mm, left=39mm, right=39mm}
+
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink}
+\title{Problem set 11 \\ FYS3140}
+
+
+\begin{document}
+\maketitle
+% \newpage\null\thispagestyle{empty}\newpage
+% 
+% \setcounter{page}{1} 
+
+\section*{Boas 10.4.4}
+We will find the inertia tensor about the origin for a mass of uniform density, $\rho=1$, inside the part of the unit sphere where $x>0$ and $y>0$. We know that
+$$ L_x = m\bigg[\big(r^2-x^2\big)\omega_x - xy\omega_y - xz\omega_z\bigg].$$
+$$ L_y = m\bigg[\big(r^2-y^2\big)\omega_y - xy\omega_x - yz\omega_z\bigg].$$
+$$ L_z = m\bigg[\big(r^2-z^2\big)\omega_z - xz\omega_x - yz\omega_y\bigg].$$
+And $L_j = I_{jk}\omega_k$, meaning
+\begin{align*}
+I_{xx} &= m\big(r^2-x^2), \qquad I_{xy}=-mxy, \qquad I_{xz}=-mxz, \\
+I_{yy} &= m\big(r^2-y^2), \qquad I_{yx}=-mxy, \qquad I_{yz}=-myz, \\
+I_{zz} &= m\big(r^2-z^2), \qquad I_{zx}=-mxz, \qquad I_{zy}=-myz, \\
+\end{align*}
+
+We start by finding the diagonal elements $I_{xx}$, $I_{yy}$ and $I_{zz}$:
+\begin{align*}
+I_{xx} &=\int_{r=0}^1\int_{\theta=0}^{\pi}\int_{\phi=0}^{\pi/2} (r^2-x^2)r^2\sin\theta \ \d r \d \theta \d \phi \\
+&=\int_{r=0}^1\int_{\theta=0}^{\pi}\int_{\phi=0}^{\pi/2} (r^2-r^2\sin^2\theta\cos^2\phi)r^2\sin\theta \ \d r \d \theta \d \phi \\
+&=\int_{r=0}^1 r^4 \ \d r \int_{\theta=0}^{\pi} \int_{\phi=0}^{\pi/2}\big( \sin\theta -\sin^3\theta\cos^2\phi\big)    \ \d \phi\d \theta \\[0.2cm]
+&=\int_{r=0}^1 r^4 \ \d r \int_{\theta=0}^{\pi}\big(\frac{\pi}{2}\sin\theta - \frac{\pi}{4}\sin^3\theta\big)    \ \d \theta \\[0.2cm]
+&= \frac{1}{5}\frac{2\pi}{3} = \frac{2\pi}{15}.
+\end{align*}
+From symmetry we see that 
+$$I_{yy} = I_{xx} = \frac{2\pi}{15},$$
+but we will have to calculate $I_{zz}$
+\begin{align*}
+I_{zz} &=\int_{r=0}^1\int_{\theta=0}^{\pi}\int_{\phi=0}^{\pi/2} (r^2-z^2)r^2\sin\theta \ \d r \d \theta \d \phi \\
+&=\int_{r=0}^1\int_{\theta=0}^{\pi}\int_{\phi=0}^{\pi/2} (r^2-r^2\cos^2\theta)r^2\sin\theta \ \d r \d \theta \d \phi \\
+&=\frac{\pi}{2}\int_{r=0}^1 r^4 \ \d r \int_{\theta=0}^{\pi}\big( \sin\theta-\sin\theta\cos^2\theta\big) \ \d \theta \\[0.2cm]
+&= \frac{\pi}{2}\frac{1}{5}\frac{4}{3} = \frac{2\pi}{15}.
+\end{align*}
+
+Now we find the remaining elements
+\begin{align*}
+I_{xy} &=\int_{r=0}^1\int_{\theta=0}^{\pi}\int_{\phi=0}^{\pi/2} -xyr^2\sin\theta \ \d r \d \theta \d \phi \\
+&= -\int_{r=0}^1\int_{\theta=0}^{\pi}\int_{\phi=0}^{\pi/2} r^2\sin^2\theta\sin\phi\cos\phi\ r^2\sin\theta \ \d r \d \theta \d \phi \\
+&= -\int_{r=0}^1 r^4 \ \d r \int_{\theta=0}^{\pi} \sin^3\theta \ \d\theta \int_{\phi=0}^{\pi/2} \sin\phi\cos\phi \ \d \theta \\[0.2cm]
+&= - \frac{1}{5} \frac{4}{3} \frac{1}{2}= -\frac{2}{15}.
+\end{align*}
+\begin{align*}
+I_{xz} &=\int_{r=0}^1\int_{\theta=0}^{\pi}\int_{\phi=0}^{\pi/2} -xzr^2\sin\theta \ \d r \d \theta \d \phi \\
+&= -\int_{r=0}^1\int_{\theta=0}^{\pi}\int_{\phi=0}^{\pi/2} r^2\sin\theta\cos\theta\cos\phi\ r^2\sin\theta \ \d r \d \theta \d \phi \\
+&= -\int_{r=0}^1 r^4 \ \d r \int_{\theta=0}^{\pi} \sin^2\theta\cos\theta \ \d\theta \int_{\phi=0}^{\pi/2} \cos\phi \ \d \theta \\[0.2cm]
+&= - \frac{1}{5} \cdot 0 \cdot 1 = 0.
+\end{align*}
+From symmetry we see that 
+$$I_{yx} = I_{xy}, \qquad I_{xz}=I_{zx} = I_{yz} = I_{zy}.$$
+
+So the inertia matrix is
+$$\mat{I} = \frac{2}{15}\begin{pmatrix}
+      \pi & -1 & 0 \\
+      -1 & \pi & 0 \\
+      0 & 0 & \pi \\
+      \end{pmatrix}.
+$$
+We will now find the principle moments and axes of inertia, which corresponds to finding the eigenvalues and eigenvectors of the inertia matrix $\mat{I}$.
+
+The eigenvalues of $\mat{I}$ are given by 
+$${\rm det}\big(\bt{I}-\lambda\I_3\big) = 0,$$
+where $\I_3$ is the 3 by 3 identity matrix. Using the shorthand notation $x\equiv \pi - \lambda$, we get
+$$\left| \ \begin{matrix}
+  x & -1 & 0 \\ -1 & x & 0  \\ 0 & 0 & x
+  \end{matrix} \ \right| = x^3 - x = 0.
+$$
+So we see that
+$$x(x+1)(x-1) = 0 \To x = 0, -1, 1 \To \lambda = \pi, \pi - 1, \pi + 1.$$
+So the principle moments of inertia are
+$$\frac{\big(2\pi-2, 2\pi, 2\pi +2\big)}{15}.$$
+
+We now find the principle axes of inertia by finding the corresponding eigenvectors. By row reduction we find
+\begin{align*}
+\lambda_1 = \pi-1 \To
+\begin{pmatrix}[ccc|c]
+1 & -1 &  0 &  0 \\
+-1 &  1 & 0 &  0 \\
+ 0 & 0 &  1 & 0 \\
+\end{pmatrix} &\sim
+\begin{pmatrix}[ccc|c]
+1 & -1 &  0 &  0 \\
+0 &  0 & 0 &  0 \\
+0 & 0 &  1 & 0 \\
+\end{pmatrix},
+\\
+ \lambda_2 = \pi \To
+\begin{pmatrix}[ccc|c]
+0 & -1 &  0 &  0 \\
+-1 &  0 & 0 &  0 \\
+ 0 & 0 & 0 & 0 \\
+\end{pmatrix} &\sim
+\begin{pmatrix}[ccc|c]
+1 & 0 &  0 &  0 \\
+0 &  1 & 0 &  0 \\
+0 & 0 &  0 & 0 \\
+\end{pmatrix},
+\\
+\lambda_3 = \pi+1 \To
+\begin{pmatrix}[ccc|c]
+-1 & -1 &  0 &  0 \\
+-1 &  -1 & 0 &  0 \\
+ 0 & 0 &  -1 & 0 \\
+\end{pmatrix} &\sim
+\begin{pmatrix}[ccc|c]
+1 & 1 &  0 &  0 \\
+0 &  0 & 0 &  0 \\
+0 & 0 &  1 & 0 \\
+\end{pmatrix}.
+\end{align*}
+So we see that the (non-normalized) principle axes of inertia are
+$$\bt{v}_1 = (1,1, 0), \qquad  \bt{v}_2 = (0,0, 1), \qquad \bt{v}_3 = (1,-1, 0).$$
+
+
+\section*{Boas 10.4.6}
+We will find the inertia tensor about the origin, and the principle moments and axes of inertia for the system of two point masses 
+$$m_1 = 1 \quad {\rm at}\quad \bt{r}_1 = (1,1,1),$$
+$$m_2 = 2 \quad {\rm at}\quad \bt{r}_1 = (1,1,-2).$$
+
+We get
+\begin{align*}
+I_{xx} &= m_1\big(y_1^2+z_1^2\big) + m_2\big(y_2^2+z_2^2\big) = 2 + 10 = 12, \\
+I_{yy} &= m_1\big(x_1^2+z_1^2\big) + m_2\big(x_2^2+z_2^2\big) = 2 + 10 = 12, \\
+I_{zz} &= m_1\big(x_1^2+y_1^2\big) + m_2\big(x_2^2+y_2^2\big) = 2 + 4 = 6, \\
+I_{xy} &= I_{yx} = -m_1x_1y_1 -m_2x_2y_2 = -1-2 = -3, \\
+I_{xz} &= I_{zx} = -m_1x_1z_1 -m_2x_2z_2 = -1+4 = 3, \\
+I_{yz} &= I_{zy} = -m_1y_1z_1 -m_2y_2z_2 = -1+4 = 3.
+\end{align*}
+So the inertia tensor about the origin is
+$$\mat{I} = 3\begin{pmatrix}
+             4 & -1 & 1 \\ -1 & 4 & 1 \\ 1 & 1 & 2
+            \end{pmatrix}. $$
+To find the principle moments and axes of inertia we need to find the eigenvalues and eigenvectors of this matrix. This is trivial, so we just do it in matlab to save some time. We find
+\begin{align*}
+\text{Principle moments of inertia:} &\quad \big(3, 12, 15\big)
+\text{Principle axes of inertia:} &\quad (1,1,-2), (1,1,1), (1,-1,0).
+\end{align*}
+
+\clearpage
+
+\section*{Boas 10.5.7}
+\subsection*{a)}
+$$\eps_{ijk}\eps_{pjq} = \eps_{jki}\eps_{jqp} = \delta_{kq}\delta_{ip} - \delta_{kp}\delta_{iq}.$$
+\subsection*{b)}
+$$\eps_{abc}\eps_{pqc} = \eps_{cab}\eps_{cpq} = \delta_{ap}\delta_{bq} - \delta_{aq}\delta_{bp}.$$
+
+\section*{Boas 10.5.8}
+\subsection*{a)}
+$$\eps_{ijk}\eps_{ijn} = \underbrace{\delta_{jj}}_{3}\delta_{kn} - \underbrace{\delta_{jn}\delta_{jk}}_{\delta_{kn}},$$
+$$\eps_{ijk}\eps_{ijn} = 2\delta_{kn}, \quad {\rm q.e.d.}$$
+\subsection*{b)}
+$$\eps_{ijk}\eps_{ijk} = \delta_{jj}\delta_{kk} - \delta_{jk}\delta_{jk} = 3\cdot 3 - 3 = 6, \quad {\rm q.e.d.}$$
+
+\section*{Boas 10.5.10}
+\subsection*{a)}
+Equation (3.2) of Chapter 6 in Boas is
+$$\bt{A} \cdot (\bt{B}\times \bt{C}) = \left| \begin{matrix}
+                                               A_x & A_y & A_z \\
+                                               B_x & B_y & B_z \\
+                                               C_x & C_y & C_z
+                                              \end{matrix}\right|.
+$$
+In tensor notation, we have
+$$\bt{A} \cdot (\bt{B}\times \bt{C}) = A_i \epsilon_{ijk} B_j C_k = \epsilon_{ijk}A_iB_jC_k. $$
+We see that the two forms are equal.
+
+\subsection*{b)}
+In tensor notation, the determinant of a 3 $\times$ 3 matrix $\mat{A}$ is given by
+$${\rm det}\ \mat{A} = a_{1i}a_{2j}a_{3k}\eps_{ijk}.$$
+So we have
+$$\bt{A} \cdot (\bt{B}\times \bt{C}) = \left| \begin{matrix}
+                                               A_x & A_y & A_z \\
+                                               B_x & B_y & B_z \\
+                                               C_x & C_y & C_z
+                                              \end{matrix}\right| = A_iB_jC_k\eps_{ijk} = \eps_{ijk}A_iB_jC_k.
+                                            $$
+Which is equal to our other expressions for the trippel scalar product, as expected.
+
+
+\section*{Boas 10.5.11}
+We will find the trippel scalar product
+$$\bt{A}\cdot(\bt{B}\times\bt{A}),$$
+From the result in the previous problem, we then have
+$$\bt{A}\cdot(\bt{B}\times\bt{A}) = \eps_{ijk}A_iB_jA_k = \epsilon_{jki}B_jA_kA_i.$$
+Writing the terms out, we see
+$$\bt{A}\cdot(\bt{B}\times\bt{A})  = B_1\big(A_23 - A_32\big) + B_2\big(A_31 - A_13\big) + B_3\big(A_12 - A_21\big) = 0 + 0 + 0 = 0.$$
+\section*{Boas 10.5.13}
+\subsection*{f)}
+$$\nabla \cdot \big(\phi\bt{V}\big) = \partial_i \big(\phi\bt{V}_i\big) = \phi\partial_i\bt{V}_i + \bt{V}_i \partial_i \phi = \phi\nabla \cdot \bt{V} + \bt{V}\cdot\nabla\phi.$$
+
+\subsection*{g)}
+\begin{align*}
+\big[\nabla \times \big(\phi \bt{V}\big)\big]_i &=  \eps_{ijk} \partial_j\big(\phi\bt{V}_k\big) \\[0.1cm]
+&= \eps_{ijk} \phi \partial_j \bt{V}_k+ \eps_{ijk} \bt{V}_k \partial_j \phi \\[0.1cm]
+&= \phi \eps_{ijk}\phi\partial_j\bt{V}_k - \eps{ikj}\bt{V}_k \partial_j \phi \\[0.1cm]
+&= \phi\big(\nabla\times\bt{V}\big)_i - \big(\bt{V}\times\nabla\phi\big)_i
+\end{align*}
+Giving
+$$ \nabla \times \big(\phi \bt{V}\big) =  \phi\big(\nabla \times \bt{V}\big) - \bt{V}\times\big(\nabla\phi\big).$$
+
+\subsection*{h)}
+\begin{align*}
+\nabla\cdot\big(\bt{U}\times\bt{V}\big) &= \p_i \eps_{ijk} U_j V_k \\[0.1cm]
+&= \eps_{ijk} U_j\p_iV_k + \eps_{ijk}V_k\p_iU_j \\[0.1cm]
+&= \eps_{kij}V_k\p_i U_j - \eps_{jik}U_j\p_iV_k \\[0.1cm]
+&= \bt{V} \cdot \big(\nabla \times \bt{U}\big) - \bt{U} \cdot \big(\nabla \times \bt{V}\big).
+\end{align*}
+
+
+\end{document}
+

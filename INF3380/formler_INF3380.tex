@@ -1,0 +1,410 @@
+\documentclass[a4paper,10pt,twoside,twocolumn]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsfonts, amssymb, amsmath}
+% \usepackage{subfigure}
+\usepackage{verbatim}
+\usepackage{parskip}
+\usepackage{color}
+
+% \usepackage[squaren]{SIunits}
+\usepackage[top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+%\usepackage[top=0.5cm, bottom=0.5cm, left=0.5cm, right=0.5cm]{geometry}
+\setlength{\columnsep}{1cm}
+
+% \usepackage{titlesec}
+% \titleformat{\section}{\large\bfseries\color{black}}{\thesection }{0em}{ }
+% \titleformat{\subsection}{\bfseries}{\thesubsection}{1em}{ }
+% \titsleformat{\subsubsection}{\bfseries}{\thesubsubsection}{1em}{}
+
+\pagestyle{empty}
+
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+
+\newcommand{\brac}[1]{\left[ #1\right] }
+\newcommand{\para}[1]{\left( #1 \right) }
+\newcommand{\der}[2]{\frac{\mathrm d#1}{\mathrm d #2}}
+\newcommand{\pder}[2]{\frac{\partial#1}{\partial#2}}
+\renewcommand{\d}{\mathrm d}
+\newcommand{\up}{\uparrow}
+\newcommand{\dw}{\downarrow}
+\newcommand{\tvec}[2]{\begin{pmatrix} #1\\#2 \end{pmatrix}}
+\newcommand{\eps}{\epsilon}
+
+\newcommand{\E}{\vec{E}}
+\newcommand{\B}{\vec{B}}
+\newcommand{\F}{\vec{F}}
+\newcommand{\A}{\vec{A}}
+\newcommand{\D}{\vec{D}}
+\newcommand{\e}[1]{\ {\rm exp} \left[ #1 \right]}
+
+\newcommand{\wh}{\widehat}
+\newcommand{\dd}{\ \text{d}}
+
+\newcommand{\dV}{\mathrm d V}
+\newcommand{\dP}{\mathrm d P}
+\newcommand{\dS}{\mathrm d S}
+\newcommand{\dT}{\mathrm d T}
+\newcommand{\dN}{\mathrm d N}
+\newcommand{\dU}{\mathrm d U}
+\newcommand{\dH}{\mathrm d H}
+\newcommand{\dG}{\mathrm d G}
+\newcommand{\dF}{\mathrm d F}
+\newcommand{\dPh}{\mathrm d \Phi}
+\newcommand{\ave}[1]{\langle #1\rangle}
+\newcommand{\Z}{\mathcal Z}
+\newcommand{\nfd}{\bar n_{\rm FD}}
+\newcommand{\nbe}{\bar n_{\rm BE}}
+\newcommand{\nbolt}{\bar n_{\rm Boltzm.}}
+\newcommand{\npl}{\bar n_{\rm Planck}}
+
+\renewcommand{\i}{\hat{i}}
+\renewcommand{\j}{\hat{j}}
+\renewcommand{\k}{\hat{k}}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqn}{\begin{equation*}}
+\newcommand{\eeqn}{\end{equation*}}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\header}[1]{\subsubsection*{#1} \vspace{-0.2cm}}
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+
+\begin{document}
+
+\header{MPI commands}
+\verb+MPI_Isend(sendbuf, scnt, dtype, dest, tag, comm, *request)+
+\verb+MPI_Irecv(recvbuf, rcnt, dtype, source, comm, *request)+ 
+\verb+MPI_Wait(request, status)+
+\verb+MPI_Waitall(count, array_of_requests, array_of_statuses)+
+
+\verb+MPI_Scatter(sendbuf, scnt, dtype, rbuf, rcnt, dtype, root, comm)+
+\verb+MPI_Scan(sendbuf, recvbuf, count, dtype, op, comm)+
+
+\verb+MPI_Sendrecv(sbuf, scnt, dtype, dest, stag, rbuf, rcnt, dtype, source, rtag, comm, *stat)+
+                
+\header{OpenMP}
+\verb+#pragma omp parallel [clause list]+ \\
+Clauses commonly used: \\
+\verb+default(shared)+ or 
+\verb+default(none)+ \\
+\verb+if (scalar expression)+ \\
+\verb+num_threads(integer expression)+ \\
+\verb+private(variable list)+ \\
+\verb+firstprivate(variable list)+ \\
+\verb+shared(variable list)+ \\
+\verb+reduction (operator: variable list)+  \\
+where operators are $+$, $-$, $-$, $*$, \&, |,  \^{} , \&\&, ||.
+
+\verb+#pragma omp for [clause list]+ \\
+Clauses are here \verb+private+, \verb+firstprivate+, \verb+lastprivate+, \verb+reduction+, \verb+schedule+, \verb+nowait+, \verb+ordered+. Here \verb+schedule(static/dynamic/guided,chunksize)+ is used for load balancing, 
+
+A loop ends with an implicit barrier, the nowait clause removes this. For an explicit barrier, use \verb+#pragma omp barrier+.
+
+We also have \verb+#pragma omp master+ and \verb+#pragma omp single+.
+
+\clearpage
+
+\header{Analytical Modeling}
+Parallel overhead: Interprocess interaction, idling and excess computation.
+
+Serial runtime $T_S$ \\
+Parallel runtime $T_P$ \\
+Total parallel overhead is given by
+$$T_o = T_{all} - T_S = pT_P - T_S.$$
+Speedup and parallel efficieny
+$$S = T_S / T_p, \qquad E=S(p)/p$$
+It is ideally bounded by $T_S/p$ (not in practice, superlinear speedup).
+
+
+Point-to-point communication cost $t_{\rm comm} = t_s + wt_w$\\
+Startup time $t_s$ \\
+Numer of words $w$ \\
+Per word transfer time $t_w$
+
+Total cost of a parallel system is $pT_P$, and a parallel system is said to be cost-optimal if $pT_P$ is asymptotically identical with $T_s$. Parallel efficiency is $E=\mathcal{O}(1)$ for a cost-optimal system.
+
+The efficiency of any parallel system decreases with $p$, this is apparent, because efficiency is given as
+$$E = \frac{T_S}{pT_P} = \frac{1}{1 + T_O/T_S},$$
+and $T_O$ is at least $(p-1)T_{\rm serial}$, which grows linearly.
+
+A parallel system is called scalable if we can keep a constant level of $E$ by increasing the problem size and the number of processes $p$ at the same time.
+
+The parallel runtime is
+$$T_P = (W + T_O(W, p))/p$$
+Efficiency is then
+$$E = W/(W+T_O) = 1/(1+T_O/W)$$
+For a given efficiency, we have
+$$W = K T_O,$$
+where $K=E/(1-E)$.
+
+\clearpage
+
+\section*{Dense matrix algorithms}
+
+\paragraph{Matrix-vector multiplication}
+$$\mat{A}\bt{x} = \bt{y}, \quad \mat{A}\in\mathbb{R}^{n\times n}.$$ 
+
+\textbf{Rowwise 1D-partitioning} \\
+Each row $A_i$ must be multiplied with $\bt{x}$, resulting in $y_i$. In 1D row-partitioning, each process is responsible for a set of rows, and gets a set of $\bt{x}$, as each process must know the entire $\bt{x}$-vector, we start by doing an all-to-all broadcast. The process responsible for row $A_i$ then computes $y_i$.
+
+We have
+$$T_P = \frac{n^2}{p} + t_s\log p + t_w n.$$
+So $pT_P = n^2 + t_s p \log p + t_w n p.$
+Cost-optimal as long as $p = \mathcal{O}(n)$.
+For isoefficiency we have
+$W = KT_O$, where 
+$$T_O = pT_p - T_S = t_s p\log p + t_w n p.$$
+We see that the first term in the overhead gives
+$$W = \mathcal{O}(p\log p).$$
+While the second term gives
+$$W = K^2 t_w^2 p^2 = \mathcal{O}(p^2).$$
+
+
+\textbf{2D partitioning} \\
+A 2D mesh is introduced, so each process gets a block of the original matrix. The $\bt{x}$-vector is split among the processes in the right-most column in the mesh. First the parts of $\bt{x}$ must be aligned along the main diagonal of the mesh, and then column-wise one-to-all broadcasts are done. Each process then calculates it's local partial-sum. Finally rowwise reductions take place to find the final $\bt{y}$.
+
+
+\paragraph{Matrix-matrix multiplication}
+$$\mat{A}\times\mat{B} = \mat{C}, \qquad \mat{A}, \mat{B}, \mat{C} \in \mathbb{R}.$$
+The components of $C$ are given by
+$$c_{ij} = \sum_k a_{ik}b_{kj}.$$
+But note that we can also write it as block matrix multiplication
+$$\mat{C}_{ij} = \sum_k \mat{A}_{ik}\times \mat{B}_{kj}.$$
+
+\textbf{Simple algorithm} \\
+A 2D block partitioned is used. Process $P_{i,j}$ gets sublocks $\mat{A}_{ij}$ and $\mat{B}_{ij}$. Each process has the job to calculate the block $\mat{C}_{ij}$, to do this, it needs to know all the subblocks $\mat{A}_{ik}$ and $\mat{B}_{kj}$, so an all-to-all broadcast of \mat{A}'s blocks is performed in each row, and an all-to-all broadcast of $\mat{B}$'s blocks is performed in each column.
+This algorithm is cost-optimal for $p=\mathcal{O}(n^2)$
+
+
+\textbf{Cannon's Algorithm} \\
+A more memory-efficient version of the simple algorithm. Instead of all-to-all broadcasting sublocks of $\mat{A}$ and $\mat{B}$. First, process $P_{i,j}$ gets $\mat{A}_{i,j}$ and $\mat{B}_{i,j}$. We then align the subblocks by each process shifting their $A$ subblocks $i$ steps to the left, and their $B$ subblocks up $j$ steps- Then each process calculate their partial sum of the subblock $C_{ij}$, each $A$ and subblock is shifted one step to the left, and each $B$ subblock is shifted one step up. This is repeated $p$ times in total. Each process now have their final $\mat{C}_{ij}$ subblock. 
+
+\textbf{DNS algorithm} \\
+The simple algo and Cannon's both have a maximum of $n^2$ processes. The DNS algo has a max of $n^3$. Arrange the processes in a three-dimensional grid. Process $P_{ijk}$ is responsible for multiplying $\mat{A}_{ik}\times \mat{B}_{kj}$. The results the processes are then gathered to obtain $\mat{C}_{ij}$.
+It is cost optimal for $p = \mathcal{O}(n^3/\log n)$.
+
+\paragraph{Gaussian Elimination}
+$$\mat{A}\bt{x} = \bt{b}, \qquad \mat{A}\in\mathbb{R}^{n\times n}.$$
+Here, $\mat{A}$ and $\bt{b}$ are known, and we want to find $\bt{x}$. This is done in two steps. First we reduce the extended matrix to upper triangular form,
+so we have $\mat{U}\bt{x} = \bt{y}$. Where $\mat{U}$ has 1 on it's main diagonal, and only zeroes under the diagonal. We then do back-substitution to find $\bt{x}$ in reverse order.
+
+Serial Gaussian Elimination
+\begin{verbatim}
+for k=0:n 
+    // Division step
+    for j=k:n 
+        A[k,j] /= A[k,k]
+    y[k] = b[k]/A[k,k]
+    // Elimination step
+    for i=k+1:n 
+        for j=k:n 
+            A[i,j] -= A[i,k]*A[k,j]
+        b[i] -= A[i,k]*y[k]
+\end{verbatim}
+Note that after iteration $k$ has finished, only $A_{i,j}$ for $i,j>k$ is active.
+
+\textbf{Rowwise 1D-partitioning} \\
+Process $P_i$ is responsible for row $i$ of $A$. At the $k'th$ iteration, process $P_k$ performs the divison step and broadcasts the result to the rows below it, the elimination step is then performed. The algorithm is \emph{not} cost optimal.
+
+\textbf{Pipelined rowwise partitioning} \\
+We can easily pipeline the division/broadcast/elimination stages. The priorities is then
+\begin{enumerate}
+    \item Send data destined for other processes.
+    \item Do computations with data already recieved.
+\end{enumerate}
+This version \emph{is} cost-optimal
+
+\textbf{Less processes than rows}
+If we have $p < n$ then we can either partition using either block 1D or cyclic 1D. The block partitioning leads to uneven load distribution and so a cyclic distribution should be used.
+
+\textbf{2D block partitioning}
+Process $P_{ij}$ is responsible for $A_{ij}$. At the beginning of iteration $k$, $P_{kk}$ must do a one-to-all broadcast to the active processes in row $k$. After each process in row $k$ recieve $P_{kk}$, they compute the division, and perform a one-to-all broadcast to the active processes in their column. As in the 1D case, this is \emph{not} cost-optimal unless pipelined. Also, again a cyclic 2D partitioning should be used.
+
+\clearpage
+
+\section*{Sorting}
+
+In the most basic case, we can assign a process to each number, the list can then be sorted through a series of \emph{compare-exchange} operations. This has poor performance, as $t_s \gg t_w$, and thus the exchange time will dominate the compare time. If each process has more elements, they can sort their lists locally, and then combine the results through a \emph{compare-split} operation. For a compare-split between two processes, each send their sublist to the other, they independantly merge their lists, and keep only the lower or higher half of the combined list.
+
+\paragraph{Bubble sort and Odd-Even transposition}
+
+\begin{verbatim}
+# Sequential bubble sort
+for (i=n-2; i>=0; i--)
+    for (j=0; j<=i; j++)
+        compare_exchange(a[j],a[j+1]);    
+\end{verbatim}
+The basic bubble sort is inherently sequential, and thus ill-suited for parallelization. Instead we use a Odd-Even transposition.
+\begin{verbatim}
+#ODD-Even
+for (i=1; i<=n; i++)
+    if i is odd
+        for (j=0; j<n/2; j++) 
+            compare_exchange(a[2*j+1], a[2*j+2]);
+    else
+        for (j=1; j<n/2; j++)
+            compare_exchange(a[2*j],[2*j+1]);
+#ODD-Even parallel
+for (i=1; i<= n; i++)
+    if i is odd
+        if (i and id are both odd or even)
+            compare_exchange_min(id+1)
+        else
+            compare_exchange_max(id-1)
+\end{verbatim}
+The odd-even transposition is very similar to bubble sort (the same number of operations), but is easier to parallelize. Odd-even transposition is cost-optimal when $p=\mathcal{O}(\log n)$, meaning isoefficiency function is $\Theta(p2^p)$, exponential scaling means it is poorly scalable and it's suited to only a small number of processes.
+
+\textbf{Shellsort} \\
+Shellsort is performed in two stages, where the last stage is an odd-even transposition. The first stage consists of $\log_2 p$ iterations, where first process $p_i$ does a compare split with $p_{p-i-1}$ for $i=0,\ldots, p/2$. Then the list is split in two at the middle, and half the processes get assigned to each half. Then process $p_i$ does a compare-split with $p_{p/2-i-1}$ for $0\leq i < p/4$. And so on. The idea is that the first stage makes the second stage converge much faster. Analysing this is thus hard.
+
+
+
+\begin{verbatim}
+#1. Split list of length n to p processes
+#2. Internally sort each sublist
+#3. Execute p phases
+    # 4. If (p and id are both even or odd)
+        compare-split-min(id+1)
+    # 5. else
+        compare-split-max(id-1)
+\end{verbatim}
+
+\newpage
+
+\header{Quicksort} 
+The sequential quicksort algorithm is
+\begin{verbatim}
+function quicksort(A, q, r):
+    if q<r:
+        x = A[q]
+        s = q
+        for i in range(q+1, r):
+            if A[i] <= x:
+                s = s+1
+                swap(A, s, i)
+        swap(A, q, s)
+        quicksort(A, q, s)
+        quicksort(A, s+1, r)
+\end{verbatim}
+Here, the pivot selection used is just picking the first element in the list, which can be very bad. More advanced pivot selection rules can be used (such as random pivot etc, outside the scope of our curriculum).
+
+\textbf{Naive parallel quicksort}
+\begin{verbatim}
+# 1. Process 0 partitions the original array
+# 2. Sends recursive calls to new processes
+\end{verbatim}
+This is inefficient. To be efficient, the partitioning must be done in parallel!
+
+\textbf{Shared memory}
+\begin{verbatim}
+# 1. Each process is responsible for a subblock of A
+# 2. A pivot is chosen and broadcast, each process
+     splits their subblock according to global pivot
+# 3. Global array is updated from local subblocks
+# 4. All processes are now split in two
+     one for left global, one for right
+\end{verbatim}
+After each process has sorted their local list into $S_i$ and $L_i$, a non-inclusive prefix-sum must be calculated, so that $S_i$ can be placed first in the global list, and then the $L_i$'s
+.
+
+\textbf{Message passing}
+This method is similar to the shared memory method, but the rearranging is now somewhat more complicated. The first stage is similar, process $P_i$ rearranges it's local sublist according to some broadcasted pivot. After each process is done, it figures out which processes will be responsible for the $S$ list and which will be responsible for the $L$ list, and send their local subarrays to the right process. Once a process is responsible for an entire subarray (S or L) it locally sorts it.
+
+Both the shared memory and message passing algorithms have isoefficiency functions of $\mathcal{O}(p \log^2 p)$, which results from the pivot-broadcast and prefix sum operations. \\[-1cm]
+
+\header{Pivot selection}
+Pivot selection is very important for the performance on quicksort, even more so in the parallel case. If a bad pivot is selected, a process can become idle, lowering the effectivity for the rest of the computation. In the sequential quicksort, a random pivot is a decent choice, as a bad pivot only effects that subsequence, but in the parallel case - it puts a process out of work. A better pivot selection, if we assume the elements to be uniformly distributed, is the local median. This is because (at least for decently sized subarrays) the local median of a subarray will be close to the global median. This pivot will then (hopefully) split each subarray in almost two equally sized lists, giving an even load distribution - and maintaing the uniform distribution property.
+
+\clearpage
+
+\section*{Graph Algorithms}
+An unweighted graph has the adjacency matrix
+$$a_{i,j} = \begin{cases}
+    1 & \mbox{if } (v_i,v_j)\in E \\
+    0 & \mbox{otherwise}
+\end{cases}$$
+A weighted graph has adjacency matrix
+$$a_{i,j} = \begin{cases}
+    w(v_i,v_j) & \mbox{if } (v_i,v_j)\in E \\
+    0 & \mbox{if } i=j \\
+    \infty & \mbox{ otherwise}
+\end{cases}$$
+
+\header{Prim's algorithm}
+For finding a minimum spanning tree. It is a greedy algorithm. First a vertex is chosen arbitrarily, then a new vertex is chosen and included per iteration.
+\begin{verbatim}
+tree = [root_vertex]
+d[r] = 0
+for vertices not in tree:
+    if edge(r,v) exists:
+        d[v] = w(r,v)
+    else:
+        d[v] = INF
+while tree != V:
+    find u so that d[u] = min{d[v]|v not in tree}
+    tree.append(u)
+    for all v not in tree:
+        d[v] = min{d[v], w(u,v)}
+\end{verbatim}
+
+\textbf{Parallel Prim's Algorithm} \\
+We divide the adjacency matrix among the processes using columnwise 1D block mapping. The process that contains the $i$'th column, will also have the job of calculating $d_i[v]$ for it's vertices $v\in V_i$. Each iteration begins by process 0 selecting the vertex $u$ that will be added to the MST, it then broadcasts this selection. Each process calculates their new $d_i[u]$ values, and an all-to-one reduction using \verb+MPI_MIN+ is used
+
+\header{Dijkstra's}
+A single-source shortest path algorithm. It is very similar to Prim's algorithm.
+\begin{verbatim}
+tree = [source_vertex]
+l[s] = 0
+for vertices not in tree:
+    if edge(s,v) exists:
+        l[v] = w(s,v)
+    else:
+        l[v] = INF
+while tree != V:
+    find u so that l[u] = min{l[v]|v not in tree}
+    tree.append(u)
+    for all v not in tree:
+        l[v] = min{l[v], l[u]+w(u,v)}
+\end{verbatim}
+The parallel version of Dijkstra's is similar to Prim's. The adjancy matrix is split using columnwise 1D block mapping, so each process get a number of columns and is responsible for computing $l_i(v)$ for $v \in V_i$.
+
+\newpage
+
+\header{Dijkstra's All-pairs shortest path}
+To find all-pairs shortest paths with Dijkstra's, we simply run the single-source algorithm $n$ times, using each vertex as the source. This can be parallelized in to ways. 
+
+First, in the source-partitioned formulation, we can let each process run the single-source Dijkstra's sequentially on each source. This method has no inter-process communication, so it is obviously cost-optimal. However, as $W=n^3$ and $p\leq n$ we get an isoefficiency function $W = \mathcal{O}(p^3)$, and so this problem is poorly scalable.
+
+The second version, source-parallel formulation, we let $p/n$ processes work each source-partitioned sequence in parallel. This formulation needs some communication, and is cost-optimal  if $p\log p/n^2 = \mathcal{O}(1)$, i.e., the algo can use up to $\mathcal{O}(n^2/\log n)$ processes efficiently.
+
+\header{Floyd's Algorithm}
+Floyd's is an all-pairs shortest path algorithm. The sequential version is as follows
+\begin{verbatim}
+for (k=0;k<n;k++)
+    for (i=0;i<n;i++)
+        for(j=0;j<n;j++)
+            a[i][j] = min(a[i][j], a[i][k]+a[k][j])
+\end{verbatim}
+As $\mbox{min}(a[i][k],a[i][k]+a[k][j]) = a[i][k]$, and $\mbox{min}(a[k][j],a[k][k]+a[j][k]) = a[k][j]$ we can run each iteration of $k$ concurrently.
+
+\textbf{Rowwise 1D block mapping} \\
+Each process is responsible for a set of rows of the $a$-matrix. To update $a[i][j]$, row's $a_i$ and $a_k$ must be known, the process responsible for this entry already knows row $a_i$ but must recieve row $a_k$. At the begining of the $k$'th iteration, the owner of the $k$'th row should broadcast it to all processes.
+
+\textbf{2D block mapping} \\
+The matrix is now divided using a 2D block mapping. At the begging of the $k$'th iteration, any process that owns part of the $k$'th row broadcasts it to all processes in it's column, and any process that owns part of the $k$'th column broadcasts it processes in ist row.
+
+\textbf{Pipelining Floyd's algorithm}
+Just like for Gausian elimination, we can speed up the 2D block mapping version of Floyd's algorithm by pipelining it. Instead of using broadcast operations, the owner of the $k'th$ row and column send their to their closest neighbors, 
+
+
+\end{document}
+

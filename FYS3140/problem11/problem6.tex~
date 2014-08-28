@@ -1,0 +1,186 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=30mm, left=39mm, right=39mm}
+
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation*}}
+\newcommand{\eeq}{\end{equation*}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink}
+\title{Problem set 5 \\ FYS3140}
+
+
+\begin{document}
+\maketitle
+% \newpage\null\thispagestyle{empty}\newpage
+% 
+% \setcounter{page}{1} 
+
+\section*{Boas 8.6.6}
+We will solve the second-order linear ODE
+$$y'' + 6y' + 9y = 12 e^{-x}.$$
+We start by finding the general solution to the homogeneous equation
+$$y'' + 6y' + 9y = 0, \qquad \Rightarrow \qquad \lambda^2 + 6\lambda + 9 = 0 \qquad \Rightarrow \qquad \lambda = -3,$$
+giving the general homogeneous solution:
+$$y_h(x) = Ae^{-3x} + Bxe^{-3x}.$$
+We now guess at a particular solution on the form
+$$y_p(x) = Ce^{-x},$$
+inserting this guess into the original ODE gives
+$$4Ce^{-x} = 12e^{-x}, \qquad \Rightarrow \qquad C=3.$$
+So we have the total solution
+$$y(x) = Ae^{-3x} + Bxe^{-3x} + 3e^{-x}.$$
+
+\section*{Boas 8.6.12}
+We will solve the second-order linear ODE
+$$(D^2 + 4D + 12)y = 80\sin 2x, \qquad D \equiv \frac{\d}{\d x}.$$
+Written on standard form, the equation reads
+$$y'' + 4y' + 12y = 80\sin 2x.$$
+We first find the general solution to the homogeneous equation
+$$y'' + 4y' + 12y = 0, \quad \Rightarrow \quad \lambda^2 + 4\lambda + 12 = 0, \quad \Rightarrow \quad \lambda = -2 \pm 2\sqrt{2}i,$$
+so we see
+$$y_h(x) = e^{-2}\bigg(A\sin 2\sqrt{2}x + B\sin 2\sqrt{2}x\bigg).$$
+For the particular solution we guess at a solution on the form 
+$$y_p (x) = C \sin 2x + D\cos 2x.$$
+Derivation gives
+$$y_p' = 2C\cos 2x - 2D\sin 2x, \qquad y_p'' = -4C\sin 2x - 4D \cos 2x,$$
+and inserting this back into the original equation gives
+$$[8C - 8D]\sin 2x - [8C + 8D]\cos 2x =  80\sin 2x.$$
+We see that $C = 5$ and $D=-5$ giving the total solution
+$$y(x) = e^{-2}\bigg(A\sin 2\sqrt{2}x + B\sin 2\sqrt{2}x\bigg) + 5\sin 2x - 5\cos 2x.$$
+
+\section*{Boas 8.6.23}
+We will solve the second-order linear ODE
+$$y'' + y = 2xe^x.$$
+Finding the homogeneous solution is trivial:
+$$y'' + y = 0, \qquad y_h(x) = A\sin x + B\cos x.$$
+For the particular solution we guess a solution on the form
+$$y_p = C x e^x + D e^x,$$
+insertion gives
+$$2Cxe^x + (2C + 2D)e^x = 2xe^x, \qquad \Rightarrow \qquad C = 1, D= -1.$$
+Giving the total solution
+$$y_h(x) = A\sin x + B\cos x + (x-1)e^x.$$
+
+
+\section*{Boas 8.7.17}
+We will solve the second-order linear ODE
+$$x^2y'' + xy' - 16y = 8x^4.$$
+We start by using the substitution $x = e^z$, with
+$$y' = \frac{\d y}{\d x} = \frac{\d y}{\d z} \frac{\d z}{\d x} = \frac{1}{x}\frac{\d y}{\d z},$$
+$$y'' = \frac{\d }{\d x}\bigg(\frac{\d z}{\d x} \frac{\d y}{\d z}\bigg) = \frac{1}{x^2}\bigg(\frac{\d^2 y}{\d z^2} - \frac{\d y}{\d z}\bigg).$$
+This rewriting gives the equation
+$$\frac{\d^2 y}{\d z^2}  - 16y(z) = 8e^{2z}.$$
+With homogenous solution in terms of $z$:
+$$\frac{\d^2 y}{\d z^2}  - 16y(z), \quad \Rightarrow \quad \lambda = \pm 4, \quad \Rightarrow \quad y(z) = Ae^{4z} + Be^{-4z}.$$
+And by guessing on the particular solution $y_p = Ce^{2x}$, insertion gives
+$$-12Ce^{2z} = 8e^{2z} \quad \Rightarrow \quad  C = -\frac{2}{3}, \quad \Rightarrow \quad y_p(z) = -\frac{2}{3}e^{2z}. $$
+Switching back to expressing $y$ in terms of $x$ gives the general solution
+$$y(x) = Ax^4 + B\frac{1}{x^4} - \frac{2}{3}{x^2}.$$
+Note that the solution is now valid in $x=0$, and that the general coefficients $A$ and $B$ are different for $x>0$ and $x<0$.
+
+\clearpage
+
+\section*{Boas 8.7.19}
+We will solve the second-order linear ODE
+$$x^2y'' - 5xy' + 9y = 2x^3.$$
+Using the substitution $x=e^z$ gives the equation
+$$\frac{\d^2 y}{\d z^2} - 6\frac{\d y}{\d z} + 9y = 2e^{3z}.$$
+We find the homogeneous solution expressed in $z$ to be
+$$\lambda^2 - 6\lambda + 9 = 0, \To \lambda_\pm = 3, \To y_h(z) = Ae^{3z} + Bze^{3z}.$$
+We guess that $y_p(z)$ has the form $Cz^2e^{3z}$ and find $C$ by insertion:
+$$[9C-18C+9C]z^2e^{3z} + [12C-12C]ze^{3z} + 2Ce^{3z} = 2e^{3z}, \To C = 1.$$
+Giving the general solution in terms of $z$:
+$$y(z) = Ae^{3z} + Bze^{3z} + z^2e^{3z}.$$
+And in terms of $x$:
+$$y(x) = Ax^3 + Bx^3\ln x  + x^3(\ln x)^2.$$
+
+
+\section*{Boas 8.7.22}
+
+We will solve the second-order linear ODE
+$$x^2y'' + xy' + y = 2x.$$
+Using the substitution $x=e^z$ gives the equation
+$$\frac{\d^2 y}{\d z^2} + y(z) = 2e^{z}.$$
+We find the homogeneous solution expressed in $z$ to be
+$$\lambda^2 + 1 = 0, \To \lambda_\pm = \pm i, \To y_h(z) = A\sin z + B \cos z.$$
+We guess that $y_p(z)$ has the form $Ce^{z}$ and find $C$ by insertion:
+$$2Ce^{z} = 2e^{z}, \To C = 1.$$
+Giving the general solution in terms of $z$:
+$$y(z) = A\sin z + B \cos z + e^z.$$
+And in terms of $x$:
+$$y(x) = A\sin \ln x + B\cos \ln x  + x^3(\ln x)^2.$$
+
+
+
+
+\end{document}
+

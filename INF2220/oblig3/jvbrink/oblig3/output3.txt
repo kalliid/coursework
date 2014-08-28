@@ -1,0 +1,7 @@
+Matching pattern 'rabbit' to file: AliceInWonderland.txt
+Index: 1826 Match: rabbit
+Index: 2018 Match: rabbit
+Index: 2163 Match: rabbit
+Index: 34357 Match: rabbit
+Index: 36694 Match: rabbit
+Index: 36741 Match: rabbit

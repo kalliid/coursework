@@ -1,0 +1,147 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=29mm, left=39mm, right=39mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inner}[2]{\langle #1 , #2 \rangle}
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink \\ \texttt{j.v.brink@fys.uio.no}}
+\title{Problem set 1 \\ FYS-KJM4480}
+
+\begin{document}
+\maketitle
+
+\section*{Exercise 1}
+
+In this problem we consider the Slater determinant
+$$\Phi_\lambda^{AS} (x_1, x_2, \ldots, x_N; \alpha_1, \ldots, \alpha_N) = \frac{1}{\sqrt{N!}}\sum_p (-)^p \op{P} \prod_{i=1}^N \psi_{\alpha_i}(x_i).$$
+Where $\alpha_i$ are quantum numbers and $N$ is the number of particles. The sum over $p$ is a summation over all possible permutations.
+
+\subsection*{a)}
+If we let $N=3$, the Slater determinant becomes:
+\begin{align*}   
+\Phi_\lambda^{AS}(\bt{x};\bt{\alpha}) = \frac{1}{\sqrt{6}} \bigg(
+&\psi_{\alpha_1}(x_1) \psi_{\alpha_2} (x_2)\psi_{\alpha_3}(x_3)
+- \psi_{\alpha_1}(x_2) \psi_{\alpha_2} (x_1)\psi_{\alpha_3}(x_3) \\
+&\quad+ \psi_{\alpha_1}(x_2) \psi_{\alpha_2} (x_3)\psi_{\alpha_3}(x_1)  
+- \psi_{\alpha_1}(x_3) \psi_{\alpha_2} (x_2)\psi_{\alpha_3}(x_1) \\
+&\qquad+ \psi_{\alpha_1}(x_3) \psi_{\alpha_2} (x_1)\psi_{\alpha_3}(x_2) 
+- \psi_{\alpha_1}(x_1) \psi_{\alpha_2} (x_3)\psi_{\alpha_3}(x_2)\bigg)
+\end{align*}
+
+\subsection*{b)}
+We will no show that the slater determinant is normalized, in the sense that
+$$\braket{\Phi_\lambda^{AS}}{\Phi_\lambda^{AS}} = \int |\Phi_\lambda^{AS} (x_1,\ldots, x_N, \alpha_1, \ldots, \alpha_N)|^2 = 1.$$
+To do this we will assume that the single-particle states forms an orthonormal set, i.e.,
+$$\braket{\psi_{\alpha_i}}{\psi_{\alpha_j}} = \int \psi^*_{\alpha_i}(x)\psi_{\alpha_j}(x) \ \d x = \delta_{ij},$$
+where $\delta_{ij}$ is the Kronecker-delta.
+
+To easily see that the slater determinant is normalized, we write it using the antisymmetrizer operator
+$$\Phi_\lambda^{AS} = \sqrt{N!}\mathcal{A}\prod_{i=1}^N \phi_H.$$
+Where we have used the \emph{Hartree-function}:
+$$\phi_H \equiv \prod_{i=1}^N \psi_{\alpha_i}(x_i).$$
+
+We can then write the inner-product as
+$$\braket{\Phi_\lambda^{AS}}{\Phi_\lambda^{AS}} = N! \int \mathcal{A}^* \phi^*_H \mathcal{A} \phi_H \ \d \bt{x} .$$
+We can simplify this as follows
+$$\braket{\Phi_\lambda^{AS}}{\Phi_\lambda^{AS}} = N! \int \phi^*_H \mathcal{A}^2 \phi_H \ \d \bt{x} = N! \int \phi^*_H \mathcal{A} \phi_H \ \d \bt{x}.$$
+Where we have used the fact that the antisymmetrizer is unitary, $\mathcal{A}^\dagger = \mathcal{A}$ and that it is a projection operator, meaning $\mathcal{A}^2 = \mathcal{A}$.
+We now write out the definition of the antisymmetrizer, giving
+$$\braket{\Phi_\lambda^{AS}}{\Phi_\lambda^{AS}} = \sum_p (-)^p \int \phi^*_H \\\op{P} \phi_H \ \d \bt{x}.$$
+As the permutation operator only acts on one of the Hartree-functions, the two functions will never be similar and the orthogonality of the single-particle states makes these cross-products cancel out. We are left only with the contribution when the permuation operator is identity, giving
+$$\braket{\Phi_\lambda^{AS}}{\Phi_\lambda^{AS}} = \int \phi^*_H \phi_H \ \d \bt{x} = 1.$$
+Where we again used our assumption about the normality of the single-particle states.
+
+\subsection*{c)}
+We now define a general onebody operator and a general twobody operator:
+$$\op{F} = \sum_{i=1}^N \op{f}(x_i), \qquad \op{G} = \sum_{i<j} \op{g}(x_i, x_j).$$
+And we will now calculate the expectation value of these operators for a two-particle Slater determinant.
+$$\braopket{\Phi^{AS}_{\alpha_1\alpha_2}}{\op{F}}{\Phi^{AS}_{\alpha_1\alpha_2}}, \qquad \braopket{\Phi^{AS}_{\alpha_1\alpha_2}}{\op{G}}{\Phi^{AS}_{\alpha_1\alpha_2}}.$$
+
+We start with the onebody operator, using the same technique as above using the antisymmetrizer, we can write out the integral as follows
+$$\braopket{\Phi^{AS}_{\alpha_1\alpha_2}}{\op{F}}{\Phi^{AS}_{\alpha_1\alpha_2}} = N! \int \phi_H^* \op{F} \mathcal{A} \phi_H \ \d \bt{x}.$$
+We now insert the definitions of the two operators
+$$\braopket{\Phi^{AS}_{\alpha_1\alpha_2}}{\op{F}}{\Phi^{AS}_{\alpha_1\alpha_2}} = \sum_{i=1}^N \sum_p (-)^p \int \phi_H^* \op{f} \op{P} \phi_H \ \d \bt{x}.$$
+As earlier, if one of the Hartree-functions is permutated, the integral vanishes, so we are left with
+$$\braopket{\Phi^{AS}_{\alpha_1\alpha_2}}{\op{F}}{\Phi^{AS}_{\alpha_1\alpha_2}} = \sum_{i=1}^N \int \phi_H^* \op{f} \phi_H \ \d \bt{x}.$$
+
+\end{document}
+

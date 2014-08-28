@@ -1,0 +1,151 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+\usepackage{caption}
+
+%\DeclareCaptionLabelSeparator{colon}{. }
+\renewcommand{\captionfont}{\sffamily}
+\renewcommand{\captionlabelfont}{\bf\sffamily}
+\setlength{\captionmargin}{40pt}
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=29mm, left=39mm, right=39mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=python,
+basicstyle=\ttfamily\scriptsize,
+keywordstyle=\color{javapurple},%\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+% numbers=left,
+% numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+captionpos=b,
+showstringspaces=false,
+frame= single,
+breaklines=true}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inner}[2]{\langle #1 , #2 \rangle}
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink \\ \texttt{j.v.d.brink@fys.uio.no}}
+\title{MAT-INF3360 \\ Mandatory Exercises 1}
+
+\begin{document}
+
+We are studying a stochastic variabel
+$$X = \sum_{i=1}^N x_i,$$
+where the $x_i$'s are random, independant, samples of a distribution
+$$P(x) \propto \frac{1}{x}.$$
+
+\subsection*{2.)}
+If we let $y$ be a sample from the uniform distribution
+$$P_0(y) \sim \mbox{uniform}(-1,1) = \begin{cases}
+    1/2 & \mbox{if } x\in[-1,1] \\
+    0 & \mbox{else},
+\end{cases}$$
+and we let $x$ be a dependant variable of $y$, meaning it is given from some function
+$x(y)$. If we then denote the distribution of $x$ as $P(x)$, we know that
+$$P(x) \d x = P_0(y)  \d y$$
+If we divide by $\d y$ we get
+$$P(x) \frac{\d x}{\d y} = P_0(y),$$
+we can now divide by $\d x/\d y = x'(y)$ to show that
+$$P(x) = \frac{P_0(y)}{x'(y)}.$$
+
+\subsection*{3.)}
+We now let $x = Be^{Ay}$, and want to find $P(x)$, we first find the derivative
+$$\frac{1}{x'(y)} = \frac{1}{Ax},$$
+giving
+$$P(x) = \begin{cases}
+    \frac{1}{2Ax} & \mbox{if }  Be^{-A} < x < Be^A \\
+    0 & \mbox{else}
+\end{cases} $$
+
+\subsection*{4.)}
+We check that $P(x)$ is normalized
+$$\int_{-\infty}^\infty P(x) \ \d x = \int_{Be^{-A}}^{Be^{A}} \frac{1}{2Ax}\ \d x = \frac{1}{2A}\ln(x)\bigg|_{Be^{-A}}^{Be^{A}} = \frac{1}{2A}\bigg(\ln\big(Be^A\big) - \ln\big({Be^{-A}}\big)\bigg) = 1.$$
+And find the expectation value
+$$\langle x \rangle = \int_{-\infty}^\infty x P(x) \ \d x = \int_{Be^{-A}}^{Be^{A}} \frac{1}{2A}\ \d x = \frac{B}{A}\frac{e^A - e^{-A}}{2} = \frac{B}{A}\sinh(A).$$
+and
+$$\langle x^2 \rangle = \int_{-\infty}^\infty x^2 P(x) \ \d x = \int_{Be^{-A}}^{Be^{A}} \frac{x}{2A}\ \d x = \frac{B^2}{2A}\frac{e^{2A} - e^{-2A}}{2} = \frac{B^2}{2A}\sinh(2A).$$
+We can now use the trigonometric identity
+$$\sinh(2A) = 2\sinh(A)\cosh(A),$$
+to find
+$$\langle x^2 \rangle = \int_{-\infty}^\infty x^2 P(x) \ \d x = \int_{Be^{-A}}^{Be^{A}} \frac{x}{2A}\ \d x = \frac{B^2}{2A}\frac{e^{2A} - e^{-2A}}{2} = \frac{B^2}{A}\sinh(A)\cosh(A).$$
+So the variance is then
+$$\langle \Delta x^2 \rangle = \langle x ^2\rangle - \langle x \rangle^2 = \big(A\mbox{ cotanh}(A)-1\big)\frac{B^2}{A^2}\sinh^2(A).$$
+
+\end{document}

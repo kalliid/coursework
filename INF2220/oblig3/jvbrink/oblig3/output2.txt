@@ -1,0 +1,12 @@
+Matching pattern ' ___ and ___ ' to file: ThePrince.txt
+Index: 32992 Match:  up, and one 
+Index: 80366 Match:  him and his 
+Index: 108726 Match:  go; and so, 
+Index: 116114 Match:  one and the 
+Index: 131989 Match:  so, and had 
+Index: 141097 Match:  fox and the 
+Index: 159228 Match:  fox and the 
+Index: 166636 Match:  end and the 
+Index: 177242 Match:  war and not 
+Index: 264865 Match:  men and the 
+Index: 275915 Match:  up, and was 

@@ -1,0 +1,92 @@
+\documentclass[a4paper, 11pt, titlepage, english]{article}
+
+\usepackage{babel, textcomp}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color, xcolor}
+\usepackage{framed, parskip}
+\usepackage{flafter, caption, multicol}
+\usepackage{verbatim, listings, fancyvrb}
+
+%\DeclareCaptionLabelSeparator{colon}{. }
+\renewcommand{\captionfont}{\small\sffamily}
+\renewcommand{\captionlabelfont}{\bf\sffamily}
+\setlength{\captionmargin}{20pt}
+
+\setcounter{tocdepth}{2}
+
+\DeclareMathAlphabet{\mathbfit}{OML}{cmm}{b}{it}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=python,
+basicstyle=\ttfamily\footnotesize,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+% numbers=left,
+% #numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=2,
+showspaces=false,
+showstringspaces=false,
+frame= single,
+breaklines=true}
+
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=20mm, bottom=20mm, left=34mm, right=34mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newcommand{\bt}[1]{\mathbfit{#1}}
+\newcommand{\p}{\partial}
+\renewcommand{\d}{\text{d}}
+\newcommand{\D}{\text{D}}
+\newcommand{\N}{\text{N}}
+\newcommand{\R}{\text{R}}
+\renewcommand{\c}{\cdot}
+
+\usepackage{calc}
+
+\title{INF3331 - Week 2}
+\author{Jonas van den Brink \\ \texttt{j.v.d.brink@fys.uio.no}}
+
+\begin{document}
+\pagestyle{empty}
+\subsection*{Jonas van den Brink, jvbrink}
+\texttt{j.v.d.brink@fys.uio.no}
+\subsection*{2.1}
+\lstinputlisting{printrandom.py}
+\subsection*{2.2}
+\lstinputlisting{averagerandom.py}
+\subsection*{2.3}
+\begin{enumerate}
+ \item The path name of the \verb+env+-command contains an extra space.
+ \item The variable \verb+n+ is never converted from string to int.
+ \item The loop runs from 0 to $n$ inclusive, meaning the returned number is the average of $n+1$ numbers, not $n$.
+ \item There is an error in the indentation in the loop.
+ \item The print statement is using different string delimiters.
+\end{enumerate}
+\lstinputlisting{averagerandom2.py}
+\subsection*{2.4}
+\lstinputlisting{hw2a.py}
+\lstinputlisting{hw2b.py}
+\lstinputlisting{hw2c.py}
+\end{document}
