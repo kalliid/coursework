@@ -1,0 +1,334 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel, textcomp}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color, xcolor}
+\usepackage{framed, parskip}
+\usepackage{flafter, caption, multicol}
+\usepackage{verbatim, listings, fancyvrb}
+\usepackage{simplewick}
+
+
+%\DeclareCaptionLabelSeparator{colon}{. }
+\renewcommand{\captionfont}{\small\sffamily}
+\renewcommand{\captionlabelfont}{\bf\sffamily}
+\setlength{\captionmargin}{20pt}
+
+\setcounter{tocdepth}{2}
+
+\DeclareMathAlphabet{\mathbfit}{OML}{cmm}{b}{it}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=python,
+basicstyle=\ttfamily\scriptsize,
+keywordstyle=\color{javapurple},%\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+morekeywords={super, with},
+% numbers=left,
+% numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=4,
+showspaces=false,
+captionpos=b,
+showstringspaces=false,
+frame= single,
+breaklines=true}
+% 
+% \makeatletter
+% \def\lst@lettertrue{\let\lst@ifletter\iffalse}
+% \makeatother
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=20mm, bottom=20mm, left=34mm, right=34mm}
+
+
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inner}[2]{\langle #1 , #2 \rangle}
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink \\ \texttt{j.v.brink@fys.uio.no}}
+\title{Problem set 3 \\ FYS-KJM4480}
+
+\begin{document}
+\subsection*{b)}
+In this exercise we want to compute the matrix element
+$$\braopket{a_1a_2a_3}{G}{b_1b_2b_3},$$
+using second quantization notation and Wick's theorem. First, inserting for the twobody operator in second quantization and writing the states as vacuum states we have
+$$\braopket{a_1a_2a_3}{G}{b_1b_2b_3} = \frac{1}{2}\sum_{ijkl} \braopket{0}{\op{a}_3 \op{a}_2 \op{a}_1 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{b}_1^\dag\op{b}_2^\dag\op{b}_3^\dag}{0}.$$
+We now use Wick's theorem on the string of creation and annihilation operators. We know that only the terms where all the operators are contracted will contribute to the final result, and also that only contractions on the form $\bcontraction{}{\alpha}{}{\beta}\alpha \beta^\dag$ contribute.So Wick's theorem gives
+\begin{align*}
+\braopket{a_1a_2a_3}{G}{b_1b_2b_3} = \frac{1}{2}\sum_{ijkl} \braopket{ij}{\op{g}}{kl} \bra{0} \bigg(
+&
+%
+n\big[
+\bcontraction{}{a}{_1a_2 a_3}{i}
+\bcontraction[2ex]{a_1}{a}{_2 a_3 i^\dag}{j}
+\bcontraction[3ex]{a_1a_2}{a}{_3i^\dag j^\dag k l}{a}
+\bcontraction[1ex]{a_1a_2a_3 i^\dag j^\dag}{k}{l b_1^\dag }{b}
+\bcontraction[2ex]{a_1a_2a_3 i^\dag j^\dag k}{l}{b_1^\dag b_2^\dag}{b}
+\op{a}_3 \op{a}_2 \op{a}_1 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{b}_1^\dag\op{b}_2^\dag\op{b}_3^\dag\big] \\[0.1cm]
+%
+%
+&\quad+n\big[
+\bcontraction{}{a}{_1a_2 a_3}{i}
+\bcontraction[2ex]{a_1}{a}{_2 a_3 i^\dag}{j}
+\bcontraction[3ex]{a_1a_2}{a}{_3i^\dag j^\dag k l}{a}
+\bcontraction[1ex]{a_1a_2a_3 i^\dag j^\dag}{k}{l b_1^\dag b_2^\dag}{b}
+\bcontraction[2ex]{a_1a_2a_3 i^\dag j^\dag k}{l}{b_1^\dag}{b}
+\op{a}_3 \op{a}_2 \op{a}_1 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{b}_1^\dag\op{b}_2^\dag\op{b}_3^\dag\big] +\ldots \bigg)
+\end{align*}
+Let us look at what happens to such a normal product with contractions. Extracting each pair of operators we get
+$$n\big[
+\bcontraction{}{a}{_1a_2 a_3}{i}
+\bcontraction[2ex]{a_1}{a}{_2 a_3 i^\dag}{j}
+\bcontraction[3ex]{a_1a_2}{a}{_3i^\dag j^\dag k l}{b}
+\bcontraction[1ex]{a_1a_2a_3 i^\dag j^\dag}{k}{l b_1^\dag}{b}
+\bcontraction[2ex]{a_1a_2a_3 i^\dag j^\dag k}{l}{b_1^\dag b_2^\dag}{b}
+\op{a}_3 \op{a}_2 \op{a}_1 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{b}_1^\dag\op{b}_2^\dag\op{b}_3^\dag\big] = 
+%
+\bcontraction{}{a}{_3}{i} \op{a}_3\op{i}^\dag
+\bcontraction{}{a}{_2}{j} \op{a}_2\op{j}^\dag
+\bcontraction{}{a}{_1}{a} \op{a}_1\op{b}_1^\dag
+\bcontraction{}{k}{}{a} \op{k}\op{b}_2^\dag
+\bcontraction{}{l}{}{a} \op{l}\op{b}_3^\dag n\big[\big].
+$$ 
+We now simplify this by realizing that the normal product of an empty operator string is just the identity operator, and also that the contraction $\bcontraction{}{\alpha}{}{\beta}\op{\alpha}\op{\beta}^\dag = \delta_{\alpha\beta}.$ We get
+$$n\big[
+\bcontraction{}{a}{_1a_2 a_3}{i}
+\bcontraction[2ex]{a_1}{a}{_2 a_3 i^\dag}{j}
+\bcontraction[3ex]{a_1a_2}{a}{_3i^\dag j^\dag k l}{a}
+\bcontraction[1ex]{a_1a_2a_3 i^\dag j^\dag}{k}{l a_1^\dag}{a}
+\bcontraction[2ex]{a_1a_2a_3 i^\dag j^\dag k}{l}{a_1^\dag b_2^\dag}{a}
+\op{a}_3 \op{a}_2 \op{a}_1 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{b}_1^\dag\op{b}_2^\dag\op{b}_3^\dag\big] = 
+%
+\delta_{a_3 i}\delta_{a_2 j}\delta_{a_1 b_1} \delta_{k b_2} \delta_{l b_3}.$$
+And when taking the sum over $i, j, k$ and $l$, this term will contribute to the final matrix element as follows
+\begin{align*}
+\frac{1}{2}\sum_{ijkl} \braopket{ij}{\op{g}}{kl} \braopket{0}{n\big[
+\bcontraction{}{a}{_1a_2 a_3}{i}
+\bcontraction[2ex]{a_1}{a}{_2 a_3 i^\dag}{j}
+\bcontraction[3ex]{a_1a_2}{a}{_3i^\dag j^\dag k l}{a}
+\bcontraction[1ex]{a_1a_2a_3 i^\dag j^\dag}{k}{l a_1^\dag}{a}
+\bcontraction[2ex]{a_1a_2a_3 i^\dag j^\dag k}{l}{a_1^\dag b_2^\dag}{a}
+\op{a}_3 \op{a}_2 \op{a}_1 \op{i}^\dag \op{j}^\dag \op{l} \op{k} \op{b}_1^\dag\op{b}_2^\dag\op{b}_3^\dag\big]}{0} &= \frac{1}{2}\sum_{ijkl} \braopket{ij}{\op{g}}{kl} \delta_{a_3 i}\delta_{a_2 j}\delta_{a_1 b_1} \delta_{k b_2} \delta_{l b_3} \\
+&= \frac{1}{2} \braopket{a_3 a_2}{\op{g}}{b_2 b_3} \delta_{a_1 b_1}.
+\end{align*}
+Now, this is just one of the terms. As there are 5 creation and 5 annihilation operators that must be contracted in the order $\op{\alpha}\op{\beta}^\dag$---this gives a total of 36 normal products with contractions that contribute a term. We can write all these out by using SymPy, and the results are as follows. 
+\begin{align*} &\op{C} = \\
+&+\delta_{a_{1} b_{1}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{2} k} \delta_{b_{3} l} 
+- \delta_{a_{1} b_{1}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{2} l} \delta_{b_{3} k} 
+- \delta_{a_{1} b_{1}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{2} k} \delta_{b_{3} l} 
++ \delta_{a_{1} b_{1}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{2} l} \delta_{b_{3} k} \\
+&- \delta_{a_{1} b_{2}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{1} k} \delta_{b_{3} l} 
++ \delta_{a_{1} b_{2}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{1} l} \delta_{b_{3} k} 
++ \delta_{a_{1} b_{2}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{1} k} \delta_{b_{3} l} 
+- \delta_{a_{1} b_{2}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{1} l} \delta_{b_{3} k} \\
+&+ \delta_{a_{1} b_{3}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{1} k} \delta_{b_{2} l} 
+- \delta_{a_{1} b_{3}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{1} l} \delta_{b_{2} k} 
+- \delta_{a_{1} b_{3}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{1} k} \delta_{b_{2} l} 
++ \delta_{a_{1} b_{3}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{1} l} \delta_{b_{2} k} \\
+&- \delta_{a_{1} i} \delta_{a_{2} b_{1}} \delta_{a_{3} j} \delta_{b_{2} k} \delta_{b_{3} l} 
++ \delta_{a_{1} i} \delta_{a_{2} b_{1}} \delta_{a_{3} j} \delta_{b_{2} l} \delta_{b_{3} k} 
++ \delta_{a_{1} i} \delta_{a_{2} b_{2}} \delta_{a_{3} j} \delta_{b_{1} k} \delta_{b_{3} l} 
+- \delta_{a_{1} i} \delta_{a_{2} b_{2}} \delta_{a_{3} j} \delta_{b_{1} l} \delta_{b_{3} k} \\
+&- \delta_{a_{1} i} \delta_{a_{2} b_{3}} \delta_{a_{3} j} \delta_{b_{1} k} \delta_{b_{2} l} 
++ \delta_{a_{1} i} \delta_{a_{2} b_{3}} \delta_{a_{3} j} \delta_{b_{1} l} \delta_{b_{2} k} 
++ \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{1}} \delta_{b_{2} k} \delta_{b_{3} l} 
+- \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{1}} \delta_{b_{2} l} \delta_{b_{3} k} \\
+&- \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{2}} \delta_{b_{1} k} \delta_{b_{3} l} 
++ \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{2}} \delta_{b_{1} l} \delta_{b_{3} k} 
++ \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{3}} \delta_{b_{1} k} \delta_{b_{2} l} 
+- \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{3}} \delta_{b_{1} l} \delta_{b_{2} k} \\
+&+ \delta_{a_{1} j} \delta_{a_{2} b_{1}} \delta_{a_{3} i} \delta_{b_{2} k} \delta_{b_{3} l} 
+- \delta_{a_{1} j} \delta_{a_{2} b_{1}} \delta_{a_{3} i} \delta_{b_{2} l} \delta_{b_{3} k} 
+- \delta_{a_{1} j} \delta_{a_{2} b_{2}} \delta_{a_{3} i} \delta_{b_{1} k} \delta_{b_{3} l} 
++ \delta_{a_{1} j} \delta_{a_{2} b_{2}} \delta_{a_{3} i} \delta_{b_{1} l} \delta_{b_{3} k} \\
+&+ \delta_{a_{1} j} \delta_{a_{2} b_{3}} \delta_{a_{3} i} \delta_{b_{1} k} \delta_{b_{2} l} 
+- \delta_{a_{1} j} \delta_{a_{2} b_{3}} \delta_{a_{3} i} \delta_{b_{1} l} \delta_{b_{2} k} 
+- \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{1}} \delta_{b_{2} k} \delta_{b_{3} l} 
++ \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{1}} \delta_{b_{2} l} \delta_{b_{3} k} \\
+&+ \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{2}} \delta_{b_{1} k} \delta_{b_{3} l} 
+- \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{2}} \delta_{b_{1} l} \delta_{b_{3} k} 
+- \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{3}} \delta_{b_{1} k} \delta_{b_{2} l} 
++ \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{3}} \delta_{b_{1} l} \delta_{b_{2} k}
+\end{align*}
+We can treat each of these terms as we have above. When taking the sum over $i, j, k$ and $l$, we get the following contributions to the final matrix element
+\begin{align*}
+&\frac{1}{2}\sum_{ijkl} \braopket{ij}{\op{g}}{kl}\braopket{0}{\op{C}}{0} = \frac{1}{2}\big( \\
+&+ \braopket{a_2 a_3}{\op{g}}{b_2 b_3} \delta_{a_{1} b_{1}}
+- \braopket{a_2 a_3}{\op{g}}{b_3 b_2} \delta_{a_{1} b_{1}}
+- \braopket{a_3 a_2}{\op{g}}{b_2 b_3} \delta_{a_{1} b_{1}}
++ \braopket{a_3 a_2}{\op{g}}{b_3 b_2} \delta_{a_{1} b_{1}} \\
+% 
+&- \braopket{a_2 a_3}{\op{g}}{b_1 b_3} \delta_{a_{1} b_{2}}
++ \braopket{a_2 a_3}{\op{g}}{b_3 b_1} \delta_{a_{1} b_{2}}
++ \braopket{a_3 a_2}{\op{g}}{b_1 b_3} \delta_{a_{1} b_{2}}
+- \braopket{a_3 a_2}{\op{g}}{b_3 b_1} \delta_{a_{1} b_{2}} \\
+% 
+&+ \braopket{a_2 a_3}{\op{g}}{b_1 b_2} \delta_{a_{1} b_{3}}
+- \braopket{a_2 a_3}{\op{g}}{b_2 b_1} \delta_{a_{1} b_{3}}
+- \braopket{a_3 a_2}{\op{g}}{b_1 b_2} \delta_{a_{1} b_{3}}
++ \braopket{a_3 a_2}{\op{g}}{b_2 b_1} \delta_{a_{1} b_{3}} \\
+% 
+&- \braopket{a_1 a_3}{\op{g}}{b_2 b_3} \delta_{a_{2} b_{1}}
++ \braopket{a_1 a_3}{\op{g}}{b_3 b_2} \delta_{a_{2} b_{1}}
++ \braopket{a_3 a_1}{\op{g}}{b_2 b_3} \delta_{a_{2} b_{1}}
+- \braopket{a_3 a_1}{\op{g}}{b_3 b_2} \delta_{a_{2} b_{1}} \\
+% 
+&+ \braopket{a_1 a_3}{\op{g}}{b_1 b_3} \delta_{a_{2} b_{2}}
+- \braopket{a_1 a_3}{\op{g}}{b_3 b_1} \delta_{a_{2} b_{2}}
+- \braopket{a_3 a_1}{\op{g}}{b_1 b_3} \delta_{a_{2} b_{2}}
++ \braopket{a_3 a_1}{\op{g}}{b_3 b_1} \delta_{a_{2} b_{2}} \\
+% 
+&- \braopket{a_1 a_3}{\op{g}}{b_1 b_2} \delta_{a_{2} b_{3}}
++ \braopket{a_1 a_3}{\op{g}}{b_2 b_1} \delta_{a_{2} b_{3}}
++ \braopket{a_3 a_1}{\op{g}}{b_1 b_2} \delta_{a_{2} b_{3}}
+- \braopket{a_3 a_1}{\op{g}}{b_2 b_1} \delta_{a_{2} b_{3}} \\
+% 
+&+ \braopket{a_1 a_2}{\op{g}}{b_2 b_3} \delta_{a_{3} b_{1}}
+- \braopket{a_1 a_2}{\op{g}}{b_3 b_2} \delta_{a_{3} b_{1}}
+- \braopket{a_2 a_1}{\op{g}}{b_2 b_3} \delta_{a_{3} b_{1}}
++ \braopket{a_2 a_1}{\op{g}}{b_3 b_2} \delta_{a_{3} b_{1}} \\
+%
+&+ \braopket{a_2 a_1}{\op{g}}{b_1 b_3} \delta_{a_{3} b_{2}}
+- \braopket{a_2 a_1}{\op{g}}{b_3 b_1} \delta_{a_{3} b_{2}}
+- \braopket{a_1 a_2}{\op{g}}{b_1 b_3} \delta_{a_{3} b_{2}}
++ \braopket{a_1 a_2}{\op{g}}{b_3 b_1} \delta_{a_{3} b_{2}} \\
+%
+&+ \braopket{a_1 a_2}{\op{g}}{b_1 b_2} \delta_{a_{3} b_{3}}
+- \braopket{a_1 a_2}{\op{g}}{b_2 b_1} \delta_{a_{3} b_{3}}
+- \braopket{a_2 a_1}{\op{g}}{b_1 b_2} \delta_{a_{3} b_{3}}
++ \braopket{a_2 a_1}{\op{g}}{b_2 b_1} \delta_{a_{3} b_{3}}\big).
+\end{align*}
+We note that every line consists of four terms with the same Kroneckerqdelta indices, we can collect these terms in each case. We can also use the the fact that generally
+$$\braopket{\alpha \beta}{\op{q}}{\gamma \delta} = \braopket{\beta \alpha}{\op{q}}{\delta \gamma},$$
+to combine two and two of the terms. Let us look at the first line as an example
+$$
+\frac{1}{2}\big(\braopket{a_2 a_3}{\op{g}}{b_2 b_3} 
+- \braopket{a_2 a_3}{\op{g}}{b_3 b_2} 
+- \braopket{a_3 a_2}{\op{g}}{b_2 b_3} 
++ \braopket{a_3 a_2}{\op{g}}{b_3 b_2}\big)\delta_{a_{1} b_{1}}.
+$$
+Which can be simplified to
+$$\big(\braopket{a_2 a_3}{\op{g}}{b_2 b_3} - \braopket{a_2 a_3}{\op{g}}{b_3 b_2}\big)\delta_{a_{1}b_{1}}.$$
+Which can be written even more compactily as
+$$\braopket{a_2 a_3}{\op{g}}{b_2 b_3}_{\rm AS} \delta_{a_1b_1}.$$
+By using the same simplification for each line, we get the final result
+\begin{align*}		
+\braopket{a_1a_2a_3}{G}{b_1b_2b_3} &= 
+   \braopket{a_2 a_3}{\op{g}}{b_2 b_3}_{\rm AS} \delta_{a_1b_1} \\
+&+ \braopket{a_2 a_3}{\op{g}}{b_3 b_1}_{\rm AS} \delta_{a_1b_2}  \\
+&+  \braopket{a_2 a_3}{\op{g}}{b_1 b_2}_{\rm AS} \delta_{a_1b_3} \\ 
+&+ \braopket{a_1 a_3}{\op{g}}{b_3 b_2}_{\rm AS} \delta_{a_2b_1}  \\
+&+  \braopket{a_1 a_3}{\op{g}}{b_1 b_3}_{\rm AS} \delta_{a_2b_2} \\ 
+&+ \braopket{a_1 a_3}{\op{g}}{b_2 b_1}_{\rm AS} \delta_{a_2b_3}  \\
+&+  \braopket{a_1 a_2}{\op{g}}{b_2 b_3}_{\rm AS} \delta_{a_3b_1} \\ 
+&+ \braopket{a_1 a_2}{\op{g}}{b_3 b_1}_{\rm AS} \delta_{a_3b_2}  \\
+&+  \braopket{a_1 a_2}{\op{g}}{b_1 b_2}_{\rm AS} \delta_{a_3b_3}  
+\end{align*}
+
+We can test our result by looking at our results from last week, where we looked at the matrix elements for general $n$-particle Slater determinants with zero, one, two and three-noncoincidences, which were as follows
+\begin{align*}
+\braopket{SD}{\op{G}}{SD}
+&=  \frac{1}{2}\sum_{\alpha,\beta} \braopket{\alpha\beta}{\op{g}}{\alpha\beta}_{\rm AS},\\
+\braopket{SD}{\op{G}}{SD_i^j}
+&= \sum_{\alpha} \braopket{\alpha i}{\op{g}}{\alpha j}_{\rm AS}, \\
+\braopket{SD}{\op{G}}{SD_{ij}^{kl}} &= \braopket{ij}{\op{g}}{kl}_{\rm AS}, \\
+\braopket{SD}{\op{G}}{SD_{ijl}^{lmn}} &= 0.
+\end{align*}
+
+\subsubsection*{Zero noncoincidences}
+In our case, if there are zero noncoincidences, it means that $\{a_1, a_2, a_3\} = \{b_1, b_2, b_3\}$. Note that these sets are not ordered, meaning the $a$'s can be permuted in relation to the $b$'s. The simplest case to look at is $a_1=b_1$, $a_2=b_2$ and $a_3=b_3$. Our results from last week then gives
+\begin{align*}
+\braopket{SD}{\op{G}}{SD}
+&=  \frac{1}{2}\sum_{\alpha,\beta} \braopket{\alpha\beta}{\op{g}}{\alpha\beta}_{\rm AS} \\
+&= \frac{1}{2}\big[ \braopket{11}{\op{g}}{11}_{\rm AS} + \braopket{12}{\op{g}}{12}_{\rm AS} + \braopket{13}{\op{g}}{13}_{\rm AS} \\
+&\quad\ + \braopket{21}{\op{g}}{21}_{\rm AS} + \braopket{22}{\op{g}}{22}_{\rm AS} + \braopket{23}{\op{g}}{23}_{\rm AS} \\[0.1cm]
+&\quad\ + \braopket{31}{\op{g}}{31}_{\rm AS} + \braopket{32}{\op{g}}{32}_{\rm AS} + \braopket{33}{\op{g}}{33}_{\rm AS}.
+\end{align*}
+Where we have introduced the shorthand $\braopket{ij}{\op{g}}{ij} \equiv \braopket{a_ia_j}{\op{g}}{b_ib_j}$. We now use the properties
+$$\braopket{ii}{\op{g}}{ii} = 0 \quad \mbox{and} \quad \braopket{ij}{\op{q}}{ij}=\braopket{ji}{\op{q}}{ji},$$
+which gives
+$$\braopket{a_1a_2a_3}{\op{G}}{a_1a_2a_3} = \braopket{12}{\op{g}}{12}_{\rm AS} + \braopket{13}{\op{g}}{13}_{\rm AS} + \braopket{23}{\op{g}}{23}_{\rm AS}.$$
+Which fits perfectly with out result this week. Note also that if we had permuted any of the $b$'s relative to the $a$'s, we would still have three terms in the result.
+
+\subsubsection*{One noncoincidence}
+We now let $a_1 = b_1$ and $a_2=b_2$, but $a_3 \neq b_3$. Our result from this week would then be
+$$\braopket{a_1 a_2 a_3}{\op{G}}{a_1 a_2 b_3} = \braopket{13}{\op{g}}{13}_{\rm AS} + \braopket{23}{\op{g}}{23}_{\rm AS}.$$
+From the previous week, this corresponds to
+$$\braopket{SD}{\op{G}}{SD_{a_3}^{b_3}} = \sum_{\alpha} \braopket{\alpha a_3}{\op{g}}{\alpha b_3}_{\rm AS} = \braopket{13}{\op{g}}{13}_{\rm AS} + \braopket{23}{\op{g}}{23}_{\rm AS}.$$
+
+\subsubsection*{Two noncoincidences}
+Letting $a_1=b_1$, but $a_2 \neq b_2$ and $a_3 \neq b_3$, we see that only the first term in our result survives, and we have
+$$\braopket{a_1 a_2 a_3}{\op{G}}{a_1 b_2 b_3} = \braopket{23}{\op{g}}{23}_{\rm AS}.$$
+From last weeks result we have
+$$\braopket{SD}{\op{G}}{SD_{a_2 a_3}^{b_2 b_3}} = \braopket{2 3}{\op{g}}{2 3}_{\rm AS},$$
+and we see the two results are equal, as expected.
+
+\subsubsection*{Three noncoincidences}
+If none of the single-particle states are equal, we see that all of the Kronecker-deltas vanish, and the result is zero, just as we expected from last week.
+
+
+
+\end{document}

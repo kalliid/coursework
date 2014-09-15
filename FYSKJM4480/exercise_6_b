@@ -1,0 +1,176 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+\usepackage{simplewick}
+\usepackage{amsthm}
+
+\newtheorem{theorem}[]{Wick's Theorem}[]
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=29mm, left=39mm, right=39mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inner}[2]{\langle #1 , #2 \rangle}
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink \\ \texttt{j.v.brink@fys.uio.no}}
+\title{Problem set 3 \\ FYS-KJM4480}
+
+\begin{document}
+\subsection*{b)}
+In this exercise we want to compute the matrix element
+$$\braopket{a_1a_2a_3}{G}{a_1'a_2'a_3'},$$
+using second quantization notation and Wick's theorem. First, inserting for the twobody operator in second quantization and writing the states as vacuum states we have
+$$\braopket{a_1a_2a_3}{G}{a_1'a_2'a_3'} = \frac{1}{2}\sum_{ijkl} \braopket{0}{\op{a}_1 \op{a}_2 \op{a}_3 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{a}_1'^\dag\op{a}_2'^\dag\op{a}_3'^\dag}{0}.$$
+We now use Wick's theorem on the string of creation and annihilation operators. We know that only the terms where all the operators are contracted will contribute to the final result, and also that only contractions on the form $\bcontraction{}{\alpha}{}{\beta}\alpha \beta^\dag$ contribute. We are then left with the following terms
+\begin{align*}
+\braopket{a_1a_2a_3}{G}{a_1'a_2'a_3'} = \frac{1}{2}\sum_{ijkl} \braopket{ij}{\op{g}}{kl} \bra{0} \bigg(
+&
+%
+n\big[
+\bcontraction{}{a}{_1a_2 a_3}{i}
+\bcontraction[2ex]{a_1}{a}{_2 a_3 i^\dag}{j}
+\bcontraction[3ex]{a_1a_2}{a}{_3i^\dag j^\dag k l}{a}
+\bcontraction[1ex]{a_1a_2a_3 i^\dag j^\dag}{k}{l a_1^\dag}{a}
+\bcontraction[2ex]{a_1a_2a_3 i^\dag j^\dag k}{l}{a_1^\dag a_2'^\dag}{a}
+\op{a}_1 \op{a}_2 \op{a}_3 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{a}_1'^\dag\op{a}_2'^\dag\op{a}_3'^\dag\big] \\[0.1cm]
+%
+%
+&+n\big[
+\bcontraction{}{a}{_1a_2 a_3}{i}
+\bcontraction[2ex]{a_1}{a}{_2 a_3 i^\dag}{j}
+\bcontraction[3ex]{a_1a_2}{a}{_3i^\dag j^\dag k l}{a}
+\bcontraction[1ex]{a_1a_2a_3 i^\dag j^\dag}{k}{l a_1^\dag a_2'^\dag}{a}
+\bcontraction[2ex]{a_1a_2a_3 i^\dag j^\dag k}{l}{a_1^\dag}{a}
+\op{a}_1 \op{a}_2 \op{a}_3 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{a}_1'^\dag\op{a}_2'^\dag\op{a}_3'^\dag\big] \\
+\end{align*}
+
+$$\braopket{0}{
+	n\big[
+\bcontraction{}{a}{_1a_2 a_3}{i}
+\bcontraction[2ex]{a_1}{a}{_2 a_3 i^\dag}{j}
+\bcontraction[3ex]{a_1a_2}{a}{_3i^\dag j^\dag k l}{a}
+\bcontraction[1ex]{a_1a_2a_3 i^\dag j^\dag}{k}{l a_1^\dag}{a}
+\bcontraction[2ex]{a_1a_2a_3 i^\dag j^\dag k}{l}{a_1^\dag a_2'^\dag}{a}
+\op{a}_1 \op{a}_2 \op{a}_3 \op{i}^\dag \op{j}^\dag \op{k} \op{l} \op{a}_1'^\dag\op{a}_2'^\dag\op{a}_3'^\dag\big] \\[0.1cm]
+}{0} = \delta_{a_1i}\delta_{a_2j}\delta_{a_3a_1'}\delta_{ka'_2}\delta_{la'_3}.$$
+$\Rightarrow \frac{1}{2}\braopket{a_1a_2}{\op{g}}{a'_2a_3'} \delta_{a_3 a_1'}$
+
+\clearpage
+
+\begin{align*}
+\delta_{a_{1} b_{1}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{2} k} \delta_{b_{3} l} 
+- \delta_{a_{1} b_{1}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{2} l} \delta_{b_{3} k} \\
+- \delta_{a_{1} b_{1}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{2} k} \delta_{b_{3} l} 
++ \delta_{a_{1} b_{1}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{2} l} \delta_{b_{3} k} \\
+- \delta_{a_{1} b_{2}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{1} k} \delta_{b_{3} l} 
++ \delta_{a_{1} b_{2}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{1} l} \delta_{b_{3} k} \\
++ \delta_{a_{1} b_{2}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{1} k} \delta_{b_{3} l} 
+- \delta_{a_{1} b_{2}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{1} l} \delta_{b_{3} k} \\
++ \delta_{a_{1} b_{3}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{1} k} \delta_{b_{2} l} 
+- \delta_{a_{1} b_{3}} \delta_{a_{2} i} \delta_{a_{3} j} \delta_{b_{1} l} \delta_{b_{2} k} \\
+- \delta_{a_{1} b_{3}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{1} k} \delta_{b_{2} l} 
++ \delta_{a_{1} b_{3}} \delta_{a_{2} j} \delta_{a_{3} i} \delta_{b_{1} l} \delta_{b_{2} k} \\
+- \delta_{a_{1} i} \delta_{a_{2} b_{1}} \delta_{a_{3} j} \delta_{b_{2} k} \delta_{b_{3} l} 
++ \delta_{a_{1} i} \delta_{a_{2} b_{1}} \delta_{a_{3} j} \delta_{b_{2} l} \delta_{b_{3} k} \\
++ \delta_{a_{1} i} \delta_{a_{2} b_{2}} \delta_{a_{3} j} \delta_{b_{1} k} \delta_{b_{3} l} 
+- \delta_{a_{1} i} \delta_{a_{2} b_{2}} \delta_{a_{3} j} \delta_{b_{1} l} \delta_{b_{3} k} \\
+- \delta_{a_{1} i} \delta_{a_{2} b_{3}} \delta_{a_{3} j} \delta_{b_{1} k} \delta_{b_{2} l} 
++ \delta_{a_{1} i} \delta_{a_{2} b_{3}} \delta_{a_{3} j} \delta_{b_{1} l} \delta_{b_{2} k} \\
++ \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{1}} \delta_{b_{2} k} \delta_{b_{3} l} 
+- \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{1}} \delta_{b_{2} l} \delta_{b_{3} k} \\
+- \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{2}} \delta_{b_{1} k} \delta_{b_{3} l} 
++ \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{2}} \delta_{b_{1} l} \delta_{b_{3} k} \\
++ \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{3}} \delta_{b_{1} k} \delta_{b_{2} l} 
+- \delta_{a_{1} i} \delta_{a_{2} j} \delta_{a_{3} b_{3}} \delta_{b_{1} l} \delta_{b_{2} k} \\
++ \delta_{a_{1} j} \delta_{a_{2} b_{1}} \delta_{a_{3} i} \delta_{b_{2} k} \delta_{b_{3} l} 
+- \delta_{a_{1} j} \delta_{a_{2} b_{1}} \delta_{a_{3} i} \delta_{b_{2} l} \delta_{b_{3} k} \\
+- \delta_{a_{1} j} \delta_{a_{2} b_{2}} \delta_{a_{3} i} \delta_{b_{1} k} \delta_{b_{3} l} 
++ \delta_{a_{1} j} \delta_{a_{2} b_{2}} \delta_{a_{3} i} \delta_{b_{1} l} \delta_{b_{3} k} \\
++ \delta_{a_{1} j} \delta_{a_{2} b_{3}} \delta_{a_{3} i} \delta_{b_{1} k} \delta_{b_{2} l} 
+- \delta_{a_{1} j} \delta_{a_{2} b_{3}} \delta_{a_{3} i} \delta_{b_{1} l} \delta_{b_{2} k} \\
+- \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{1}} \delta_{b_{2} k} \delta_{b_{3} l} 
++ \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{1}} \delta_{b_{2} l} \delta_{b_{3} k} \\
++ \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{2}} \delta_{b_{1} k} \delta_{b_{3} l} 
+- \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{2}} \delta_{b_{1} l} \delta_{b_{3} k} \\
+- \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{3}} \delta_{b_{1} k} \delta_{b_{2} l} 
++ \delta_{a_{1} j} \delta_{a_{2} i} \delta_{a_{3} b_{3}} \delta_{b_{1} l} \delta_{b_{2} k} 
+\end{align*}
+
+
+
+\end{document}
