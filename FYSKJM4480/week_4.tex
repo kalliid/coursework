@@ -1,0 +1,326 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+\usepackage{simplewick}
+\usepackage{amsthm}
+\usepackage{bbold}
+
+
+\newtheorem{theorem}[]{Wick's Theorem}[]
+
+\DeclareUnicodeCharacter{00A0}{~}
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=20mm, bottom=20mm, left=34mm, right=34mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inner}[2]{\langle #1 , #2 \rangle}
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{Jonas van den Brink \\ \texttt{j.v.brink@fys.uio.no}}
+\title{Problem set 4 \\ FYS-KJM4480}
+
+\begin{document}
+\maketitle
+
+This week, we will start looking into the particle-hole formulation. The main idea of this formulation is that we replace the true vacuum $\ket{0}$, with a reference vacuum, which contains a set of occupied states. Let us first give some motivation for this notation, and then outline how it works---after this, we turn to the exercises for this week.
+
+The reference vacuum, also known as the \emph{Fermi}-vacuum, makes a lot of sense if the states in the Fermi-vacuum are usually occupied and the states outside it are usually not. Exactly what states are included in the reference vacuum will of course depend on what system one is looking at at. In material science for example, a given material will often have a known number of electrons per nucleus, and these electrons will occupy all the lowest energy-levels of the atoms. Therfore, we usually define the \emph{Fermi-level}, denoted $\eps_F$. Any state with energy below the $\eps_F$ is usually occupied and thus included in the Fermi-vacuum, any state above the Fermi-level is not included in the reference. We can therefore think of our Fermi-vacuum as a sort of a ground state for this system. For materials such as these the topmost energy band under the Fermi-level is called the \emph{valence} band, and the lowest energy band above the Fermi-level is called the \emph{conduction} band. Normal excitations of the material means an electron is excited out of the Fermi-vacuum and into the conduction band. How big the difference in energy between the conduction and valence bands is, the \emph{band gap}, characterizes the material as a conductor, an isolatior or a semi-conductor. 
+
+\subsubsection*{Hole-formulation in second quantization}
+
+The idea of the Fermi-vacuum works nicely with our second quantization notation. So far, we have described our system by denoting all the occupied single-particle states. When doing any useful calculation we have collapsed our state into a string of creation operators working on the true vacuum. Now however, we instead collapse our state into a string of creation \emph{and annihilation} operators acting on our chosen reference state
+$$\ket{abijk} = \op{a}_a^\dag\op{a}_b^\dag\op{a}_i^\dag\op{a}_j^\dag\op{a}_k^\dag\ket{0}, \qquad \ket{abijk} = \op{a}_a^\dag\op{a}_b^\dag\ket{ijk} = \op{a}_a^\dag\op{a}_b^\dag\ket{\Phi_0},$$
+where we have denoted the Fermi-vacuum by $\ket{\Phi_0}$, which in this case contained the single-particle states $i, j$ and $k$.
+
+\newpage
+
+Any annihilation operator destroys the true vacuum state. For the Fermi-vacuum however, the given single-particle state might be contained in the reference, in which case the vacuum is \emph{not} destroyed---but it will now contain a \emph{hole}. Holes are simply vacant states in the reference vacuum. So we have
+$$\op{\alpha} \ket{0} = 0, \qquad \op{\alpha} \ket{\Phi_0} = \begin{cases}
+	\ket{\Phi_\alpha} \mbox{ if } \alpha \in \Phi_0, \\
+	0 \mbox{ if } \alpha \not\in \Phi_0, \\
+\end{cases}$$
+where $\Phi_\alpha$ denotes the vacuum-state with the state $\ket{\alpha}$ removed. However, remembering wich states are and aren't contained in the \emph{Fermi}-vacuum becomes tiring, so we want to introduce notation that makes it easy to see this at all times. We turn to the notation introduced in Shavitt and Bartlett, where we let $a, b, c,\ldots$ denote states \emph{not} in the reference and $i,j,k, \ldots$ be states in the reference. The states $p,q,r,\ldots$ can be used if a general state is needed. We can then for any general reference vacuum write
+$$\op{i}^\dag \ket{\Phi_0} = 0, \qquad \bra{\Phi_0} \op{i} = 0, \qquad \op{a}\ket{\Phi_0} = 0, \qquad \bra{\Phi_0}\op{a}^\dag = 0.$$
+
+\subsubsection*{Pseudo-creation and annihilation}
+
+We now turn the logic of \emph{holes} in the reference vacuum somewhat on its head. Instead of saying we annihilate the state $\ket{i}$ from the reference, we say we \emph{create the hole}. We therefore introduce quasi-annihilation and creation operators, for states outside the reference, they behave as before, but for states in the reference, their action is 'reversed'. So we have
+$$\op{b}_i = \op{a}_i^\dag, \qquad \op{b}_i^\dag = \op{a}_i, \qquad \op{b}_a = \op{a}_a, \qquad \op{b}_a^\dag = \op{a}_a^\dag.$$
+The reason we introduce this notation is that any pseudo-annihilation operator will destroy the reference vacuum, just like any normal annihilation operator destroys the true vacuum. We can then reintroduce the concepts of normal products and contractions so that Wick's theorem also holds with respect to the Fermi vacuum. A normal product with respect to the Fermi vacuum has all pseudo-creation operators to the left all pseudo-annihilation operators to the right. The Fermi-vacuum expectation value of such a normal product vanished, we denote such a normal product as $\{\op{A}\op{B}\}$. 
+
+A contraction with respect to the \emph{Fermi}-level is then\footnote{Shavitt and Bartlett differentiates between a contraction relative to the true vacuum and a relative to the Fermi vacuum by drawing the contraction either above or below the operators. In these exercises we don't make this distinction, and simply leave it up to the context. In most cases we will use contractions relative to the Fermi vacuum, and explicitly state it otherwise.}
+$$\contraction{}{A}{}{B}AB = \op{A}\op{B} - \{AB\}.$$
+The only contractions that survive are
+$$\contraction{}{i}{^\dag}{j}i^\dag j = \delta_{ij} \quad \mbox{and} \quad \contraction{}{a}{}{b}ab^\dag = \delta_{ab}.$$
+And using contractions relative to the Fermi-vacuum, we can use Wick's theorem just like before. 
+
+We are now ready to turn to the exercises.
+
+\clearpage
+
+\section*{Exercise 7}
+
+\subsubsection*{a)}
+In second quantization the onebody Hamiltonian is given by
+$$\op{H}_0 = \sum_{pq}\braopket{p}{\op{h}_0}{q}\op{a}_p^\dag \op{a}_q,$$
+where we sum over $p$ and $q$, which are general states, so we are including the reference states in the definition. We start by using Wick's theorem on the operators, so we have
+$$\op{a}_p^\dag \op{a}_q = \{\op{a}_p^\dag \op{a}_q\} + \{\bcontraction{}{a}{_p^\dag}{a}\op{a}_p^\dag \op{a}_q\},$$
+where
+$$\{\bcontraction{}{a}{_p^\dag}{a}\op{a}_p^\dag \op{a}_q\} = \bcontraction{}{a}{_p^\dag}{a}\op{a}_p^\dag \op{a}_q\{\} = \delta_{pq\in i}.$$
+Where $\delta_{pq\in i}$ means $\delta_{pq}$ if $p$ and $q$ are both hole states, and zero otherwise. We have
+\begin{align*}
+\op{H}_0 &= \sum_{pq}\braopket{p}{\op{h}_0}{q}\op{a}_p^\dag \op{a}_q \\
+&= \sum_{pq}\braopket{p}{\op{h}_0}{q}\{\op{a}_p^\dag \op{a}_q\} + \sum_{pq}\delta_{pq\in i}\braopket{p}{\op{h}_0}{q} \\
+&= \sum_{pq}\braopket{p}{\op{h}_0}{q}\{\op{a}_p^\dag \op{a}_q\} + \sum_{i}\braopket{i}{\op{h}_0}{i}, \mbox{ q.e.d.}
+\end{align*}
+Where we see that the second term is simply a sum over the main-diagonal, i.e., the \emph{trace}, of the matrix elements of $\op{h}_0$ of all the single-particle states in the Fermi-vacuum.
+
+Note that, as any normal product with respect to the Fermi-vacuum has a Fermi-vacuum expectence value of 0, we know that
+$$\braopket{\Phi_0}{\op{H}_0}{\Phi_0} = \sum_i \braopket{i}{\op{h}_0}{i}.$$
+And this result is as expected as we expect the onebody Hamiltonian to simply be the sum of the onebody expectence values of the reference states.
+
+\subsubsection*{b)}
+We now turn to the twobody Hamiltonian, again we sum over general states
+$$\op{H}_1 = \frac{1}{4}\sum_{pqrs} \braopket{pq}{\op{v}}{rs}_{\rm AS} \op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r.$$
+Using Wick's theorem on the operator string gives
+\begin{align*}
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r &= \{\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r\}
++ \{ 
+\bcontraction{}{a}{_p^\dag}{a} 
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+\} + \{ 
+\bcontraction{a_p^\dag}{a}{_q^\dag}{a} 
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+\} + \{ 
+\bcontraction{a_p^\dag a_q^\dag}{a}{_s}{a}
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+% 
+\} + \{ 
+% 
+\bcontraction{}{a}{_p^\dag a_q^\dag}{a}
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+\} \\ &\quad + \{ 
+\bcontraction{a_p^\dag}{a}{_q^\dag a_s}{a}
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+\} + \{ 
+\bcontraction{}{a}{_p^\dag a_q^\dag a_s^\dag}{a}
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+\} + \{ 
+\bcontraction{}{a}{_p^\dag}{a}
+\bcontraction{a_p^\dag a_q^\dag}{a}{_s^\dag}{a}
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+\} + \{ 
+\bcontraction{}{a}{_p^\dag a_q^\dag}{a} 
+\bcontraction[2ex]{a_p^\dag}{a}{_q^\dag a_s}{a} 
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+\} + \{ 
+\bcontraction[2ex]{}{a}{_p^\dag a_q^\dag a_s}{a} 
+\bcontraction[1ex]{a_p^\dag}{a}{_q^\dag }{a} 
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r
+\}
+\end{align*}
+We know that $\bcontraction{}{a^\dag}{_p}{a^\dag} a^\dag_p a^\dag_q = \bcontraction{}{a}{_p}{a} a_p a_q = 0$, so three of the terms vanish, of the remaining, we can draw the contractions out and find
+\begin{align*}
+\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r &= \{\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r\}
++  
+\bcontraction{}{a}{_q^\dag}{a} \op{a}_q^\dag \op{a}_s 
+\{ \op{a}_p^\dag \op{a}_r \}
+- 
+% 
+\bcontraction{}{a}{_p^\dag}{a} \op{a}_p^\dag \op{a}_s 
+\{ \op{a}_q^\dag \op{a}_r \} \\
+&\qquad -
+\bcontraction{}{a}{_q^\dag}{a} \op{a}_q^\dag \op{a}_r 
+\{ \op{a}_p^\dag \op{a}_s \}
++
+\bcontraction{}{a}{_p^\dag}{a} \op{a}_p^\dag \op{a}_r 
+\{ \op{a}_q^\dag \op{a}_s \}
+-
+\bcontraction{}{a}{_p^\dag}{a} \op{a}_p^\dag \op{a}_s 
+\bcontraction{}{a}{_p^\dag}{a} \op{a}_q^\dag \op{a}_r 
++
+\bcontraction{}{a}{_p^\dag}{a} \op{a}_p^\dag \op{a}_r 
+\bcontraction{}{a}{_p^\dag}{a} \op{a}_q^\dag \op{a}_s.
+\end{align*}
+And we can further simplify this using $\bcontraction{}{a}{_p^\dag}{a} \op{a}_p^\dag \op{a}_q = \delta_{pq\in i}$, giving
+\begin{align*}
+\op{H}_1 = \frac{1}{4}\sum_{pqrs} \braopket{pq}{\op{v}}{rs} \bigg(&\{\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r\}
++  
+\delta_{qs\in i} 
+\{ \op{a}_p^\dag \op{a}_r \}
+- 
+% 
+\delta_{ps\in i}
+\{ \op{a}_q^\dag \op{a}_r \}
+-
+\delta_{qr\in i}
+\{ \op{a}_p^\dag \op{a}_s \} \\
+&\qquad+
+\delta_{pr\in i}
+\{ \op{a}_q^\dag \op{a}_s \}
+-
+\delta_{ps\in i}\delta_{qr\in i}
++
+\delta_{pr\in i}\delta_{qs\in i}\bigg).
+\end{align*}
+We can split the sum into a sum for each term, each Kronecker delta then kills a single sum. We end up with
+\begin{align*}
+\op{H}_1 &= \frac{1}{4}\bigg(
+\sum_{pqrs} \braopket{pq}{\op{v}}{rs}_{\rm AS} \{\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r\} 
++ \sum_{pqi} \braopket{pi}{\op{v}}{qi}_{\rm AS} \{ \op{a}_p^\dag \op{a}_q \} 
+- \sum_{pqi} \braopket{ip}{\op{v}}{qi}_{\rm AS} \{ \op{a}_p^\dag \op{a}_q \}  \\
+&\qquad\qquad - \sum_{pqi} \braopket{pi}{\op{v}}{iq}_{\rm AS} \{ \op{a}_p^\dag \op{a}_q \} 
++ \sum_{pqi} \braopket{ip}{\op{v}}{iq}_{\rm AS} \{ \op{a}_p^\dag \op{a}_q \} \\
+&\qquad\qquad\qquad\qquad
+- \sum_{ij} \braopket{ij}{\op{v}}{ji}_{\rm AS}
++ \sum_{ij} \braopket{ij}{\op{v}}{ij}_{\rm AS}
+\end{align*}
+We now use that generally
+$$\braopket{\alpha\beta}{\op{q}}{\gamma\delta}_{\rm AS} = -\braopket{\alpha\beta}{\op{q}}{\delta\gamma}_{\rm AS} = \braopket{\beta\alpha}{\op{q}}{\delta\gamma}_{\rm AS} = -\braopket{\beta\alpha}{\op{q}}{\gamma\delta}_{\rm AS}.,$$
+This lets us combine the four middle terms and cancel the factor of 1/4, and combine the last two terms to reduce the 1/4 to a 1/2. Our final resut is then
+\begin{align*}
+\op{H}_1 &= \frac{1}{4}\sum_{pqrs} \braopket{pq}{\op{v}}{rs}_{\rm AS} \{\op{a}_p^\dag \op{a}_q^\dag \op{a}_s\op{a}_r\} + \sum_{pqi} \braopket{pi}{\op{v}}{qi}_{\rm AS} \{ \op{a}_p^\dag \op{a}_q \} + \frac{1}{2}\sum_{ij} \braopket{ij}{\op{v}}{ij}_{\rm AS}, \mbox{ q.e.d.}
+\end{align*}
+Note that unlike the exercise text, the sum over $i$ and $j$ does \emph{not} carry the restriction $i<j$.
+
+\subsection*{Exercise 8}
+We now look at a Slater determinant built up of single-particle orbitals from the basis $\{\psi_\alpha\}_{\alpha=1}^N$. We will look at a change of basis into the basis $\{\psi'_a\}_{a=1}^N$. Note that we denote the first basis using greek letters, and the second basis using both roman letters and a prime. We know we can transform any single-particle orbital from one basis to the other by using the completeness relation
+$$\ket{a} = \sum_{\alpha} \ket{\alpha}\braket{\alpha}{a} = \sum_{\alpha} C_{\alpha a} \ket{\alpha},$$
+where we have defined the coefficient $C_{\alpha a} \equiv \braket{\alpha}{a}$. This is actually a unitary transformation, where $C$ is a unitary matrix, and also corresponds to the coefficients of $\ket{\alpha}$'s representation in the other basis. 
+
+We will now study some properties of this unitary transformation
+
+\subsubsection*{Orthonormality}
+If we assume that the original basis is orthonormal, we will show that this implies that the second basis is orthonormal. We start by inserting the completeness relation twice
+$$\braket{a}{b} = \bra{a} \bigg(\sum_\alpha \ketbra{\alpha}{\alpha} \bigg)\bigg(\sum_\beta \ketbra{\beta}{\beta}  \bigg) \ket{b}.$$
+Rearranging the terms gives
+$$\braket{a}{b} = \sum_{\alpha\beta} \braket{a}{\alpha} \braket{\beta}{b} \braket{\alpha}{\beta}.$$
+From our assumption about the first basis being orthonormal, we know that
+$$\braket{\alpha}{\beta} = \delta_{\alpha\beta},$$
+which kills one of the sums
+$$\braket{a}{b} = \sum_\alpha \sum_\beta \braket{a}{\alpha} \braket{\beta}{b} \delta{\alpha\beta} = \sum_\alpha  \braket{a}{\alpha} \braket{\alpha}{b}.$$
+We see that we can interpret this as a matrix-matrix product
+$$\braket{a}{b} = \sum_\alpha \underbrace{\braket{a}{\alpha}}_{C^\dag_{a\alpha}} \underbrace{\braket{\alpha}{b}}_{C_{\alpha b}} = \bigg(C^\dag C\bigg)_{ab}.$$
+But as $C$ is unitary, we can simplify this as
+$$\bigg(C^\dag C\bigg)_{ab} = \mathbb{1}_{ab} = \delta_{ab}.$$
+So we have shown that
+$$\braket{a}{b} = \delta_{ab},$$
+meaning that this basis is also orthonormal.
+
+\subsubsection*{Unitary transform of the Slater Determinant}
+Assume we have defined a Slater determinant in our first basis
+$$\Phi = \mathcal{A}\psi_1\psi_2\cdots\psi_N = \frac{1}{\sqrt{N!}}
+\begin{vmatrix}
+\psi_1(x_1) & \psi_2 (x_1) & \cdots & \psi_N(x_1) \\
+\psi_1(x_2) & \psi_2 (x_2) & \cdots & \psi_N(x_2) \\
+\vdots & \vdots & \ddots & \vdots \\
+\psi_1(x_N) & \psi_2 (x_N) & \cdots & \psi_N(x_N) \\
+\end{vmatrix} = \frac{1}{\sqrt{N!}} \det \mat A, $$
+where we have denoted the matrix built from the original ket basis by $\mat A$. We will show that the Slater determinant is invariant, up to a complex phase, under the change of the single-particle basis.
+
+First, let us look at the matrix built from the ket basis $\{\psi'_a\}_{a=1}^N$, it is given as
+$$\mat A' = \begin{bmatrix}
+\psi'_1(x_1) & \psi'_2 (x_1) & \cdots & \psi'_N(x_1) \\
+\psi'_1(x_2) & \psi'_2 (x_2) & \cdots & \psi'_N(x_2) \\
+\vdots & \vdots & \ddots & \vdots \\
+\psi'_1(x_N) & \psi'_2 (x_N) & \cdots & \psi'_N(x_N) \end{bmatrix}.$$
+And so the matrix elements are $(\mat A')_{ij} = \psi'_i(x_j)$. We can expand this matrix element into the original basis and find
+$$(\mat A')_{ij} = \psi'_i(x_j) = \sum_k C_{ik}\psi_k(x_j) = (\mat C \mat A)_{ij},$$
+and so we see 
+$$\mat A' = \mat C \mat A.$$
+And so we can write the Slater determinant in the new single-particle basis as
+$$\Phi' = \frac{1}{\sqrt{N!}} \det \mat A' = \frac{1}{\sqrt{N!}} \det (\mat C \mat A) = \frac{1}{\sqrt{N!}} \det \mat C \det \mat A,$$
+where we have used the fact that for any matrices we have $\det(\mat A \mat B) = \det \mat A \det \mat B$.
+
+We must now use the property that the determinant of any unitary matrix is generally a complex number with magnitude 1, let us prove this
+\begin{align*}
+\mat U^\dag \mat U &= \mathbb{1} \\
+\det (\mat U^\dag \mat U) &= \det \mathbb{1} \\
+\det \mat U^\dag \det \mat U &= 1 \\
+(\det \mat U)^* (\det \mat U) &= 1 \\
+|\det \mat U|^2 &= 1 \\
+|\det \mat U| &= 1.
+\end{align*}
+And so we can generally write $\det \mat U = e^{i\phi}$, where $\phi \in \mathbb{R}$ is a real phase factor. We then have
+$$\Phi' = e^{i\phi} \Phi,$$
+and so we see that the Slater determinants in two different single-particle basises are equal up to a complex phase factor. As these two basises are completely general (except for the assumption that the original basis was orthonormal), it follows that the Slater determinant is invariant under change of single-particle basis.
+
+
+
+
+
+\end{document}
