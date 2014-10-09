@@ -132,16 +132,14 @@ We are looking at the three following diagrams
 All three diagrams represent operators, and in this case they are operators corresponding to some sort of two-body interaction.
 
 For diagram \textbf{(a)}, we see that below the interaction there is a single particle line, as the line is pointed upwards. Above the interaction, there are two particle lines and a single hole line, i.e., two lines pointing upwards and one pointed downwards. We thus see that this operator has an excitation level of $+1$, as it creates a new particle-hole pair. The interaction also has a matrix element associated with it as a multiplicative factor. Writing out the operator associated with the diagram algebraicly, we have 
-$$\braopket{ab}{\op{v}}{ci}\{\op{a}^\dagger\op{b}^\dagger\op{i}\op{c}\}.$$
+$$\sum_{abci} \braopket{ab}{\op{v}}{ci}\{\op{a}^\dagger\op{b}^\dagger\op{i}\op{c}\}.$$
 
 For diagram \textbf{(b)}, we see that there is a single particle line and single hole line both above and below the interaction, i.e., this diagram has an excitation level of 0 (no particle-hole pairs are created or destroyed). Algebraicly the operator can be written as
-$$-\braopket{ai}{\op{v}}{bj}\{\op{a}^\dagger\op{i}^\dagger\op{j}\op{b}\}.$$
+$$-\sum_{abij}\braopket{ai}{\op{v}}{bj}\{\op{a}^\dagger\op{i}^\dagger\op{j}\op{b}\}.$$
 
 For diagram \textbf{(c)}, we see that there are no lines below the interaction, and four lines above it, two particle lines and two hole lines. This means that the interaction creates two particle-hole pairs and has an excitation level of $+2$. We can write out this operator as
-$$\braopket{ab}{\op{v}}{ij}\{\op{a}^\dagger\op{b}^\dagger\op{j}\op{i}\}.$$
-As there are no lines below the interaction, we can very easily find the action of this operator on the Fermi vaccuum, we have
-$$\braopket{ab}{\op{v}}{ij}\{\op{a}^\dagger\op{b}^\dagger\op{j}\op{i}\} \ket{\Phi_0} = \braopket{ab}{\op{v}}{ij}\ket{\Phi_{ij}^{ab}}.$$
-So we see that the action of diagram \textbf{(c)} is to excite two electrons out of the Fermi vaccuum. Note that only diagram \textbf{c} can act on the Fermi vacuum and produce a non-trivial result, as it is the only diagram that has nothing below the interaction.
+$$\sum_{abij}\braopket{ab}{\op{v}}{ij}\{\op{a}^\dagger\op{b}^\dagger\op{j}\op{i}\}.$$
+As there are no lines below the interaction, this is the only operator of the three which can act on the Fermi vaccuum and produce a non-trivial result, as it is the only diagram that has nothing below the interaction.
 
 \subsection*{b)}
 Last week, we found that a general two-body operator could be written
@@ -596,7 +594,7 @@ E &= \braopket{\Psi}{\op{H}}{\Psi} \\
 + 4C_{+\alpha}^{2}C_{-\alpha}^{6} \braopket{\m 1}{\op{H}}{\m 1} \\ 
 %
 &\quad+ \sqrt{6}C_{+\alpha}^{2}C_{-\alpha}^{6} \braopket{\m 2}{\op{H}}{ 0} 
-+ C_{-\alpha}^{8}                \braopket{\m 2}{\op{H}}{\m 2} \\
++ C_{-\alpha}^{8}                \braopket{\m 2}{\op{H}}{\m 2}
 \end{align*}
 We now insert for the matrix elements, earlier we found the diagonal terms to be
 \begin{align*}
@@ -630,54 +628,58 @@ We can contract the terms with the same constant
 \begin{align*}
 E =  
 &2\eps(C_{+\alpha}^{8} + 2C_{+\alpha}^{6}C_{-\alpha}^{2} - 2C_{+\alpha}^{2}C_{-\alpha}^{6} - C_{-\alpha}^{8}) \\
-&\quad+ 6V(C_{+\alpha}^{6}C_{-\alpha}^{2} + 4C_{+\alpha}^{4}C_{-\alpha}^{4} +  C_{+\alpha}^{2}C_{-\alpha}^{6}) \\
+&\quad+ 12V(C_{+\alpha}^{6}C_{-\alpha}^{2} + 2C_{+\alpha}^{4}C_{-\alpha}^{4} +  C_{+\alpha}^{2}C_{-\alpha}^{6}) \\
 &\qquad+ 12W(C_{+\alpha}^{6}C_{-\alpha}^{2} + 2C_{+\alpha}^{4}C_{-\alpha}^{4} +  C_{+\alpha}^{2}C_{-\alpha}^{6}).
 \end{align*}
-$$\frac{\p E}{\p C_{\sigma\alpha}} - \lambda_\sigma C_{\sigma\alpha} = 0.$$
-For $\sigma=+$ we get
-\begin{align*}
-2\eps(8C_{+\alpha}^{7} + 12C_{+\alpha}^{5}C_{-\alpha}^{2} - 4C_{+\alpha}C_{-\alpha}^{6}) + 6V(6C_{+\alpha}^{5}C_{-\alpha}^{2} + 16C_{+\alpha}^{3}C_{-\alpha}^{4} +  2C_{+\alpha}C_{-\alpha}^{6}) \\
-+ 12W(6C_{+\alpha}^{5}C_{-\alpha}^{2} + 8C_{+\alpha}^{3}C_{-\alpha}^{4} +  2C_{+\alpha}C_{-\alpha}^{6}).
- - \lambda_+ C_{+\alpha} = 0,
-\end{align*}
-which we see can be simplified to
-\begin{align*}
-\lambda_+ = 2\eps(8C_{+\alpha}^{6} + 12C_{+\alpha}^{4}C_{-\alpha}^{2} - 4C_{-\alpha}^{6}) + 6V(6C_{+\alpha}^{4}C_{-\alpha}^{2} + 16C_{+\alpha}^{2}C_{-\alpha}^{4} +  2C_{-\alpha}^{6}) \\
-+ 12W(6C_{+\alpha}^{4}C_{-\alpha}^{2} + 8C_{+\alpha}^{2}C_{-\alpha}^{4} +  2C_{-\alpha}^{6}).
-\end{align*}
-For $\sigma=-$ we find
-\begin{align*}
-\lambda_- = 2\eps(4C_{+\alpha}^{4} - 12C_{+\alpha}^{4}C_{-\alpha}^{4} - 8C_{-\alpha}^{6}) + 6V(2C_{+\alpha}^{6} + 16C_{+\alpha}^{4}C_{-\alpha}^{2} +  6C_{+\alpha}^{2}C_{-\alpha}^{4}) \\
-+ 12W(2C_{+\alpha}^{6} + 8C_{+\alpha}^{4}C_{-\alpha}^{2} +  6C_{+\alpha}^{2}C_{-\alpha}^{4}).
-\end{align*}
 
-\clearpage
-
+We now remember that we must have
+$$C_{+\alpha}^2 + C_{-\alpha}^2 = 1,$$
+as the Slater determinant must be normalized. We can use this to simplify the terms significantly, we start with the $\eps$-term. We have
 \begin{align*}
-E_ref &= \braopket{\Psi}{\op{H}}{\Psi} \\
-&= \sum_p \braopket{\phi_{p}^\dagger}{\op{H}_0}{\phi_{p}^\dagger} + \frac{1}{2}\sum_{pq}\braopket{\phi_{p} \phi_{q}}{(\op{H}_1 + \op{H}_2)}{\phi_{p}\phi_{q}} \\
-&=
-\sum_p\sum_{ab} C^*_{a}C_{b} \braopket{u_{pa}^\dagger}{\op{H}_0}{u_{pb}^\dagger} + \frac{1}{2}\sum_{pq}\sum_{abcd} C^*_{a}C^*_{b} C_{c} C_{d}\braopket{u_{pa}u_{qb}}{(\op{H}_1 + \op{H}_2)}{u_{pc}u_{qd}}
+&C_{+\alpha}^{8} + 2C_{+\alpha}^{6}C_{-\alpha}^{2} - 2C_{+\alpha}^{2}C_{-\alpha}^{6} - C_{-\alpha}^{8}.
 \end{align*}
+We split up the factor 2 into two terms, and add and subtract $C_{+\alpha}^4C_{-\alpha}^4$ to get 
+$$C_{+\alpha}^{8} + C_{+\alpha}^{6}C_{-\alpha}^{2} + \bigg(C_{+\alpha}^{6}C_{-\alpha}^{2} + C_{+\alpha}^{4}C_{-\alpha}^{4} - C_{+\alpha}^{4}C_{-\alpha}^{4} - C_{+\alpha}^{2}C_{-\alpha}^{6}\bigg) - C_{+\alpha}^{2}C_{-\alpha}^{6} - C_{-\alpha}^{8}.
+$$
+We now see that the terms outside the parenthesis can be simplified as follows
+$$C_{+\alpha}^{8} + C_{+\alpha}^{6}C_{-\alpha}^{2} = C_{+\alpha}^{6}\big(C_{+\alpha}^{2} + C_{-\alpha}^{2}\big) = C_{+\alpha}^{6}.$$
+And those inside the parenthesis as follows
+$$C_{+\alpha}^{4}C_{-\alpha}^{2}\big(C_{+\alpha}^{2} + C_{-\alpha}^{2}\big) - C_{+\alpha}^{2}C_{-\alpha}^{4}\big(C_{+\alpha}^{2} + C_{-\alpha}^{2}\big) = C_{+\alpha}^{4}C_{-\alpha}^{2} - C_{+\alpha}^{2}C_{-\alpha}^{4}.$$
+So we have
+$$C_{+\alpha}^{6} + C_{+\alpha}^{4}C_{-\alpha}^{2} - C_{+\alpha}^{2}C_{-\alpha}^{4} - C_{-\alpha}^{6}.$$
+We can now easily reduce this further
+$$C_{+\alpha}^{4}\big(C_{+\alpha}^{2} + C_{-\alpha}^{2}\big) - C_{+\alpha}^{4}\big(C_{+\alpha}^{2} + C_{-\alpha}^{2}\big) = C_{+\alpha}^{4} - C_{-\alpha}^{4}.$$ 
+We can simplify this even further by adding and subracting $C_{+\alpha}^2C_{-\alpha}^2$
+$$C_{+\alpha}^{4} + C_{+\alpha}^2C_{-\alpha}^2 - C_{+\alpha}^2C_{-\alpha}^2 -  - C_{-\alpha}^{4} = C_{+\alpha}^{2}\big(C_{+\alpha}^2 + C_{-\alpha}^2\big) - C_{-\alpha}^2\big(C_{+\alpha}^2 + C_{-\alpha}^2\big).$$
+We have then found that we can simplify the result to
+$$C_{+\alpha}^{2} - C_{-\alpha}^{2},$$
+which we can write solely in terms of $C_{+\alpha}$:
+$$2C_{+\alpha}^2 - 1.$$
 
-$$E_{\rm ref} = E - \sum_p \eps_p\sum_a C^*_{a}C_{a} = 0.$$
-Take the variational
-$$\delta E_{\rm ref} = \delta E - \delta\sum_p \eps_p\sum_a C^*_{a}C_{a} = 0.$$
-Where we have
-\begin{align*}
-\delta E = \sum_k \frac{\p E}{\p C^*_{k}}\delta C^*_{k} + \sum_k \frac{\p E}{\p C_{k}}\delta C_{k},
-\end{align*}
-and
-$$\delta\sum_p \eps_p\sum_a C^*_{a}C_{a} = \sum_k \eps_k (C_{k}\delta C^*_{k} + C^*_{k}\delta C_{k}).$$
-We then have
-\begin{align*}	
-\sum_k \bigg(\frac{\p E}{\p C_{k}} - \eps_kC^*_{k}\bigg) \delta C_{k} + \bigg(\frac{\p E}{\p C^*_{k}} - \eps_kC_{k}\bigg) \delta C^*_{k} = 0. 
-\end{align*}	
+We now want simplify for the $V$ and $W$ terms in a similar fashion, we see that these are both multiplied with the factor
+$$C_{+\alpha}^{6}C_{-\alpha}^{2} + 2C_{+\alpha}^{4}C_{-\alpha}^{4} +  C_{+\alpha}^{2}C_{-\alpha}^{6}.$$
+Splitting up the middle term into two terms makes it easy to see how the whole thing can be simplified, we get
+$$C_{+\alpha}^{6}C_{-\alpha}^{2} + C_{+\alpha}^{4}C_{-\alpha}^{4} + C_{+\alpha}^{4}C_{-\alpha}^{4} C_{+\alpha}^{2}C_{-\alpha}^{6} = C_{+\alpha}^{4}C_{-\alpha}^{2}\big(C_{+\alpha}^{2} + C_{-\alpha}^{2}\big) + C_{+\alpha}^{4}C_{-\alpha}^{2}\big(C_{+\alpha}^{2} + C_{-\alpha}^{2}\big).$$
 Giving
-$$\frac{\p E}{\p C_{k}} - \eps_kC^*_{k} = 0.$$
+$$C_{+\alpha}^{4}C_{-\alpha}^{2} + C_{+\alpha}^{2}C_{-\alpha}^{4} = C_{+\alpha}^{2}C_{-\alpha}^{2}\big(C_{+\alpha}^{2} + C_{-\alpha}^{2}\big) = C_{+\alpha}^{2}C_{-\alpha}^{2} = C_{+\alpha}^{2}(1-C_{+\alpha}^{2}).$$
+We have then found the energy to be
+$$E = 2\eps(2C_{+\alpha}^{2} - 1) + 12(V+W)C_{+\alpha}^{2}(1-C_{+\alpha}^{2}).$$
 
-\begin{align*}
-\frac{\p E}{\p C_k} = \sum_{pb} C_k^* C_b\braopket{u_{pk}}{\op{H}_0}{u_{pb}} + \frac{1}{2}\sum_{pq}\sum_
-\end{align*}
+\subsection*{i)}
+
+We now want to find a restriction on the values the parameters $\eps$, $V$ and $W$ can take for us to be able to find a minimum in the energy, $E$.
+
+We start by taking the derivative of the energy with respect to the coefficient $C_{+\alpha}$
+$$\frac{\p E}{\p C_{+\alpha}} = 8\eps C_{+\alpha} + 12(V+W)(2C_{+\alpha} - 4C_{+\alpha}^{3}).$$
+We now divide by $C_{+\alpha}$ and set the derivative equal to zero to find necessary conditions of a minimum in the energy
+$$8\eps + 24(V+W) - 48(V+W)C_{+\alpha}^{2} = 0.$$
+Solving for $C_{+\alpha}$ gives
+$$C_{+\alpha}^{2} = \frac{1}{2} + \frac{\eps}{6(V+W)}.$$
+As $C_{+\alpha}^{2} + C_{-\alpha}^{2} = 1$, and $C_{-\alpha}^{2}$ is clearly non-negative
+\footnote{Remember that we assumed the coefficients to be real. If instead they were complex, the equation would actually read $|C_{+\alpha}|^{2} + |C_{-\alpha}^{2}|=1$, as the coefficients appear in complex conjugated pairs. The argument still stands without the assumption of real coefficients.}, we know that $0 \leq C_{+\alpha}^{2} \leq 1$, which gives
+$$0 \leq \frac{1}{2} + \frac{\eps}{6(V+W)} \leq 1,$$
+solving for $\eps$ now gives
+$$-3(V+W) \leq \eps \leq 3(V+W),$$
+Which is the restriction we wanted to find.
 
 \end{document}
