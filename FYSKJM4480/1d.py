@@ -110,11 +110,8 @@ H = zeros((5,5))
 for i in range(5):
     for j in range(5):
         H[i,j] = matrix_element(SDs[i], SDs[j]).subs(Z, Z_value).evalf()
-
-for a in SDs:
-    for b in SDs:
-        print "%.3f & " % matrix_element(a, b).subs(Z,2).evalf(),
+        print "%.3f & " % H[i,j],
     print r"\\"
-
+        
 vals, vecs = linalg.eig(H)
 print vals

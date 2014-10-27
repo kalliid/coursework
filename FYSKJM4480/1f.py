@@ -144,6 +144,7 @@ class HF:
         iterations = 0
         n, N = self.n, self.N
         Ep = 0
+        ekp = array((0,0,0,0,0,0))
 
         while iterations < max_iters:
             iterations +=1
@@ -159,12 +160,13 @@ class HF:
             
             # Test tolerance of lowest eigenvalue
             print self.calc_energy()
-            error = abs(self.E - Ep)
+            error = sum(abs(ekp - self.ek[0]))
             if error < tol:
                 print "Solver converged after %d iterations." % (iterations)
                 return
 
             Ep = self.E
+            ekp = self.ek[0]
 
         print "Solver failed to converge in %d iterations." % (iterations)
 
