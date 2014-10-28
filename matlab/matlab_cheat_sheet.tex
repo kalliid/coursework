@@ -1,0 +1,266 @@
+\documentclass[a4paper, 12pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color, xcolor}
+\usepackage{verbatim, listings, fancyvrb}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+\usepackage{simplewick}
+\usepackage{amsthm}
+\usepackage{bbold}
+
+
+\usepackage{caption}
+\DeclareCaptionLabelSeparator{colon}{. }
+\renewcommand{\captionfont}{\small\sffamily}
+\renewcommand{\captionlabelfont}{\bf\sffamily}
+\usepackage{float}
+%\floatstyle{ruled}
+%\restylefloat{figure}
+\setlength{\captionmargin}{10pt}
+%\addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+\usepackage{bigstrut}
+\setlength{\tabcolsep}{8pt}
+
+
+\newtheorem{theorem}[]{Wick's Theorem}[]
+
+\DeclareUnicodeCharacter{00A0}{~}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=python,
+basicstyle=\ttfamily\scriptsize,
+keywordstyle=\color{javapurple},%\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+morekeywords={super, with},
+% numbers=left,
+% numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=2,
+showspaces=false,
+captionpos=b,
+showstringspaces=false,
+frame= single,
+breaklines=true}
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=5mm, bottom=5mm, left=14mm, right=24mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+%
+% Definering av egne kommandoer og miljøer
+%
+
+\newenvironment{psmallmatrix}
+  {\left(\begin{smallmatrix}}
+  {\end{smallmatrix}\right)}
+
+\newenvironment{bsmallmatrix}
+  {\left[\begin{smallmatrix}}
+  {\end{smallmatrix}\right]}
+
+\setlength\columnsep{1cm}
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+
+
+\begin{document}
+
+\begin{center}
+ \Huge \bf Matlab Cheat Sheet
+\end{center}
+
+\vspace{1cm}
+
+\begin{multicols}{2}
+{\large \bf Matematiske operasjoner}
+$ $ \\ \begin{tabular}{l l}
+Addisjon & \verb!a+b! \\ 
+Subtraksjon & \verb!a-b! \\ 
+Multiplikasjon & \verb!a*b! \\ 
+Potens & \verb!a^b! \\ 
+Divisjon & \verb!a/b! \\ 
+Divisjon mot venstre & \verb!a\b! \\ 
+Modulo & \verb!mod(a,b)! \\ 
+\end{tabular}
+
+\vspace{1cm}
+
+{\large \bf Operasjoner på arrays}
+$ $ \\ \begin{tabular}{l l}
+Største element & \verb+max(x)+ \\
+Minste element & \verb+min(x)+ \\
+Sum av elementer & \verb!sum(x)! \\ 
+Produkt av elementer & \verb!prod(x)! \\
+Gjennomsnitt & \verb!mean(x)! \\ 
+Standardavik & \verb!std(x)! \\ 
+Variasjon & \verb!var(x)! \\ 
+Kumulativ sum & \verb!cumsum(x)! \\ 
+Kumulativt produkt & \verb!cumprod(x)! \\
+Prikkprodukt & \verb!dot(x)! \\
+Kryssprodukt & \verb!cross(x)! \\
+Komponentvis potens & \verb+x.^2+ \\
+Rekke med tall & \verb+start:stop+ \\
+Tall med gitt steglengde & \verb+start:step:stop+ \\
+Jevnt fordelte tall & \verb+linspace(+\\& \verb+start,stop,n)+\\
+\end{tabular}
+
+\vspace{1.5cm}
+{\large \bf Matematiske funksjoner}
+$ $ \\ \begin{tabular}{l l}
+Absoluttverdi & \verb!abs(a)! \\ 
+Rund av & \verb!round(a)! \\ 
+Rund opp & \verb!ceil(a)! \\ 
+Rund ned & \verb!floor(a)! \\ 
+Eksponentialfunk & \verb!exp(x)! \\ 
+Naturlig logaritme & \verb!log(x)! \\ 
+Tier logartime & \verb!log10(x)! \\ 
+Trig i radianer & \verb!sin(x)!, \verb!cos(x)!, \ldots \\ 
+Trig i grader & \verb!sind(x)!, \verb!cosd(x)!, \ldots \\ 
+Inverse trig & \verb!arcsin(x)!, \verb!arccos(x)! \\ 
+Fakultet & \verb+n!+ \\ 
+\end{tabular}
+
+\vspace{0.5cm}
+
+{\large \bf Konstanter}
+$ $ \\ 
+\begin{tabular}{l l}
+$e$ & \verb+exp(1)+ \\[-0.5cm] 
+$\pi$ & \verb+pi+ \\[-0.5cm]
+$i$ & \verb+1i+ eller \verb+1j+
+\end{tabular}
+
+\vspace{0.5cm}
+
+{\large \bf Løkker}
+$ $ \\ 
+\verb+for i=1:10+ \\
+\verb+    commands+ \\
+\verb+end+ 
+
+\verb+while (condition)+ \\
+\verb+    commands+ \\
+\verb+end+ 
+
+\vspace{0.5cm}
+
+{\large \bf Tester}
+$ $ \\ 
+\verb+if (condition A)+ \\
+\verb+    commands+ \\
+\verb+elseif (condition B)+ \\
+\verb+    commands+ \\
+\verb+else+ \\
+\verb+    commands+ \\
+\verb+end+ 
+
+\newpage
+
+{\large \bf Matriser}
+$ $ \\ 
+\begin{tabular}{l l}
+Transponert & \verb+A'+ \\
+Matrise-Matrise produkt & \verb+A*B+ \\
+Komponentvis produkt & \verb+A.*B+ \\
+Matrisepotens & \verb+A^2+ \\
+Komponentvis potens & \verb+A.^2+ \\
+Determinant & \verb+det(A)+ \\
+Radredusere & \verb+rref(A)+ \\
+Invers & \verb+inv(A)+ \\
+Matriseligning $A\bt{x}=\bt{b}$ & \verb+x = A\b+
+\\
+Egenverdi og vektorer & \verb+[u,v] = eig(A)+ \\
+Matrise av nuller & \verb+zeros(3,4)+ \\
+Matrise av enere & \verb+ones(4,4)+ \\
+Identitetsmatrise & \verb+eye(3,4)+ \\
+Tilfeldig matrise & \verb+rand(5,3)+ \\
+Matriseelement $A_{ij}$ & \verb+A(i,j)+
+\end{tabular}
+
+\vspace{2cm}
+
+{\large \bf Logikk}
+$ $ \\ 
+\begin{tabular}{l l}
+Likhet & \verb+a == b+ eller \verb+eq(a,b)+ \\
+Ulikhet & \verb+a ~= b+ eller \verb+neq(a,b)+ \\
+Større enn & \verb+a > b+ eller \verb+gt(a,b)+ \\
+Større el lik & \verb+a >= b+ eller \verb+ge(a,b)+ \\
+Mindre enn & \verb+a < b+ eller \verb+lt(a,b)+ \\
+Mindre el lik & \verb+a <= b+ eller \verb+le(a,b)+ \\
+Og (and) & \verb+&+ \\
+Eller (or) & \verb+|+ \\
+Ikke (not) & \verb+~+ \\
+\end{tabular}
+
+
+{\large \bf Plotting}
+$ $ \\
+\begin{tabular}{l l}
+\verb+plot(x,y)+ & Plotter array $x$ mot array $y$ \\[-0.5cm]
+& i et kartesisk koordinatsystem. \\
+\verb+plot(x)+ & Plotter et array mot sine indekser. \\
+\verb+semilogx(x,y)+ & Plotter $\log(x)$ mot $y$. \\
+\verb+semilogy(x,y)+ & Plotter $x$ mot $\log(y)$. \\
+\verb+loglog(x,y)+ & Plotter $\log(x)$ mot $\log(y)$. \\
+\verb+grid on+ & Tegner inn et gitter. \\
+\verb+title('text')+ & Legger til tittel på figuren. \\
+\verb+xlabel('text')+ & Legger til navn på $x$-aksen. \\
+\verb+ylabel('text')+ & Legger til navn på $y$-aksen. \\
+\verb+hold on+ & Nye plots tegnes i samme figur. \\
+\verb+hold off+ & Nye plots tegnes i ny figur. \\
+\verb+figure()+ & Velger hvilken figur vi jobber med.
+\end{tabular}
+
+\vspace{1 cm}
+
+{\large \bf Command window og workspace}
+$ $ \\\begin{tabular}{l l}
+\verb+doc funksjon+ & Åpner detaljert dokumentasjon \\[-0.5cm] & om en funksjon i et nytt vindu. \\
+\verb+help funksjon+ & Gir en kjapp oppsummering av \\[-0.5cm] &  en funksjon. \\
+\verb+clear+ & Tømmer workspace for alt. \\
+\verb+clc+ & Tømmer command window. \\
+$\uparrow$ & Gjenta en tidligere kommando. \\
+\verb+edit mittscript+ & Åpner en .m-fil i editoren.
+\end{tabular}
+
+\vspace{1cm}
+
+{\large \bf Andre nyttige funksjoner}
+$ $ \\ 
+\begin{tabular}{l l}
+Skriv ut en variabel & \verb+disp(x)+ \\
+Sett formatet på utskrift & \verb+format+ \\
+Ta tiden på en del av programmet & \verb+tic+ og \verb+toc+
+\end{tabular}
+
+
+\end{multicols}
+\end{document}

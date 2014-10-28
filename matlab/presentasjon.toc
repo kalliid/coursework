@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.24pt}
+\select@language {norsk}
+\beamer@sectionintoc {1}{Matriser}{3}{0}{1}
+\beamer@sectionintoc {2}{Plotting}{20}{0}{2}
+\beamer@sectionintoc {3}{Programmering i Matlab}{31}{0}{3}
