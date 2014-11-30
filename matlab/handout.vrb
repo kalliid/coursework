@@ -1,0 +1,16 @@
+\frametitle{Eksempel}
+
+{\bf Oppgave:} \\
+Lag en funksjon som tar $n$ som input. Funksjonen skal sette opp en $n\times n$ matrise, $A$, som er gitt ved matriseelementene
+$$A_{ij} = \sin\bigg(\frac{i\pi}{n}\bigg) + \cos\bigg(\frac{j\pi}{n}\bigg).$$
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+{\bf Løsning:} \\
+{\alrt \verb+function A = buildTrigMatrix(n)+} \\
+{\alrt \verb+for i=1:n+} \\
+{\alrt \verb+    for j=1:n+} \\
+{\alrt \verb!        A(i,j) = sin(i*pi/n) + cos(j*pi/n)!} \\
+{\alrt \verb+    end+} \\
+{\alrt \verb+end+}
+

@@ -1,0 +1,20 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color, xcolor}
+\usepackage{verbatim, listings, fancyvrb}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+\usepackage{simplewick}
+\usepackage{amsthm}
+\usepackage{bbold}
+

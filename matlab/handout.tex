@@ -1,0 +1,766 @@
+\documentclass[norsk, 12pt, handout]{beamer}
+% Add handout to documentclass options if wanted
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel,textcomp}
+
+\setlength{\arrayrulewidth}{1.6pt}
+\renewcommand{\arraystretch}{1.2}
+\newlength{\Tcalc}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{amsfonts}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{epstopdf}
+\usepackage{fancyvrb}
+\usepackage{parskip}
+\usepackage{url}
+\usepackage{listings}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Matlab,
+basicstyle=\ttfamily
+keywordstyle=\color{javapurple},%\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+morekeywords={super, with},
+% numbers=left,
+% numberstyle=\tiny\color{black},
+stepnumber=2,
+numbersep=10pt,
+tabsize=2,
+showspaces=false,
+% captionpos=b,
+showstringspaces=false,
+frame=  false,
+breaklines=true}
+
+\setbeamertemplate{frametitle}
+{\begin{centering}\smallskip
+\insertframetitle\par
+\smallskip\end{centering}}
+\setbeamertemplate{itemize item}{$\bullet$}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[text line]{%
+\hfill\strut{%
+\scriptsize\sf\color{black!60}%
+\quad\insertframenumber
+   }%
+    \hfill
+}
+
+% Define some colors:
+\definecolor{DarkFern}{HTML}{407428}
+\definecolor{DarkCharcoal}{HTML}{4D4944}
+\colorlet{Fern}{DarkFern!85!white}
+\colorlet{Charcoal}{DarkCharcoal!85!white}
+\colorlet{LightCharcoal}{Charcoal!50!white}
+\colorlet{AlertColor}{orange!80!black}
+\colorlet{DarkRed}{red!70!black}
+\colorlet{LightBlue}{blue!70!white}
+\colorlet{DarkBlue}{blue!70!black}
+\colorlet{DarkGreen}{green!70!black}
+
+% Use the colors:
+\setbeamercolor{title}{fg=Fern}
+\setbeamercolor{frametitle}{fg=Fern}
+\setbeamercolor{normal text}{fg=Charcoal}
+\setbeamercolor{block title}{fg=black,bg=Fern!25!white}
+\setbeamercolor{block body}{fg=black,bg=Fern!25!white}
+\setbeamercolor{alerted text}{fg=AlertColor}
+\setbeamercolor{itemize item}{fg=Charcoal}
+
+\newcommand{\frn}[1]{\textcolor{Fern}{#1}}
+\newcommand{\alrt}{\color{AlertColor}}
+\newcommand{\bt}[1]{\textbf{#1}}
+\newcommand{\kommando}[1]{\textcolor{AlertColor}{\texttt{\textbackslash #1}}}
+\newcommand{\ds}{\displaystyle}
+
+\title{Kræsjkurs i MATLAB}
+\author{Jonas van den Brink \\ \url{j.v.brink@fys.uio.no}}
+\institute{Tekna Student Oslo}
+\date{28. oktober 2014}
+
+\setbeamertemplate{frametitle}{\vspace{0.5cm} \insertframetitle} 
+
+\begin{document}
+\pagestyle{empty}
+
+\begin{frame}
+\maketitle 
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+{\Huge \color{DarkFern} Hva er Matlab?}
+\vspace{0.2cm}
+\includegraphics[width=0.5\textwidth]{Matlab_Logo.png}
+\end{center}
+\end{frame}
+
+
+\section{Matriser}
+
+\begin{frame}
+\vspace{2.4cm}
+\begin{center}
+{\Huge \color{DarkFern} Matriser}
+\end{center}
+\vspace{0.2cm}
+$$\begin{pmatrix}
+	4 & 2 & 0 & 1 \\
+	3 & 1 & 3 & 3 \\
+	0 & 5 & 1 & 2 \\
+	2 & 2 & 3 & 0
+\end{pmatrix}$$
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi kan lage arrays og matriser ved å liste alle elementene}
+
+{\alrt \verb+A = [1 3 4; 2 3 1; 2 1 -1]+}
+$$A = \begin{pmatrix}
+	1 & 3 & 4 \\
+	2 & 3 & 1 \\ 
+	2 & 1 & -1
+\end{pmatrix}$$
+
+{\alrt \verb+x = [1 3 4 2]+}
+$$\bt{x} = \begin{pmatrix}
+1 & 3 & 4 & 2
+\end{pmatrix}$$
+
+{\alrt \verb+y = [1; 3; 4; 2]+}
+$$\bt{y} = \begin{pmatrix}
+1 \\ 3 \\ 4 \\ 2
+\end{pmatrix}$$
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Det finnes også innebygde funksjoner som lager gitte matriser}
+
+{\alrt \verb+A = zeros(2,4)+}
+$$A = \begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 
+\end{pmatrix}$$
+
+{\alrt \verb+A = ones(1,3)+}
+$$A = \begin{pmatrix}
+1 & 1 & 1 
+\end{pmatrix}$$
+
+{\alrt \verb+A = eye(3,3)+}
+$$A = \begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}$$
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Det finnes også innebygde funksjoner som lager gitte matriser}
+
+{\alrt \verb+A = rand(4,4)+}
+$$A = \begin{pmatrix}
+0.8147 & 0.6324 & 0.9575 & 0.9572 \\
+0.9058 & 0.0975 & 0.9649 & 0.4854 \\
+0.1270 & 0.2785 & 0.1576 & 0.8003 \\ 
+0.9134 & 0.5469 & 0.9706 & 0.1419
+\end{pmatrix}$$
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi kan behandle bestemte matriseelementer ved å indeksere}
+$$A = \begin{pmatrix}
+A_{11} & A_{12} & A_{13} \\ A_{21} & A_{22} & A_{23} \\ A_{31} & A_{32} & A_{33}
+\end{pmatrix}$$
+
+Vi velger element $A_{ij}$ ved å indeksere {\alrt \verb+A(i,j)+}. Matlab begynner å telle fra 1.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi kan behandle bestemte matriseelementer ved å indeksere}
+
+{\alrt \verb+A = [2 3 1; 0 -4 3; 1 2 -1]+}
+$$A = \begin{pmatrix}
+2 & 3 & 1 \\ 0 & -4 & 3 \\ 1 & 2 & -1
+\end{pmatrix}$$
+
+\begin{itemize}
+	\item Hva er {\alrt \verb+A(2,1) = 0+}?
+	\item Hva er {\alrt \verb!A(1,1) + A(2,2) + A(3,3)!}?
+	\item Hva gjør kommandoen {\alrt \verb+A(3,2) = 0+}?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pass på indeksering, det kan fort bli feil}
+{\alrt \verb+A = [2 3 1; 0 -4 1; 3 2 2]+}
+$$A = \begin{pmatrix}
+	2 & 3 & 1 \\ 0 & -4 & 1 \\ 3 & 2 & 2
+\end{pmatrix}$$
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+{\alrt \verb!A(3,2)+A(1,4)!} \\
+{\hspace{0.5cm}$\Rightarrow \quad$  \color{DarkRed} Error using  * 
+Inner matrix dimensions must agree.}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+{\alrt \verb!A(1,4)=4!} \\
+$$A = \begin{pmatrix}
+	2 & 3 & 1 & 4\\ 0 & -4 & 1 & 0 \\ 3 & 2 & 2 & 0
+\end{pmatrix}$$
+
+
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{Matlab tolker operasjoner som vektor- og matrise\-operasjoner}
+
+{\alrt \verb+A = [2, 3, 1; 0, 1, 2; 1, -1, 0]+} \\
+{\alrt \verb+x = [1; 0; 3]+} \\
+$$A = \begin{pmatrix}
+	2 & 3 & 1 \\
+	0 & 1 & 2 \\ 
+	1 & -1 & 0
+\end{pmatrix}, \qquad x = \begin{pmatrix}
+1 \\ 0 \\ 3 
+\end{pmatrix}.$$
+{\alrt \verb+y = A*x+}
+$$\bt{y} = \begin{pmatrix}
+	2 & 3 & 1 \\
+	0 & 1 & 2 \\ 
+	1 & -1 & 0 \end{pmatrix}\begin{pmatrix}
+1 \\ 0 \\ 3 
+\end{pmatrix}
+=
+\begin{pmatrix}
+5 \\ 6 \\ 1
+\end{pmatrix}.$$
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Vi kan også regne komponentvis}
+
+{\alrt \verb+A = [2, 3, 1; 0, 1, 2]+} \\
+{\alrt \verb+x = [1, -1, 2; 0, 1, 3]+} \\
+$$A = \begin{pmatrix}
+	2 & 3 & 1 \\
+	0 & 1 & 2 
+\end{pmatrix}, \qquad \bt{x} = \begin{pmatrix}
+1 & 1 & 2 \\ 0 & 6 & 3  
+\end{pmatrix}.$$
+{\alrt \verb+y = A.*x+}
+$$\bt{y} = \begin{pmatrix}
+	2\times1 & 3\times1 & 1\times2 \\
+	0\times0 & 1\times6 & 2\times 3 
+\end{pmatrix}
+=
+\begin{pmatrix}
+2 & 3 & 2 \\ 0 & 6 & 6
+\end{pmatrix}.$$
+Merk at {\alrt \verb+*+} operasjonen betyr matrise-ganger-vektor, mens {\alrt \verb+.*+} betyr komponentvis multiplikasjon.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Man bør være litt forsiktig med hvilken operator man bruker}
+{\alrt \verb+A = [2 3; 1 0]+} \\
+$$A = \begin{pmatrix}
+	2 & 3  \\
+	1 & 0 
+\end{pmatrix}.$$
+{\alrt \verb+B = A^3+} 
+$$
+B = \begin{pmatrix}
+	2 & 3  \\ 	1 & 0 
+\end{pmatrix}\begin{pmatrix}
+	2 & 3  \\ 1 & 0 
+\end{pmatrix}\begin{pmatrix}
+	2 & 3  \\ 1 & 0 
+\end{pmatrix} = \begin{pmatrix}
+	20 & 21 \\ 7 & 6
+\end{pmatrix}.$$
+{\alrt \verb+C = A.^3+} 
+$$
+C = \begin{pmatrix}
+	2^3 & 3^3  \\ 	1^3 & 0^3 
+\end{pmatrix} = \begin{pmatrix}
+	8 & 27  \\ 	1 & 0 
+\end{pmatrix}.$$
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Dimensjoner må stemme når vi gjør matriseoperasjoner}
+Matlab tolker egentlig alle arrays som matriser, og gjør dermed forskjellig på kolonne- og radvektorer. 
+
+\vspace{0.2cm}
+
+{\alrt \verb+x = [2 3 1 0]+} \\
+{\alrt \verb+y = [1 1 2 4]+} \\
+$$\bt{x} = \begin{pmatrix}
+	2 & 3 & 1 & 0
+\end{pmatrix}, \qquad \bt{y} = \begin{pmatrix}
+1 & 1 & 2 & 4
+\end{pmatrix}.$$
+{\alrt \verb+x*y+} \\ \vspace{0.4cm}
+{\hspace{0.5cm}$\Rightarrow \quad$  \color{DarkRed} Error using  * 
+Inner matrix dimensions must agree.}
+
+Vi kan ikke ta matrisproduktet av to radvektorer.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Dimensjoner må stemme når vi gjør matriseoperasjoner}
+
+For å ta matriseproduktet av to vektorer, må vi ha en radvektor og en kolonnevektor.
+\vspace{0.2cm}
+
+{\alrt \verb+x = [2 3 1 0]+} \\
+{\alrt \verb+y = [1; 1; 2; 4]+} \\
+$$\bt{x} = \begin{pmatrix}
+	2 & 3 & 1 & 0
+\end{pmatrix}, \qquad \bt{y} = \begin{pmatrix}
+1 \\ 1 \\ 2 \\ 4
+\end{pmatrix}.$$
+{\alrt \verb+x*y+} \\ \vspace{0.4cm}
+{\hspace{0.5cm}$\Rightarrow \quad$ 7.}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Matriser kan enkelt transponeres}
+
+{\alrt \verb+A = [2 3 1; 0 1 2; 3 0 1]+} \\
+{\alrt \verb+B = A'+} \\
+$$A = \begin{pmatrix}
+	2 & 3 & 1 \\ 0 & 1 & 2 \\ 3 & 0 & 1
+\end{pmatrix}, \qquad B = \begin{pmatrix}
+	2 & 0 & 3 \\ 3 & 1 & 0 \\ 1 & 2 & 1
+\end{pmatrix}.$$
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+Vi kan også transponere vektorer \\
+{\alrt \verb+x = [2 3 1]+} \\
+{\alrt \verb+y = x'+} \\
+$$\bt{x} = \begin{pmatrix}
+	2 & 3 & 1 
+\end{pmatrix}\qquad \bt{y} = \begin{pmatrix}
+	2 \\ 3 \\ 1 
+\end{pmatrix}.$$
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi kan regne ut determinanten av en matrise og radredusere den}
+
+{\alrt \verb+A = [2 3 1; 0 1 2; 3 0 1];+} \\
+{\alrt \verb+det(A)+} \\
+{\hspace{0.5cm}$\Rightarrow \quad$ 17.}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+{\alrt \verb+A = [3 3 1; 6 1 2; 3 2 1]+} \\
+{\alrt \verb+B = rref(A)+} \\
+$$A = \begin{pmatrix}
+	3 & 3 & 1 \\ 6 & 1 & 2 \\ 3 & 2 & 1 
+\end{pmatrix}, \qquad B = \begin{pmatrix}
+	1.0000 & 0 & 0.3333 \\ 0 & 1.000 & 0 \\ 0 & 0 & 0 
+\end{pmatrix}.$$
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Matlab kan finne den inverse av en matrise}
+
+{\alrt \verb+A = [2 3 1; 0 1 2; 3 0 1]+} \\
+{\alrt \verb+B = inv(A)+} 
+$$A = \begin{pmatrix}
+	2 & 3 & 1 \\ 0 & 1 & 2 \\ 3 & 0 & 1
+\end{pmatrix}, \qquad B = \begin{pmatrix}
+    0.0588 &  -0.1765 &   0.2941 \\
+    0.3529 &  -0.0588 &  -0.2353 \\
+   -0.1765 &   0.5294 &   0.1176\end{pmatrix}.$$
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+
+Vi kan teste ved å regne ut $AA^{-1}$ \\
+{\alrt \verb+C = A*inv(A)+} 
+$$C = \begin{pmatrix}
+    1.0000   &      0  &  0.0000 \\
+         0   & 1.0000   &      0 \\
+         0   & 0.0000   & 1.0000
+\end{pmatrix}.$$
+Vi ser at C er identitetsmatrisen. Merk at utksriften blir litt rar fordi matlab regner numerisk.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi kan nå løse matriseligninger i Matlab}
+Ønsker å løse en ligning av typen
+$$A\bt{x} = \bt{b}.$$
+Løsningen vil være gitt ved
+$$\bt{x} = A^{-1}\bt{b}.$$
+{\alrt \verb+A = [2 3; 0 -1]+} \\
+{\alrt \verb+b = [2; 1]+} \\
+{\alrt \verb+x = inv(A)*b+} 
+$$A = \begin{pmatrix}
+	2 & 3 \\ 0 & -1
+\end{pmatrix}, \qquad \bt{b} = \begin{pmatrix}
+	2 \\ 1
+\end{pmatrix} \quad \Rightarrow \quad \bt{x} = \begin{pmatrix}
+	2.5 \\ -1
+\end{pmatrix}.$$
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Egenverdier og egenvektorer finner vi også lett}
+{\alrt \verb+A = [2 3 1; 0 -1 4; 2 2 0]+} \\
+{\alrt \verb+[u,v] = eig(A)+} \\
+$$u = \begin{pmatrix}
+    0.7470  &  0.7071  &  0.5067 \\
+    0.3997  & -0.7071  & -0.8189 \\
+    0.5313  &  0.0000  &  0.2695
+\end{pmatrix}.$$
+$$v = \begin{pmatrix}
+    4.3166  &       0 &        0 \\
+         0  & -1.0000 &        0 \\
+         0  &       0 &  -2.3166
+\end{pmatrix}.$$
+\end{frame}
+
+\section{Plotting}
+
+\begin{frame}
+\vspace{2.4cm}
+\begin{center}
+{\Huge \color{DarkFern} Plotting}
+\end{center}
+\vspace{0.2cm}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{fig1}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotter to arrays mot hverandre i et koordinatsystem}
+{\alrt \verb+x = linspace(0,10,101)+} \\
+$$0, 0.1, 0.2, \ldots, 9.9, 10.$$
+{\alrt \verb+y = sin(x)+} \\
+$$\sin(0), \sin(0.1), \sin(0.2), \ldots, \sin(9.9), \sin(10).$$
+{\alrt \verb+plot(x,y)+} 
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+\includegraphics[width=\textwidth]{fig2}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Figurer bør alltid pyntes på litt}
+{\alrt \verb+xlabel(+}{\color{DarkBlue}\verb+'x'+}{\alrt \verb+)+} \\
+{\alrt \verb+ylabel(+}{\color{DarkBlue}\verb+'sin(x)'+}{\alrt \verb+)+} \\
+{\alrt \verb+title(+}{\color{DarkBlue}\verb+'Plot av sinuskunsjonen'+}{\alrt \verb+)+} \\
+{\alrt \verb+grid on+}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\begin{center}
+\includegraphics[width=\textwidth]{fig3}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi kan plotte flere kurver i samme figur}
+
+{\alrt \verb+hold on+} $\Rightarrow$ Nye plots kommer i samme figur.
+
+{\alrt \verb+hold off+} $\Rightarrow$ Nye plots får ny figur.
+
+{\alrt \verb+figure()+} $\Rightarrow$ Velger hvilken figur vi jobber med.
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+{\color{DarkFern} \verb+% Lager arrays med data+} \\
+{\alrt \verb+x = linspace(0,10,101);+} \\
+{\alrt \verb+y1 = sin(x);+} \\
+{\alrt \verb+y2 = cos(x);+} \\
+
+$ $ \\
+
+{\color{DarkFern} \verb+% Setter på hold fordi kurvene skal plottes sammen+} \\
+{\alrt \verb+hold on+} \\
+
+$ $ \\
+
+{\color{DarkFern} \verb+% Plotter+} \\
+{\alrt \verb+plot(x,y1)+} \\
+{\alrt \verb+plot(x,y2)+} \\
+
+$ $ \\
+
+{\color{DarkFern} \verb+% Pynter litt på figuren vi får+} \\
+{\alrt \verb+xlabel(+}{\color{DarkBlue}\verb+'x'+}{\alrt \verb+)+} \\
+{\alrt \verb+legend(+}{\color{DarkBlue}\verb+'sin(x)'+}{\alrt \verb+,+}{\color{DarkBlue}\verb+'cos(x)'+}{\alrt \verb+)+} \\
+{\alrt \verb+grid on+}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+\includegraphics[width=\textwidth]{fig4}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi kan bestemme utseende på kurvene når vi plotter}
+
+{\alrt \verb+plot(x, y1, +}
+{\color{DarkBlue} \verb+'b-'+}
+{\alrt \verb+,+}
+{\color{DarkBlue} \verb+'linewidth'+}
+{\alrt \verb+, 2)+} \\
+
+{\alrt \verb+plot(x, y2, +}
+{\color{DarkBlue} \verb+'r--'+}
+{\alrt \verb+,+}
+{\color{DarkBlue} \verb+'linewidth'+}
+{\alrt \verb+, 2)+} \\
+
+$ $ \\
+
+Bestemmer også hvilke intervaller vi plotter for 
+{\alrt \verb+axis([0, 2*pi, -1.5, 1.5])+}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{center}
+\includegraphics[width=\textwidth]{fig5}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Figurer kan justeres på utrolig mange måter}
+
+Det er lurt å se på eksempler.
+
+{\color{DarkBlue} \url{http://www.mathworks.se/discovery/gallery.html}}
+\end{frame}
+
+\section{Programmering i Matlab}
+
+\begin{frame}
+\vspace{2.4cm}
+\begin{center}
+{\Huge \color{DarkFern} Programmering i Matlab}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi programmerer i Matlab ved å skrive scripts}
+
+Et script er en tekstfil med Matlab kommandoer.
+
+Lagres som {\alrt \texttt{.m}}-filer. Kan da kjøre scripts fra command window.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi programmerer i Matlab ved å skrive scripts}
+
+Et script er en tekstfil med Matlab kommandoer.
+
+Lagres som {\alrt \texttt{.m}}-filer. Kan da kjøre scripts fra command window.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi programmerer i Matlab ved å skrive scripts}
+
+Et script er en tekstfil med Matlab kommandoer.
+
+\vspace{0.5cm}
+
+Lagres som {\alrt \texttt{.m}}-filer. Kan da kjøre scripts fra command window. 
+
+\vspace{0.5cm}
+
+Pass på at scrits lagres riktig sted, Matlab kan ikke kjøre scripts den ikke finner.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Funksjoner er spesielle scripts som tar input og gir output}
+Første linje i en funksjon må være
+{\alrt \verb+function [y1,...,yN] = myfunction(x1,...,xM)+} \\
+Her er $x$-ene input og $y$-ene output.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Funksjoner er spesielle scripts som tar input og gir output}
+
+I filen {\alrt sumAndDiff.m}
+
+{\alrt \verb+function [s, d] = sumAndDiff(a, b)+} \\
+{\color{DarkBlue} \verb+% Returns the sum and the difference of two numbers+} \\
+{\alrt \verb!s = a + b!;} \\
+{\alrt \verb+d = a - b+;} 
+
+% \vspace{1cm}
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+% \vspace{0.5cm}
+
+I command window:
+
+{\alrt \verb+[s, d] = sumAndDiff(5,4)+}
+
+{\hspace{0.5cm}$\Rightarrow \quad s = 9$.} \\
+{\hspace{0.5cm}$\Rightarrow \quad d = 1$.}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Vi får ofte bruk for løkker}
+
+{\alrt \verb+for i=1:10+} \\
+{\alrt \verb+   disp(i^2)+} \\
+{\alrt \verb+end+} \\
+
+{\hspace{0.5cm}$\Rightarrow \quad 1, 4, 9, 16, 25, 36, 49, 64, 81, 100$.} \\
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+{\alrt s = 1; n = 0;} \\
+{\alrt \verb+while (s > 0)+} \\
+{\alrt \verb+   s = s/2+;} \\
+{\alrt \verb+   n = n+1;} \\
+{\alrt \verb+end+} \\
+{\alrt \verb+disp(n)+} \\
+
+{\hspace{0.5cm}$\Rightarrow \quad 1075$.} \\
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Løkke over en matrise}
+
+{\color{LightBlue} \verb+% Find the matrix dimensions+} \\
+{\alrt \verb+[nx, ny] = size(A);+} \\
+$ $ \\
+{\color{LightBlue} \verb+% Iterate over all matrix elements+}\\
+{\alrt \verb+for i=1:nx+} \\
+{\alrt \verb+    for j=1:ny+} \\
+{\color{LightBlue} \verb+        % Do something with the matrix element A(i,j)+} \\
+{\alrt \verb+    end+} \\
+{\alrt \verb+end+} \\
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{If-tester er også viktige}
+{\color{LightBlue} \verb+% Let x be random number in the interval [0,1)+}\\
+{\alrt \verb+x = rand(1);+} \\
+$ $ \\
+{\alrt \verb+if (x < 0.6)+} \\
+{\alrt \verb+    disp(+}
+{\color{DarkBlue} \verb+'You loose.'+}
+{\alrt \verb+)+} \\
+{\alrt \verb+else if (0.6 <= x) & (x < 0.99)+} \\
+{\alrt \verb+    disp(+}
+{\color{DarkBlue} \verb+'You Win!'+}
+{\alrt \verb+)+} \\
+{\alrt \verb+else+} \\
+{\alrt \verb+    disp(+}
+{\color{DarkBlue} \verb+'You win the Jackpot!'+}
+{\alrt \verb+)+} \\
+{\alrt \verb+end+}
+\end{frame}
+
+\begin{frame}[fragile]
+
+{\color{LightBlue} \verb+% Generate a matrix with random elements+}\\
+{\alrt \verb+nx = 6; ny = 4;+} \\
+{\alrt \verb+A = rand(6,4);+} \\
+$ $ \\
+{\color{LightBlue} \verb+% Remove every element smaller than 0.5+}\\
+{\alrt \verb+for i=1:nx+} \\
+{\alrt \verb+    for j=1:ny+} \\
+{\alrt \verb+        if (A(i,j) < 0.5)+} \\
+{\alrt \verb+            A(i,j) = 0;+} \\
+{\alrt \verb+        end+} \\
+{\alrt \verb+    end+} \\
+{\alrt \verb+end+} \\
+\end{frame}
+
+\begin{frame}
+$$\begin{pmatrix}
+    0.7447  &  0.7802  &       0  &  0.6443 \\
+         0  &       0  &       0  &       0 \\
+    0.6868  &  0.9294  &  0.5085  &  0.8116 \\
+         0  &  0.7757  &  0.5108  &  0.5328 \\
+         0  &       0  &  0.8176  &       0 \\
+    0.6256  &       0  &  0.7948  &  0.9390
+\end{pmatrix}$$
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Eksempel}
+
+{\bf Oppgave:} \\
+Lag en funksjon som tar $n$ som input. Funksjonen skal sette opp en $n\times n$ matrise, $A$, som er gitt ved matriseelementene 
+$$A_{ij} = \sin\bigg(\frac{i\pi}{n}\bigg) + \cos\bigg(\frac{j\pi}{n}\bigg).$$
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+$ $ \\
+$ $ \\
+$ $ \\
+$ $ \\
+$ $ \\
+$ $ \\
+$ $ 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Eksempel}
+
+{\bf Oppgave:} \\
+Lag en funksjon som tar $n$ som input. Funksjonen skal sette opp en $n\times n$ matrise, $A$, som er gitt ved matriseelementene 
+$$A_{ij} = \sin\bigg(\frac{i\pi}{n}\bigg) + \cos\bigg(\frac{j\pi}{n}\bigg).$$
+
+\noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+
+{\bf Løsning:} \\
+{\alrt \verb+function A = buildTrigMatrix(n)+} \\
+{\alrt \verb+for i=1:n+} \\
+{\alrt \verb+    for j=1:n+} \\
+{\alrt \verb!        A(i,j) = sin(i*pi/n) + cos(j*pi/n)!} \\
+{\alrt \verb+    end+} \\
+{\alrt \verb+end+}
+
+\end{frame}
+
+
+\end{document}
