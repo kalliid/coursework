@@ -1,4 +1,18 @@
-\begin{center}
-\vspace{0.2cm}
-\includegraphics[width=\textwidth]{experiment3.pdf}
-\end{center}
+
+\vspace{1cm}
+
+{\color{DarkCharcoal} Gaussiske stråler har gunstige egenskaper som gjør dem meget lette å regne på, og gjør dem gunstige i industri.}
+
+\vspace{1cm}
+
+{\color{DarkCharcoal} Strålegangen kan forutsies av TMA-metoden, men man må gjøre mange tilnærminger.}
+
+\vspace{1cm}
+
+{\color{DarkCharcoal} En stråle som skal holde konstant bredde må starte bredt, dette er fordi $\theta \propto 1/w_0$.}
+
+\vspace{1cm}
+
+
+
+
