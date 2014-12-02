@@ -450,10 +450,7 @@ The Hamiltonian matrix is then the five-by-five matrix
 
 \section*{Exercise 4)}
 
-We now turn to Hartree-Fock theory, we will define our model space to consist of the single-particle levels $p=1,2$ and the excluded space is then $p=3,4$. This means we also define our reference state to be
-$$\ket{\Phi_0} = \op{P}_1^+ \op{P}_2^+ \ket{0}.$$
-
-The projection operator $\op{P}$ projects onto the model space, which is spanned by the reference function, so $\op{P} = \ket{\Phi_0}\bra{\Phi_0}$.
+We now turn to Hartree-Fock theory. First we will partition our Hamiltonian and define our Fock operator. This will illuminate the difference between a cannonical and a non-cannonical Hartree-Fock case. For each of these cases, as well as a general (i.e., a non Hartree-Fock) case, we will set up the normal-ordered Hamiltonian in both diagramatic and algebraic form.
 
 
 \subsection*{Partitioning the Hamiltonian}
@@ -476,7 +473,7 @@ $$\op{H} = \op{H}_{\rm N} + E_{\rm ref}.$$
 The normal-ordered Hamiltonian is then
 $$\op{H}_{\rm N} = \sum_{pq}\braopket{p}{\op{h}_0}{q}\{\op{p}^\dag \op{q}\}  + \sum_{pqi} \brakket{pi}{qi}\{\op{p}^\dag \op{q}\}  + \frac{1}{4}\sum_{pqrs} \brakket{pq}{rs} \{\op{p}^\dag \op{q}^\dag \op{s}\op{r}\}.$$
 We now relabel the first two terms into the normal-ordered \emph{Fock-operator}, giving us
-$$\op{H}_{\rm N} = \op{F} + \frac{1}{4}\sum_{pqrs} \brakket{pq}{rs} \{\op{p}^\dag \op{q}^\dag \op{s}\op{r}\}.$$
+$$\op{H}_{\rm N} = \op{F}_{\rm N} + \frac{1}{4}\sum_{pqrs} \brakket{pq}{rs} \{\op{p}^\dag \op{q}^\dag \op{s}\op{r}\}.$$
 We can now think of the normal-ordered Hamiltonian as the sum of a one-body part and the perturbation
 $$\op{W}_{\rm N}  =\frac{1}{4}\sum_{pqrs} \brakket{pq}{rs} \{\op{p}^\dag \op{q}^\dag \op{s}\op{r}\},$$
 we will get back to this when we turn to many-body perturbation theory.
@@ -486,10 +483,10 @@ we will get back to this when we turn to many-body perturbation theory.
 For now, we will look closer at the normal-ordered Fock-operator
 $$\op{F}_{\rm N} = \sum_{pq}\braopket{p}{\op{h}_0}{q}\{\op{p}^\dag \op{q}\}  + \sum_{pqi} \brakket{pi}{qi} \{\op{p}^\dag \op{q}\} = \sum_{pq} f_{pq} \{\op{p}^\dagger \op{q} \},$$
 where
-$$f_{pq} = \braopket{p}{\op{h}_0}{q} + \sum_{pqi} \brakket{pi}{qi} \{\op{p}^\dag \op{q}\} = h_{pq} + u_{pq}.$$
-We see that the exact form of the Fock-matrix is then the result of the one-body and two-body operators $\op{h}_0$ and $\op{v}$ and also of our choice of single-particle basis. 
+$$f_{pq} = \braopket{p}{\op{h}_0}{q} + \sum_{pqi} \brakket{pi}{qi}  = h_{pq} + u_{pq}.$$
+We see that the exact form of the Fock-matrix is then the result of the form of the one-body and two-body operators $\op{h}_0$ and $\op{v}$ and also of our choice of single-particle basis. 
 
-The form of the Fock-matrix is quite important for our further discussion of how to solve the problem, and so we will label three different general cases.
+The form of the Fock-matrix is quite important for our further discussion of how to solve the problem, and so we will label three different cases:
 \begin{enumerate}
 	\item First we have the possibility of the Fock-matrix being purely diagonal
 	$$f_{pq} = \eps_p \delta_{pq},$$
@@ -504,11 +501,62 @@ $$\op{F}_{\rm N} = \sum_p f_{pp}\{\op{p}^\dagger \op{p}\} + \sum_{p\neq q} f_{pq
 In the cases where $\op{F}_{\rm N}^{\rm O} \neq 0$, it is common to include this part of the Fock-operator in the perturbation.
 
 The total normal-product Hamiltonian is then
-$$\op{H}_{\rm N} = \op{F}_{\rm N} + \op{W} = \op{F}^{\rm d}_{\rm N} + \op{F}^{\rm o}_{\rm N} + \op{W} = \op{F}^{\rm d}_{\rm N} + \mbox{(perturbation)}.$$
+$$\op{H}_{\rm N} = \op{F}_{\rm N} + \op{W}_{\rm N} = \op{F}^{\rm d}_{\rm N} + \op{F}^{\rm o}_{\rm N} + \op{W}_{\rm N} = \op{F}^{\rm d}_{\rm N} + \tilde{W}_{\rm N}.$$
 
-In our basis, we have
-$$f_{pq} = \braopket{p}{\op{h}_0}{q}\{\op{p}^\dag \op{q}\}  + \sum_{i} \brakket{pi}{qi}\{\op{p}^\dag \op{q}\}.$$
-Here the state indices run over both the quantum numberd $p$ and $\sigma$. As we have no $1p1h$-states, only $2p2h$-states, there will either be zero or two noncoincidences between states. This means that $\{\op{p}^\dag \op{q}\}$
+\subsubsection*{Calculating the Fock-matrix}
+
+The Fock-operator is given by a $h_{pq}$ term and a $u_{pq}$ term
+$$f_{pq} = \braopket{p}{\op{h}_0}{q}\{\op{p}^\dag \op{q}\}  + \sum_{i} \brakket{pi}{qi}\{\op{p}^\dag \op{q}\} = h_{pq} + u_{pq}.$$
+For our system, the one-body operator is given by
+$$\op{h}_0 = \sum_{p\sigma} (p-1)\op{a}_{p\sigma}^\dagger \op{a}_{p\sigma}, \quad h_{pq} = \delta_{pq} (p-1),$$
+so we immediatly see that the one-body operator is diagonal in the sense $h_{pq} = \delta_{pq} k_p$.
+
+For the two-body operator we have 
+$$\op{v} = -\frac{g}{2}\sum_{pq}\op{P}_{p}^+ \op{P}_{q}^-.$$
+So we have
+$$u_{pq} = -\frac{g}{2} \sum_{i} \brakket{pi}{qi} = \sum_i\sum_{rs} \braopket{pi}{\op{P}_{r}^+ \op{P}_{s}^-}{qi}_{AS},$$
+note that in this sums over $p, q$ and $i$ sum over both of the quantum numbers $p$ and $\sigma$, but the sums over $r$ and $s$ only sum over the first quantum number.
+
+If we let a bar denote the same state, but with opposite spin we see that for $\op{P}^-_s\ket{q i}$ to 
+not vanish, we must have $i=\bar{q}$. An
+d for $\bra{pi}\op{P}^+_r$ to not vanish, we
+ need $i=\bar{p}$. Meaning we only get a contribution to $u_{pq}$ if and only if $p$ and $q$ are the same hole state. We can summarize this result as
+\begin{align*}
+u_{ap} &= u_{pa} = 0, \\
+u_{ij} &= -\delta_{ij} g/2.
+\end{align*}
+
+
+We define our model space to consist of the single-particle levels $p=1,2$ and the excluded space is then $p=3,4$. This means we define our reference state to be
+$$\ket{\Phi_0} = \op{P}_1^+ \op{P}_2^+ \ket{0},$$
+We can then set up our Fock-matrix as
+
+\begin{align*}
+F = 
+\begin{pmatrix}
+-g/2 & 0 & 0 & 0 & \quad 0 & \quad 0 & \quad 0 & \quad 0 \\
+0 & -g/2  & 0 & 0 & \quad 0 & \quad 0 & \quad 0 & \quad 0 \\
+0 & 0 & 1-g/2 & 0 & \quad 0 & \quad 0 & \quad 0 & \quad 0 \\
+0 & 0 & 0 & 1-g/2 & \quad 0 & \quad 0 & \quad 0 & \quad 0 \\
+0 & 0 & 0 & 0 & \quad 2 & \quad 0 & \quad 0 & \quad 0 \\
+0 & 0 & 0 & 0 & \quad 0 & \quad 2 & \quad 0 & \quad 0 \\
+0 & 0 & 0 & 0 & \quad 0 & \quad 0 & \quad 3 & \quad 0 \\
+0 & 0 & 0 & 0 & \quad 0 & \quad 0 & \quad 0 & \quad 3 \\
+\end{pmatrix}
+\end{align*}
+
+
+
+
+
+
+
+% When looking at the Fock-operator we have
+% $$\op{F}_{\rm N} = \sum_{pq}\braopket{p}{\op{h}_0}{q}\{\op{p}^\dag \op{q}\}  + \sum_{pqi} \brakket{pi}{qi} \{\op{p}^\dag \op{q}\} = \sum_{pq} f_{pq} \{\op{p}^\dagger \op{q} \}.$$
+
+
+% In our basis, we have
+% Here the state indices run over both the quantum numberd $p$ and $\sigma$. As we have no $1p1h$-states, only $2p2h$-states, there will either be zero or two noncoincidences between states. This means that $\{\op{p}^\dag \op{q}\}$
 
 \clearpage
 
@@ -656,5 +704,7 @@ $$\op{H}_{\rm N} \Psi = \Delta E \Psi,$$
 where $\Delta E$ is the correlation energy in the Hartree-Fock case, the normal-product Hamiltonian is
 $$\op{H}_{\rm N} = \op{F}_{\rm N} + \op{W} = \op{F}^d_{\rm N} + \op{F}^o + \op{W} = \op{F}^d + \op{V}_{\rm N}.$$
 
+
+The projection operator $\op{P}$ projects onto the model space, which is spanned by the reference function, so $\op{P} = \ket{\Phi_0}\bra{\Phi_0}$.
 
 \end{document}
