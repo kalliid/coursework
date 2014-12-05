@@ -16,7 +16,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="beam_expander.pdf">
+   sodipodi:docname="beam_expander.svg">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.8101934"
-     inkscape:cx="321.31587"
-     inkscape:cy="35.069256"
+     inkscape:cx="222.91161"
+     inkscape:cy="145.44976"
      inkscape:document-units="px"
      inkscape:current-layer="svg2"
      showgrid="false"
@@ -1440,12 +1440,12 @@
      inkscape:connector-curvature="0" />
   <path
      style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-     d="m 335.31542,171.85262 -112.99574,0"
+     d="m 335.5155,171.85262 -121.5895,0"
      id="path8223"
      inkscape:connector-curvature="0" />
   <path
-     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-     d="m 217.6183,171.85234 -84.39108,0"
+     style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+     d="m 209.02455,171.85234 -75.79733,0"
      id="path8223-4"
      inkscape:connector-curvature="0" />
   <g
@@ -1498,4 +1498,9 @@
      id="path11201-6"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccsssccccssscc" />
+  <path
+     style="fill:none;stroke:#a00000;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:0.99999999, 1.99999995;stroke-dashoffset:0"
+     d="m 211.52343,24.04432 0,163.99306"
+     id="path6230-1"
+     inkscape:connector-curvature="0" />
 </svg>

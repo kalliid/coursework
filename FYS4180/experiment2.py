@@ -76,7 +76,6 @@ for i in range(3):
 	xlabel(r'Distance along optical axis, $l$ [mm]', fontsize=20)
 	ylabel(r'Spot size, $w$ [$\mu$m]', fontsize=20)
 	legend(['Measurements', 'Best TMA Fit', 'Lenses'], 'lower right', fontsize=20)
-	title("Dataset %d" % i, fontsize=20)
 	axis([-1, 1200, -1, 850])
 	savefig("beam_expander_dataset_%d.pdf" % i)
 	show()

@@ -45,7 +45,7 @@ for W in Wh, Wv, (Wh+Wv)/2.:
 
 x, Wfit = calculate_beam(R0fit)
 
-plot(l, W, 'o-', linewidth=2.0)
+plot(l, W, 'o', linewidth=2.0)
 plot(x, Wfit, linewidth=2.0)
 legend(['Observations', 'TMA Fit'], 'upper left',  fontsize=16)
 axis([0, 2600, 0, 1500])
@@ -57,57 +57,58 @@ show()
 
 
 
-# print "Measurements of beam through 1 lens"
+print "Measurements of beam through 1 lens"
 
-# # % 2) Stråle etter passering av (konveks) linse med f=100mm.
-# # % Avstand fra første speil til linse: 200mm.
-# # % Samme navnkonvensjon som på variable som i 1):
-# # % Avstand fra kameraets fot til bildebrikken anslått til å være d0=20mm.
-# # d0 = 20; % Avstand fra fot til bildebrikke [mm]
+# % 2) Stråle etter passering av (konveks) linse med f=100mm.
+# % Avstand fra første speil til linse: 200mm.
+# % Samme navnkonvensjon som på variable som i 1):
+# % Avstand fra kameraets fot til bildebrikken anslått til å være d0=20mm.
+# d0 = 20; % Avstand fra fot til bildebrikke [mm]
 
 
-# l = array([40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 180, 200, 220, 260, 300, 340, 420, 500, 660])
-# Wh = array([455, 393, 301, 239, 163, 113, 79, 96, 171, 258, 329, 417, 483, 660, 792, 951, 1260, 1544, 1835, 2490, 3080, 4392])/2.
-# Wv = array([454, 394, 301, 236, 163, 112, 79, 94, 174, 260, 338, 421, 492, 657, 786, 957, 1260, 1566, 1859, 2514, 3130, 4467])/2.
+l = array([40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 180, 200, 220, 260, 300, 340, 420, 500, 660])
+Wh = array([455, 393, 301, 239, 163, 113, 79, 96, 171, 258, 329, 417, 483, 660, 792, 951, 1260, 1544, 1835, 2490, 3080, 4392])/2.
+Wv = array([454, 394, 301, 236, 163, 112, 79, 94, 174, 260, 338, 421, 492, 657, 786, 957, 1260, 1566, 1859, 2514, 3130, 4467])/2.
 
-# W = (Wh + Wv)/2.
-# w0 = W[0]
-# x1 = linspace(40, 1040, 1001)
+W = (Wh + Wv)/2.
+w0 = W[0]
+x1 = linspace(40, 1040, 1001)
 
-# def calculate_beam(R0):
-# 	q0 = 1./(1./R0 - 1j*lmbda/(pi*n*w0*w0))
-# 	solver = TMA(q0, lmbda, n)
+def calculate_beam(R0):
+	q0 = 1./(1./R0 - 1j*lmbda/(pi*n*w0*w0))
+	solver = TMA(q0, lmbda, n)
 	
-#  	W1 = solver.beam_through_air(x1)
-# 	#solver.beam_through_lens(100)
-# 	#W2 = solver.beam_through_air(x2)
+ 	W1 = solver.beam_through_air(x1)
+	#solver.beam_through_lens(100)
+	#W2 = solver.beam_through_air(x2)
 
-# 	#x = concatenate((x1))
-# 	#Wfit = concatenate((W1))
-# 	return x1, W1
+	#x = concatenate((x1))
+	#Wfit = concatenate((W1))
+	return x1, W1
 
-# def error(R0):
-# 	x, Wfit = calculate_beam(R0)
-# 	residuals = zeros(len(l))
-# 	for i in range(len(l)):
-# 		residuals[i] = Wfit[l[i]-40] - W[i] 
+def error(R0):
+	x, Wfit = calculate_beam(R0)
+	residuals = zeros(len(l))
+	for i in range(len(l)):
+		residuals[i] = Wfit[l[i]-40] - W[i] 
 
-# 	return residuals
+	return residuals
 
-# R0fit = leastsq(error, -50)[0]
-# print R0fit, sum(error(R0fit)**2)
+R0fit = leastsq(error, -50)[0]
+print R0fit, sum(error(R0fit)**2)
 
-# x, Wfit = calculate_beam(R0fit)
+x, Wfit = calculate_beam(R0fit)
 
-# plot(l, W, 'o-', linewidth=2.0)
-# plot(x, Wfit, linewidth=2.0)
-# legend(['Observations', 'TMA Fit'], 'upper left',  fontsize=16)
-# axis([0, 400, 0, 1000])
-# grid()
-# xlabel(r'Distance along optical axis, $l$ [mm]', fontsize=20)
-# ylabel(r'Spot size, $w$ [$\mu$m]', fontsize=20)
-# savefig('experiment_1_wlens.pdf')
-# show()
+
+plot(l, W, 'o', linewidth=2.0)
+plot(x, Wfit, linewidth=2.0)
+legend(['Observations', 'TMA Fit'], 'upper left',  fontsize=16)
+axis([0, 400, 0, 1000])
+grid()
+xlabel(r'Distance along optical axis, $l$ [mm]', fontsize=20)
+ylabel(r'Spot size, $w$ [$\mu$m]', fontsize=20)
+savefig('experiment_1_wlens.pdf')
+show()
 
 
 # l = array([40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]) #, 160, 180, 200, 220, 260, 300, 340, 420, 500, 660])

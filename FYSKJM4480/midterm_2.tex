@@ -348,16 +348,39 @@ If we also set $\xi=1$, we can write the full Hamiltonian as
 \subsubsection*{Summary of commutators}
 We have shown that $\op{H}_0$ and $\op{V}$ both commute with $\op{S}_z$, $\op{S}_\pm$ and $\op{S}^2$.
 
+\subsubsection*{Pair operators commutation relations}
+For the creation and annihilation operators we have the anti-commutation relations
+$$\{a_{p}^\dagger, a_{q}\} = \delta_{pq}, \qquad \{a_{p}, a_{q}\} = \{a_{p}^\dagger, a_{q}^\dagger\} = 0.$$
+If we then look at the pair creation and annihilation operators, we have
+$$\op{P}_p^+ \op{P}_q = a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+}.$$
+First, we swap the two middle operators
+\begin{align*}
+\op{P}_p^+ \op{P}_q &= a_{p+}^\dagger (\delta_{pq} - a_{q-}a_{p-}^\dagger) a_{q+} \\
+&= \delta_{pq} a_{p+}^\dagger a_{q+} - a_{p+}^\dagger a_{q-}a_{p-}^\dagger a_{q+}.
+\end{align*}
+For the last term, we swap the first two operators and the last two operators, as they have different $\sigma$-values, we only get two changes in sign that cancel each other out, so we have
+$$\op{P}_p^+ \op{P}_q = \delta_{pq} a_{p+}^\dagger a_{q+} -  a_{q-}a_{p+}^\dagger a_{q+}a_{p-}^\dagger.$$
+We again swap the two middle operators to get
+\begin{align*}
+\op{P}_p^+ \op{P}_q &= \delta_{pq} a_{p+}^\dagger a_{q+} -  a_{q-} (\delta_{pq} - a_{q+}a_{p+}^\dagger) a_{p-}^\dagger \\
+&= \delta_{pq} (a_{p+}^\dagger a_{q+} -  a_{q-}a_{p-}^\dagger) + a_{q-}a_{q+}a_{p+}^\dagger a_{p-}^\dagger \\
+&= \op{P}_q \op{P}_p^+ + \delta_{pq} (a_{p+}^\dagger a_{p+} -  a_{p-}a_{p-}^\dagger).
+\end{align*}
+So we see that we have
+$$[\op{P}_p^+, \op{P}_q^-] = \delta_{pq}$$
+And for $[\op{P}_p^\m, \op{P}_q^\pm]$ we easily see that four swaps will change the operators with no total change in sign, meaning we have
+$$[\op{P}_p^+, \op{P}_q^-] = 0.$$
+
 \clearpage
 
 \section*{Exercise 2)}
 
 We now look at a system with four particles. We limit our system to have no broken pairs and always have a total spin of $S=0$. We also limit our system to only inhabit the four lowest levels $p=1,2,3,4$.  This gives rise to six different Slater determinants
 \begin{align*}
-	\ket{\Phi^{12}} = \op{P}_1^+ \op{P}_2^+ \ket{0}, \qquad \ket{\Phi^{13}} = \op{P}_1^+ \op{P}_3^+ \ket{0}, \qquad \ket{\Phi^{14}} = \op{P}_1^+ \op{P}_4^+ \ket{0}, \\
-	\ket{\Phi^{23}} = \op{P}_2^+ \op{P}_3^+ \ket{0}, \qquad \ket{\Phi^{24}} = \op{P}_2^+ \op{P}_4^+ \ket{0}, \qquad \ket{\Phi^{34}} = \op{P}_3^+ \op{P}_4^+ \ket{0}.
+	\ket{\Phi^{0}} &= \op{P}_1^+ \op{P}_2^+ \ket{0}, \qquad \ket{\Phi_2^{3}} = \op{P}_1^+ \op{P}_3^+ \ket{0}, \qquad \ket{\Phi_2^{4}} = \op{P}_1^+ \op{P}_4^+ \ket{0}, \\
+	\ket{\Phi_1^{3}} &= \op{P}_2^+ \op{P}_3^+ \ket{0}, \qquad \ket{\Phi_1^{4}} = \op{P}_2^+ \op{P}_4^+ \ket{0}, \qquad \ket{\Phi_{12}^{34}} = \op{P}_3^+ \op{P}_4^+ \ket{0}.
 \end{align*}
-These Slater determinants are illustrated in figure \ref{fig:2}.
+Where we have denoted the first state as our Fermi-vacuum, the four other Slater determinants are then four 2-particle 2-hole states, and the final SD is a 4-particle 4-hole state. The Slater determinants are illustrated in figure \ref{fig:2}.
 
 \begin{figure}[htpb]
 	\includegraphics[width=\textwidth]{project2b.pdf}
@@ -371,31 +394,42 @@ $$H_{ij} = \braopket{\Phi_i}{\op{H}_0}{\Phi_j} + \braopket{\Phi_i}{\op{V}}{\Phi_
 
 The one-body operator is
 \begin{align*}
-\sum_{p\sigma} (p-1)a_{p\sigma}^\dagger a_{p\sigma},
+\op{H}_0 = \sum_{p\sigma} (p-1)a_{p\sigma}^\dagger a_{p\sigma},
 \end{align*}
 so we see that the for the off-diagonal terms, the one-body contribution vanishes. For the diagonal terms we find
 \begin{align*}
-\braopket{\Phi^{12}}{\op{H}_0}{\Phi^{12}} &= 2, \qquad \braopket{\Phi^{12}}{\op{H}_0}{\Phi^{12}} = 4, \qquad \braopket{\Phi^{12}}{\op{H}_0}{\Phi^{12}} = 6, \\
-\braopket{\Phi^{12}}{\op{H}_0}{\Phi^{12}} &= 6, \qquad \braopket{\Phi^{12}}{\op{H}_0}{\Phi^{12}} = 8, \qquad \braopket{\Phi^{12}}{\op{H}_0}{\Phi^{12}} = 10.
+\braopket{\Phi_0}{\op{H}_0}{\Phi_0} &= 2, \qquad \braopket{\Phi_2^3}{\op{H}_0}{\Phi_2^3} = 4, \qquad \braopket{\Phi_2^{4}}{\op{H}_0}{\Phi_2^{4}} = 6, \\
+\braopket{\Phi_1^3}{\op{H}_0}{\Phi_1^{3}} &= 6, \qquad \braopket{\Phi_2^{4}}{\op{H}_0}{\Phi_2^{4}} = 8, \qquad \braopket{\Phi_{12}^{34}}{\op{H}_0}{\Phi_{12}^{34}} = 10.
 \end{align*}
 
 For the two-body operator we have
 \begin{align*}
-\braopket{\Phi^{ij}}{\op{V}}{\Phi^{kl}} &= -\frac{g}{2}\sum_{pq}\braopket{0}{\op{P}_i \op{P}_j \op{P}^+_p \op{P}_q \op{P}^+_k \op{P}^+_l}{0}.
+\op{V} = -\frac{g}{2}\sum_{pq} P_p^+ P_q^-.
 \end{align*}
-There can be two, one or no non-coincidences between the Slater determinants. If there are two non-coincidences, we see that the matrix element vanishes as we can only remove one non-coincidence. If there is one non-coincidence we have
-\begin{align*}
-\braopket{\Phi^{ij}}{\op{V}}{\Phi^{ik}} &= -\frac{g}{2}\sum_{pq}\braopket{0}{\op{P}_i \op{P}_j \op{P}^+_p \op{P}_q \op{P}^+_i \op{P}^+_k}{0}.
-\end{align*}
-When we sum over $p$ and $q$, the only term that survives is the term were $p=j$ and $q=k$, all other terms vanish due to the orthogonality of the the Slater determinants, so we 
+When calculating the matrix elements, we see that we can either have no non-coincidences, two non-coincidences or four non-coincidences. Another way to state this is to say that there can a mismatch of zero, one or two pairs. 
 
-If there are no non-coincidences, we have
+If there is a mismatch of two paris, the matrix element clearly vanishes.
 \begin{align*}
-\braopket{\Phi^{ij}}{\op{V}}{\Phi^{ij}} &= -\frac{g}{2}\sum_{pq}\braopket{0}{\op{P}_i \op{P}_j \op{P}^+_p \op{P}_q \op{P}^+_i \op{P}^+_j}{0}
+\braopket{\Phi_0}{\op{V}}{\Phi_{12}^{34}} = 0, \\
+\braopket{\Phi_2^3}{\op{V}}{\Phi_{1}^{4}} = 0, \\
+\braopket{\Phi_2^4}{\op{V}}{\Phi_{1}^{3}} = 0. \\
 \end{align*}
-The only terms that survive in the sums are now the terms were $p=q=i$ or $p=q=j$, so we get two terms contributing to the final result.
 
-We can then set up the Hamiltonian matrix
+Next, if there is a mismatch of one pair, the two-body operator has to remove it, meaning there is only one term in the sum over $p$ and $q$ that will contribute to the matrix elements, so we have
+\begin{align*}
+\braopket{\Phi_0}{\op{V}}{\Phi_i^a} = -g/2, \\
+\braopket{\Phi_i^a}{\op{V}}{\Phi_i^{b}} = -g/2, \\
+\braopket{\Phi_i^a}{\op{V}}{\Phi_j^{a}} = -g/2, \\
+\braopket{\Phi_i^a}{\op{V}}{\Phi_{12}^{34}} = -g/2, \\
+\end{align*}
+Note that we do not have to worry about a change in sign for the terms, as the pair creation and annihilation operators have ``opposite" commutation relations from the normal creation and annihilation operators, so there is no change in sign.
+
+When there is no mismatches between the pairs, i.e., we are looking at the diagonal terms. We see that there are two terms in the sum that contribute to the matrix elements, so we have
+\begin{align*}
+\braopket{\Phi_i}{\op{V}}{\Phi_i} = -g.
+\end{align*}
+
+We summarize our results by setting up the Hamiltonian matrix
 \begin{align*}
 \op{H} = \begin{pmatrix}
 2 - g &  -g/2 & -g/2  & -g/2  & -g/2  & 0     \\

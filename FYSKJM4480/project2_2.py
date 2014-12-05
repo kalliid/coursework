@@ -39,8 +39,13 @@ from matplotlib.pyplot import *
 # savefig("proj2_2.pdf")
 # show()
 
-g_array = linspace(-1,1,1001)
+g_array = linspace(-10,10,1001)
+E = []
 for g in g_array:
 	eps = array([-g/2, -g/2, 1-g/2, 1-g/2, 2, 2, 3, 3])
 	sort(eps)
-	print eps
+	E.append(2 - g + eps[0] + eps[1] + eps[2] + eps[3])
+
+plot(g_array, E)
+show()
+	

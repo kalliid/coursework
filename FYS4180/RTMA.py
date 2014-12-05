@@ -33,6 +33,7 @@ class TMA:
 
 		self.n = n
 		self.M = matrix([[1, L], [0, 1]])
+		self.last_q = q
 		return W
 
 	def beam_through_lens(self, f):
