@@ -153,49 +153,64 @@ breaklines=true}
 \begin{document}
 \maketitle
 
+\vspace{4cm}
+
+\section*{Introduction}
+
+In this project we set up a very simple quantum mechanical system with four particles. We define four spin-degenerate energy-levels the particles can inhabit and force the particles to stay together in pairs, so that effectively two of the four energy-levels will be occupied. We let the energy-levels have a constant spacing in energy, and also define a constant interaction between pairs of particles in the different energy levels.
+
+This system is now fairly simple, letting us calculate the exact ground state energy of the system using full configuration interaction (FCI), something which we normally cannot do. After having found the exact result, we turn to an incomple configuration interaction (CI) approach and study the error we perform in this approximative method. Next we turn to Hartree-Fock formalism, and find the Slater determinant of the system with the lowest possible energy---the reference energy of the system. As we have both the exact energy and the reference energy of the system, we now know the correlation energy. 
+
+Lastly we turn to many-body perturbation theory (MBPT) to look at approximations to the correlation energy. From our previous calculations we then have knowledge of the correlation energy, so we can study how big the error in our approximation is as we increase the order of the perturbation.
+
+In short the goal of this project is to define a system that is so simple that any computations are almost trivial. We do this in the hopes that it will make our various many-body methods more transparant, as well as making it easier for us to compare them with each other.
+
 \clearpage
 
 \subsection*{Exercise 1)}
-Show that $\op{H_0}$ and $V$ commute with $\op{S}_z$ and $\op{S}^2$.
 
+We start of by defining the following operators
 \begin{align*}
-	\op{H}_0 &:= \xi \sum_{p \sigma} (p-1)a_{p\sigma}^\dagger a_{p\sigma}, \\
-	\op{V} &:= -\frac{1}{2}g \sum_{p q} a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+}, \\
-	\op{S}_z &:= \frac{1}{2}\sum_{p\sigma} \sigma a_{p\sigma}^\dagger a_{p\sigma}, \\
-	\op{S}^2 &:= \op{S}_z^2 + \frac{1}{2}\big(\op{S}_+\op{S}_- + \op{S}_-\op{S}_+\big), \\
-	\op{S}_\pm &:= \sum_p a_{p\pm}^\dagger a_{p\mp}.
+  \op{H}_0 &:= \xi \sum_{p \sigma} (p-1)a_{p\sigma}^\dagger a_{p\sigma}, \\
+  \op{V} &:= -\frac{1}{2}g \sum_{p q} a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+}, \\
+  \op{S}_z &:= \frac{1}{2}\sum_{p\sigma} \sigma a_{p\sigma}^\dagger a_{p\sigma}, \\
+  \op{S}^2 &:= \op{S}_z^2 + \frac{1}{2}\big(\op{S}_+\op{S}_- + \op{S}_-\op{S}_+\big), \\
+  \op{S}_\pm &:= \sum_p a_{p\pm}^\dagger a_{p\mp}.
 \end{align*}
+Here, the first operator is our one-body operator and the second is our two-body operator---together these form the Hamiltonian of our system. The final three operators are the standard spin-projection operators. We will start of by showing that our Hamiltonian commutes with the spin projection operators, this result is important as it let's us block-diagonalize the Hamiltonian and look only at unbroken pairs of particles, which will make our further calculations much simpler.
 
-Anti-commutation relations
+Note that the constants $\xi$ and $g$ chooses the strength of the one-body and the two-body operator we are looking at. Now, as our system does not reflect any real physical system we aren't really interested in scaling our entire system, so the only important factor is the ratio between the strengths of the single-particle operator and the interaction: $\xi/g$. We can then set $\xi=1$ and vary only $g$ without any loss in generality.
+
+To show that the various operators commute, we will use the anti-commutation relations of the standard creation and annihilation operators
 $$\{\op{a}_\alpha^\dagger, \op{a}_\beta^\dagger \} = \{\op{a}_\alpha, \op{a}_\beta \} = 0, \qquad \{\op{a}_\alpha^\dagger, \op{a}_\beta \} = \delta_{\alpha\beta},$$
 
 \subsubsection*{The commutator $[\op{H_0}, \op{S}_z]$}
 We start by inserting the operators in the definition
 \begin{align*}
 [\op{H}_0, \op{S}_z] &= \op{H}_0\op{S}_z - \op{S}_z\op{H}_0 \\
-&= \frac{\xi}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda}
+&= \frac{1}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda}
 -   a_{q\lambda}^\dagger a_{q\lambda}  a_{p\sigma}^\dagger a_{p\sigma}\bigg).
 \end{align*}
 We now swap the two middle operators in the second term, this gives a delta-term
 \begin{align*}
-[\op{H}_0, \op{S}_z] &= \frac{\xi}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda} 
+[\op{H}_0, \op{S}_z] &= \frac{1}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda} 
 -   a_{q\lambda}^\dagger \big(\delta_{pq}\delta_{\sigma\lambda} - a_{p\sigma}^\dagger a_{q\lambda} \big) a_{p\sigma}\bigg) \\
-&= \frac{\xi}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda}
+&= \frac{1}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda}
 +   a_{q\lambda}^\dagger a_{p\sigma}^\dagger a_{q\lambda} a_{p\sigma} - \delta_{pq}\delta_{\sigma\lambda}a_{q\lambda}^\dagger a_{p\sigma}
 \bigg).
 \end{align*}
 We now swap the first and second, and third and fourth operator in the second term. We get no delta-terms, and we have no total change in sign
 \begin{align*}
-[\op{H}_0, \op{S}_z]  &= \frac{\xi}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda}
+[\op{H}_0, \op{S}_z]  &= \frac{1}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda}
 +   a_{p\sigma}^\dagger  a_{q\lambda}^\dagger  a_{p\sigma} a_{q\lambda} - \delta_{pq}\delta_{\sigma\lambda}a_{q\lambda}^\dagger a_{p\sigma}
 \bigg).
 \end{align*}
 Again we swap the two middle operators, getting another delta term
 \begin{align*}
- [\op{H}_0, \op{S}_z]  &= \frac{\xi}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda}
+ [\op{H}_0, \op{S}_z]  &= \frac{1}{2}\sum_{pq \sigma\lambda} \lambda(p-1)\bigg(a_{p\sigma}^\dagger a_{p\sigma}  a_{q\lambda}^\dagger a_{q\lambda}
 +  a_{p\sigma}^\dagger  \big(\delta_{pq}\delta_{\lambda\sigma} - a_{p\sigma} a_{q\lambda}^\dagger  \big) a_{q\lambda} - \delta_{pq}\delta_{\sigma\lambda}a_{q\lambda}^\dagger a_{p\sigma}
 \bigg) \\
-&= \frac{\xi}{2}\sum_{pq \sigma\lambda} \lambda(p-1) \delta_{pq}\delta_{\lambda\sigma}\big(a_{p\sigma}^\dagger a_{q\lambda} - a_{q\lambda}^\dagger a_{p\sigma}
+&= \frac{1}{2}\sum_{pq \sigma\lambda} \lambda(p-1) \delta_{pq}\delta_{\lambda\sigma}\big(a_{p\sigma}^\dagger a_{q\lambda} - a_{q\lambda}^\dagger a_{p\sigma}
 \big).
 \end{align*}
 Due to the Kronecker-deltas the only surviving terms in the sums will have $p=q$ and $\sigma=\lambda$, meaning the two terms will cancel out, so we have
@@ -203,8 +218,6 @@ Due to the Kronecker-deltas the only surviving terms in the sums will have $p=q$
  [\op{H}_0, \op{S}_z] &= 0,
 \end{align*}
 and we have confirmed that $\op{H}_0$ and $\op{S}_z$ commute.
-
-\clearpage
 
 \subsubsection*{The commutator $[\op{V}, \op{S}_z]$}
 Again, we start from the definition
@@ -251,8 +264,6 @@ We see that the terms cancel each other out, leaving
 \end{align*}
 and we have confirmed that $\op{V}$ and $\op{S}_z$ commute.
 
-\clearpage
-
 \subsubsection*{The commutator $[\op{H_0}, \op{S}_\pm]$}
 From the definition, we have
 \begin{align*}
@@ -280,8 +291,7 @@ From the definition, we have
 \end{align*}
 Shifting the operators around in the second term makes it cancel with the first, but shifting the operators generates some terms, we have
 \begin{align*}
-[\op{V}, \op{S}_\pm] &= \op{V}\op{S}_\pm - \op{S}_\pm\op{V} \\
-&= \frac{g}{2}\sum_{pqr}
+[\op{V}, \op{S}_\pm] &= \frac{g}{2}\sum_{pqr}
 \big(\delta_{pr}\delta_{\mp +}  a_{r\pm}^\dagger a_{p-}^\dagger a_{q-} a_{q+}
 - \delta_{pr}\delta_{\mp -} a_{r\pm}^\dagger a_{p+}^\dagger a_{q-} a_{q+} \\[-0.2cm]
 &\qquad\qquad\qquad + \delta_{qr}\delta_{\pm -} a_{p+}^\dagger   a_{p-}^\dagger a_{q+} a_{r\mp}
@@ -289,29 +299,17 @@ Shifting the operators around in the second term makes it cancel with the first,
 \end{align*}
 Summing over $p$ and $q$ gives
 \begin{align*}
-[\op{V}, \op{S}_\pm] &= \op{V}\op{S}_\pm - \op{S}_\pm\op{V} \\
-&= \frac{g}{2}\sum_{r}
+[\op{V}, \op{S}_\pm] &= \frac{g}{2}\sum_{r}
 \big(\delta_{\mp +} a_{r\pm}^\dagger a_{r-}^\dagger a_{r-} a_{r+}
 - \delta_{\mp -} a_{r\pm}^\dagger a_{r+}^\dagger a_{r-} a_{r+} \\[-0.2cm]
 &\qquad\qquad\qquad + \delta_{\pm -} a_{r+}^\dagger   a_{r-}^\dagger a_{r+} a_{r\mp}
 -  \delta_{\pm +}a_{r+}^\dagger   a_{r-}^\dagger a_{r-} a_{r\mp}\big).
 \end{align*}
-We can now look at the case for $\op{S}_+$
+We now see that for both $\op{S}_+$ and $\op{S}_-$ there is a chain of two equal creation or annihilation operators, which kill any state, so we have
 \begin{align*}
--\frac{g}{2}\sum_{r}
-\big(a_{r+}^\dagger a_{r+}^\dagger a_{r-} a_{r+} +
-a_{r+}^\dagger   a_{r-}^\dagger a_{r-} a_{r-}\big).
+[\op{V}, \op{S}_\pm] &= 0.
 \end{align*}
 
-For top
-\begin{align*}
--a_{r+}^\dagger a_{r+}^\dagger a_{r-} a_{r+} - a_{r+}^\dagger   a_{r-}^\dagger a_{r-} a_{r-}. \\
-a_{r-}^\dagger a_{r-}^\dagger a_{r-} a_{r+} + a_{r+}^\dagger   a_{r-}^\dagger a_{r+} a_{r+}
-\end{align*}
-
-\section{THIS MUST BE FIXED}
-
-\clearpage
 
 \subsubsection*{The commutator $[\op{H}_0, \op{S}^2]$}
 
@@ -340,69 +338,34 @@ $$[\op{V}, \op{S}^2] = 0.$$
 
 \subsection*{Rewriting the Hamiltonian}
 
-We now introduce the pair creation and annihilation operators
+We have now seen that our Hamiltonian commutes with all the spin projection operators, this means that the spin of our system is a conserved quantity. We will start of by requiring a total spin of $S=0$, and this will be a conserved quantity. 
+
+As our Hamiltonian will preserve pair of particles, we introduce the \emph{pair creation and annihilation operators}
 $$\op{P}_p^+ = a_{p+}^\dagger a_{p-}^\dagger \qquad \op{P}_p^- = a_{p-} a_{p+},$$
 which lets us write $\op{V}$ as
 $$\op{V} = -\frac{1}{2}g \sum_{pq} \op{P}_p^+ \op{P}_q^-.$$
-If we also set $\xi=1$, we can write the full Hamiltonian as 
+And our full Hamiltonian becomes
 \begin{align*}
 	\op{H} = \op{H_0} + \op{V} = \sum_{p \sigma} (p-1)a_{p\sigma}^\dagger a_{p\sigma}-\frac{1}{2}g \sum_{pq} \op{P}_p^+ \op{P}_q^-.
 \end{align*}
+So we see that our system will always consist of unbroken pairs.
 
-\subsubsection*{The commutator $[\op{H}, \op{P}_p^+\op{P}_q^-]$}
-We now want to show that the Hamiltonian commutes with the product of the pair creation and annihilation operators. We start of by showing how the pair operators commute internally.
-
-$$\op{P}_p^+ \op{P}^-_q = a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+}.$$
-First, we swap the two middle operators
+We can easily show that the pair creation and annihilation operators commute with themselves
 \begin{align*}
-\op{P}_p^+ \op{P}^-_q &= a_{p+}^\dagger (\delta_{pq} - a_{q-}a_{p-}^\dagger) a_{q+} \\
-&= \delta_{pq} a_{p+}^\dagger a_{q+} - a_{p+}^\dagger a_{q-}a_{p-}^\dagger a_{q+}.
+[\op{P}^\pm_p, \op{P}^\pm_q] = a_{p\pm}^\dagger a_{p\mp}^\dagger a_{q\pm}^\dagger a_{q\mp}^\dagger - a_{q\pm}^\dagger a_{q\mp}^\dagger  a_{p\pm}^\dagger a_{p\mp}^\dagger = [\op{P}^\pm_q,\op{P}^\pm_p].
 \end{align*}
-For the last term, we swap the first two operators and the last two operators, as they have different $\sigma$-values, we only get two changes in sign that cancel each other out, so we have
-$$\op{P}_p^+ \op{P}_q = \delta_{pq} a_{p+}^\dagger a_{q+} -  a_{q-}a_{p+}^\dagger a_{q+}a_{p-}^\dagger.$$
-We again swap the two middle operators to get
-\begin{align*}
-\op{P}_p^+ \op{P}^-_q &= \delta_{pq} a_{p+}^\dagger a_{q+} -  a_{q-} (\delta_{pq} - a_{q+}a_{p+}^\dagger) a_{p-}^\dagger \\
-&= \delta_{pq} (a_{p+}^\dagger a_{q+} -  a_{q-}a_{p-}^\dagger) + a_{q-}a_{q+}a_{p+}^\dagger a_{p-}^\dagger \\
-&= \op{P}^-_q \op{P}_p^+ + \delta_{pq} (a_{p+}^\dagger a_{p+} -  a_{p-}a_{p-}^\dagger).
-\end{align*}
-So we see that we have
-$$[\op{P}_p^+, \op{P}_q^-] = \delta_{pq}$$
-And for $[\op{P}_p^{\pm}, \op{P}_q^\pm]$ we easily see that four swaps will change the operators with no total change in sign, meaning we have
-$$[\op{P}_p^{\pm}, \op{P}_q^{\pm}] = 0.$$
-
-If we then look at the commutator
-\begin{align*}
-[\op{V}, \op{P}_r^+\op{P}_r^-] &= -\frac{g}{2}\sum_{pq} [\op{P}_p^+\op{P}_q^-, \op{P}_r^+\op{P}_r^-] \\
-&= -\frac{g}{2}\sum_{pq} 
-[\op{P}_p^+, \op{P}_r^+]\op{P}_q^-\op{P}_r^-
-+\op{P}_p^+[\op{P}_q^-, \op{P}_r^+]\op{P}_r^- \\[-0.2cm]
-&\qquad\qquad\quad +\op{P}_r^+\op{P}_p^+[\op{P}_q^-, \op{P}_r^-]
-+\op{P}_r^+[\op{P}_p^+, \op{P}_r^-]\op{P}_q^- \\[0.1cm]
-&= -\frac{g}{2}\sum_{pq} \delta_{qr} \op{P}_p^+\op{P}_r^- + \delta_{pr}\op{P}_r^+\op{P}_q^- \\
-&= -\frac{g}{2}\sum_p \op{P}_p^+\op{P}_r^- + \op{P}_r^+\op{P}_p^- \\
-&= -\frac{g}{2}\sum_p 
-\end{align*}
-
-
-
-
-
-% \subsubsection*{Summary of commutators}
-% We have shown that $\op{H}_0$ and $\op{V}$ both commute with $\op{S}_z$, $\op{S}_\pm$ and $\op{S}^2$.
-
-% \subsubsection*{Pair operators commutation relations}
+This result is very intuitive, as changing the order of two pair creation or annihilation operators corresponds to interchanging two pair of fermions, which will give a total change in sign of $(-)^2$, so the commutators should commute instead of anti-commute such as for the single-particle creation and annihilation operators.
 
 \clearpage
 
 \section*{Exercise 2)}
 
-We now look at a system with four particles. We limit our system to have no broken pairs and always have a total spin of $S=0$. We also limit our system to only inhabit the four lowest levels $p=1,2,3,4$.  This gives rise to six different Slater determinants
+We now look at our system of four particles. As we saw, we require a total spin of $S=0$ and won't have any broken pairs. We also limit our system to only inhabit the four lowest levels $p=1,2,3,4$.  This gives rise to six different Slater determinants
 \begin{align*}
 	\ket{\Phi^{0}} &= \op{P}_1^+ \op{P}_2^+ \ket{0}, \qquad \ket{\Phi_2^{3}} = \op{P}_1^+ \op{P}_3^+ \ket{0}, \qquad \ket{\Phi_2^{4}} = \op{P}_1^+ \op{P}_4^+ \ket{0}, \\
 	\ket{\Phi_1^{3}} &= \op{P}_2^+ \op{P}_3^+ \ket{0}, \qquad \ket{\Phi_1^{4}} = \op{P}_2^+ \op{P}_4^+ \ket{0}, \qquad \ket{\Phi_{12}^{34}} = \op{P}_3^+ \op{P}_4^+ \ket{0}.
 \end{align*}
-Where we have denoted the first state as our Fermi-vacuum, the four other Slater determinants are then four 2-particle 2-hole states, and the final SD is a 4-particle 4-hole state. The Slater determinants are illustrated in figure \ref{fig:2}.
+Where we have denoted the first state as our Fermi-vacuum, the four following Slater determinants (SD) are then four 2-particle 2-hole states, and the final SD is a 4-particle 4-hole state. The Slater determinants are illustrated in figure \ref{fig:2}.
 
 \begin{figure}[htpb]
 	\includegraphics[width=\textwidth]{project2b.pdf}
@@ -430,7 +393,7 @@ For the two-body operator we have
 \end{align*}
 When calculating the matrix elements, we see that we can either have no non-coincidences, two non-coincidences or four non-coincidences. Another way to state this is to say that there can a mismatch of zero, one or two pairs. 
 
-If there is a mismatch of two paris, the matrix element clearly vanishes.
+If there is a mismatch of two pairs, the matrix element clearly vanishes.
 \begin{align*}
 \braopket{\Phi_0}{\op{V}}{\Phi_{12}^{34}} = 0, \\
 \braopket{\Phi_2^3}{\op{V}}{\Phi_{1}^{4}} = 0, \\
@@ -444,9 +407,9 @@ Next, if there is a mismatch of one pair, the two-body operator has to remove it
 \braopket{\Phi_i^a}{\op{V}}{\Phi_j^{a}} = -g/2, \\
 \braopket{\Phi_i^a}{\op{V}}{\Phi_{12}^{34}} = -g/2.
 \end{align*}
-Note that we do not have to worry about a change in sign for the terms, as the pair creation and annihilation operators have ``opposite" commutation relations from the normal creation and annihilation operators, so there is no change in sign.
+Note that we do not have to worry about a change in sign for the terms due to the commutation relations of the pair creation and annihilation operators.
 
-When there is no mismatches between the pairs, i.e., we are looking at the diagonal terms. We see that there are two terms in the sum that contribute to the matrix elements, so we have
+When there is no mismatches between the pairs, i.e., when looking at the diagonal terms,  there are two terms in the sum that contribute to the matrix elements, so we have
 \begin{align*}
 \braopket{\Phi_i}{\op{V}}{\Phi_i} = -g.
 \end{align*}
@@ -463,20 +426,29 @@ We summarize our results by setting up the Hamiltonian matrix
 \end{pmatrix}
 \end{align*}
 
-Numerically, we find the eigenvalues and eigenvectors of this matrix. The lowest eigenvalue then corresponds to the ground state energy. Numerically, we can generate the Hamiltonian matrix and find the eigenvalue for any value of $g$, effectively giving us the ground state energy as a function of the strength of the interaction. We will for the rest of this project refer to that energy as the ``exact'' energy of the system. The exact energy function is shown as the blue line in figure \ref{fig:plot1} on the next page.
+Numerically, we find the eigenvalues and eigenvectors of this matrix. The lowest eigenvalue then corresponds to the ground state energy. Numerically, we can generate the Hamiltonian matrix and find the eigenvalue for any value of $g$, effectively giving us the ground state energy as a function of the strength of the interaction. We will for the rest of this project refer to that energy as the ``exact'' energy of the system. The exact energy function is shown in the figure on the following page.
+
+The diagonalization of the Hamiltonian matrix also gives us the coefficients in the exact expansion
+$$\ket{\Psi} = C_0\ket{\Phi_0} + C_{2}^{3} \ket{\Phi_{2}^{3}} +  C_{2}^{4} \ket{\Phi_{2}^{4}} +  C_{1}^{3} \ket{\Phi_{1}^{3}} +  C_{1}^{4} \ket{\Phi_{1}^{4}} + C_{12}^{34} \ket{\Phi_{12}^{34}}.$$
+Listing these for different strengths of the interaction isn't really interesting, so we will give them only for $g=1/2$ as an example, in that case they are
+\begin{align*}
+C_0 &= -0.996, \qquad C_2^3 = -0.066, \,\, \qquad C_2^4 = -0.034, \\
+C_1^3 &= -0.034, \qquad   C_1^5 = -0.022, \qquad C_{12}^{34} = -0.002.
+\end{align*}
+Note that it is only the magnitude of a coefficient that is of importance, the sign is not interesting. We see that the ground state is comprised of mainly our reference state $\ket_{0}$, this is of course not very suprising, as this is the SD with clearly the lowest energy in and of itself, as the interaction is a lot weaker than the single-particle operator in this case, we don't expect a hugh contribution from the excited states. We also see that $|C_2^4|^2 = |C_1^3|$, which is also unsurprising, as we see that these two SDs have the same diagonal term in the Hamiltonian, i.e., they represent the exact same energy.
 
 
 
 \begin{figure}[htpb]
-	\includegraphics[width=\textwidth]{proj2_2.pdf}
-	\caption{Ground state energy as a function of the interaction-parameter $g$. \label{fig:plot1}}
+	\includegraphics[width=\textwidth]{proj1_exact.pdf}
+	\caption{Exact ground state energy as a function of the strength of the interaction. \label{fig:plot1}}
 \end{figure}
 
 \clearpage
 
 \section*{Exercise 3)}
 
-We now limit our system to at most two-particle-two-hole excitations, meaning only a single pair of particles can be excited. This means we have to discard $\ket{\Phi_{12}^{34}}$, and only look at a five-dimensional system.
+We now limit our system to at most two-particle-two-hole excitations, meaning only a single pair of particles can be excited. This means we have to discard $\ket{\Phi_{12}^{34}}$, and only look at a five-dimensional system. We have now effectively turned from full configuration intercation (FCI), an exact method, to a non-full configuration interaction (CI), an approximative method.
 
 The Hamiltonian matrix is unchanged except for the fact that it is reduced to a five-by-five matrix by stripping the rows and columns that corresponded to the removed Slater determinant. The Hamiltonian matrix is
 \begin{align*}
@@ -489,7 +461,33 @@ The Hamiltonian matrix is unchanged except for the fact that it is reduced to a 
 \end{pmatrix}
 \end{align*}
 
-Again we calculate the ground state energy as a function of the interaction strength $g$. The results are also shown in figure \ref{fig:plot1} as the green line. Note that we refer to this result as the ``approximate'' result, as it is only an approximation to the exact result.
+Again we calculate the ground state energy as a function of the interaction strength $g$. The results are shown alongside the exact result in the following figure. As we see from the figure, the approximation is almost spot on, even when the interaction is strong. This is unsurprising. 
+
+\begin{figure}[htpb]
+\centering
+  \includegraphics[width=0.88\textwidth]{proj1_approx.pdf}
+  \caption{The exact ground state energy as a function of the strength of the interaction, found with FCI and an approximation found with a non-full CI. \label{fig:plot2}}
+\end{figure}
+In the previous exercise we saw how the ground state was comprised almost entirely of the reference SD, there are also 4 possible 2p2h states, all with lower energies than the excluded 4p4h. Note also that CI is a variational method, which is reflected in the figure as the approximate energy is always slightly above the exact result.
+
+Just like for the FCI case, let us look at the coefficents in the expansion of the ground state at $g=1/2$
+\begin{align*}
+C_0 &= -0.985, \quad C_2^3 = -0.135,  \quad C_2^4 = -0.071, \quad C_1^3 &= -0.0714, \quad C_1^5 = -0.046.
+\end{align*}
+So compared to the true ground state of the system, we see that we have less of our reference state and more of all the 2p2h states.
+
+From our results, we now see some important differences between FCI and CI. Full configuration interaction is an exact method, but is only possible if and only if we have a complete and finite SD basis for our system. In practice, we usually \emph{don't} have this. Non-complete CI however, is always possible, but only give approximative results. The method is variational however, so we are always guaranteed that the approximation will be equal or bigger to the true result. Non-complete CI also guarantees that including more excitations will give an unchanged or better result, at least for a given reference state. This is a big difference from perturbation theory, which is not variational and provides no guarantee that including more orders won't give a worse result---we will see this later in this project.
+
+In a FCI case, we are including all possible exictations to infinite order, meaning we have all possible 1p1h SDs, all possible 2p2h SDs and so on. In the CI case, we truncate those excitations somewhere. In our example we limited the excitations to at most 2p2h. We still got the contribution from those 2p2h excitation to infinite order. If we were to draw the diagrams of the interactions that contribute to this CI case, there would be an infinite number of them, as we can have arbitrarily long chains of operators that still only have at most 2p2h intermediate states. 
+
+When we look at perturbation theory Later in this project, we will sum the 2p2h excitations first to second order and third order and finally to fourth order. As we increase the order, there are more contributions to the 2p2h excitations. You can see the 2p2h excitations to second and third order in figure 2 in the exercises, and then to fourth order in figure 4. We will explain how these diagrams are interpret later, when we get to the perturbation part of the project. 
+
+We now end this exercise by showing some examples of 2p2h excitations that build up the CI approximation.
+
+\vspace{0.2cm}
+
+\includegraphics[width=\textwidth]{project2_3}
+
 
 \clearpage
 
@@ -500,7 +498,7 @@ We now turn to Hartree-Fock theory. First we will partition our Hamiltonian and 
 
 \subsection*{Partitioning the Hamiltonian}
 
-If we limit ourselves to at most two-body interactions, the Hamiltonian can be generally written as a sum of one-body and two-body operators, which in second quantization looks like
+If we limit ourselves to at most two-body interactions, the Hamiltonian of any system can be generally written as a sum of one-body and two-body operators, which in second quantization looks like
 $$\op{H} = \op{H}_1 + \op{H}_2 = \sum_\mu \op{h}_\mu + \sum_{\mu\nu} \op{v}_{\mu\nu}.$$
 For our system we have a single one-body and a single two-body interaction, labeling them $\op{h}_0$ and $\op{v}$, we get
 $$\op{H} = \sum_{\alpha\beta} \braopket{\alpha}{\op{h}_0}{\beta}\alpha^\dagger \beta + \frac{1}{4}\sum_{\alpha\beta\gamma\delta}\brakket{\alpha\beta}{\gamma\delta}\alpha^\dagger \beta^\dagger \delta \gamma,$$
@@ -582,69 +580,9 @@ If we have a non-canonical Hartree-Fock case, the first two terms are guaranteed
 
 For the cannonical Hartree-Fock case, only the diagonal terms $f_{aa}$ and $f_{ii}$ survive, so we have
 
-
 \begin{centering}
 \includegraphics[width=\textwidth]{project2_4e}
 \end{centering}
-
-
-\clearpage
-
-\section*{Exercise 5)}
-
-
-
-
-% When looking at the Fock-operator we have
-% $$\op{F}_{\rm N} = \sum_{pq}\braopket{p}{\op{h}_0}{q}\{\op{p}^\dag \op{q}\}  + \sum_{pqi} \brakket{pi}{qi} \{\op{p}^\dag \op{q}\} = \sum_{pq} f_{pq} \{\op{p}^\dagger \op{q} \}.$$
-
-
-% In our basis, we have
-% Here the state indices run over both the quantum numberd $p$ and $\sigma$. As we have no $1p1h$-states, only $2p2h$-states, there will either be zero or two noncoincidences between states. This means that $\{\op{p}^\dag \op{q}\}$
-
-\clearpage
-
-
-
-
-
-
-
-$$\op{H} = \op{H}_0 + \op{V} = \sum_{p \sigma} (p-1)a_{p\sigma}^\dagger a_{p\sigma} 
- -\frac{1}{2}g \sum_{p q} a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+}.$$
-
-
-\subsection*{Canonical and non-canonical Hartree-Fock}
-
-For canonical Hartree-Fock, we now that the Fock-operator is diagonal, meaning
-$$f_{pq} = \eps_p \delta_{pq}, \qquad \eps_p = h_{pp} + \sum_{i}\brakket{pi}{pi}.$$
-For the non-canonical Hartree-Fock, the Fock-operator is a block-diagonal matrix, this means that $f_{ai}$ is zero, but $f_{ab}$ and $f_{ij}$ are generally not zero.
-For the completely general case, there is no guarantee that any element of the Fock matrix is zero.
-$$\op{H} = \sum_{pq} p^\dagger q + \frac{1}{4}\sum_{pqrs}\brakket{pq}{rs}p^\dagger q^\dagger s r.$$
-
-\begin{align*}
-\op{H}_0 &= \sum_{pq}\braopket{p}{\op{h}_0}{q}\{\op{p}^\dag \op{q}\} + \sum_{i}\braopket{i}{\op{h}_0}{i}, \\
-\op{H}_1 &= \frac{1}{4}\sum_{pqrs} \braopket{pq}{\op{v}}{rs}_{\rm AS} \{\op{p}^\dag \op{q}^\dag \op{s}\op{r}\} + \sum_{pqi} \braopket{pi}{\op{v}}{qi}_{\rm AS} \{ \op{p}^\dag \op{q} \} + \frac{1}{2}\sum_{ij} \braopket{ij}{\op{v}}{ij}_{\rm AS}.
-\end{align*}
-
-We can then see that we have the Fock-operator
-$$\op{F} = \sum_{pq} \braopket{p}{\op{h}_0}{q}\{\op{p}^\dagger\op{q}\} + \sum_{pqi} \brakket{p}{q}\{\op{p}^\dagger\op{q}\}.$$
-So that the matrix elements of the Fock-matrix are given by
-$$f_{pq} = h_{pq} + \sum_{i}\brakket{pi}{qi}.$$
-
-We then have
-$$\op{H} = \op{F} + \op{E}_{ref} + \frac{1}{4}\sum_{pqrs}\brakket{pq}{rs},$$
-where
-$$E_{ref} = \sum_i \braopket{i}{\op{h}_0}{i} + \frac{1}{2}\sum_{ij}\brakket{ij}{ij}.$$
-So we have
-$$\op{H}_{\rm N} = \op{F} + \frac{1}{4}\sum_{pqrs}\brakket{pq}{rs}.$$
-
-If we are looking at canonical HF
-$$f_{pq} = \eps_p \delta_{pq}.$$
-If we are looking at non-canonical HF
-
-
-
 
 \clearpage
 
@@ -669,7 +607,7 @@ When solving the Hartree-Fock equations, we usually do it as an iterative proces
 The elements of $h^{\rm HF}$ then become
 $$h^{\rm HF}_{\alpha\gamma} = \braopket{\alpha}{\op{h}_0}{\gamma} + \sum_{p=1}^N\sum_{\beta\delta} \delta_{p\beta} \delta_{p \delta} \braket{\alpha\beta|}{\gamma\delta}.$$
 Performing the sums over $\beta$ and $\delta$ simplifies this to
-$$h^{\rm HF}_{\alpha\gamma} = \braopket{\alpha}{\op{h}_0}{\gamma} + \sum_{p=1}^N \braket{\alpha p}{\gamma p}.$$
+$$h^{\rm HF}_{\alpha\gamma} = \braopket{\alpha}{\op{h}_0}{\gamma} + \sum_{p=1}^N \brakket{\alpha p}{\gamma p}.$$
 Here, the sum over $p$ is actually a sum over the particles in our system, thus the sum actually corresponds to a sum over all the hole states of the system. We then recognize that the elements are equal to the Fock-elements we found in the previous exercise
 $$h^{\rm HF}_{pq} = f_{pq} = \braopket{p}{\op{h}_0}{q} + \sum_{i} \brakket{pi}{qi}.$$
 
@@ -755,7 +693,11 @@ Note that the correlation energy is only $0$ for $g=0$. This means that only the
 
 We just saw how the Hartree-Fock method gave us the reference energy. Now we want to find some approximate method that can give us the \emph{correlation energy}. To do that, we turn to many-body perturbation theory. The basis for this method is quite elaborate, so we won't go into details now, but they can be found in for example Shavitt and Bartlett.
 
-We first look at perturbation to the third order. The zero and first order combined simply gives us the reference energy, and as we are interested in the correlation energy, we look at the second and third orders only. All possible second and third order contributions are shown in figure 2. We will now discuss which of these diagrams are important in our case. Let us start by looking in detail and 1 and 2, simply to see the system of the diagrams, and then we will go through the rest of the diagrams a bit faster.
+In exercise 4, we split the Hamiltonian into the reference energy, the Fock-operator and the term we called the perturbation term
+$$W_{\rm N} = \frac{1}{4}\sum_{pqrs} \brakket{pq}{rs} \{\op{p}^\dagger\op{q}^\dagger\op{s}\op{r}\}.$$
+And it is this term we now look at. However, as mentioned in exercise 4, as long as we do not have a cannonical HF case, we will also add the $F^{\rm o}$ term to the perturbation, which is the off-diagonal elements of the Fock-operator.
+
+We now look at perturbation to the third order. The zero and first order combined simply gives us the reference energy, and as we are interested in the correlation energy, we look at the second and third orders only. All possible second and third order contributions are shown in figure 2 in the exercises. We will now discuss which of these diagrams are important in our case. Let us start by looking in detail and 1 and 2, simply to see the system of the diagrams, and then we will go through the rest of the diagrams a bit faster.
 
 Diagrams 1 and 2 are the only two diagrams that form the second order contribution. All the diagrams are drawn as anti-symmetric Goldstone diagrams, and we must remember to include a Resolvent line between any vertical set of operators, even tough they are not drawn in. Looking at diagram 1, we can interpret this diagram as
 \begin{align*}
@@ -776,142 +718,161 @@ The interpretations of the third order figures is completely analogous. The main
   \mbox{(diag.\ 4)} = \frac{1}{8}\sum_{abcdij}\frac{\brakket{ab}{ij}\brakket{ab}{cd}\brakket{cd}{ij}}{\eps_{ij}^{ab}\eps_{ij}^{cd}}.
 \end{align*}
 
-Now that we have looked at some examples, we noted that figure 2 vanishes for the Hartree-Fock case. Looking at the third-order diagrams, we recognize that diagrams 6, 7, 10, 11, 12, 13, 14, 15 and 16 all vanish in the HF case as they are multiplied with at least one $f_{ai}$ matrix element. Note that diagrams 8 and 9 do \emph{not} necessarily vanish in the HF-case, as they only have $f_{ab}$ and $f_{ij}$ elements, which can be non-zero in both the cannonical and non-cannonical cases. In fact, the only \emph{general} difference between the cannonical and non-cannonical cases is that diagrams 8 and 9 will contribute only a single term for the canonnical HF-case (the diagonal term), while they will contribute the complete sum for the non-cannonical term.
+Now that we have looked at some examples, we noted that figure 2 vanishes for the Hartree-Fock case. Looking at the third-order diagrams, we recognize that diagrams 6, 7, 10, 11, 12, 13, 14, 15 and 16 all vanish in the HF case as they are multiplied with at least one $f_{ai}$ matrix element. Note that diagrams 8 and 9 do \emph{not} necessarily vanish in the HF-case, as they only have $f_{ab}$ and $f_{ij}$ elements, which are non-zero in the non-cannonical cases. At first glance, one might consider the diagram to contribute  in the cannonical term as well, but we have to remember that it is only the off-diagonal part of the Fock-operator that contributes in the perturbation, so the diagrams do in fact vanish for the cannonical case.
 
-The diagrams that generally contribute in the HF-case are then
+\clearpage
 
+In sumamry, we have seen that diagrams 1, 4 and 5 contribute to both the cannonical and the non-cannonical HF cases, while diagrams 8 and 9 only contribute in the non-cannonical
 \begin{center}
 \includegraphics[width=\textwidth]{project2_5}
 \end{center}
 
-Now, the discussion of the diagrams so far has not used any information about our specific interaction, and the results so far is true for any interaction. Now however, we will use our knowledge of our interaction to simplify things even further.
+Now, the discussion of the diagrams so far has not used any information about our specific interaction, and the results so far are valid for any interaction. Now however, we will use our knowledge of our interaction to simplify things even further.
 
 If we write out diagram three, we see that it has the form
 \begin{align*}
     \mbox{(diag.\ 3)} = \sum_{abcijk}\frac{\brakket{ij}{ab}\brakket{ac}{jk}\brakket{bk}{ci}}{\eps_{ij}^{ab}\eps_{kj}^{ac}}.
 \end{align*}
+Our interaction only acts between pairs of particles with the same quantum number $p$. If we then look at the matrix element $\brakket{bk}{ci}$, we see that this element must be zero, as $b$ is a particle state and $k$ is a hole state, so $\brakket{bk}{ci} = 0$ and so diagram 3 vanishes as a result of the nature of the interaction.
 
-
-\clearpage
-
-
-
-
- The one-body contribution is given by $\braopket{\alpha}{\op{h}_0}{\gamma} = \delta_{\alpha\gamma} (p-1)$. The two-body contribution becomes a sum over the four hole states, we have
-
-
-A general Slater determinant
-
-
-
-
-
-Diagram 3 vanishes due to the nature of the interaction.
-
-Diagram 2 is only in non-can, diagram 6, 7, 6, 10, 11, 12, 13, 14, 15 and 16 all vanish.
-
-
-\clearpage
-
-We define the reference vacuum, which is our ansatz for the ground state $\ket{\Phi_0}$. We can define 1p-1h and 2p-2h excitations as $\op{T}_1\ket{\Phi_0}$ and $\op{T}_2\ket{\Phi_0}$.
-
-We usually use the non-interacting part of the Hamiltonian as our single-particle wave functions.
-
-We can then expand our exact ground state as
-
-$$\ket{\Psi_0} = C_0\ket{\Phi_0} + \sum_{ai}C_i^a \ket{\phi_i^a} + \sum_{abij}C_{ij}^{ab}\ket{\Phi_{ij}^{ab}} + \ldots = (C_0 + \op{C})\ket{\Phi_0}.$$
-Where we have introduced the correlation operators
-$$\op{C} = \sum_{ai}C_i^a \op{a}_{a}^\dagger \op{a}_i  + \sum_{abij}C_{ij}^{ab} \op{a}_{a}^\dagger \op{a}_{b}^\dagger \op{a}_j \op{a}_i $$
-
-We now set $C_0 = 1$, giving
-$$\ket{\Psi_0} = (1+\op{C})\ket{\Phi_0}.$$
-$$\ket{\Psi_0} = \sum_{PH} C_{H}^P \Phi_H^P.$$
-
-For all PH sets we get
-$$\sum_{P'H'} \braopket{\Phi_H^P}{\op{H}-E}{\Phi_{H'}^{P'}} = 0.$$
-
-In Perturbation theory we assume that the exact ground state wave function is dominated by $\ket{\Phi_0}$ and can be written in intermediate normalization as
-$$\ket{\Psi_0} = \ket{\Phi_0} + \sum_{m=1}^\infty C_m \ket{\Phi_m}.$$
-From the Schrödinger equation, we have
-$$\braopket{\Phi_0}{\op{H}}{\Psi_0} = E,$$
-And
-$$\braopket{\Psi_0}{\op{H}_0}{\Phi_0} = W_0,$$
-so we can define
-$$\Delta E = E - W_0 = \braopket{\Phi_0}{\op{H}_I}{\Psi_0}.$$
-This quantity is called the correlation energy.
-
-$$\op{P} = \ketbra{\Phi_0}{\Phi_0},$$
-$$\op{Q} = \sum_{m=1}^\infty \ketbra{\Phi_m}{\Phi_m}.$$
-$$\ket{\Psi_0} = (\op{P} + \op{Q})\ket{\Psi_0} = \ket{\Phi_0} + \op{Q}\ket{\Psi_0}.$$
-
-$$\chi_n = \ket{\Psi_n} - \ket{\Phi_n}.$$
-$$\braket{\Phi_n}{\Phi_n} = 1, \quad \braket{\Psi_n}{\Phi_n} = 1, \quad \braket{\chi_n}{\Phi_n} = 0, \quad \braket{\Psi_n}{\Psi_n} = 1 + \braket{\chi_n}{\chi_n}.$$
-
-Idempotenence
-$$\op{P}^2 = \op{P}, \quad \op{Q}^2 = \op{Q}$$
-$$\op{P}\op{Q} = 0. $$
-
-The operator $\op{P}$ projects the component of $\Psi$ that is parallel to $\Phi_0$, which can be seen from
-$$\op{P}\Psi = \sum_{a_i}\ketbra{\Phi_0}{\Phi_0}\ket{\Phi_i} = a_0\ket{\Phi_0}.$$
-While $\op{Q}$ annihilates the $\Phi_0$ component, leaving everything else intact. This also means that
-$$\Psi = (\op{P} + \op{Q})\Psi.$$
-
-\clearpage
-
-\section*{Exercise 6)}
-
-
-\clearpage
-
-
-\section*{Exercise 7)}
-
-\subsubsection*{Linked and unlinked diagrams}
-
-A diagram is called unlinked if and only if it has a disconnected part that is closed, meaning it has no open lines. Goldstones linked-diagram theorem states that all unliked diagrams will cancel agains the renormalization terms in RSPT, meaning we can express the energy and wave function in each order as a sum of linked diagrams only \footnote{See Shavitt and Bartlet section 5.8.}. 
-
-\clearpage
-
-In general, we have
-$$\big(E^{(0) - \op{H}}\big) \Psi^{(m)} = (E^{(1)}-\op{V})\Psi^{(m-1)} - \sum_{l=0}^{m-1} E^{m-l}\Psi^{(l)}.$$
-We can apply $\bra{\Phi}$ to the equation and find
-$$E^{(m)} = \braopket{\Phi}{\op{V}}{\Psi^{(m-1)}}.$$
-
-As $\xi$ is only a scalar that is multiplied with $H_0$, and we already the scaling $g$, we can se the parameter $\xi$ equal to 1, without a loss of generality.
-
-Decompose the solution into
-$$\Psi = (\op{P} + \op{Q})\Psi = \op{P}\Psi + \op{Q}\Psi = \Phi + \chi.$$
-
+In the cannonical Hartree-Fock case, there is then only three contributing diagrams, which are
 \begin{align*}
-\Psi = \sum_{m=0}^\infty \big[\op{R_0}(\op{V}-\op{E}) \big]^m \Phi, \\
-\Delta E = \sum_{m=0}^\infty \braopket{\Phi}{\op{V}\big[\op{R_0}(\op{V}-\op{E}) \big]^m}{\Phi}
+    \mbox{(diag.\ 1)} &= \frac{1}{4}\sum_{abij}\frac{\brakket{ab}{ij}\brakket{ij}{ab}}{\eps_{ij}^{ab}}, \\
+    \mbox{(diag.\ 4)} &= \frac{1}{8}\sum_{abcdij}\frac{\brakket{ab}{ij}\brakket{ab}{cd}\brakket{cd}{ij}}{\eps_{ij}^{ab}\eps_{ij}^{cd}},\\
+    \mbox{(diag.\ 5)} &= \frac{1}{8}\sum_{abijkl}\frac{\brakket{ab}{ij}\brakket{kl}{ij}\brakket{ab}{kl}}{\eps_{ij}^{ab}\eps_{kl}^{ab}}.
 \end{align*}
 
+Summing all these contributions by hand is pretty tedious work, but we can easily do them through a simple python script. We can then plot the correlation energy found both from only the second order contribution (digram 1) and up to third order (diagrams 1, 4 and 5). The results is shown in the following figure.
 
-Cannonical HF
-$$f_{pq} = \eps_p \delta_{pq}$$
-$$\eps_p = h_{pp} + \sum_{i} \brakket{pi}{pi}.$$
-
-Non-cannonical HF
-$$f_{ia} = 0.$$
-
-Fock-operator
-$$\op{F} = \sum_{pq} f_{pq}\op{p}^\dagger \op{q}.$$
-$$\op{U} = \sum_{pq} u_{pq}\op{p}^\dagger \op{q}.$$
-
-$$\op{F} = \op{H}_0 + \op{U} = \sum_{pq} (h_{pq} + u_{pq})\op{p}^\dagger \op{q}.$$
-$$\op{u} = \sum_i (\op{J}_i - \op{K}_i).$$
-
-The normal-product Schrodinger equation is
-$$\op{H}_{\rm N} \Psi = \Delta E \Psi,$$
-where $\Delta E$ is the correlation energy in the Hartree-Fock case, the normal-product Hamiltonian is
-$$\op{H}_{\rm N} = \op{F}_{\rm N} + \op{W} = \op{F}^d_{\rm N} + \op{F}^o + \op{W} = \op{F}^d + \op{V}_{\rm N}.$$
+We see that the approximation to both second and third order are very good when the interaction is weaker $g\in[-0.5,0.5]$, but as the interaction gets stronger the approximation becomes worse. We also note that the third-order is actually worse than the second order for a strong interaction! This result illuminates the difference between perturbation theory and configuration interaction we noted earlier, including higher-order terms can \emph{possibly give a worse result} for perturbation theory---for CI however, including more excitations will never give a worse result. We also see the consequences of perturbation theory not being a variational method, as both approximations undershoot the true ground state correlation energy of the system.
 
 
-The projection operator $\op{P}$ projects onto the model space, which is spanned by the reference function, so $\op{P} = \ket{\Phi_0}\bra{\Phi_0}$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{pert_1.pdf}
+\caption{The energy contribution from MBPT up to second and third order.}
+\end{figure}
 
 
-Quote from page 132 of Shavitt and Bartlett
-``The absence of single excitations from the second-order energy expression in the HF case is a reflection of the Brillouin theorem, Sec. 15 which states that for Hartree.Fock reference functions''
+\clearpage
+
+\section*{Exercise 6}
+
+Now, we have looked at how perturbation theory approximates the correlation energy, and how this approximation behaves compared to the CI-case. Now let us look at how perturbation theory approximates the ground state of the system. For the CI-case we found the coefficients of all 2p2h SDs, so let us find these coefficients to second order with MBPT. To get from the reference state to the perturbed wave-function, we have to turn to the \emph{wave operator}, $\Omega$.
+
+If we let $\ket{\Psi^{(1)}_0}$ denote the perturbed wave function, and $\ket{\Phi_0}$ our reference state, we know that we have
+$$\ket{\Psi^{(1)}_0} = (1 + \Omega^{(1)})\ket{\Phi_0}.$$
+This means $\Omega^{(1)}\ket{\Phi_0}$ is the the correction term in the wave function from the reference state. The wave-operator for the second-order perturbed wave function is given by\footnote{See Shavitt and Bartlett section 2.4.7, p. 43.}
+$$\Omega^{(1)} = \op{R}_0 \op{V}.$$
+Which gives
+\begin{align*}
+\ket{\Psi^{(1)}_0} - \ket{\Phi_0} &= \op{R}_0 \op{V}\ket{\Phi_0} \\
+&= \frac{1}{4}\sum_{ai} \frac{\brakket{a\bar{a}}{i\bar{i}}}{\eps_{ii}^{aa}}\ket{\Phi_{i}^{a}}.
+\end{align*}
+So we can write the perturbed wave-function as
+$$\ket{\Psi^{(1)}_0} = \ket{\Phi_0} + \frac{1}{4}\sum_{ai} \frac{\brakket{a\bar{a}}{i\bar{i}}}{\eps_{ii}^{aa}}\ket{\Phi_{i}^{a}}.$$
+However, we know that we can expand any wave-function describing our system into the SD-basis we used in exercise 3. We get
+$$\ket{\Psi^{(1)}_0} = C_0\ket{\Phi_0} + C_2^3\ket{\Phi_2^3} + C_2^4\ket{\Phi_2^4} + C_1^3\ket{\Phi_1^3} + C_1^4\ket{\Phi_1^4}.$$
+By comparing these two expressions we can find the coefficients for the perturbed wave function. We get
+\begin{align*}
+C_2^3 = -\frac{g}{16}, \qquad C_2^4 = -\frac{g}{32}, \qquad C_1^3 = -\frac{g}{32}, \qquad C_1^4 = -\frac{g}{64}.
+\end{align*}
+An important issue here is that $C_0 = 1$, and so the perturbed wave function is \emph{not normalized}. This is because perturbation theory is formulated with what is known as \emph{intermediate} normalization. This is rather trivial to solve, we simply divide all coefficients by the normalization-factor $\sqrt{\sum_i |c_i|^2}$.
+
+To compare with the approximation from CI, let us compute the coefficients for $g=1/2$, we get the coefficients
+\begin{align*}
+C_0 &= 0.997, \quad C_2^3 = -0.062,  \quad C_2^4 = -0.031, \quad C_1^3 &= -0.031, \quad C_1^5 = -0.016.
+\end{align*}
+
+Compared to the CI results, we see that the reference state plays a much bigger part of the perturbed wave function. This is not a surprise, as CI adds the 2p2h excitations to infinite order, and we have now only included the 2p2h excitations to first order, higher order of 2p2h excitations will cause more of the wave-function to move out of the reference state and into the 2p2h excited states.
+
+
+\clearpage
+
+\section*{Exercise 7}
+
+We now turn to MBPT to the fourth order. We now get a lot of diagrams that can contribute to the energy, so we limit our discussion to the cannonical HF-case only. All of the diagrams in the cannonical case are shown in figures 3, 4, 5 and 6 of the exercises. Just like before, these are completely general diagrams, and we will show that we can disregard quite a lot of them. First we look at the linked-diagram theory, then we look closer at the diagrams. 
+
+A diagram is called unlinked if and only if it has a disconnected part that is closed, meaning it has no open lines. Goldstones linked-diagram theorem states that all unliked diagrams will cancel agains the renormalization terms in RSPT, meaning we can express the energy and wave function in each order as a sum of linked diagrams only\footnote{See Shavitt and Bartlet section 5.8.}. This means we can immediately disregard diagram 33 and 41.
+
+Let us now go through all the diagrams and find those that vanish due to having broken pairs, i.e., the diagrams that vanish due to our specific interaction. Take for example diagram 1, which vanishes due to having a term $\brakket{ab}{ci}$. From this argument, we see that all four diagrams from figure 3 vanish. Let us illustrate this by drawing red circles around all the matrix elements that are zero in figure 3.
+
+\includegraphics[width=\textwidth]{project2_6}
+
+Without taking the time to draw up all the diagrams, the same arguments shows that most diagrams in figure 4 also dissapear. Going through all the diagrams, we see that 5, 6, 14 and 15 are the ones that do not vanish for figure 4. For figure 5 we actually see that all diagrams vanish again. For figure 6 we already found that 33 and 41 vanished due to being unlinked---the rest contribute to the perturbation.
+
+All diagrams for figure 3 and 5 vanished for our interaction, this is definitly not a surprise, as those figures correspond to 1p1h and 3p3h excitations respectively. As our reference state already has the four particles positioned in two pairs, it goes without saying that and odd number of particle excitations neccesitates broken pairs and will vanish. The same argument also explained why there were no diagrams that vanished for figure 6. That figure shows the four-particle-four hole excited states, but as we only have four particles in our system, exciting all the particles will keep them collected in pairs, so we get no ubroken pairs. For the diagrams in figure 4 however, we have 2p2h excitations, and so the diagrams that vanish correspond the the cases where we excite one particle from either pair, or excite both particles in one pair, but into different levels, leaving us with a broken pair.
+
+\clearpage
+
+We are now ready to calculate the contribution from the diagrams that do not vanish. These are our diagrams
+
+\includegraphics[width=\textwidth]{project2_7}
+
+We would now like to express all these diagrams algebraicly, luckily, diagrams 5 and 6, 14 and 15, 34 and 35, 36 and 37 and 39 and 40 are all conjugate diagrams of each other, meaning they contribute the same algebraic expression. So we only need to set up the following expressions
+
+Algebraicly, we can express these contributions as follows
+\begin{align*}
+\mbox{(diag.\ 5)} &= \frac{1}{16}\sum_{\substack{abcd \\ ijkl}} 
+\frac{\brakket{ij}{ab}\brakket{ab}{cd}\brakket{kl}{ij}\brakket{cd}{kl}}{\eps_{ij}^{ab}\eps_{ij}^{cd}\eps_{kl}^{cd}}, \\[0.2cm]
+%
+%
+\mbox{(diag.\ 14)} &= \frac{1}{16}\sum_{\substack{abcdef \\ ij}} 
+\frac{\brakket{ij}{ab}\brakket{ab}{cd}\brakket{cd}{ef}\brakket{ef}{ij}}{\eps_{ij}^{ab}\eps_{ij}^{cd}\eps_{ij}^{ef}}, \\[0.2cm]
+%
+%
+\mbox{(diag.\ 34)} &= -\frac{1}{4}\sum_{\substack{abcd \\ ijkl}} 
+\frac{\brakket{ij}{ab}\brakket{ab}{ik}\brakket{kl}{cd}\brakket{cd}{kl}}
+{\eps_{ij}^{ab}\eps_{ijkl}^{abcd}\eps_{jl}^{cd}}, \\[0.2cm]
+%
+%
+\mbox{(diag.\ 36)} &= \frac{1}{16}\sum_{\substack{abcd \\ ijkl}} 
+\frac{\brakket{ij}{ab}\brakket{kl}{cd}\brakket{ab}{kl}\brakket{cd}{ij}}
+{\eps_{ij}^{ab}\eps_{ijkl}^{abcd}\eps_{ij}^{cd}}, \\[0.2cm]
+%
+%
+\mbox{(diag.\ 38)} &= \sum_{\substack{abcd \\ ijkl}} 
+\frac{\brakket{il}{ad}\brakket{jk}{bc}\brakket{cd}{kl}\brakket{ab}{ij}}
+{\eps_{il}^{ab}\eps_{ijkl}^{abcd}\eps_{ij}^{ab}}, \\[0.2cm]
+%
+%
+\mbox{(diag.\ 39)} &= -\frac{1}{4}\sum_{\substack{abcd \\ ijkl}} 
+\frac{\brakket{ij}{ab}\brakket{kl}{cd}\brakket{cd}{kl}\brakket{ab}{ik}}
+{\eps_{ij}^{ab}\eps_{ijkl}^{abcd}\eps_{ik}^{ab}}.
+\end{align*}
+
+As before, calculating all these sums is very tedious, luckily, a few lines of python code solves them for us. On the next page we give a plot of the the result of the approximation energy up to the fourth order MBPT. As we won't go any further than fourth order in this project, we also make a log-plot of the error in each approximation to the correlation energy.
+
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{pert_2.pdf}
+\caption{Correlation energy up to fourth order MBPT.}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\textwidth]{logerror.pdf}
+\caption{Error in the approximation to the correlation energy up to fourth order MBPT.}
+\end{figure}
+
+\clearpage
+
+From the figures, we see that the fourth order MBPT approximation to the correlation energy is better than the lower orders for $g<0$, but worse than the lower orders for $g>0$. Again this shows us an the important point of MBPT---there is no guarantee that the approximation will converge to the exact solution as we increase the order. In fact, as we see in our case, increasing the order of the approximation might actually give you a worse result! Also, we see that MBPT is not variational, so we can't simply calculate the approximation of many different orders and choose the smallest one, as we then run the risk of undershooting the real ground state energy.
+
+\section*{Summary}
+
+In this project we started out by defining a very simple system. We showed that the Hamiltonian commuted with the spin project operators and forced a total spin of $S=0$, which is then a conserved qunatity in the interaction. From this we noted that it would be practical to define our interaction in terms of pair creation and annihilation operators.
+
+As our system only has a finite number of states, we were able to perform a full configuration interaction calculation on it, and we therefore got the exact ground state of the system. Normally, one cannot do a FCI calculation of a system, as there are infinite possible excited states, and so one must truncate the excitations somewhere, this leads to a non-complete configuration interaction calculation.
+
+To compare a full and an incomplete CI, we limited our system to 2-particle 2-hole excitations, this mean cutting out one of the six Slater determinants that comprised our basis. It turned out that the CI from this truncated and incomplete basis was still really good, which was not strange as the 4p4h contribution was not really important for the ground state of the system.
+
+Next we turned to the Hartree-Fock method, which normally is used as a starting point, as it lets us find a basis where we can define our reference state to have the lowest possible energy, i.e., find the single Slater determinant with the lowest possible energy of the system. It turned out that the Hartree-Fock matrix was diagonal, meaning our basis was already the best basis for a reference state. This meant that the reference state we defined in exercise 2 is the single Slater determinant with the lowest energy of the sytem, and we calculated the reference energy from this SD. 
+
+
+
+
 
 \end{document}
