@@ -668,6 +668,12 @@ E_{\rm ref} &=
 \end{align*}
 Here, all terms contribute $-g/2$, so we get the final result
 $$E_{\rm ref} = 2-g.$$
+The following figure shows the reference energy along with the exact energy of the system
+\begin{figure}
+  \centering 
+  \includegraphics[width=0.8\textwidth]{proj1_ref2}
+  \caption{The exact energy and the reference energy of the system as functions of $g$.}
+\end{figure}
 
 \subsection*{Finding the correlation energy}
 
@@ -719,8 +725,6 @@ The interpretations of the third order figures is completely analogous. The main
 \end{align*}
 
 Now that we have looked at some examples, we noted that figure 2 vanishes for the Hartree-Fock case. Looking at the third-order diagrams, we recognize that diagrams 6, 7, 10, 11, 12, 13, 14, 15 and 16 all vanish in the HF case as they are multiplied with at least one $f_{ai}$ matrix element. Note that diagrams 8 and 9 do \emph{not} necessarily vanish in the HF-case, as they only have $f_{ab}$ and $f_{ij}$ elements, which are non-zero in the non-cannonical cases. At first glance, one might consider the diagram to contribute  in the cannonical term as well, but we have to remember that it is only the off-diagonal part of the Fock-operator that contributes in the perturbation, so the diagrams do in fact vanish for the cannonical case.
-
-\clearpage
 
 In sumamry, we have seen that diagrams 1, 4 and 5 contribute to both the cannonical and the non-cannonical HF cases, while diagrams 8 and 9 only contribute in the non-cannonical
 \begin{center}
@@ -776,16 +780,17 @@ However, we know that we can expand any wave-function describing our system into
 $$\ket{\Psi^{(1)}_0} = C_0\ket{\Phi_0} + C_2^3\ket{\Phi_2^3} + C_2^4\ket{\Phi_2^4} + C_1^3\ket{\Phi_1^3} + C_1^4\ket{\Phi_1^4}.$$
 By comparing these two expressions we can find the coefficients for the perturbed wave function. We get
 \begin{align*}
-C_2^3 = -\frac{g}{16}, \qquad C_2^4 = -\frac{g}{32}, \qquad C_1^3 = -\frac{g}{32}, \qquad C_1^4 = -\frac{g}{64}.
+C_2^3 = -\frac{g}{4}, \qquad C_2^4 = -\frac{g}{8}, \qquad C_1^3 = -\frac{g}{8}, \qquad C_1^4 = -\frac{g}{16}.
 \end{align*}
 An important issue here is that $C_0 = 1$, and so the perturbed wave function is \emph{not normalized}. This is because perturbation theory is formulated with what is known as \emph{intermediate} normalization. This is rather trivial to solve, we simply divide all coefficients by the normalization-factor $\sqrt{\sum_i |c_i|^2}$.
 
 To compare with the approximation from CI, let us compute the coefficients for $g=1/2$, we get the coefficients
 \begin{align*}
-C_0 &= 0.997, \quad C_2^3 = -0.062,  \quad C_2^4 = -0.031, \quad C_1^3 &= -0.031, \quad C_1^5 = -0.016.
+C_0 &= 0.988, \quad C_2^3 = -0.124,  \quad C_2^4 = -0.062, \quad C_1^3 &= -0.062, \quad C_1^5 = -0.031.
 \end{align*}
-
-Compared to the CI results, we see that the reference state plays a much bigger part of the perturbed wave function. This is not a surprise, as CI adds the 2p2h excitations to infinite order, and we have now only included the 2p2h excitations to first order, higher order of 2p2h excitations will cause more of the wave-function to move out of the reference state and into the 2p2h excited states.
+Looking back at the CI results, these were
+$$C_0 = -0.985, \quad C_2^3 = -0.135,  \quad C_2^4 = -0.071, \quad C_1^3 = -0.0714, \quad C_1^5 = -0.046.$$
+Comparing the two shows them to be quite similar, but we see that the perturbed wave function contains more of the reference state, and less of all the excited states. This is not a surprise, as CI adds the 2p2h excitations to infinite order, and the perturbed wave function only has the 2p2h excitations to first order, higher order of 2p2h excitations will cause more of the wave-function to move out of the reference state and into the 2p2h excited states.
 
 
 \clearpage
@@ -871,8 +876,9 @@ To compare a full and an incomplete CI, we limited our system to 2-particle 2-ho
 
 Next we turned to the Hartree-Fock method, which normally is used as a starting point, as it lets us find a basis where we can define our reference state to have the lowest possible energy, i.e., find the single Slater determinant with the lowest possible energy of the system. It turned out that the Hartree-Fock matrix was diagonal, meaning our basis was already the best basis for a reference state. This meant that the reference state we defined in exercise 2 is the single Slater determinant with the lowest energy of the sytem, and we calculated the reference energy from this SD. 
 
+We now had both the exact energy of the system, and the reference energy, which let us compute the correlation energy of the system as a function of $g$. The remaining goal of the project was to approximate the correlation energy using MPBT, we did this to second, third and fourth order. 
 
-
+As a summary, FCI found the exact energy of the system, CI is an approximation as it does not use a complete basis for the system, it still gives a very good approximation, as the 4p4h is not an important part of the ground state. The Hartree-Fock method gives the best single SD energy, the reference energy of the system, and also diagonlizes our basis, which will make calculating the perturbation terms easier. CI computes certain excitations to infinite order and is variational, MPBT sums a finite number of excitations to finite orde and is not a variational, in fact, we have noe guarantee of convergence at all, which was apparant in our system, as for different values of $g$ the approximations to different orders was best.
 
 
 \end{document}

@@ -1,11 +1,11 @@
 from numpy import *
-g = 1
+g = 1/2.
 
 c1 = 1
-c2 = -g/16.
-c3 = -g/32.
-c4 = -g/32.
-c5 = -g/64.
+c2 = -g/4.
+c3 = -g/8.
+c4 = -g/8.
+c5 = -g/16.
 
 c = array([c1,c2,c3,c4,c5])
 
