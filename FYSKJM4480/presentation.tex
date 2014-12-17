@@ -194,25 +194,6 @@ For a $N$-particle system, we have the Slater determinant
 \end{frame}
 
 \begin{frame}[fragile]
-{\large \color{DarkFern} We introduce Slater determinants to describe systems of fermions}
-\begin{align*}
-\Psi = \frac{1}{\sqrt{N!}}\det\begin{pmatrix}
-\psi_1(r_1) & \psi_1(r_2) &  \ldots & \psi_1(r_N)  \\ 
-\psi_2(r_1) & \psi_2(r_2) & \ldots  & \psi_2(r_N)  \\ 
-\vdots & \vdots & \ddots & \vdots \\
-\psi_N(r_1) & \psi_N(r_2) & \ldots  & \psi_N(r_N)  
-\end{pmatrix}
-\end{align*}
-
-\vspace{0.2cm}
-
-Or more compact
-$$\Psi = \sqrt{N!}\mathcal{A} \phi_H.$$
-\end{frame}
-
-
-
-\begin{frame}[fragile]
 \begin{center}
 {\Huge \color{DarkFern} The Hartree--Fock Method}
 \end{center}
@@ -549,7 +530,7 @@ $$\Delta E = \sum_{ai}f_{ai}t_{i}^a + \frac{1}{2}\sum_{abij}\brakket{ab}{ij}t_{i
 \begin{frame}[fragile]
 The \text{\alrt Hartree--Fock method} finds the lowest-energy single SD for the system. It can be found either from a mathematical minimization problem, or from a self-consistent field approach.
 
-A single SD is often to simple, and so HF does not account for the \textbf{electron correlation energy}. Is therefore a good starting point, but rarely sufficient.
+A single SD is often too simple, and so HF does not account for the \textbf{electron correlation energy}. Is therefore a good starting point, but rarely sufficient.
 
 The method is both \textbf{variational} and \textbf{extensive}.
 \end{frame}
@@ -571,7 +552,7 @@ It is \textbf{extensive} in every order, but \textbf{not variational}. There is 
 \begin{frame}[fragile]
 \text{\alrt Coupled cluster} is based on the exponential ansatz. It can be seen as taking certain contributions from MBPT and summing them to infinite order (Shavitt and Bartlett). Alternatively as CI with added complexities (Szabo).
 
-It is therefore \textbf{extensive}, but \textbf{not variational}.  
+It is \textbf{extensive}, but \textbf{not variational}.  
 
 Just as for CI, CC has to be truncated, but for CCD and CCSD we usually have better results than for CID and CISD.
 \end{frame}
