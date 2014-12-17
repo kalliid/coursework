@@ -1,0 +1,10 @@
+\begin{center}
+\begin{tabular}{c|c|c}
+  & Variational & Extensive \\ \hline
+HF & \color{DarkFern} \cmark & \color{DarkFern} \cmark \\
+FCI & \color{DarkFern} \cmark & \color{DarkFern} \cmark \\ \hline
+CI & \color{DarkFern} \cmark & \alrt \xmark \\
+MBPT & \alrt \xmark & \color{DarkFern} \cmark \\
+CC & \alrt \xmark & \color{DarkFern} \cmark
+\end{tabular}
+\end{center}

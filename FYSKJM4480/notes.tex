@@ -89,36 +89,112 @@
 
 \begin{document}
 
-\begin{center}
-{\huge \bf Notes in FYS-KJM4480}   
-\end{center}
+So we were given a lot of freedom in how we wanted to structure and focus our presentation. As such, I wanted to try and give a sort of summary of the entire course, which amounts to presenting the four many-body methods we were taught. First of however, I want to give a small introduction and motivation for these methods.
 
-\vspace{1cm}
+So, many-particle systems is quite a vague term, and in practice this often means atoms and molecules, if we are able to compute the energies of complex atoms and molecules we can basicly  manage to derive most of chemistry. 
 
-We let $\op{P}$ denote an operator which interchanges two particles. The Hamlitonian must be invariant under this change, so we know that the operators commute
-$$[\op{H}, \op{P}] = 0,$$
-As they commute, they share eigenfunctions, meaning we have
-$$\op{P}_{ij}\psi_\lambda(x_1,\ldots, x_N) = \beta \psi_\lambda(x_1,\ldots,x_N).$$
-Where $\beta$ will be 1 for bosons and -1 for fermions.
+In atoms and molecules, we usually stick to the Born-Oppenheimer approximation, meaning we only solve for the electronic spin orbitals, and freeze out the nuclear degrees of freedom.
 
-The Hamiltonian is generally
-$$\op{H} = \op{T} + \op{V},$$
-where $\op{T}$ represents the kinetic energy of the system
-$$\op{T} = \sum_{i=1}^N \frac{\bt p_i^2}{2m_i} = \sum_{i}^N\bigg(-\frac{\hbar^2}{2m_i}\bigg) \nabla_i^2 = \sum_{i=1}^N t(x_i).$$
-while the potential energy operator is
-$$\op{V} = \sum_{i=1}^{N} \op{u}_{ext}(x_i) + \sum_{ji=1}^{N}v(x_i,x_j) + \ldots$$
 
-Using the Born-Oppenheimer approximation means we can look at molecules by looking at the electronic and nuclear degrees of freedom seperately. If we focus only on the electronic degrees of freedom, meaning we freeze out the nuclear dofs, we have
-$$\op{H} = \sum_{i=1}^{n_e} t(x_i) - \sum_{i=1}^{n_e} k \frac{Z}{r_i} + \sum_{i<j}^{n_e} \frac{k}{r_{ij}}$$
-with $k=1.44$ eV nm.
 
-We can then split the Hamiltonian in to terms, one which is the sum of $N$ one-body Hamiltonians, $\op{h}_0$, and one which is the sum of the $n_e(n_e -1)/2$ two-body interactions.
+
+Better title would be many-electron systems, as we are in general mostly interested
+describing the behaviour of electrons in atoms and molecules
+
+
+% Most electronic structure calculations begin with the relatively simple approximation
+% based on the independant-particle model, the wave-function of such a model is
+% a single SD
+
+% The Hartree-Fock method or Self-consistend field wave method gives us a single SD wave-function, and as such it is an independant particle. HF is a bad zero-order function when there are near degeneracies between SDs that contribute to the wave function. In such cases, a multiconfigurational HF is better.
+
+
+\clearpage
+
+
+These notes are for the final exam in FYS-KJM4480. For the exam, we have to cover the four approximate methods covered in FYS-KJM4480 in a presentation of about 30 min. Then there are questions for the final 15 minutes.
+
+30 minutes to cover the entire course is not that much, but I will attempt to divide it as follows
+\begin{itemize}
+	\item 2.\ minutes for introduction to MBPT, motivation etc
+	\item 5.\ minutes for SDs, second quantization
+	\item 5.\ minutes for Hartree-Fock/SCF
+	\item 5.\ minutes for Configuration interaction
+	\item 5.\ minutes for MPBT
+	\item 3.\ minutes for Coupled Cluster
+	\item 5.\ minutes for summary.
+\end{itemize}
+
+Throughout the talk, I will use two example systems. First, the most interesting case, the Helium atom, and then a more abstract theoretical system with constant interaction and constant levels. These were covered by project 1 and 2 in the course.
+
 
 \section*{Slater Determinant}
 
+The basic unit of a many-body system is the Slater determinant. As a single-particle wave function can be interpreted as a probability distribution, the probability distribution of two particles will intuitively be given by the product of the two single-particle wavefunctions
+$$\Psi(r_1, r_2) = \psi_1(r_1)\psi_2(r_2).$$
+This many-body wavefunction is the solution to the Schrödinger equation, but with a Hamiltonian that can act on both particles, or either seperately
+$$\op{H} = -\frac{\hbar^2}{2m_1}\nabla_1^2 - \frac{\hbar^2}{2m_2}\nabla^2_2 + V(\bt{r}_1, \bt{r_2}) = K_1 - K_2 = \op{H}_0 + \op{H}_1.$$
+
+Indistinguishable particles, so can't say particle 1 is in state $a$ and particle 2 is in state $b$. Can then get two possibilites, bosons and fermions. We care about fermions, leading to the anti-symmetrical wave-function
+$$\Psi(r_1, r_2) = \psi_1(r_1)\psi_2(r_2) - \psi_1(r_2)\psi_2(r_1) = - \Psi(r_2, r_1).$$
+
+To scale to bigger systems, expressing this as a determinant is much simpler, so we have
+$$\Psi(r_1, r_2) = \det\begin{pmatrix}
+\psi_1(r_1) & \psi_1(r_2) \\ \psi_2(r_1) & \psi_2(r_2) 	
+\end{pmatrix}$$
+A $N$-particle system can then be constructed from
+$$\Psi = \det\begin{pmatrix}
+\psi_1(r_1) & \psi_1(r_2) &  \ldots & \psi_1(r_N)  \\ 
+\psi_2(r_1) & \psi_2(r_2) & \ldots  & \psi_2(r_N)  \\ 
+\vdots & \vdots & \ddots & \vdots \\
+\psi_N(r_1) & \psi_N(r_2) & \ldots  & \psi_N(r_N)  \\ 
+\end{pmatrix}$$
+Interchanging two particles means interchanging two columns, leading to a change in sign. If two states are equal $\psi_i = \psi_j$, we have to equal rows, giving a determinant equal to zero.
+
+So we see that Slater determinants let's easily use single particle states to construct a wave-function for our entire system. However, it is important that a Slater determinant is \emph{not} a general wave-function of a many-body system, as the states of two particles can be entangled. And so a single SD is not good enough to describe many systems\footnote{Griffiths p.\ 203, footnote 2.}.
+
+Now, writing out the total wavefunction as a determinant was efficient, but even that was hard, so we write it out as
 $$\Phi^{AS} = \frac{1}{\sqrt{N!}} \sum_p (-)^p \op{P} \prod_{i=1}^N \psi_{\alpha_i}(x_i) = \sqrt{N!}\mathcal{A} \phi_H.$$
 Where $\mathcal{A}$ is the antisymmetrization operator 
 $$\mathcal{A} = \frac{1}{N!}\sum_p (-)^p \op{P}.$$
 
+Still, we must turn to second quantization
+
+\section*{Second Quantization}
+
+\section*{Hartree-Fock}
+
+\section*{Configuration Interaction}
+
+\section*{Coupled Cluster Theory}
+
+One can write the exact wave function as the wave operations acting on the zero-order wave function
+$$\Psi = \Omega \Phi_0.$$
+The wave-operator can be expressed as
+$$e^{\op{T}},$$
+where $\op{T}$ is a sum over the cluster operators
+$$\op{T} = \op{T}_1 + \op{T}_2 + \op{T}_3 + \ldots.$$
+Where
+\begin{align*}
+\op{T}_1 &= \sum_{ai}t_i^a \{\op{a}^\dagger \op{i}\} \\
+\op{T}_2 &= \frac{1}{4}\sum_{abij}t_{ij}^{ab} \{\op{a}^\dagger \op{i} \op{b}^\dagger \op{j}\} \\
+\op{T}_3 &= \frac{1}{36}\sum_{abcijk}t_{ijk}^{abc} \{\op{a}^\dagger \op{i} \op{b}^\dagger \op{j}\op{c}^\dagger \op{k}\} \\
+\end{align*}
+Here the coefficients are usually referred to as the amplitudes.
+
+\begin{align*}
+\Psi &= \Phi_0 + \op{T}_1\Phi_0 + \op{T}_2\Phi_0 +  \ldots \\		
+&= \frac{1}{2}\op{T}_1^2\Phi_0 + \op{T}_1\op{T}_2\Phi_0 + \frac{1}{2}\op{T}_2^2\Phi_0+  \ldots \\		
+\end{align*}
+Because of the two-electron nature of the Hamiltonian, the most important connected-cluster contirbution to the wave function is $\op{T}_2 \Phi_0$. If $\Phi_0$ is a Hartree-Fock wave function for the state of interested, the contribution of $\op{T}_1\Phi_0$ is quite small, as a consequence of the Brillouin theorem.
+
+
+\section*{Many-body Perturbation Theory}
+
+
+
+
+
 \end{document}
+
 
