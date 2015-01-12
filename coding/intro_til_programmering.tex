@@ -373,7 +373,8 @@ Når Python utfører denne kodelinja, så skrives spørsmålet i parantesen ut i
 \subsection*{Oppgave 1 --- Printing}
 \begin{itemize}
 	\item[(a)] Lag et program som skriver ut teksten ``Hello, World!'' til skjermen.
-	\item[(b)] Spør brukeren om navnet dems, og deretter skriv en beskjed tilbake som bruker navnet de har gitt. \\
+	\item[(b)] Lag et program hvor du lagrer navnet ditt som en variabel, og deretter skriver ut lengden på navnet ditt med kommandoen \verb+len(name)+. \verb+len+-kommandoen sier hvor mange karakterer det er i en tekststreng.
+	\item[(c)] Lag et program som spør brukeren om navnet dems, og deretter skriv en beskjed tilbake som bruker navnet de har gitt. \\
 	\textbf{Hint:} Du kan spørre brukeren et spørsmål med \verb+raw_input+-kommandoen. 
 \end{itemize}
 
@@ -394,10 +395,196 @@ Når Python utfører denne kodelinja, så skrives spørsmålet i parantesen ut i
 \item[(c)] \textbf{Utfordring}: Hvor få kommandoer klarer du å bruke for å løse 2-6? Det beste jeg har fått til er 15 kommandoer!
 \end{itemize}
 
+\clearpage
+
+\section*{Matematikk i Python}
+
+Programmering og matematikk er tett knyttet sammen, 
+
+
+Du kan bruke vanlige matematiske operasjoner som \verb!+! og \verb!-! i Python, for å gjøre utregninger. Vi kan for eksempel skrive
+\begin{lstlisting}
+print 12 + 49
+print 24.4 - 6.3
+\end{lstlisting}
+Husk at vi fortsatt må bruke \verb+print+-kommandoen for å faktisk skrive ut resultatet til terminalen. Hvis du bare skriver \verb!2+2! på en kodelinje, så vil Python regne ut svaret, men så vil den ikke bruke det svaret til noe så utregningen er ganske bortkastet.
+
+Du kan også lagre resultatet fra en utregning i en variabel
+\begin{lstlisting}
+addition = 72 + 23
+subtraction = 108 - 204
+multiplication = 108 * 0.5
+division = 108/9
+\end{lstlisting}
+I hvert tilfelle her så regner Python først ut det som er til høyre for likhetstegne, og lagrer resultatet i variabelen som står til ventre for likhetstegnet. Merk også at \verb+*+ er multiplikasjon og \verb+/+ divisjon. Et problem med divisjon i Python er at det finnes noe som heter heltallsdivisjon. Når du gjør beregningen \verb+108/9+, så ser Python at du prøver å dele et heltall på et heltall (husk at Python skiller på heltall og desmialtall), siden du deler heltall på hverandre tror Python at du vil ha et heltall som resultat! Prøv for eksempel å skrive
+\begin{lstlisting}
+print 5/2
+\end{lstlisting}
+Svaret du får er 2, ikke 2.5. Det er fordi vi har heltalldivisjon, og heltalldivisjon forteller deg bare hvor mange ganger telleren (her 5) går opp i nevneren (2), siden 5 går opp i 2 to ganger, får vi svaret 2. Hvordan unngår du heltallsdivisjon? Hvis et av tallene som inngår i divisjonen er et flyttall, så vil Python skjønne at du har lyst på flyttallsdivisjon (det du kjenner som `vanlig' divisjon). Vi har altså et par muligheter for å få til dette
+\begin{lstlisting}
+print 5.0/2.0
+print 5.0/2
+print 5/2.0
+print 5./2
+print float(5)/2
+\end{lstlisting}
+Alle disse måtene å dele tallene på hverandre vil gi svaret 2.5. Alle måtene fungerer fordi minst ett av tallene som inngår i divisjonen er flyttall, i det første tilfellet skriver vi \verb+5.0+ og \verb+2.0+ istedenfor \verb+5+ og \verb+2+, men vi ser at det også går å bare skrive for eksempel \verb+5.+. I det siste tilfellet så endrer vi typen til tallet \verb+5+ direkte med kommandoen \verb+float+. 
+
+Du kan kombinere så mange matematiske operasjoner som du vil
+\begin{lstlisting}
+print 305/2.0 + 222*5 - 3
+\end{lstlisting}
+Python utfører operasjonene i riktig matematisk rekkefølge, multiplikasjon og divisjon før addisjon og subtraksjon osv. Hvis du for eksempel skriver 
+\verb!1+2*3! så blir resultatet 7, \emph{ikke} 9. Hvis du vil at utregningen skal skje i motsatt rekkefølge kan du bruke paranteser akkurat sånn som man gjør for hånd: \verb!(1+2)*3! gir resultatet 9.
+
+Du kan også regne med variabler, så du kan for eksempel skrive
+\begin{lstlisting}
+a = 3.0
+b = 4.0
+print 4*a
+print a + b 
+print a * (b+2)
+\end{lstlisting}
+
+En ting det er verdt å være obs på, er at likhetstegnet i Python: \verb+=+, ikke er det samme som i matte. Hvis du for eksempel skriver
+\begin{lstlisting}
+x = 1
+x = x + 2
+\end{lstlisting}
+Så er dette helt riktig Python kode som gir mening. I matematikk derimot, så gir ikke ligningen
+$$x = x + 2,$$
+noe mening i det hele tatt. Hvordan kan noe være lik seg selv \emph{pluss to}?
+
+Du må huske at likhetstegnet i Python kun brukes for å definere variable. La oss se på hvordan Python tolker kodelinjen
+\begin{lstlisting}
+x = x + 2
+\end{lstlisting}
+Først ser den på høyre side av likhetstegnet og regner ut det som står der. Vi har definert variabelen \verb+x+ til å være 1, så på høyre side står det \verb!1+2! som gir resultatet 3. Deretter ser den på venstre side av likehetstegnet, der skal den lagre resultatet. Siden \verb+x+ allerede er definert i programmet, så blir den rett og slett overskrevet av den nye kommandoen. Etter programmet har kjørt, så finnes det altså 1 variabel, \verb+x+ som har verdien 3. Du kan sjekke det selv ved å skrive ut resultatet med \verb+print x+.
+
+Hvis du syns likhetstegnet er litt vansklig å forstå, så kan det kanskje hjelpe å tolke det som en slags pil istedet, som egentlig gir mer mening
+\begin{lstlisting}
+x <- 1
+x <- x + 2
+\end{lstlisting}
+Dette er \emph{ikke} gyldig kode, det er bare for å forklare hvordan ting fungerer i bakgrunnen.
+
+\subsection*{Eksempel: Restaurantregning}
+La oss nå se på et eksempel hvor vi regner litt. La oss si vi er på restaurant, vi har spist og drukket for et grunnbeløp, men i tilegg til det kommer merverdiavgift (mva) og tips. La oss lage et program hvor vi først definerer grunnbeløpet, hvor mye mva vi må betale, og hvor mye tips vi har lyst til å gi. Deretter regner vi ut totalen vi må ut med og skriver den til terminalen. 
+
+Først definerer vi grunnbeløpet, mva, og tips. 
+\begin{lstlisting}
+basispris = 240
+mva = 0.25
+tips = 0.1
+\end{lstlisting}
+Her sier vi at vi grunnbeløpet er 240 kr, vi må betale 25 \% mva, som er standarden i Norge, og vi har lyst til å tipse 10 \%. Merk at jeg har skrevet prosentene som desimaltall ved å dele på 100, det er så det skal være lettere å regne med.
+
+Nå skal vi regne ut totalen, først legger vi inn mvaen, deretter tipsen
+\begin{lstlisting}
+pris = basispris + basispris*mva
+tips = pris * tips
+total = pris + tips
+\end{lstlisting}
+
+Til slutt kan vi skrive ut resultatet med en liten beskjed
+\begin{lstlisting}
+print "Totalprisen ble %.2f kr, hvorav %.2f er tips." % (total, tips)
+\end{lstlisting}
+Når jeg skriver ut bruker jeg \verb+%.2f+, \verb+f+ fordi det er flyttall jeg skriver ut, \verb+.2+ betyr at jeg bare vil ha med to desimaler i svaret som skrives ut. Prøv selv med bare \verb+%f+ og se hva som skjer, du får fryktlig mange desimaler.
+
+\section*{Mer avansert matematikk}
+
+Du kan regne med potenser ved å bruke to produkttegn på rad \verb+**+. For eksempel vil
+\begin{lstlisting}
+print 4**2
+print 2**3
+\end{lstlisting}
+gi resultatetene 16 og 8 fordi $4^2=16$ og $2^3 = 8$.
+
+Hvis vi har lyst til å ta kvadratroten av et tall, for eksempel $\sqrt{49}$, så finnes det en kommando som gjør dette, men den må vi først \emph{importere}. Grunnleggende Python er et ganske lite og enkelt programmeringsspråk, men det finnes tusenvis av pakker man kan inkludere for å gjøre det mer komplekst og kraftig. Nå skal vi drive med matte, og importerer derfor en kommando fra biblioteket som heter `math', det gjør vi som følger
+\begin{lstlisting}
+from math import sqrt
+\end{lstlisting}
+Vi har nå importert \verb+sqrt+ (står for square root, eller kvadratrot på norsk) fra `math'. Vi kan nå bruke \verb+sqrt+ som alle andre kommandoer i Python, for eksempel til å regne ut $\sqrt{49}$:
+\begin{lstlisting}
+print sqrt(49)
+\end{lstlisting}
+Alle kan lage ekstrabiblioteker til Python og det finnes derfor mange tusen biblioteker vi kan laste ned og bruke fritt når vi koder. Det finnes pakker for å lage grafikk, musikk, jobbe med nettsider osv. Hvis vi for eksempel ønsker å bruke Python til å lage et spill eller en iPhone app, så finnes det altså pakker til Python som gjør den jobben mye lettere for oss.
+
+Nå tilbake til pakken `math'. Vi importerte kvadratrotfunksjonen derfra. En annen ting vi kan importere er tallet $\pi$. Prøv å skrive
+\begin{lstlisting}
+from math import pi 
+print pi
+\end{lstlisting}
+Nå har vi ikke importert en ny kommando fra math, men istedet en variabel, som inneholder tallet $\pi$ til mange, mange desimaler.
+
+I math finnes det mange andre funksjoner og konstanter vi kan importere, men det er nok ikke så mange du har bruk for akkurat nå. Etterhvert som du lærer mer matematikk i for eksempel 1T matte, så kommer du til å lære om matematiske funksjoner som eksponentialfunksjonen, sinus, cosinus, tangens og fakultet. Mattebibloteket inneholder alle disse funksjonene og er derfor veldig nyttig når man skal drive med matte.
+
+\section*{Funksjoner}
+
+Vi skal nå begynne å snakke om funksjoner. Funksjoner er noe av det mest fundamentale og viktige i programmering. Funksjoner lar oss definere egne kommandoer, og på den måten kan vi effektivisere koden vår enormt mye.
+
+Du har allerede sett eksempler på funksjoner når du spilte Lightbot, der ble de kalt procedures. Når vi har en del kode som gjentas i et program, så er det mer effektivt å definere dem som en funksjon. Når vi har definert en funksjon, så kan vi bruke den ved å \emph{kalle på den}. 
+
+I bildet under, så er det akkurat det vi gjør. I tillegg til hovedprogrammet vårt, så har vi et eget vindu hvor vi definerer funksjonen \verb+P1+, i hovedprogrammet så kan vi da kalle på \verb+P1+, da utføres alle kommandoene som ligger i definisjonen av funksjonen.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{func2}
+\end{figure}
+
+I Python kan du definere funksjoner med nøkkelorder \verb+def+, en forkortelse for `define'. Vi gir funksjonen vårt et navn og skriver all koden som inngår i funksjonen med et innrykk, la oss se på et eksempel
+\begin{lstlisting}
+def greet():
+	print "Hello, world!"
+
+greet()
+\end{lstlisting}
+I denne koden ser du at kodeordet \verb+def+ brukes for å starte definisjonen av en funksjon, navnet jeg gir funksjonen min er \verb+greet+, parantesene må være der, og vi kommer tilbake til hvorfor. Etter den første linjen, så kommer selve koden i funksjon. All koden som inngår i funksjonen må få et innrykk, eller indentering. Du kan lage et slikt innrykk med tab-knappen (du finner den rett over Caps Lock knappen, på venstre side av tastaturet). I dette tilfellet er det bare en enkelt linje som har fått innrykk, sånn at funksjonen vår består bare av 1 kodelinje.
+
+På bunn av koden så kaller vi på funksjonen ved å skrive navnet på funksjonen med paranteser. Når vi gjør det så kjører Python koden som er inne i funksjonen. Merk at vi kan kalle på funksjonen så mange ganger vi vil, hvis vi skriver
+\begin{lstlisting}
+greet()
+greet()
+greet()
+\end{lstlisting}
+så skrives ``Hello, World!'' ut tre ganger i terminalen.
+
+Så langt er funksjoner i Python helt like de du så i Lightbot, men nå skal vi innføre en forskjell som gjør funksjoner i Python mye bedre, \emph{input}. Det er kanskje lettest å vise med et eksempel
+\begin{lstlisting}
+def greet(name):
+	print "Hi there %s, nice to meet you!" % name
+
+greet("John")
+greet("Mary")
+\end{lstlisting}
+Funksjonen heter det samme som før, men nå står det ikke bare tomme paranteser, det står \verb+(name)+, dette betyr at funksjonen forventer at brukeren skal gi funksjonen noe input når man kaller på den. Slik input kalles for argumenter, vår funksjon forventer å få et navn som argument. Når du ser på koden inne i funksjonen skjønner du kanskje hvorfor, det funksjonen gjør er å skrive ut en beskjed som inneholder navnet man bruker til å kalle på funksjonen. Når du kaller på en funksjon som skal ha argumenter, så skriver du dem inn i parantesene når du kaller på funksjonen, slik som er vist i bunn av koden.
 
 
 
-% \maketitle
+\clearpage
+
+\section*{Videre lesing og oppgaveløsning}
+
+Hvis du har kommet deg så langt som dette, bra jobba! Jeg kommer til å utivde dette skrivet etterhvert som kurset går, så hvis du sjekker tilbake om en uke eller to er det nok en del mer info og fler oppgaver her. Men hvis du ikke klarer å vente på det, så skal jeg komme med et par kilder du kan bruke for å lære mer med en gang.
+
+\subsection*{Nettkurs fra Code Academy}
+
+Først så har vi Code Academy, en nettside som gir gratis nettkurs i mange forskjellige programmeringsspråk. Code Academy er helt genialt fordi de underviser programmering hands on, som vil si at du lærer ved å kode fra første sekund. Her er en link til begynnerkurset dems in Python
+
+\url{http://www.codecademy.com/tracks/python}
+
+
+\subsection*{Programmeringsnøtter fra Project Euler}
+
+Hvis du er ute etter en utfordring, så kan jeg anbefale Project Euler. Dette er en nettside som legger ut mattenøtter med en vri, vrien er at problemene skal løses med programmering. Ta en titt på oppgavene her, de stiger raskt i vansklighetsgrad, så start på de første
+fa
+!
+https://projecteuler.net/problems
+
+
+
+% \
 
 % Denne teksten er ment som en kort oppsummering av det vi håper å ha kommet igjen etter første uke. Programmering er en ferdighet det tar tid å lære seg, og den beste måten å lære det på er rett og slett å prøve seg frem. Vi håper derfor at dere tar dere tid til å se litt på programmering på egenhånd, og skriver noen korte, enkle, og kanskje teite programmer.
 
