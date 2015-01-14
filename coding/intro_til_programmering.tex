@@ -122,7 +122,7 @@ breaklines=true}
 
 Dette skrivet hører til et introduksjonskurs ved Bjørnegård skole. Over 12 timer skal jeg prøve å gi dere en introduksjon til programmering. På så kort tid kan jeg selvfølgelig ikke lære dere alt, men jeg skal forhåpentligvis få vist dere en del av hovedpoengene i programmering. Idéen er det skal bli lettere for dere å lære mer i fremtiden, og det er et av målene mine med dette kurset.
 
-Det er ingen tvil at programmering blir mer og mer viktig. Internet er såvidt 20 år gammelt, og datamaskiner litt over 60 år gammelt. Idag er vi omringet av datamaskiner, smarttelefoner og tablets---og de blir kraftigere og kraftigere i et enormt tempo. Datamaskiner brukes mer og mer, og fler og fler jobber kommer til å innehold hvertfall en del programmering. I fremtiden er jeg veldig sikker på at programmering kommer til undervises i skolen på lik linje med matematikk.
+Det er ingen tvil at programmering blir mer og mer viktig. Internet er såvidt 20 år gammelt, og datamaskiner litt over 60 år gammelt. Idag er vi omringet av datamaskiner, smarttelefoner og tablets---og de blir kraftigere og kraftigere i et enormt tempo. Datamaskiner brukes mer og mer, og fler og fler jobber kommer til å innehold hvertfall en del programmering. I fremtiden er jeg veldig sikker på at programmering kommer til å undervises i skolen på lik linje med matematikk.
 
 Men det er ikke bare fordi programmering er viktig og nyttig jeg ønsker å lære dere det, det er også utrolig morsomt. Når man programmerer, så lager man noe. Programmering er en evne som lar deg gjøre om idéer og tanker du har til en virkelighet. Om du har en idé om en fantastisk app til smarttelefonen din, så kan du faktisk lage den appen. Det å programmere er rett og slett en utrolig kreavtiv ting å drive med, man kan nesten dra det såpass langt at man kan sammenligne det med å spille et instrument, eller å male eller tegne.
 
@@ -142,7 +142,7 @@ De fleste programmer som skrives er i motsetning til disse veldig små og spesia
 
 \subsubsection*{Problemløsning}
 
-Når vi skriver instrukser i form av programmeringsspråk, så kaller vi det kode. Når vi lager et dataprogram, så handler altså om å skrive den riktige koden, sånn at datamaskinen gjør det vi vil at den skal gjøre. Det som gjør programmering vanskelig, er at datamaskiner er veldig dumme. I motsetning til oss mennesker, kan datamaskiner kun forstå veldig enkle instrukser. Før vi kan sette igang med å skrive selve koden for programmet vår, må vi altså finne ut hvordan vi kan løse oppgaven vår med de enkle instruksene datamaskinen kan forstå. Vi må \emph{bryte ned} problemet vårt til små, håndterlige biter som datamaskinen kan få til.
+Når vi skriver instrukser i form av programmeringsspråk, så kaller vi det kode. Det handler altså om å skrive den riktige koden, sånn at datamaskinen gjør det vi vil at den skal gjøre. Det som gjør programmering vanskelig, er at datamaskiner er veldig dumme. I motsetning til oss mennesker, kan datamaskiner kun forstå veldig enkle instrukser. Før vi kan sette igang med å skrive selve koden for programmet vår, må vi altså finne ut hvordan vi kan løse oppgaven vår med de enkle instruksene datamaskinen kan forstå. Vi må \emph{bryte ned} problemet vårt til små, håndterlige biter som datamaskinen kan få til.
 
 Når vi bryter opp et problem på denne måten, så lager vi en slags oppskrift for hvordan et problem kan løses. Du kan tenke på det litt som et mattestykke, for å komme i mål for å løse en matteoppgave, så man første gjøre en liten ting, og så en annen liten, og så en tredje liten ting, helt til man sitter med det siste svarer til slutt. Hvert steg i seg selv er aldri særlig vansklig, utfordringen ligger i å finne ut hvilke steg man skal ta, og i hvilken rekkefølge man skal gjøre dem. I programmering så kaller man gjerne en slik `oppskrift' for en algoritme. Det er litt rart ord, men en algoritme er altså egentlig bare oppskriften av hvilke steg man skal ta for å komme i mål.
 
@@ -286,6 +286,84 @@ I dette programmet oppretter jeg først fire variable, så skriver jeg ut til te
 \end{lstlisting}
 Vi ser altså at variabelen \verb+location+ har type `str', dette er en forkortelse for `string', og betyr altså tekststreng. Dette stemmer jo godt, fordi variabelen \verb+location+ inneholder jo en tekststreng. Variabelen \verb+year+ har type `int' som er en forkortelse for `integer'. Integer er engelsk og betyr heltall. Vi ser at \verb+day+ også er en `str', altså tekstreng. Til sist har vi \verb+temperature+ som har typen `float', som betyr flyttall. Et flyttall er egentlig bare et annet navn på et desimaltall. Vi ser altså at Python skiller på heltall og desimaltall.
 
+\section*{Lister}
+
+Hitil har du sett at variable har et navn, et innhold og en type. La oss se på en ny type variabel: lister. La oss si at du ikke bare ønkser at programmet ditt skal huske på et navn, men en hel skoleklasse. Det er veldig slitsomt å måtte opprette en variabel for hver enkelt elev. Det vi kan gjøre, er å opprette en enkelt variabel, hvor vi lagrer alle elevene sammen, det kan du gjøre sånn her
+\begin{lstlisting}
+students = ["Jake", "John", "Mary", "Lucy", "Alexander"]
+\end{lstlisting}
+Vi ser at vi har brukt firkantparanteser: \verb+[+ og \verb+]+ for å definere en liste, og inne i listen har vi skrevet 5 navn, alle adskilt med komma. Merk også at vi definerer hvert navn som hver sin tekststreng. Når du har definert en liste på denne måten, så kan du skrive den ut med \verb+print+, og selvfølgelig sjekke typen
+\begin{lstlisting}
+print students
+print type(students)
+\end{lstlisting}
+Når du gjør det, så får du følgende utskrift i terminalen
+\begin{verbatim}
+[' Jake ', ' John ', ' Mary ', ' Lucy ', ' Alexander ']
+<type 'list'>
+\end{verbatim}
+En annen ting du kan gjøre med en liste, er å sjekke hvor mange ting den inneholder, det gjør vi med \verb+len+, som forteller deg lengden på en liste
+\begin{lstlisting}
+print len(students)
+\end{lstlisting}
+forteller oss at det er 5 navn i lista.
+
+En liste trenger ikke nødvendigvis inneholde tekststrenger, vi kan plassere hva som helst i dem. Vi kan for eksempel ha en liste med tall
+\begin{lstlisting}
+prices = ["299", "199", "4000", "20"]
+\end{lstlisting}
+Eller en blanding av tall og tekst
+\begin{lstlisting}
+my_list = ["Some text", 2, 2.3, 9, "Some more text"]
+\end{lstlisting}
+Du kan tilogmed legge lister inne i andre lister
+\begin{lstlisting}
+lists_in_lists = [[0, 2, 3], ["Mary", "Lucy", "Jake"]]
+\end{lstlisting}
+Siden en liste kan bestå av så og si hva som helst, så pleier vi å kalle det den inneholder for elementer. En liste er en rekke elementer.
+
+Når vi først har definert en liste, for eksempel en liste over alle elevene i en skoleklasse
+\begin{lstlisting}
+students = ["Jake", "John", "Mary", "Lucy", "Alexander"]
+\end{lstlisting}
+Så kan vi gå inn i lista og hente ut ett bestemt navn. Det gjør vi med noe som heter indeksering, jeg kan for eksempel skrive
+\begin{lstlisting}
+print students[0]
+print students[3]
+\end{lstlisting}
+Her så betyr \verb+students[0]+ det første elementet i lista, som altså er `Jake', mens \verb+students[3]+ betyr det fjerde navnet i lista, som er `Lucy'. Tallet vi skriver teller altså elementer utover i lista, og vi begynner å telle på 0. Det er kanskje litt rart, men sånn fungerer det altså.
+
+Vi kan også overskrive et bestemt element i en liste. Si for eksempel at vi har funnet ut at vi har gjort en feil, Alexander i lista over heter egentlig bare Alex! Vel, da kan vi gå inn og endre bare den delen av lista. `Alexander' står på den 5 plassen i lista, så det er \verb+students[4]+ vi må endre, så da skriver vi
+\begin{lstlisting}
+students[4] = "Alex"
+\end{lstlisting}
+Hvis vi nå skriver ut hele lista på nytt med \verb+print students+ får vi utskriften
+\begin{verbatim}
+[' Jake ', ' John ', ' Mary ', ' Lucy ', ' Alex ']
+\end{verbatim}
+Så du ser at det er bare `Alexander' som har endret seg i lista.
+
+Du kan også legge til ekstra elementer i listen din. Si for eksempel at du har glemt en av elevene i klassen din, da kan den personen legges til som følger
+\begin{lstlisting}
+students.append("Roger")
+\end{lstlisting}
+Hvis vi nå skriver ut lista får vi
+\begin{verbatim}
+[' Jake ', ' John ', ' Mary ', ' Lucy ', ' Alex ', 'Roger']
+\end{verbatim}
+Merk at elementer vi legger til med \verb+.append+ havner på enden av lista.
+
+Siden vi kan legge elementer til en allerede eksisterende liste, så kan det av og til gi mening å lage en helt tom liste. Se for eksempel på denne koden
+\begin{lstlisting}
+my_list = []
+my_list.append(1)
+my_list.append(2)
+my_list.append(3)
+\end{lstlisting}
+Her lager jeg først en helt tom liste, så begynner jeg å fylle den med tall etterpå.
+
+
+
 \section*{Feilmeldinger}
 
 Nå som du har begynnt å skrive din første Pythonkode kan det jo være at det har oppstått noen feil, og hvis du har gjort alt rett så langt, så dukker det opp noen feil snart. La oss ta en titt på feilmeldingene vi får når vi gjør feil i Python, og prøve å tolke dem litt. Når du programmerer kommer du til å gjøre mange feil og det er viktig å prøve å forstå hvorfor det gikk galt, det å tolke sine egne feilmeldinger er nok den aller beste måten å bli god til å programmere.
@@ -318,6 +396,19 @@ File "<stdin>", line 2, in <module>
 NameError: name 'place' is not defined
 \end{verbatim}
 Nå har du ikke lenger en syntaks-feil, fordi Python skjønner godt hva du har lyst til å gjøre her, det du har skrevet er helt riktig Python-kode. Problemet er derimot en \verb+NameError+, det er ganske enkelt fordi programmet først oppretter variabelen `location', og prøver deretter å printe ut variabelen `place'. Men det finnes ingen variabel med navn `place', så derfor får du en navn-feil---programmet prøver å bruke en variabel som ikke finnes.
+
+La oss se på en siste feil
+\begin{lstlisting}
+students = ["John", "Jake", "Mary", "Marcus"]
+print students[4]
+\end{lstlisting}
+Når programmet kjøres får du feilmeldingen
+\begin{verbatim}
+File "<stdin>", line 2, in <module>
+    print students[4]
+IndexError: list index out of range
+\end{verbatim}
+Vi ser at vi får en \verb+IndexError+ og det står `list index out of range'. Målet med \verb+print+ kommandoen er å skrive ut det fjerde navnet i lista, Marcus. Problemet er derimot at vi har glemt at Python starter å telle på 0, så Marcus har indeks 3! Dermed prøver vi å lese en del av lista som ikke finnes, og vi får en `index out of range'-feil.
 
 \section*{Mer om printing}
 
@@ -360,8 +451,10 @@ Når Python utfører denne kodelinja, så skrives spørsmålet i parantesen ut i
 \begin{itemize}
 	\item Å programmere betyr å lage et dataprogram. Dette gjør vi ved å skrive kode i et bestemt programmeringsspråk. Før vi kan gå igang med å kode må vi ofte bryte ned oppgaven vi skal løse i små biter.
 	\item Datamaskinen husker ting i form av \emph{variabler}, vi kan opprette variabler ved å gi dem navn og et innhold. Python gir også variabelen en type, som vi kan sjekke ved å bruke kommandoen \verb+type()+.
+	\item Vi kan lage lister ved hjelp av firkantparanteser: \verb+[+, \verb+]+. Lister er variabler som inneholder flere ting, de kan inneholde så mange elementer vi vil, av alle slag.
+	\item Når vi har laget en liste, så kan vi finne lengden på lista ved å bruke \verb+len()+, vi kan også legge til fler elementer med \verb+my_list.append()+, og vi kan gå inn og lese ut eller enkelte elementer ved indeksering: \verb+my_list[2]+. Husk at indekseringen begynner på 0. Så første element er \verb+my_list[0]+, andre element er \verb+my_list[1]+ og så videre.
 	\item For å skrive ut noe til terminalen kan vi bruke \verb+print+-kommandoen, vi kan skrive ut både variabler og tekststrenger.
-	\item Vi kan skrive ut flere ting etterhverandre hvis vi skiller dem med komman: \verb+print ting1, ting2+, eller vi kan skrive ut tekster som vi fyller inn med variabler: \verb+print "Hei, jeg heter %s" % name+.
+	\item Vi kan skrive ut flere ting etterhverandre hvis vi skiller dem med komma: \verb+print ting1, ting2+, eller vi kan skrive ut tekster som vi fyller inn med variabler: \verb+print "Hei, jeg heter %s" % name+.
 	\item Vi kan spørre brukeren et spørsmål med kommandoen \verb+raw_input()+, i parantesen skriver du spørsmålet som en tekststreng.
 	\item Det er lett å gjøre feil i programmering, men det gjør ingenting. Når vi kjører et program med feil i, får vi en feilmelding som prøver å fortelle oss hva som har gått galt.
 \end{itemize}
@@ -373,12 +466,32 @@ Når Python utfører denne kodelinja, så skrives spørsmålet i parantesen ut i
 \subsection*{Oppgave 1 --- Printing}
 \begin{itemize}
 	\item[(a)] Lag et program som skriver ut teksten ``Hello, World!'' til skjermen.
-	\item[(b)] Lag et program hvor du lagrer navnet ditt som en variabel, og deretter skriver ut lengden på navnet ditt med kommandoen \verb+len(name)+. \verb+len+-kommandoen sier hvor mange karakterer det er i en tekststreng.
+	\item[(b)] Lag et program hvor du lagrer navnet ditt som en variabel, og deretter skriver ut lengden på navnet ditt med kommandoen \verb+len(name)+.
 	\item[(c)] Lag et program som spør brukeren om navnet dems, og deretter skriv en beskjed tilbake som bruker navnet de har gitt. \\
 	\textbf{Hint:} Du kan spørre brukeren et spørsmål med \verb+raw_input+-kommandoen. 
 \end{itemize}
 
-\subsection*{Oppgave 2 --- Adjektivhistorie}
+\subsection*{Oppgave 2 --- Lister}
+Ta en titt på følgende program
+\begin{lstlisting}
+x = [1]
+x.append(2)
+x.append(3)
+print x 
+x[0] = 4
+print x
+print len(x)
+print type(x)
+print type(x[0])
+\end{lstlisting}
+\begin{itemize}
+	\item[(a)] Uten å faktisk kjøre programmet, hva tror du at utskriften fra denne koden kommer til å være?
+	\item[(b)] Kjør koden for å se om du hadde rett.
+\end{itemize}
+
+
+
+\subsection*{Oppgave 3 --- Adjektivhistorie}
 \begin{itemize}
 \item[(a)] Spør brukeren om 5 adjektiv og lagre dem i 5 forskjellige variable. \\
 	\textbf{Hint:} Adjektiv er beskrivende ord som for eksempel `liten' og `stor'.
@@ -388,7 +501,7 @@ Når Python utfører denne kodelinja, så skrives spørsmålet i parantesen ut i
 \item[(e)] Hvis alt funker som det skal kan du nå gjemme editoren din, kjør programmet og få en venn til å fylle ut adjektivene.
 \end{itemize}
 
-\subsection*{Oppgave 3 --- Lightbot}
+\subsection*{Oppgave 4 --- Lightbot}
 \begin{itemize}
 \item[(a)] Spill igjennom alle brettene.
 \item[(b)] \textbf{Utfordring}: Klarer du å løse brett 2--1 med bare 7 kommandoer? Hva med brett 2--2?
@@ -560,6 +673,229 @@ greet("Mary")
 \end{lstlisting}
 Funksjonen heter det samme som før, men nå står det ikke bare tomme paranteser, det står \verb+(name)+, dette betyr at funksjonen forventer at brukeren skal gi funksjonen noe input når man kaller på den. Slik input kalles for argumenter, vår funksjon forventer å få et navn som argument. Når du ser på koden inne i funksjonen skjønner du kanskje hvorfor, det funksjonen gjør er å skrive ut en beskjed som inneholder navnet man bruker til å kalle på funksjonen. Når du kaller på en funksjon som skal ha argumenter, så skriver du dem inn i parantesene når du kaller på funksjonen, slik som er vist i bunn av koden.
 
+Funksjonene jeg har vist deg hitil, har alle skrevet noe ut til terminalen, men det vi vanligvis vil at en funksjon skal gjøre, er å \emph{returnere} noe. At en funksjon returnerer noe vil rett og slett si at den gir noe tilbake, vi kan tenke på det som funksjonens \emph{output}. Tenk en stund på kvadratrotfunksjonen vi importerte fra \verb+math+-biblioteket. Vi importerer \verb+sqrt+, og det er faktisk en funksjon! Tenk på når du bruker den, da må du enten skrive ut resultatet med \verb+print+:
+\begin{lstlisting}
+print sqrt(4)
+\end{lstlisting}
+eller du kan lagre resultatet i en variabel
+\begin{lstlisting}
+result = sqrt(4)
+\end{lstlisting}
+Ta en titt på det siste tilfellet, her definerer vi en variabel som heter \verb+result+. Som forklart tidligere, vil Python her først regne ut det som er på høyre side av likehetstegnet, og så lagre resultatet i variabelen på venstre side av likhetstegnet. Spørsmålet er da: hva er egentlig resultatet av et funksjonskall? La oss se på et eksempel hvor vi bruker \verb+return+ i funksjonen vår
+\begin{lstlisting}
+def double(x):
+	return 2*x
+\end{lstlisting}
+Her definerer jeg en funksjon som heter \verb+double+, den tar et tall \verb+x+ inn, og \emph{returnerer} $2x$, altså det dobbelte. Jeg kan nå bruke \verb+double+ på alt av tall. Men her bør jeg passe meg litt. Hvis jeg bare skriver:
+\begin{lstlisting}
+double(2)
+\end{lstlisting}
+Så skjer det ingenting, det er fordi funksjonen selv ikke printer noe, jeg må istedet skrive 
+\begin{lstlisting}
+print double(2)
+\end{lstlisting}
+eller 
+\begin{lstlisting}
+result = double(2)
+print result
+\end{lstlisting}
+
+Når Python ser kommandoen \verb+print double(2)+, så må den først finne ut hva den skal skrive ut til terminalen, så den kjører koden i \verb+double+-funksjonen, der ganges $2\cdot2$ og vi får resultatet 4. Så returneres resultatet, altså tallet $4$. Det at resultatet returneres betyr at Python skjønner at det er dette som skal skrives ut til terminalen.
+
+Hvis vi istedet hadde laget double med en \verb+print+, istedet for en \verb+return+, sånn her:
+\begin{lstlisting}
+def double(x):
+	print 2*x
+\end{lstlisting}
+Så kan vi skrive bare
+\begin{lstlisting}
+double(2)
+\end{lstlisting}
+For å få skrevet ut resultatet til terminalen. Men nå vil dette gi et rart resultat
+\begin{lstlisting}
+result = double(2)
+print result
+\end{lstlisting}
+Hva er det egentlig som skjer her? Prøv å kjør programmet og se hva du får ut. Først får du skrevet ut tallet 4 til terminalen, dette skjer allerede i den første kodelinja når Python ser funksjonskallet til \verb+double+. Men så skal Python lagre resultatet i result, men siden vi ikke har noen \verb+return+-kommando i funksjonen vår, så vet ikke Python hva den skal lagre i \verb+result+, så derfor er \verb+result+ rett og slett en helt tom variabel. Når vi da på neste linje prøver å skrive ut \verb+result+, så står det bare \verb+None+.
+
+
+
+For å oppsummere. I Python så har alle funksjoner et navn, de kan ta null, en eller fler inputs og gi null, en eller flere outputs. All kode som skal være en del av koden må få et innrykk og for å returnere noe fra funksjonen (output) bruker du \verb+return+-kommandoen. Her er malen for en funksjon
+\begin{lstlisting}
+def my_function(input1, input2)
+	...
+	...
+	...
+	return output1, output2
+\end{lstlisting}
+
+Før vi går videre anbefaler jeg deg å tenke litt på hvorfor vi egentlig kaller det å returnere. Vel, en ting er jo at funksjonen gir noe tilbake, et resultat av noe slag, det er jo greit nok. Men det er også en annen grunn. Husk at jeg har forklart at Python alltid tolker koden din linje for linje, en kommando av gangen. Når du kaller på en funksjon, så utfører Python den koden som er definer inne i den funksjonen, så på en måte kan du tenke på det som at Python gjør er hopp i koden din, den hopper inn i funksjonskoden. Når du gir en \verb+return+-kommando, så sier du at funksjonen er ferdig. Det betyr at Python kan gå tilbake til det der den var i den originale koden og fortsette å tolke neste linje med kode, altså at den kan returnere til der den var. Dette konseptet illustreres ganske godt i Lightbot, der hver kommando som utføres lyser opp i programmet ditt! Når du bruker en funksjon, så ser du at hver kommando i funksjonsboksen lyser opp og utføres før programmet `returnerer' til hovedprogrammet og fortsetter.
+
+
+\subsection*{Funksjoner i matematikk}
+
+Jeg har nå vist deg litt hvordan du kan lage funksjoner i Python. Funksjoner er en av de viktigste konseptene i programmering, og nesten uansett hva slags program du skriver eller hvilket språk du bruker, kommer du til å bruke mye funksjoner. Men funksjoner er ikke bare viktig i programmering, det er også viktig i matematikk.
+
+I matematikken kan du tenke på en funksjon som en slags regel som gjør om et tall, til et annet tall. Eller du kan tenke på det som en slags maskin, du mater et tall, gjerne kalt $x$ inn en funksjon, ofte kalt $f$. Resultatet skriver vi $f(x)$, og du kan lese dette som `resultatet når funksjonen $f$ virker på tallet $x$'. Ofte så sier man bare `$f$ av $x$' for $f(x)$.
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width=0.6\textwidth]{function_blackbox}
+\end{figure}
+
+Et eksempel på en matematisk funksjon er for eksempel
+$$f(x) = x^2 + 2x + 1,$$
+Her definerer vi akkurat hva funksjonen vår gjør med et tall $x$. Vi kan nå sette inn for hva som helst av tall vi vil for $x$, her er et par eksempler
+\begin{align*}
+f(0) &= 0^2 + 2\cdot 0 + 1 = 1, \\
+f(1) &= 1^2 + 2\cdot 1 + 1 = 4, \\
+f(2) &= 2^2 + 2\cdot 2 + 1 = 9, \\
+\end{align*}
+
+Funksjoner er noe av det viktigste i matematikken, og det er på ungdomsskolen dere begynner å lære om dem. Når dere starter på videregående matematikk kommer det til å handle mye om funksjoner, og der lærer man om \emph{derivasjon} og \emph{integrasjon}, som handler mye om funksjoner. Hvis noen av dere en dag tar matematikk på et enda høyere nivå, kommer dere til å merke at det aller meste handler om funksjoner.
+
+Jeg kommer ikke til å gå mer inn på matematiske funksjoner i dette kurset, siden vi fokuserer på programmering, og ikke nødvendigvis matematikk. Men matematiske funksjoner og funksjoner i programmering har veldig mye til felles, og det å ha forståelse for matematikk kommer til å hjelpe mye når man skal skrive kode og visa versa.
+
+
+\section*{Oppsummering av uke 2}
+
+\begin{itemize}
+	\item Du kan bruke Python som en kalkulator med vanlige matematiske operasjoner: \verb!+!, \verb!-!, \verb!*! og  \verb!/!. Du kan ta potens med \verb!**!.
+	\item Du må være forsiktig når du bruker divisjon for Python bruker \emph{heltalls\-divisjon}. For å unngå dette må du definere minst et av tallene som inngår i divisjonen som et desimaltall
+	\item Python gjør kalkulasjoner i riktig matematisk rekkefølge. Du kan bruke paranteser for å bestemme rekkefølgen operasjonene gjøres i, akkurat som for hånd.
+	\item Likhetstegn betyr \emph{ikke} det samme i programmering som det gjør i matematikk. I programmering betyr likhetstegn bare at du oppretter en variabel, i matematikk betyr det rett og slett at to ting er helt like. For eksempel \verb!x=x+2! fungerer fint i programmering, men ikke i matte.
+	\item For mer avansert matematikk kan du importere ting fra et ekstrabibliotek. For eksempel kan du importere kvadratrot ved å skrive \begin{lstlisting}
+from math import sqrt
+	\end{lstlisting} På samme måte kan du importere konstanter som $\pi$.
+	\item Vi kan definere funksjoner i Python som fungerer som egne kommandoer. De kan ta input, og kan returnere et output. Etter vi har definert en funksjon, så kan vi kalle på den så mange ganger vi vil. Koden for å skrive en funksjon er strukturert som følger
+\begin{lstlisting}
+def my_function(input1, input2)
+	...
+	...
+	...
+	return output1, output2
+\end{lstlisting}
+
+\end{itemize}
+
+\clearpage
+
+\section*{Oppgaver til uke 2}
+
+\subsection*{Oppgave 1 --- Kalkulator}
+Regn ut følgende ting og skriv resultatene til terminalen.
+	\begin{itemize}
+		\item[(a)] $4\cdot5+2$
+		\item[(b)] $2^{10} $
+		\item[(c)] $(-1)\cdot(-1)$
+		\item[(d)] $\sqrt{36}$ \hspace{1cm} \textbf{Hint:} Du må importere \verb+sqrt+-funksjonen
+		\item[(e)] $2 + 3\cdot(4-1+7)$
+		\item[(f)] $\frac{1}{3} + \frac{2}{3}$
+	\end{itemize}
+Syns du resultatene ser rimelige ut?
+
+\subsection*{Oppgave 2 --- Gjett på resultatet}
+Ta en titt på følgende program
+\begin{lstlisting}
+y = 3
+print y 
+y = y + 4
+print y 
+y = y*y 
+print y
+\end{lstlisting}
+\begin{itemize}
+	\item[(a)] Uten å faktisk kjøre programmet, kan du si hva som vil vises i terminalen når programmet kjøres?
+	\item[(b)] Etter du har prøvd å gjette på hva som vil vises i terminalen, kjør koden og se om du hadde rett.
+\end{itemize}
+
+\section*{Oppgave 3 --- Finn feil!}
+Finn feilen i følgende program (det er en feil per program). Kjør gjerne programmet for å se feilmeldingen de produserer! Rett opp programmene så de fungerer som de skal.
+\begin{itemize}
+	\item[(a)] 
+\begin{lstlisting}
+name = Per 
+print "Hi there %s!" % name
+\end{lstlisting}
+
+\item[(b)] 
+\begin{lstlisting}
+x = 24
+y = 36
+print X + y
+\end{lstlisting}
+
+\item[(c)] 
+\begin{lstlisting}
+def greet(name)
+	print "Hi there %s" % name
+\end{lstlisting}
+
+\item[(d)] 
+\begin{lstlisting}
+location = "Oslo"
+temperature = -18
+print "The temperature in %s is now %s" % (location, temperature)
+\end{lstlisting}
+
+\item[(e)] 
+\begin{lstlisting}
+def double(x):
+	result = 2*x
+
+print double(2)
+\end{lstlisting}
+\end{itemize}
+
+\subsection*{Oppgave 4 --- Kvadrattall}
+Skriv en funksjon som tar et tall som input, og returnerer kvadrattallet. \\ \textbf{Hint:} Et kvadrattall er et tall ganget med seg selv, for eksmepel så er $3\cdot 3 = 9$, så 9 er kvadrattallet til 3.
+
+\subsection*{Oppgave 5 --- Temperaturomregning}
+For å regne oss om fra en temperatur oppgitt i grader Celsius $C$, til grader oppgitt i Fahrenheit $F$, bruker vi formelen
+$$F = \frac{9}{5}C + 32.$$
+
+\begin{itemize}
+	\item[(a)] Lag en funksjon som tar en temperatur i celsius som input, og returnerer temperaturen i Fahrenheit. \\
+	\textbf{Hint:} Funksjonen din bør se noe ut som dette (fyll inn for prikkene)
+	\begin{lstlisting}
+	def celsius_to_fahrenheit(C):
+		...
+		return F
+	\end{lstlisting}
+	\textbf{Hint:} Du kan kalle funksjonen din med for eksempel
+	\begin{lstlisting}
+	print celsius_to_fahrenheit(20)
+	\end{lstlisting}
+	\item[(b)] Sjekk at funksjonen din funker ved å vise at 
+	\begin{itemize}
+		\item[$\star$] 0$^\circ$ Celsius svarer til 32$^\circ$ Fahrenheit
+		\item[$\star$] $-40^\circ$ Celsius svarer til $-40^\circ$ Fahrenheit
+		\item[$\star$] $100^\circ$ Celsius svarer til $212^\circ$ Fahrenheit
+	\end{itemize}
+\end{itemize}
+
+
+% \section*{Oppgave 1}
+% \begin{itemize}
+%     \item[(a)] Lag et skript som skriver ut teksten "Hello, World!" til skjermen.
+%     \item[(b)] Lag et skript som skriver ut verdien av 4*5+2 til skjermen, blir resultatet annerledes om du skriver 2+4*5?
+%     \item[(c)] Lag et skript som regner ut $2^{10}$ og skriver resultatet til skjermen.
+%     \item[(d)] Lag et skript som regner ut $\sqrt{3}$ og skriver resultatet til skjermen. Her må du først importere \verb+sqrt+-kommandoen (squareroot) fra pylab.
+% \end{itemize}
+
+% \section*{Oppgave 2}
+% For å regne oss om fra en temperatur oppgitt i grader Celsius $C$, til grader oppgitt i Fahrenheit $F$, bruker vi formelen
+% $$F = \frac{9}{5}C + 32.$$
+% \begin{itemize}
+%     \item[(a)] Lag et skript som regner ut temperaturen i Fahrenheit for en gitt temperatur i Celsius.
+%     \item[(b)] Bruk skriptet til å finne ut hvor mange grader Fahrenheit disse tempraturene er: $20^\circ$, $0^\circ$, $-40^\circ$.
+% \end{itemize}
+
+% \section*{Oppgave 3}
+% \begin{itemize}
+%     \item[(a)] Skriv et skript der du lagrer et fornavn og et etternavn. Skriv ut en beskjed til personen.
+%     \item[(b)] Skriv også ut antall tegn i fornavnet og etternavnet. For å gjøre dette skal du bruke kommandoen \verb+len(name)+ som gir lengden av en tekststreng, det vil si, antall karakter. For eksempel gir \verb+len("Jonas")+, resultatet 5.
+% \end{itemize}
 
 
 \clearpage
@@ -577,10 +913,9 @@ Først så har vi Code Academy, en nettside som gir gratis nettkurs i mange fors
 
 \subsection*{Programmeringsnøtter fra Project Euler}
 
-Hvis du er ute etter en utfordring, så kan jeg anbefale Project Euler. Dette er en nettside som legger ut mattenøtter med en vri, vrien er at problemene skal løses med programmering. Ta en titt på oppgavene her, de stiger raskt i vansklighetsgrad, så start på de første
-fa
-!
-https://projecteuler.net/problems
+Hvis du er ute etter en utfordring, så kan jeg anbefale Project Euler. Dette er en nettside som legger ut mattenøtter med en vri, vrien er at problemene skal løses med programmering. Ta en titt på oppgavene her, de stiger raskt i vansklighetsgrad, så start på de første!
+
+\url{https://projecteuler.net/problems}
 
 
 
