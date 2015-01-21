@@ -4,12 +4,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc, url}
 \usepackage{textcomp}
-\usepackage{amsmath, amssymb}
-\usepackage{amsbsy, amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
 \usepackage{graphicx, color}
 \usepackage{parskip}
 \usepackage{framed}
-\usepackage{amsmath}
 \usepackage{xcolor}
 \usepackage{multicol}
 \usepackage{url}
@@ -94,7 +94,6 @@ breaklines=true}
 \newcommand{\eps}{\epsilon}
 \newcommand{\inner}[2]{\langle #1 , #2 \rangle}
 
-
 \newcommand{\bt}[1]{\boldsymbol{#1}}
 \newcommand{\mat}[1]{\textsf{\textbf{#1}}}
 \newcommand{\I}{\boldsymbol{\mathcal{I}}}
@@ -139,10 +138,17 @@ $$u' = -u.$$
 Known analytical solution
 \begin{align*}
 \frac{\d u}{\d x} = -u, \\
-\frac{1}{u} \du = -\d x, \\
-\ln u = -x + c, \\
-u(x) = Ce^{-x}.
+\frac{1}{u} \d u = -\d x, \\
+% \ln u = -x + c, \\
+% u(x) = Ce^{-x}.
 \end{align*}
+
+% \begin{align}
+% \frac{\d u}{\d x} = -u, \\
+% \frac{1}{u} \du = -\d x, \\
+% \ln u = -x + c, \\
+% u(x) = Ce^{-x}.
+% \end{align}
 
 Can calculate this as
 $$u_{i+1} = (1-\Delta x) u_i, \quad \forall x=1,2,3,4,5,\ldots.$$

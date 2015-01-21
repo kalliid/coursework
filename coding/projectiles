@@ -1,0 +1,19 @@
+In this workshop we will look at projectile motion. Broadly speaking, we can say the main goal of mechanics is to find the motion of objects as functions of time. We are usually looking for the velocity and displacement, which we will call $v(t)$ and $x(t)$ respectively. These are found from the equations of motions, which are examples of ordinary differential equations (ODEs). The equations of motions are: 
+$$v(t) = \frac{dx}{dt},$$
+$$a(t) = \frac{dv}{dt}.$$
+Where $a(t)$ is the acceleration of the object in question, which can be found from Newton's 2. law of motion $$F(x,v,t) = ma(t).$$ So if we can analyze the forces acting on an object, we find the acceleration and can solve the ODEs to find the motion of the object.  We will now look at how we can solve these ODEs using numerical methods in Python. 
+
+Let us start by looking at the velocity-equation, and assume that we know the acceleration of the object. Writing out the definition of the derivative yields
+$$v(t) = \frac{dx}{dt} = \lim_{\Delta t \to 0} \frac{x(t+\Delta t) - x(t)}{\Delta t}.$$
+If we don't take the real limit of $\Delta t$, but instead let $\Delta t$ be small, yet finite, we have the approximation 
+$$v(t) \approx \frac{x(t+\Delta t) - x(t)}{\Delta t}.$$
+This approximation is better the smaller $\Delta t$ is. We now solve this equation for $x(t+\Delta t)$ to find 
+$$x(t+\Delta t) \approx x(t) + v(t)\Delta t.$$
+
+
+
+
+
+
+
+ 

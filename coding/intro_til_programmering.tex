@@ -892,11 +892,313 @@ $$F = \frac{9}{5}C + 32.$$
 	\end{itemize}
 \end{itemize}
 
+
+\clearpage
+
+\section*{Programstruktur}
+
+Nå har dere jo begynnt å skrive en del kode. En ting som er viktig å huske på når man koder, er at man bør strukturere koden så den er så ryddig så mulig. All kode du skriver, bør være forståelig for andre som skulle lese den. Kode er jo egentlig skrevet for at en datamaskin skal forstå den, men det er også viktig at mennesker skjønner hva en kode gjør, ellers hjelper det ikke stort. Her er et populært sitat i programmeringsverden:
+\begin{itemize}
+	\item[] \emph{``Programs must be written for people to read, and only incidentally for machines to execute.''}
+\end{itemize}
+Selv om du er sikker på at du aldri skal dele koden din med noen, er det lurt å gjøre den forståelig og ryddig. En ting er at du gjør det lettere for deg selv å rette opp feil i programmet ditt. En annen ting er at det blir lettere for deg å gå tilbake til koden din senere og endre på ting eller å videreutvikle ting. 
+
+Så det er altså lurt å strukture koden din, så det er lett å lese, men hvordan gjør du egentlig det? La oss ta en titt
+
+\subsubsection*{Kommentarer}
+Det første du kan gjøre, er å skrive \emph{kommentarer} i koden. Kommentarer er deler av programmet ditt som Python ikke tolker som kode, og som ikke påvirker programmet ditt på noen måte. Det eneste kommentarer gjør, er å forklare hva som skjer til de som leser koden din. Du skriver kommentarer med \verb+#+-symbolet. Alt som står bak en \verb+#+ på en kode-linje tolkes som en kommentar, og vil ikke endre noe på programmet ditt. La oss se på noen eksempler
+\begin{lstlisting}
+# Ask the user for his or her name
+name = raw_input("Hi there, what's your name?")
+
+# Greet the user with a nice message
+print "Nice to meet you %s, I hope you have a great day!" % name
+\end{lstlisting}
+Når du kjører dette programmet, så fungerer det helt likt som hvis kommentarene ikke hadde vært der i det hele tatt, men de forklarer til en som leser koden hva som foregår.
+
+Et vanlig sted å ha kommentarer, er i begynnelsen av funksjoner, for å forklare hva en funksjon gjør
+\begin{lstlisting}
+def Fahrenheit2Celsius(F):
+	# Converts a temperature from degrees Fahrenheit to degrees Celsius
+	C = (5./9)*(F - 32)
+	return C
+\end{lstlisting}
+
+Hvis du vil ha en kommentar som går over flere linjer, kan du skrive det hvis du bruker tre apostroffer på hver side av kommentaren: \verb+"""+. En ting du kan bruke det til, er å forklare på starten av et lengre program, hva programmet ditt gjør.
+\begin{lstlisting}
+"""This is a comment 
+that covers 
+three lines in total"
+\end{lstlisting}
+
+\subsubsection*{Whitespace}
+
+En annen ting som er viktig for strukturen på et program, er det som kalles \emph{whitespace}. Whitespace er ganske enkelt forklart alt vi ikke kan se, så det betyr mellomrom, tabs og tomme linjer. I kode er det noen steder det går fint å legge inn ekstra mellomrom, og andre steder det ikke går. Hvis du lærer deg hvor det er greit å bruke litt ekstra `tomrom', så kan programmet ditt fort bli veldig mye finere.
+
+Du kan for eksempel alltid legge inn blanke linjer i et program. Python bryr seg ikke om blanke linjer. Ved å lage litt pusterom mellom forskjellige deler av et program, så blir det for mye mer leselig. Se for eksempel på følgende programmer
+
+\begin{lstlisting}
+from math import sqrt
+number=raw_input("Please give me a number!")
+root=sqrt(number)
+print "The square root of your number is %d" % root
+\end{lstlisting}
+
+\begin{lstlisting}
+from math import sqrt
+
+number = raw_input("Please give me a number!")
+root = sqrt(number)
+
+print "The square root of your number is %d" % root
+\end{lstlisting}
+
+De to programmene er akkurat samme kode, jeg har bare lagt inn noen ekstra mellomrom og blanke linjer i det siste programmet. Jeg syns ihvertfall det siste programmet er mye mer oversiktelig og leselig enn det første. I programmer med flere hundre kodelinjer er tomrom som dette utrolig viktig, så man får litt `pusterom' når man leser koden.
+
+
+
+\section*{Random}
+
+Mange dataprogrammer har elementer av tilfeldigheter innebygget. Et godt eksempel er spill, men det er også viktig i datasikkerhet og brukes mye i vitenskaplige simuleringer. Du skal nå få lære hvordan vi kan lage tilfeldigheter i programmet ditt.
+
+Vi kommer til å bruke biblioteket \verb+random+ for å få det vi trenger av funkjsoner. Navnet `Random' er engelsk og betyr `tilfeldig'. Husk at du kan importere enkelte funksjoner fra et bibliotek med \verb+import+. Sånn at hvis du vil for eksempel ha funksjonen \verb+randint+ (vi viser snart hva denne gjør) fra biblioteket \verb+random+ skriver du
+\begin{lstlisting}
+from random import randint
+\end{lstlisting}
+
+Hvis du vet at du kommer til å bruke mange forskjellige funksjoner fra et biblotek, så kan du istedet skrive
+\begin{lstlisting}
+from random import *
+\end{lstlisting}
+Stjernetegnet betyr at vi importerer alle funksjoner fra et bibliotek.
+
+\subsection*{Rulle terning}
+
+La oss nå se på hva funksjonen \verb+randint+ faktisk gjør. Navnet på funksjonen \verb+randint+ er en sammentrekkning av `random integer', den gir oss altså et tilfeldig heltall. Funksjonen tar to argumenter inn, to heltall $a$ og $b$. Funksjonen returnerer et heltall fra og med $a$ til og med $b$. La oss lage et enkelt program som ruller en vanlig seks-sidet terning
+\begin{lstlisting}
+from random import randint
+
+# Rolling a die
+result = randint(1,6)
+print result
+\end{lstlisting}
+Når programmet kjøres, så vil \verb+randint+ returnere et tall fra 1 til 6, og vi skriver ut resultatet. Hvis du kjører programmet mange ganger etterhverandre, så vil du se at du får et tilfeldig resultat hver gang.
+
+Vi kan selfølgelig bruke andre argumenter inn til randint for å simulere alle slags forskjellige `terninger'.
+\begin{lstlisting}
+from random import randint
+
+# 20-sided die
+print randint(1,20)
+
+# Coin-flip
+print randint(0,1)
+
+# Two six-sided dice
+print randint(1,6) + randint(1,6)
+\end{lstlisting}
+I dette programmet bruker vi randint på tre forskjellige måter. 
+
+Et par andre funksjoner fra \verb+random+ er laget for å virke på lister. Vi har for eksempel \verb+shuffle+, som rett og slett stokker om på elementene i en liste så de ligger i en tilfeldig rekkefølge.
+\begin{lstlisting}
+from random import shuffle
+
+numbers = [1, 2, 3, 4, 5]
+shuffle(numbers)
+
+print numbers
+\end{lstlisting}
+Mens funksjonen \verb+choice+ trekker et tilfeldig element fra en liste. Vi kan for eksempel bruke \verb+choice+ til å holde et lotteri
+\begin{lstlisting}
+from random import choice
+
+students = ["Lisa", "Marcus", "Jake", "Mary", "Molly", "Blake", "Kane"]
+winner = choice(students)
+
+print winner
+\end{lstlisting}
+
+\subsubsection*{Eksempel: Kortstokk}
+
+La oss se på hvordan vi kan bruke lister og shuffle til å lage en kortstokk som kan brukes til å lage kortspill. Hvis vi lar vært kort i en kortstokk være representert av en tekststreng på to bokstaver, der den første er fargen og den andre valøren. Vi bruker engelske navn for enkelhetens skyld (på norsk bruker f.eks knekt og konge samme bokstav, osv). For eksempel skriver vi spar-6 som `s6' og kløver dame some `cQ'. Vi kan da definere en kortstokk på følgende måte (merk at kortstokk heter `deck' på engelsk)
+\begin{lstlisting}
+from random import shuffle
+
+# Define our complete deck of cards
+deck=[
+'s2', 'c2', 'd2', 'h2', 's3', 'c3', 'd3', 'h3', 's4', 'c4', 'd4', 'h4',
+'s5', 'c5', 'd5', 'h5', 's6', 'c6', 'd6', 'h6', 's7', 'c7', 'd7', 'h7',
+'s8', 'c8', 'd8', 'h8', 's9', 'c9', 'd9', 'h9', 'sT', 'cT', 'dT', 'hT',
+'sJ', 'cJ', 'dJ', 'hJ', 'sQ', 'cQ', 'dQ', 'hQ', 'sK', 'cK', 'dK', 'hK']
+
+# Randomize the order of the cards
+shuffle(deck)
+\end{lstlisting}
+Ved å behandle listen som representerer kortstokken kan vi dele ut kort til spillere, fjerne kort, legge til kort, stokke og lignende. Vi har altså tatt første steg mot å lage et kortspill! Her måtte vi skrive ut hele kortstokken selv, men vi skal senere se en lur måte vi kan spare en del jobb og la kortstokken lage seg selv.
+
+La meg vise deg noen kjappe måter å manipulere kortstokken på. Hvis du har en liste, kan du bruke \verb+.pop()+ til å fjerne siste element i lista, dette blir altså som å trekke et kort fra kortstokken:
+\begin{lstlisting}
+print len(deck)
+print deck.pop()
+print len(deck)
+\end{lstlisting}
+Så først har variabelen deck, som inneholder alle de 52 forskjellige kortene i en tilfeldig rekkefølge. Vi trekker så ut siste kortet i listen, skriver det til skjerm, og ser da at listen bare er 51 lang, det er fordi `pop' faktisk fjerner kortet, akkurat som når du trekker et kort fra en kortstokk. La oss trekke en pokerhånd på 5 kort, vi lar hånda vår være representert som en egen liste
+\begin{lstlisting}
+# Make an empty list for our hand, so we have somewhere to put our cards
+hand = []
+
+# Draw 5 cards from the deck and put them into our hand
+hand.append(deck.pop())
+hand.append(deck.pop())
+hand.append(deck.pop())
+hand.append(deck.pop())
+hand.append(deck.pop())
+
+# Look at our hand
+print hand
+\end{lstlisting}
+Igjen finnes det flere måter å gjøre denne koden bedre og mer elegant på, som dere snart skal lære---men dette viser hvordan vi kan begynne å lage spill fra bunn av på datamaskinen.
+
+
+
+\clearpage
+
+\section*{Tester}
+
+Du har nå sett hvordan du kan få tilfeldige tall i programmet ditt, la oss nå se på hvordan du kan få programmet ditt til å gjøre forskjellige ting basert på resultatet. For å gjøre det trenger vi det vi kaller for `if'-tester. Grunntanken med `if'-tester, er at datamaskinen kan sjekke om noe stemmer eller ikke---vi kan spesifsere betingelser for at noe skal skje.
+
+La oss starte med et eksempel
+\begin{lstlisting}
+from random import randint
+
+result = randint(1,6)
+
+if result == 6:
+	print "You won the prize! Congratulations!"
+else:
+	print "Sorry, you lost. Better luck next time!"
+\end{lstlisting}
+I dette programmet importerer vi først funksjonen \verb+randint+ fra \verb+random+, og bruker den til å trekke et tilfeldig tall mellom 1 og 6. Så bruker vi en \verb+if+-test, slik at programmet skriver ut en beskjed hvis resultatet ble 6, og en annen beskjed hvis resultatet ble 1 til 5. Hvis ser at programmet forgrener seg og gjør enten en ting, eller noe annet. Kodelinjen vi bruker for å få til dette er
+\begin{lstlisting}
+if result == 6:
+\end{lstlisting}
+Nøkkelordet her er \verb+if+. Ordet `if' betyr jo `hvis'. Så vi sier `hvis resultatet er 6, gjør dette'. Merk at vi bruker to likhetstegn på rad, dette er fordi et enkelt likhetstegn brukes for å lage variabler i Python, så vi bruker to likhetstegn for å si at to ting er like. En annen måte vi kunne skrevet betingelsen på er
+\begin{lstlisting}
+if result is 6:
+\end{lstlisting}
+Altså betyr \verb+is+ og \verb+==+ det samme. Vi ser at etter \verb+if+-testen, så har \verb+print+-kommandoen fått et innrykk, akkurat som når vi lager funksjoner. All kode som har fått et innrykk er en del av det vi kaller \verb+if+-blokken. Koden i \verb+if+-blokken kjøres kun hvis betingelsen stemmer. Hvis betingelsen \emph{ikke} stemmer, så kjører vi istedet all kode som hører til \verb+else+-blokken. `Else' betyr ellers, altså er `if-else' kode enten-eller. Enten gjør vi den ene tingen, eller så gjør vi den andre---vi gjør aldri begge deler.
+
+En \verb+if+-test skrives altså generelt
+\begin{lstlisting}
+if condition:
+	do some things
+else:
+	do some other things
+\end{lstlisting}
+Du trenger ikke alltid en \verb+else+-blokk, kanskje du vil skrive ut en beskjed til brukeren bare hvis man ruller 6. Da dropper du bare \verb+else+-blokken. 
+
+\begin{figure}[tpb]
+	\centering
+	\includegraphics[width=\textwidth]{if_else}
+	\caption{Her er en figur som viser programflyten i et program med en test. På venstre side ser du en test med både en \texttt{if}- og en \texttt{else}-blokk, mens til høyre er det bare en \texttt{if}-blokk.}
+\end{figure}
+
+\clearpage
+\section*{Løkker}
+
+Vi skal nå se på noe vi kaller `løkker', som kommer til å spare oss for masse jobb. En `løkke' er enkelt forklart noe som lar oss gjenta kode, litt på samme måte som en funksjon. Det finnes to typer løkker i Python, og vi kaller de \verb+for+- og \verb+while+-løkker. La oss starte med å se på \verb+for+-løkker.
+
+\subsubsection*{For-løkker}
+
+En for-løkke gjentar en bit med kode for hvert element i en liste. La oss for eksempel se på en liste med navn på elever i en klasse, vi kan da gjør for eksempel dette
+
+\begin{lstlisting}
+students = ["Mary", "James", "Siri", "Alesha"]
+
+for name in students:
+	print "The name %s has %i characters" % (name, len(name)) 
+\end{lstlisting}
+Denne koden skriver ut en bestemt melding for hvert navn i lista, der meldingen avhenger av navnet. Utskriften vi får er som følger
+\begin{verbatim}
+The name Mary has 4 characters
+The name James has 5 characters
+The name Siri has 4 characters
+The name Alexander has 9 characters
+The name Elizabeth has 9 characters
+\end{verbatim}
+Så vi ser at hvert navn i lista blir skrevet ut til terminalen, på hver sin linje. I hvert tilfelle blir det også skrevet ut hvor mange karakterer det er i navnet.
+
+En for-løkke må alltid begynnes med nøkkelorder \verb+for+, derav navnet. Det som står rett etter \verb+for+-nøkkelordet skal være navnet på en variabel som skal opprettes, du bestemmer dette navnet, og det kan være hva som helst. Så kommer nøkkelordet \verb+in+, så må det være en liste og til slutt kolon, \verb+:+. Altså kan en \verb+for+-løkke startes som dette
+\begin{lstlisting}
+for my_chosen_name in some_list:
+\end{lstlisting}
+Koden som følger får et innrykk, akkurat som for tester og funksjoner. All kode som har et innrykk hører til løkken, og kommer til å bli gjentatt for hvert element i lista. For hvert element, så leser Python ut innholdet av det elementet og legger inn i variabelen vi her har kalt \verb+my_chosen_name+. Altså, elementet i lista brukes ved at du gir den navnet du har spesifisert i definisjonen av for-løkka. La oss tegne en kjapp skisse
+
+\begin{centering}
+	\includegraphics[width=\textwidth]{for_loop}
+\end{centering}
+
+La oss se på et par eksempler vi kan kjøre
+\begin{lstlisting}
+for i in [1, 2, 3, 4]:
+	print i**2
+\end{lstlisting}
+Her sier jeg at vi skal løkke over listen \verb+[1, 2, 3, 4]+, og for hvert element som behandles skal vi kalle det \verb+i+. Det vi gjør med vært element er å skrive ut kvadratet av tallet. Resultatet blir som følger
+\begin{verbatim}
+1
+4
+9
+16
+\end{verbatim}
+
+\clearpage
+
+\section*{Oppgaver til uke 3}
+
+\subsection*{Oppgave 1 --- Terningkast}
+Bruk funksjonen \verb+randint+ til å simulere følgende terningkast
+\begin{itemize}
+	\item[(a)] En sekssidet terning
+	\item[(b)] En 20-sidet terning
+	\item[(c)] Tre sekssidede terninger
+	\item[(d)] Tre mynter
+\end{itemize}
+
+\subsection*{Oppgave 2 --- Lotto}
+
+I vanlig Lotto ved Norsk tipping trekkes det syv hovedtall fra totalt 34 tall, i tilegg trekkes det 3 bonustall. Du skal lage et program som simulerer dette.
+
+\begin{itemize}
+	\item[(a)] Definer en liste av de forskjellige lotto-tallene.
+	\item[(b)] Bruk \verb+.pop()+ til å trekke ut 7 hovedtall og 3 bonustall.
+	\item[(c)] Skriv ut hovedtallene til skjermen, så bonustallene.
+	\item[(d)] Bestem deg for en lotto-rekke (det vil si syv tall) og skriv ned på papir. Kjør programmet ditt 5 ganger, hva er det beste resultatet for rekka du valgte?
+\end{itemize}
+
+\subsection*{Oppgave 3 --- }
+\subsection*{Oppgave 4 --- }
+\subsection*{Oppgave 5 --- }
+\subsection*{Oppgave 6 --- }
+
+
+
+
+\subsection*{Oppgave 7 --- Fibonacci-tall (OBS! Utfordrende)}
+
+Fibonnaci-tallene starter som dette
+$$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \ldots$$
+Måten vi finner neste tallet i rekken er at vi legger de to forrige tallene sammen. Neste tall i rekka blir altså $89+144 = 233$. Skrevet mer matematisk, så kan vi si at det $n$-te Fibonnaci-tallet er gitt ved
+$$F_n = F_{n-1} + F_{n-2},$$
+der $F_1 = 1$ og $F_2 = 2$. 
+
+Skriv en funksjon som tar $n$ som argument, og returnerer det $n$-te Fibonnaci-tallet. \textbf{(Spør gjerne om hjelp her!)}
+
+
+
+
 \clearpage
 
 % \section*{Tester}
-
-% \section*{Random}
 
 % \subsection*{Spill!}
 
@@ -2038,5 +2340,4 @@ Hvis du er ute etter en utfordring, så kan jeg anbefale Project Euler. Dette er
 \end{document}
 
 
-“Programs must be written for people to read, and only incidentally for machines to execute.” 
 

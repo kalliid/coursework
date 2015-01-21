@@ -12,7 +12,7 @@ def draw_grid(grid, ax=None, test=False):
 		ax.set_aspect('equal', 'box')
 		ax.xaxis.set_major_locator(plt.NullLocator())
 		ax.yaxis.set_major_locator(plt.NullLocator())
-		ax.set_xticks(range(10))
+		ax.set_xticks(range(10))f
 		ax.set_yticks(range(10))
 		ax.set_title("Battleship!", fontsize=26)
 		ax.set_xlabel('X-coordinate', fontsize=22)

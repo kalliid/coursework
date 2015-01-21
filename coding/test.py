@@ -1,3 +1,4 @@
-location = "Oslo"
-temperature = -18
-print "The temperature in %s is now %i" (location, temperature)
+students = ["Mary", "James", "Siri", "Alexander", "Elizabeth"]
+
+for name in students:
+	print "The name %s has %i characters" % (name, len(name)) 
