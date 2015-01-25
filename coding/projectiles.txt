@@ -39,4 +39,7 @@ The examples we have looked at so far has states $v$ and $x$ as scalars, but oft
 
 
 
- 
+Examples
+
+A baseball is hit so that it has a speed of $v_0 = 60$ m/s at a height of 1 m above the ground. The baseball is travelling at a 30 % incline relative to the ground.
+
