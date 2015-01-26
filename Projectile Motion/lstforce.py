@@ -5,5 +5,5 @@ C_D = 0.45 # drag coefficient
 d = 0.11 # diameter of cannonball, m
 A = pi*d**2 # cross-sectional area, m^2
 
-def F(x, v, t):
-	return -(0, m*g) - 0.5*rho*C_D*A*abs(v)*v
+def F(r, v, t):
+	return (0, -m*g) - 0.5*rho*C_D*A*abs(v)*v

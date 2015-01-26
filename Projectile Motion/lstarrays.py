@@ -17,5 +17,5 @@ v = zeros((2, N+1))
 r = zeros((2, N+1))
 
 # Set initial conditions
-v[0] = (10,0) # inital velocity, m/s
+v[0] = (100*cos(pi/6), 100*sin(pi/6)) # inital velocity, m/s
 r[0] = (0,1)  # initial position, m
