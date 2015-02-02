@@ -1,4 +1,5 @@
-from pylab import *
+import numpy as np 
+import matplotlib.pyplot as plt
 
 # Define physical constants used in the problem
 m = ...
@@ -13,15 +14,15 @@ t_end = ...  # End time, s
 N = ... # Number of time steps
 
 # Create a uniformly spaced time-array
-t = linspace(t_0, t_end, N+1)
+t = np.linspace(t_0, t_end, N+1)
 
 # Calculate the size of a time step
 dt = t[1] - t[0]
 
 # Create empty acceleration, velocity and position arrays
-a = zeros((2,N+1))
-v = zeros((2,N+1))
-r = zeros((2,N+1))
+a = np.zeros((2,N+1))
+v = np.zeros((2,N+1))
+r = np.zeros((2,N+1))
 
 # Set initial conditions
 v[0] = ... # inital velocity, m/s

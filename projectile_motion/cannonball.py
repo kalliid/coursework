@@ -48,7 +48,7 @@ def Fd(r, v, t):
 def Fg(r, v, t):
 	return array((0, -m*g))
 
-for theta in pi/12., pi/6., pi/4., pi/3.:
+for theta in pi/3., pi/4., pi/6., pi/12.:
 	x, y = cannonball(Fd, theta)
 	plot(x,y)
 
@@ -58,7 +58,7 @@ ylabel('Vertical distance, [m]')
 title('Trajectory of a fired cannonball')
 grid()
 axis([0, 550, 0, 250])
-legend(["15 Deg", "30 deg", "45 deg", "60 deg"])
+legend(["60 deg", "45 Deg", "30 deg", "15 deg"])
 
 # Makes the plot appear on the screen
 savefig('plot_cannonball3.pdf')
