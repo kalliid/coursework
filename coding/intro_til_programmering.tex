@@ -1106,14 +1106,98 @@ Du trenger ikke alltid en \verb+else+-blokk, kanskje du vil skrive ut en beskjed
 \clearpage
 \section*{Løkker}
 
-Vi skal nå se på noe vi kaller `løkker', som kommer til å spare oss for masse jobb. En `løkke' er enkelt forklart noe som lar oss gjenta kode, litt på samme måte som en funksjon. Det finnes to typer løkker i Python, og vi kaller de \verb+for+- og \verb+while+-løkker. La oss starte med å se på \verb+for+-løkker.
+Løkker er det siste konseptet vi kommer til å gå igjennom i dette kurset. En løkke er en del kode som gjentar seg selv. Hvis vi vil at programmet vårt skal gjøre det samme mange ganger på rad, så må vi lage en løkke. Det finnes to typer løkker, vi kaller dem for \verb+while+- og \verb+for+-løkker. Vi komme til å se på begge to, men la oss starte med \verb+while+-løkker.
 
-\subsubsection*{For-løkker}
+\subsection*{While-løkker}
 
-En for-løkke gjentar en bit med kode for hvert element i en liste. La oss for eksempel se på en liste med navn på elever i en klasse, vi kan da gjør for eksempel dette
+En \verb+while+-løkke ligner veldig på en \verb+if+-test, fordi den sjekker en betingelse på samme måte som en \verb+if+-test. Den store forskjellen er at en \verb+while+-løkke vil gjenta seg selv helt til betingelsen blir falsk.
 
+\begin{figure}[htpb]
+\centering
+\includegraphics[width=\textwidth]{while_loop}
+\end{figure}
+
+La oss se på et eksempel som viser forskjellen på en \verb+if+ og en \verb+while+. La oss lage et spill hvor vi ruller en terning. Hvis du ruller en sekser, så vinner du, ellers taper du. Først lager vi spillet med en \verb+if+-test.
 \begin{lstlisting}
-students = ["Mary", "James", "Siri", "Alesha"]
+from random import randint
+
+# Roll a die
+result = randint(1,6)
+if result != 6:
+	print "You rolled a %i, no prize for you this time." % result
+else:
+	print "You rolled a six! Great job!"
+\end{lstlisting}
+Når programmet kjøres, så trekker vi et tilfeldig tall mellom 1 og 6, så bruker vi en \verb+if+-test til å skille på resultatet. Hvis resultatet er fra 1 til 5 så skrives beskjeden i \verb+if+-blokken ut, og hvis resultatet er 6 så skrives beskjeden i \verb+else+-blokken ut. Hver gang programmet kjøres, så vil det rulles et nytt tilfeldig resultat, men uansett hva som skjer, så rulles terningen bare 1 gang, og det skrives bare ut 1 beskjed.
+
+\clearpage 
+Nå lager vi spillet med en \verb+while+-løkke
+\begin{lstlisting}
+from random import randint
+
+# Roll a die
+result = randint(1,6)
+
+while result != 6:
+	print "You rolled a %i, no prize for you this time." % result
+	result = randint(1,6)
+
+print "You rolled a six! Great job!"
+\end{lstlisting}
+Når dette programmet kjøres, så vil igjen et tilfeldig tall trekkes. Hvis tallet er 6, så er betingelsen ``\verb+result != 6'' i \verb+while+-løkka falsk, og vi hopper over all koden i løkken. Dermed går programmet rett til siste linje av programmet som skriver ut vinner-beskjeden. Hvis vi derimot ruller fra 1 til 5, så er betingelsen sann, og da kjøres koden i løkka. Vi skriver først ut taper-beskjeden, \emph{og så ruller vi terningen på nytt}. Etter koden inne i løkka er skrevet ut, sjekkes betingelsen på nytt. Hvis vi nå rullet fra 1 til 5 på nytt, så er betingelsen sann og løkka kjøres på nytt. Sånn fortsetter det helt til vi ruller en 6'er og vinner. Her er et resultat jeg fikk når jeg kjørte på programmet
+\begin{verbatim}
+You rolled a 1, no prize for you this time.
+You rolled a 4, no prize for you this time.
+You rolled a 5, no prize for you this time.
+You rolled a 5, no prize for you this time.
+You rolled a six! Great job!
+\end{verbatim}
+Her rullet jeg altså først 1, så 4, så 5, så 5 og til slutt 6. Merk at med \verb+while+-testen vet vi ikke hvor mange ganger vi kommer til å kaste terningen, mens med \verb+if+-testen så rullet vi terningen bare 1 gang, alltid. 
+
+La oss se på et nytt eksempel. Denne gangen kan vi se på hvor mange ganger vi må dobble et tall før det blir større en 1 million
+\begin{lstlisting}
+i = 0 # number of doublings
+n = 1 
+
+while n < 1000000:
+	i = i + 1
+	n = n*2
+	print "After %i doublings, the number is: %i" % (i, n)
+\end{lstlisting}
+Og resultatet blir som følger
+\begin{verbatim}
+After 1 doublings, the number is: 2
+After 2 doublings, the number is: 4
+After 3 doublings, the number is: 8
+After 4 doublings, the number is: 16
+	.
+	.
+	.
+After 19 doublings, the number is: 524288
+After 20 doublings, the number is: 1048576
+\end{verbatim}
+Det som skjer i programmet er at \verb+while+-løkka kjøres helt til tallet $n$ blir større en 1 million, hver gang løkka kjøres, så blir $n$ dobbelt så stor. Samtidig lar vi tallet $i$ bli 1 en større hver gang løkka kjøres, det lar oss skrive ut til skjermen hvor mange ganger løkka har kjørt.
+
+\subsubsection*{Uendelige løkker}
+Men en \verb+while+-løkke er det veldig enkelt å lage en uendlig løkke. Tenk deg for eksempel programmet
+\begin{lstlisting}
+from random import randint
+
+result = randint(1,6)
+
+while result != 6:
+	print result
+\end{lstlisting}
+Her er idéen at vi skal rulle en terning helt til vi får 6. Problemet er at vi glemmer å rulle terningen på nytt inne i løkka! Hvis du kjører programmet nå, og for eksempel ruller 3, så vil programmet bare skrive ut resultatet til skjerm på nytt og på nytt uendelig lenge. Siden terningen aldri rulles på nytt, så vil betingelsen alltid være sann og programmet kommer aldri ut av løkka.
+
+Hvis du lager et slikt program ved uhell, så må du avbryte det selv. Akkurat hvordan det gjøres avhenger av hvilken platform og hvilke verktøy du bruker. I Canopy, så kan du avbryte programmer ved å gå inn å toppmenyen ``Run'' og så klikke på ``Interrupt Kernel'' eller eventuelt ``Restart Kernel''. Hvis alt låser seg, så må du rett og slett restarte hele Canopy. Det er ganske slitsomt når ting låser seg, så du bør være forsiktig med å lage uendelige løkker!
+
+
+\subsection*{For-løkker}
+
+En \verb+for+-løkke gjentar også en bit med kode om og om igjen, akkurat som en \verb+while+-løkke. Men istedenfor å gjøre det helt til en betingelse er usann, så må en \verb+for+-løkke vite akkurat hvor mange ganger vi skal gjenta koden. En bedre måte å si det på er at \verb+for+-løkke gjentar en bit med kode for hvert element i en liste. La oss for eksempel se på en liste med navn på elever i en klasse, vi kan da gjør for eksempel dette
+\begin{lstlisting}
+students = ["Mary", "James", "Siri", "Alexander", "Elizabeth"]
 
 for name in students:
 	print "The name %s has %i characters" % (name, len(name)) 
@@ -1126,30 +1210,165 @@ The name Siri has 4 characters
 The name Alexander has 9 characters
 The name Elizabeth has 9 characters
 \end{verbatim}
-Så vi ser at hvert navn i lista blir skrevet ut til terminalen, på hver sin linje. I hvert tilfelle blir det også skrevet ut hvor mange karakterer det er i navnet.
+Så vi ser at koden i løkka blir kjørt for hvert navn i lista. Ettersom at students er en liste med 5 elementer, så kjøres koden i løkka 5 ganger.
 
-En for-løkke må alltid begynnes med nøkkelorder \verb+for+, derav navnet. Det som står rett etter \verb+for+-nøkkelordet skal være navnet på en variabel som skal opprettes, du bestemmer dette navnet, og det kan være hva som helst. Så kommer nøkkelordet \verb+in+, så må det være en liste og til slutt kolon, \verb+:+. Altså kan en \verb+for+-løkke startes som dette
+En \verb+for+-løkke begynnes alltid med nøkkelorder \verb+for+. Det som står rett etter \verb+for+ er navnet på elementet vi behandler, i koden over er elementene i lista navn, og det er det vi skriver ut. Du kan selv velge hva du kaller elementet du behandler, og det kan være hva som helst. Etter navnet på det bestemte elementet kommer nøkkelorder \verb+in+ så sluttes det helte med en liste og et kolon: \verb+:+. Altså kan en \verb+for+-løkke startes som dette
 \begin{lstlisting}
-for my_chosen_name in some_list:
+for my_element in some_list:
 \end{lstlisting}
-Koden som følger får et innrykk, akkurat som for tester og funksjoner. All kode som har et innrykk hører til løkken, og kommer til å bli gjentatt for hvert element i lista. For hvert element, så leser Python ut innholdet av det elementet og legger inn i variabelen vi her har kalt \verb+my_chosen_name+. Altså, elementet i lista brukes ved at du gir den navnet du har spesifisert i definisjonen av for-løkka. La oss tegne en kjapp skisse
+Koden som følger får et innrykk, akkurat som for tester og funksjoner. All kode som har et innrykk hører til løkken, og kommer til å bli gjentatt for hvert element i lista. Hver gang løkka kjøres, så vil innholdet i variabelen \verb+my_element+ være det neste elementet i lista, og koden som utføres vil derfor utføres på et nytt element hver gang. La oss tegne en kjapp skisse
 
 \begin{centering}
 	\includegraphics[width=\textwidth]{for_loop}
 \end{centering}
 
-La oss se på et par eksempler vi kan kjøre
+La oss se på et nytt eksempel
 \begin{lstlisting}
 for i in [1, 2, 3, 4]:
 	print i**2
 \end{lstlisting}
-Her sier jeg at vi skal løkke over listen \verb+[1, 2, 3, 4]+, og for hvert element som behandles skal vi kalle det \verb+i+. Det vi gjør med vært element er å skrive ut kvadratet av tallet. Resultatet blir som følger
+Her sier jeg at vi skal løkke over listen \verb+[1, 2, 3, 4]+, og for hvert element som behandles skal vi kalle det \verb+i+. Det vi gjør med hvert element er å skrive ut kvadratet av tallet. Resultatet blir som følger
 \begin{verbatim}
 1
 4
 9
 16
 \end{verbatim}
+
+Et annet mulig eksempel kan være å summere tallene fra 1 til 10:
+\begin{lstlisting}
+s = 0
+for i in [1,2,3,4,5,6,7,8,9,10]:
+	s += i
+
+print s
+\end{lstlisting}
+
+
+I det siste tilfellet løkker vi over tallene 1 til 4. Det er ofte vi har lyst til å løkke over en liste med tall, og det kan være slitsomt å skrive ut disse listene. Tenk deg for eksempel at du vil løkke over tallene fra 1 til 100 og summere dem, det er en veldig slitsom liste å skrive. Heldigivs finnes det en funksjon som gjør dette for deg, den heter \verb+range+. Range tar to 
+argumenter: \verb+range(start, stop)+, og returnerer listen med tall fra og med start til (men ikke med!) stop. La oss se på noen eksempler
+\begin{lstlisting}
+print range(1,10)
+\end{lstlisting}
+\vspace{-0.5cm}
+\begin{verbatim}
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+\end{verbatim}
+\begin{lstlisting}
+print range(2,8)
+\end{lstlisting}
+\vspace{-0.5cm}
+\begin{verbatim}
+[2, 3, 4, 5, 6, 7]
+\end{verbatim}
+
+Vi kan også legge med et tredje argument, som gir økningen fra hvert tall til det neste
+\begin{lstlisting}
+print range(1,13,2)
+\end{lstlisting}
+\vspace{-0.5cm}
+\begin{verbatim}
+[1, 3, 5, 7, 9, 11]
+\end{verbatim}
+
+Vi kan nå forenkle sumeringen av tallene fra 1 til og med 10 til følgende
+\begin{lstlisting}
+s = 0
+for i in range(1,11):
+	s += i
+
+print s
+\end{lstlisting}
+Og vi kan summere alle heltall under 1000 som følger
+\begin{lstlisting}
+s = 0
+for i in range(1,1000):
+	s += i
+
+print s
+\end{lstlisting}
+
+Med range kan vi også lett gjenta en kodebit et gitt antall ganger. Tenk for eksempel på kortstokken vår tidligere, vi trakk 5 kort fra kortstokken med følgende kode
+\begin{lstlisting}
+hand.append(deck.pop())
+hand.append(deck.pop())
+hand.append(deck.pop())
+hand.append(deck.pop())
+hand.append(deck.pop())
+\end{lstlisting}
+Denne koden kan vi også skrive som følger
+\begin{lstlisting}
+for i in range(5):
+	hand.append(deck.pop())
+\end{lstlisting}
+Her løkker vi over lista \verb+[0,1,2,3,4]+, men koden vi kjører gjør ikke noe med elementene i lista, det er bare et lite triks vi bruker for å slippe å gjenta koden vår mange ganger.
+
+La oss se på hvordan vi kan forenkle det å lage kortstokken. Sist gjorde vi det bare ved å skrive ut alle mulige kort i kortstokken
+\begin{lstlisting}
+from random import shuffle
+
+# Define our complete deck of cards
+deck=[
+'s2', 'c2', 'd2', 'h2', 's3', 'c3', 'd3', 'h3', 's4', 'c4', 'd4', 'h4',
+'s5', 'c5', 'd5', 'h5', 's6', 'c6', 'd6', 'h6', 's7', 'c7', 'd7', 'h7',
+'s8', 'c8', 'd8', 'h8', 's9', 'c9', 'd9', 'h9', 'sT', 'cT', 'dT', 'hT',
+'sJ', 'cJ', 'dJ', 'hJ', 'sQ', 'cQ', 'dQ', 'hQ', 'sK', 'cK', 'dK', 'hK'
+'sA', 'cA', 'dA', 'hA']
+
+# Randomize the order of the cards
+shuffle(deck)
+\end{lstlisting}
+
+Siden vi skal lage kort av alle mulige valører (2 til ess) for hver av de mulige fargene (spar, kløver, ruter, hjerter), så er dette noe vi kan gjøre enklere med for-løkker. I dette tilfellet kommer vi faktisk til å bruke to for-løkker, inni hverandre
+
+\clearpage 
+
+\begin{lstlisting}
+from random import shuffle
+
+# Define our complete deck of cards
+deck = []
+for suit in ['s', 'c', 'd', 'h']:
+	for value in ['2','3','4','5','6','7','8','9','T','J','Q','K','A']:
+		deck.append(suit+value)
+
+# Randomize the order of the cards
+shuffle(deck)
+\end{lstlisting}
+Dette eksempelet er mye mer komplisert siden vi har to for-løkker, inni hverandre. Men idéen er ganske grei, den første for-løkke sier bare at vi skal ha med alle fargene, og den andre løkka sier at vi skal ha med alle valørene. Hvis du ikke helt greier å se for deg rekkefølgen kortene lages i, så er det kanskje en idé og bare skrive ut kortene etterhvert som de lages
+\begin{lstlisting}
+for suit in ['s', 'c', 'd', 'h']:
+	for value in ['2','3','4','5','6','7','8','9','T','J','Q','K','A']:
+		print suit+value
+\end{lstlisting}
+Her får du følgende output
+\begin{verbatim}
+s2
+s3
+s4
+s5
+s6
+s7
+s8
+s9
+sT
+sJ
+sQ
+sK
+sA
+c2
+c3
+c4
+.
+.
+.
+hJ
+hQ
+hK
+hA
+\end{verbatim}
+Så du ser at først lages alle de forskjellige spar kortene, så lagges alle kløver kortene osv.
+
 
 \clearpage
 
@@ -1169,29 +1388,97 @@ Bruk funksjonen \verb+randint+ til å simulere følgende terningkast
 I vanlig Lotto ved Norsk tipping trekkes det syv hovedtall fra totalt 34 tall, i tilegg trekkes det 3 bonustall. Du skal lage et program som simulerer dette.
 
 \begin{itemize}
-	\item[(a)] Definer en liste av de forskjellige lotto-tallene.
-	\item[(b)] Bruk \verb+.pop()+ til å trekke ut 7 hovedtall og 3 bonustall.
+	\item[(a)] Lag en liste av de forskjellige lotto-tallene.
+	\item[(b)] Bruk \verb+shuffle()+ og \verb+.pop()+ til å trekke ut 7 hovedtall og 3 bonustall.
 	\item[(c)] Skriv ut hovedtallene til skjermen, så bonustallene.
 	\item[(d)] Bestem deg for en lotto-rekke (det vil si syv tall) og skriv ned på papir. Kjør programmet ditt 5 ganger, hva er det beste resultatet for rekka du valgte?
 \end{itemize}
 
-\subsection*{Oppgave 3 --- }
-\subsection*{Oppgave 4 --- }
-\subsection*{Oppgave 5 --- }
-\subsection*{Oppgave 6 --- }
+\subsection*{Oppgave 3 --- Løkker for hånd}
+
+\begin{itemize}
+	\item[(a)] For hvert program, si hva programmet kommer til å skrive ut. Ikke kjør programmene, prøv istedet å gå igjennom koden ``for hånd'' for å se hva som skjer.
+\begin{lstlisting}
+print range(2,10)
+print range(1,5,3)
+print range(0,10,3)
+\end{lstlisting}
+\begin{lstlisting}
+for i in range(1,5):
+	print i**2
+\end{lstlisting}
+\begin{lstlisting}
+i = 0
+while i < 10:
+	i += 2
+	print i
+\end{lstlisting}
+\begin{lstlisting}
+i = 2
+while i < 10:
+	i = i**2 + 1
+	print i
+\end{lstlisting}
+\item[(b)] Kjør programmene for å sjekke om du hadde rett.
+\end{itemize}
 
 
+\subsection*{Oppgave 4 --- Løkker}
+\begin{itemize}
+	\item[(a)] Skriv en \verb+while+-løkke som slår mynt og kron helt til man har slått 5 kron
+	\item[(b)] Skriv en \verb+while+-løkke som slår mynt og kron 10 ganger, og skriver ut antall kron du fikk.
+	\item[(c)] Skriv en \verb+for+-løkke som slår mynt og kron 10 ganger, og skriver ut antall kron du fikk.
+	\item[(d)] Skriv en \verb+for+-løkke som slår mynt og kron 10 ganger, og skriver ut antall kron du fikk.
+\end{itemize}
 
+\subsection*{Oppgave 5 --- Gjett et tall}
+\begin{itemize}
+\item[(a)] Skriv et program som trekker et tilfeldig tall mellom 1 og 100.
+\item[(b)] Utvid programmet ditt så det får brukeren til å gjette på det tilfeldige tallet. Skriv en beskjed som lar brukeren vite om de gjettet riktig eller ikke.
+\item[(c)] Endre programmet slik at brukeren får vite om de gjettet for høyt eller for lavt hvis de bommer.
+\item[(d)] Utvid programmet ditt med en \verb+while+-løkke, slik at brukeren får gjette igjen helt til de treffer riktig svar. For hvert gjett skal programmet si ifra om de gjettet for høyt eller for lavt.
+\end{itemize}
 
-\subsection*{Oppgave 7 --- Fibonacci-tall (OBS! Utfordrende)}
+\subsection*{Oppgave 6 --- Summer}
+\begin{itemize}
+	\item[(a)] Finn summen av tallene fra 1 til 100.
+	\item[(b)] Finn summen av tallene fra 1 til 1000.
+	\item[(c)] Skriv en funksjon som finner summen av tallene fra 1 til $n$.
+\end{itemize}
 
+\subsection*{Oppgave 7 --- Krig!}
+Vi skal nå lage en enkel versjon av kortspillet krig. Du burde gjøre dette gradvis, og teste koden din nøye for hvert teg.
+\begin{itemize}
+\item[(a)] Implementer en kortstokk som en liste i programmet ditt. Se i teksten om du ikke er sikker på hvordan dette gjøres
+\item[(b)] Endre programmet ditt så det er to kortstokker, en som er din, og en som er motstanderen sin. Stokk begge listene med \verb+shuffle()+ fra \verb+random+.
+\item[(c)] Lag en funksjon, \verb+slag+, som bruker \verb+pop+ til å fjerne toppkortet i begge kortstokkene og skriver dem ut til skjermen.
+\item[(d)] Utvid funksjonen din, så den også finner ut hvilken av kortene som `slår' det andre, ved å sammenligne valøren dems. Her må du bli litt kreativ med if-testen for å sjekke hvilket kort som er `høyest'. 
+\item[(e)] Gjør sånn at funksjonen din legger begge kortene inn i kortstokken til vinneren. Deretter stokker du begge kortstokkene. 
+\item[(f)] Hvis kortene i et enkelt slag er like bra, så blir det krig. Lag en funksjon, \verb+krig+, der du popper 3 kort fra begge kortstokkene, og sammenligner verdien til det tredje kortet fra stokkene. Gi alle kortene til vinneren.
+\item[(g)] Lag en \verb+while+-løkke som gjør at du kan fortsette å spille slag helt til du enten er tom for kort, eller du har alle kortene. Hver gang løkka-kjøres bør du bruke en \verb+raw_input()+, slik at brukeren av programmet kan trykke Enter for å spille et nytt slag. 
+\item[(h)] Pynt på programmet ditt. Når programmet starter kan du skrive ut en større beskjed, og det bør være en fin beskjed etter hvert slag som forklarer hvilke kort som ble vist og resultatet av slaget. Rydd også i koden så den er fin og ryddig. 
+\end{itemize}
+
+\subsection*{Oppgave 8 --- Primtall (Utfordrende!)}
+Et primtall er et tall som bare er delbart med seg selv og 1. Det vil si at de ikke kan deles på andre tall uten å få desimaler. De første 10 primtallene er
+$$2, 3, 5, 7, 11, 13, 17, 19, 23, 29.$$
+\begin{itemize}
+	\item[(a)] Skriv en funksjon som tar et tall $n$ som argument, og sjekker om det er et primtall. Funksjonen skal returnere \verb+True+ hvis $n$ er et primtall og \verb+False+ hvis det ikke er det.
+	\item[(b)] Bruk funksjonen din til å skrive ut alle primtall under 1000. Som kontroll på at du har gjort riktig kan du sjekke at det er 168 av dem.
+\end{itemize}
+
+\subsection*{Oppgave 9 --- Fibonacci-tall (Utfordrende!)}
 Fibonnaci-tallene starter som dette
 $$1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, \ldots$$
 Måten vi finner neste tallet i rekken er at vi legger de to forrige tallene sammen. Neste tall i rekka blir altså $89+144 = 233$. Skrevet mer matematisk, så kan vi si at det $n$-te Fibonnaci-tallet er gitt ved
 $$F_n = F_{n-1} + F_{n-2},$$
-der $F_1 = 1$ og $F_2 = 2$. 
+der $F_1 = 1$ og $F_2 = 1$. 
 
-Skriv en funksjon som tar $n$ som argument, og returnerer det $n$-te Fibonnaci-tallet. \textbf{(Spør gjerne om hjelp her!)}
+\begin{itemize}
+	\item[(a)] Skriv en funksjon som tar $n$ som argument, og returnerer det $n$-te Fibonnaci-tallet. \textbf{(Spør gjerne om hjelp her)}
+	\item[(b)] Bruk funksjonen din til å skrive ut de første 50 Fibonnaci-tallene.
+\end{itemize}
+
 
 
 
