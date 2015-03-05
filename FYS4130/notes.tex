@@ -1,0 +1,201 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=29mm, left=39mm, right=39mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\renewcommand{\b}{\bigg}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inner}[2]{\langle #1 , #2 \rangle}
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{}
+\title{Notes in FYS4130---Statistical physics}
+
+
+\begin{document}
+
+\section*{Laws of Thermodynamics}
+
+\subsubsection*{First law}
+The first law is a statement about conservation of energy. If we let $U$ denote the internal energy of a system, we state that we can decompose this energy change as \emph{heat}, $Q$ and \emph{work}, $W$.
+$$\Delta U = Q \pm W.$$
+Note that we use $\pm$ to denote the work, this is because we can define the work both \emph{on} the system or \emph{by} the system, both conventions are used regurarly and so care should be taken. The heat is usually defined as the heat \emph{entering} the system.
+
+If the number of particles in a system is constant the instantaneous work done by the system will be 
+$$\d W = P \d V,$$
+so we have
+$$\d U = \d Q - P \d V.$$
+
+\subsection*{Second law}
+The second law states that the entropy of an isolated system always will increase. Mathematically we can state it as
+$$\Delta S \geq T\Delta Q,$$
+at least for a constant temperature. For a reversible process, this becomes an equality
+$$\Delta S = T \Delta Q \quad \mbox{(reversible process)} $$
+This implies that a reversible process is a process that produces no entropy, it is thus a system continously changing through equilibria states and will therefore often be 
+infinitely slow. A reversible process is thus ususally an abstraction, and not a real quality of a process. Processes can however, be close to reversible.
+
+Combining the first and second law gives us the important inequality
+$$T\Delta S \geq \Delta U + P\Delta V.$$
+For an infinitesimal quantity, this will always be true
+$$T\ \d S = \d U + P\ \d V.$$
+
+\clearpage
+
+\section*{Maxwell relations}
+From the first law we have
+\beq \d U = T\ \d S - P\ \d V. \eeq \label{eq:maxwell1}
+Should therefore express $U$ as a function of $S$ and $V$, $U = U(S,V)$, can then look at the total derivative of $U$
+\beq \d U = \bigg(\frac{\p U}{\p S}\bigg)_V \d S + \bigg(\frac{\p U}{\p V}\bigg)_S \d V. \eeq \label{eq:maxwell2}
+Comparing \ref{eq:maxwell1} and \ref{eq:maxwell2} gives
+$$T = \bigg(\frac{\p U}{\p S}\bigg)_V, \qquad P = -\bigg(\frac{\p U}{\p V}\bigg)_S.$$
+
+Generally
+$$\frac{\p^2 U}{\p V \p S} = \frac{\p^2 U}{\p S \p V}.$$
+So we get
+$$\bigg(\frac{\p T}{\p V}\bigg)_S = -\bigg(\frac{\p P}{\p S}\bigg)_V.$$
+
+\subsubsection*{General state variables}
+Let us say we have three state variables, $X$, $Y$, $Z$, and we have an equation of state $Z(X,Y)$. We see that $Z$ is not a free variable, but is given by $X$ and $Y$. Of course, we could have said that $X$ is not the free variable, because it can be given by $X(Y,Z)$, i.e., the equation of state can be solved for any of the three state variables.
+
+The total derivatives of all equation of states become
+\begin{align*}
+\d Z = \bigg(\frac{\p Z}{\p X}\bigg)_Y \d X + \bigg(\frac{\p Z}{\p Y}\bigg)_X \d Y, \\
+\d X = \bigg(\frac{\p X}{\p Y}\bigg)_Z \d Y + \bigg(\frac{\p X}{\p Z}\bigg)_Y \d Z, \\
+\d Y = \bigg(\frac{\p Y}{\p X}\bigg)_Z \d X + \bigg(\frac{\p Y}{\p Z}\bigg)_X \d Z.
+\end{align*}
+Inserting $\d Y$ into $\d X$ gives
+$$\bigg[\bigg(\frac{\p X}{\p Y}\bigg)_Z\bigg(\frac{\p Y}{\p X}\bigg)_Z - 1\bigg]\d X  + \bigg[\bigg(\frac{\p X}{\p Y}\bigg)_Z\bigg(\frac{\p Y}{\p Z}\bigg)_X + \bigg(\frac{\p X}{\p Z}\bigg)_Y\bigg]\d Z = 0.$$
+The differentials are of course independant, so we get
+$$\bigg(\frac{\p X}{\p Y}\bigg)_Z = \bigg(\frac{\p Y}{\p X}\bigg)_Z^{-1},$$
+and
+$$\bigg(\frac{\p X}{\p Y}\bigg)_Z \bigg(\frac{\p Y}{\p Z}\bigg)_X \bigg(\frac{\p Z}{\p X}\bigg)_Y = -1.$$
+
+We can now let another state variable be given by $X$ and $Y$
+$$\d U = \bigg(\frac{\p U}{\p X}\bigg)_Y \d X + \bigg(\frac{\p U}{\p Y}\bigg)_X \d Y.$$
+Dividing by $\d X$ and holding the equation constant at $Z$ gives
+$$\b( \frac{\p U}{\p X} \b)_Z = \bigg(\frac{\p U}{\p X}\b)_Y + \b(\frac{\p U}{\p Y}\b)_X \b(\frac{\p Y}{\p X}\b)_Z$$
+
+\subsection*{Specific Heat}
+When we add a small amount of heat to a system, the temprature will rise by some small amount, this is the definition of the specific heat of that system. For a given state variable $X$ it is defined as
+$$C_X = \lim_{\Delta T \to 0} \b(\frac{\Delta Q}{\Delta T}\b)_X = T \b(\frac{\p S}{\p T}\b)_X.$$
+
+Starting at the first law we have
+$$T \d S = \d U + P\ \d V,$$
+inserting the complete derivative for $\d U$ gives
+$$T \d S = \b(\frac{\p U}{\p T}\b)_V \d T + \b(\frac{\p U}{\p V}\b)_T \d V + P\ \d V,$$
+If we look at the specific heat for a constant volume, we get
+$$C_V = \b(\frac{\p U}{\p T}\b)_V.$$
+If we instead keep the pressure constant, we get
+$$C_P = C_V + \b[\b(\frac{\p U}{\p V}\b)_T + P\b]\ \b(\frac{\p V}{\p T}\b)_P.$$
+This can also be formulated as
+$$C_P = \b(\frac{\p H}{\p T}\b)_P.$$
+Where $H$ is the \emph{enthalpy}:
+$$H = U + PV.$$
+
+\section*{Equation of State}
+For most systems all state variables are not independent, but will depend on each other. If we can explicitly give a state variable in terms of the other state variables, that is an equation of state. An example could be the relation $$P(T,V).$$
+ 
+The equation of state give important information about how matter will behave under different physical conditions and so is very material dependant.
+
+\subsection*{Ideal gas law}
+The ideal gas law is an equation of state
+$$P = \frac{NkT}{V}, \qquad P = kT\rho.$$
+
+\subsection*{Van der Waals Equation of State}
+The ideal gas presupposes no interaction between the particles. The van der Waals equation of state tries to include some interaction in a basic and approximate manner
+$$P = \frac{NkT}{V - Nb} - \frac{aN^2}{V^2}.$$
+Here $a$ and $b$ are parameters describing the particles, $b$ reflects the particles having some volume and $a$ models the attraction between the particles.
+
+
+
+
+\section*{Constants}
+
+\begin{center}
+\begin{tabular}{|c|c|}	
+\hline
+Boltzmann's constant & $k = 1.381\times10^{-23} \mbox{JK}^{-1}$ \\ \hline 
+Avogadro's Number & $N_{\rm A} = 6.023\times10^{23} \mbox{mol}^{-1}$ \\ \hline 
+$k\cdot N_{\rm A}$ & $R = 8.314 \mbox{JK}^{-1}\mbox{mol}^{-1}$ \\ \hline
+\end{tabular}
+\end{center}
+
+\end{document}
+
+
