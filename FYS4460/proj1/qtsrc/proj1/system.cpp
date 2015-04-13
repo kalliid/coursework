@@ -1,6 +1,6 @@
 #include "system.h"
 
-Atom::Atom (float x, float y, float z) {
+Atom::Atom (double x, double y, double z) {
     r = vec3(x, y, z);
     v = vec3();
     F = vec3();
@@ -8,10 +8,61 @@ Atom::Atom (float x, float y, float z) {
 
 void Atom::reset_force() {
     F.set(0,0,0);
+    testF.set(0,0,0);
+}
+
+void Atom::add_F(vec3 Finc) {
+    F += Finc;
+}
+
+Cell::Cell(System* sys, int I, vec3 Ncells) {
+    system = sys;
+    index = I;
+    Nx = (int) Ncells.x();
+    Ny = (int) Ncells.y();
+    Nz = (int) Ncells.z();
+
+    cx = index % Nx;
+    cy = index % (Nx*Ny)/Nx;
+    cz = index / (Nx*Ny);
+}
+
+void Cell::find_neighbors() {
+    int px = (cx + 1 + Nx) % Nx;
+    int py = (cy + 1 + Ny) % Ny;
+    int pz = (cz + 1 + Nz) % Nz;
+    int mx = (cx - 1 + Nx) % Nx;
+    int my = (cy - 1 + Ny) % Ny;
+    int mz = (cz - 1 + Nz) % Nz;
+
+    neighbors.push_back(system->get_cell(px, cy, cz));
+    neighbors.push_back(system->get_cell(cx, py, cz));
+    neighbors.push_back(system->get_cell(cx, cy, pz));
+
+    neighbors.push_back(system->get_cell(px, py, cz));
+    neighbors.push_back(system->get_cell(px, cy, pz));
+    neighbors.push_back(system->get_cell(cx, py, pz));
+
+    neighbors.push_back(system->get_cell(px, py, pz));
+
+    neighbors.push_back(system->get_cell(px, py, mz));
+    neighbors.push_back(system->get_cell(px, my, pz));
+    neighbors.push_back(system->get_cell(mx, py, pz));
+
+    neighbors.push_back(system->get_cell(px, my, cz));
+    neighbors.push_back(system->get_cell(px, cy, mz));
+    neighbors.push_back(system->get_cell(cx, py, mz));
 }
 
 System::System(int Nc) {
     sys_size = vec3(Nc*b, Nc*b, Nc*b);
+    construct_cells();
+    link_cells();
+
+    double r2 = rcut*rcut;
+    double r6 = r2*r2*r2;
+    double r12 = r6*r6;
+    Ushift = -4*(1/r12 - 1/r6);
 }
 
 void System::initialize_FCC_lattice(int Nc) {
@@ -27,10 +78,23 @@ void System::initialize_FCC_lattice(int Nc) {
            }
        }
    }
-//   calculate_forces();
+   calculate_forces();
 }
 
-void System::initialize_velocities(float T) {
+void System::initialize_uniform_velocities(double T) {
+    // Generates the initial velocities of all atoms in the system
+    // Each velocity is drawn independantly from a Boltzmann distribution
+
+    // Set up RNG following Boltzmann distribution
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<double> uniform_dist(-2*sqrt(2*k_b*T/m), 2*sqrt(2*k_b*T/m));
+
+    for (Atom &atom : atoms)
+        atom.v.set(uniform_dist(gen), uniform_dist(gen), uniform_dist(gen));
+}
+
+void System::initialize_boltzmann_velocities(double T) {
     // Generates the initial velocities of all atoms in the system
     // Each velocity is drawn independantly from a Boltzmann distribution
 
@@ -42,6 +106,7 @@ void System::initialize_velocities(float T) {
     for (Atom &atom : atoms)
         atom.v.set(boltzmann_dist(gen), boltzmann_dist(gen), boltzmann_dist(gen));
 }
+
 
 void System::eliminate_drift() {
     // Removes any drift of the system by subtracting
@@ -65,27 +130,115 @@ void System::reset_all_forces() {
 }
 
 void System::calc_forces_between_pair(int i, int j) {
-//    // Force on atom i from atom j and vice versa
-//    // Uses the minimum image convention
-//    vec3 dr = atoms[j].r - atoms[i].r;
-//    dr = dr - (dr/sys_size).round()*sys_size;
-//    float r = dr.length();
+    // Force on atom j from atom i and vice versa
+    // Uses the minimum image convention
 
-//    vec3 F = dr*(24*(2*pow(r,-14) - pow(r,-8)));
-//    F = vec3();
+    vec3 dr = atoms[j].r - atoms[i].r; // points from i to j
+    dr = dr - (dr/sys_size).round()*sys_size; // minimum image convention
 
-//    atoms[i].F += F;
-//    atoms[j].F -= F;
+    double r = dr.length();
+    double r2 = r*r;
+    double r8 = r2*r2*r2*r2;
+    double r14 = r8*r2*r2*r2;
+
+    vec3 F = dr*24*(2*1/r14 - 1/r8)*(r<rcut);
+
+    atoms[j].F += F;
+    atoms[i].F -= F;
 }
 
 void System::calculate_forces() {
-    /*
     reset_all_forces();
+    assign_atoms_to_cells();
 
-    for (size_t i=0, N=atoms.size(); i<N; i++)
-        for (size_t j=i+1; j<N; j++)
-            calc_forces_between_pair(i,j);
-    */
+    // Calculate all internal forces in system
+    for (Cell cell : cells) {
+        for (int i : cell.atoms) {
+            // Local atoms
+            for (int j : cell.atoms)
+                if (i < j)
+                    calc_forces_between_pair(i, j);
+
+            // Neighbor atoms
+            for (Cell* neighbor : cell.neighbors)
+                for (int j : neighbor->atoms)
+                    calc_forces_between_pair(i, j);
+        }
+    }
+}
+
+void System::construct_cells() {
+    Ncells = (sys_size/rcut).floor();
+    cell_size = sys_size/Ncells;
+
+    for (int i=0; i<(int) Ncells.x()*Ncells.y()*Ncells.z(); i++)
+        cells.push_back(Cell(this, i, Ncells));
+}
+
+void System::link_cells() {
+    for (int i=0; i<(int) Ncells.x()*Ncells.y()*Ncells.z(); i++)
+        cells[i].find_neighbors();
+}
+
+void System::assign_atoms_to_cells() {
+    // Empty all cells
+    for (Cell &cell : cells)
+        cell.atoms.clear();
+
+    // Put every atom into its appropriate cell
+    int cx, cy, cz;
+    for (size_t i=0; i<atoms.size(); i++) {
+        cx = (int) atoms[i].r.x() / cell_size.x();
+        cy = (int) atoms[i].r.y() / cell_size.y();
+        cz = (int) atoms[i].r.z() / cell_size.z();
+
+        get_cell(cx, cy, cz)->atoms.push_back(i);
+    }
+}
+
+void System::update_energies() {
+    // Re-calculate the energies of the system
+    kinetic_energy = 0;
+    potential_energy = 0;
+    for (Cell cell : cells) {
+        for (int i : cell.atoms) {
+            kinetic_energy + kinetic_energy_of_atom(i);
+
+            // Local atoms
+            for (int j : cell.atoms)
+                if (i < j)
+                    potential_energy += potential_energy_of_pair(i,j);
+
+            // Neighbor atoms
+            for (Cell* neighbor : cell.neighbors)
+                for (int j : neighbor->atoms)
+                    potential_energy += potential_energy_of_pair(i,j);
+        }
+    }
+    total_energy = kinetic_energy + potential_energy;
+}
+
+double System::kinetic_energy_of_atom(int i) {
+    // Return the kinetic energy of atom i
+    double v = atoms[i].v.length();
+    return 0.5*v*v;
+}
+
+double System::potential_energy_of_pair(int i, int j) {
+    // Return the potential energy between atom i and j
+
+    vec3 dr = atoms[j].r - atoms[i].r; // points from i to j
+    dr = dr - (dr/sys_size).round()*sys_size; // minimum image convention
+
+    double r = dr.length();
+    double r2 = r*r;
+    double r6 = r2*r2*r2;
+    double r12 = r6*r6;
+    return (4*(1/r12 - 1/r6) + Ushift)*(r<rcut);
+}
+
+Cell* System::get_cell(int i, int j, int k) {
+    return &cells[i + j*Ncells.x() + k*Ncells.x()*Ncells.y()];
 }
 
 

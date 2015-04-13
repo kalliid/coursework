@@ -1,0 +1,4 @@
+from pylab import *
+
+x = linspace(0,1,1001)
+plot(x, exp(x))

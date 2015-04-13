@@ -115,6 +115,14 @@ $$T\Delta S \geq \Delta U + P\Delta V.$$
 For an infinitesimal quantity, this will always be true
 $$T\ \d S = \d U + P\ \d V.$$
 
+\section*{Derivatives of state variables}
+From the equation
+$$\d U = T\ \d S - P\ \d V + \mu\ \d N,$$
+we get the derivatives
+\begin{align*}
+\b(\frac{\p S}{\p U}\b)_{V,N}=\frac{1}{T}, \qquad \b(\frac{\p S}{\p V}\b)_{U,N}=\frac{P}{V}, \qquad \b(\frac{\p S}{\p N}\b)_{U,V}=-\frac{\mu}{T}.
+\end{align*}
+
 \clearpage
 
 \section*{Maxwell relations}
@@ -182,8 +190,113 @@ The ideal gas presupposes no interaction between the particles. The van der Waal
 $$P = \frac{NkT}{V - Nb} - \frac{aN^2}{V^2}.$$
 Here $a$ and $b$ are parameters describing the particles, $b$ reflects the particles having some volume and $a$ models the attraction between the particles.
 
+\subsection*{Phase Transition}
+Two phases are in thermodynamic equilibrium, meaning the total entropy
+$$S(U,V,N) = S_1(U_1,V_1,N_1) + S_2(U_2,V_2,N_2),$$
+is maximized. Taking the total derivative
+\begin{align*}
+\d S &= \b(\frac{\p S_1}{\p U_1}\b)_{V_1, N_1} \d U_1 + \b(\frac{\p S_1}{\p V_1}\b)_{U_1, N_1} \d V_1 + \b(\frac{\p S_1}{\p N_1}\b)_{U_1, V_1} \d N_1 \\
+&\qquad + \b(\frac{\p S_2}{\p U_2}\b)_{V_2, N_2} \d U_2 + \b(\frac{\p S_2}{\p V_2}\b)_{U_2, N_2} \d V_2 + \b(\frac{\p S_2}{\p N_2}\b)_{U_2, V_2} \d N_2 \\
+\end{align*}
+Now, using the fact that $\d U_1 = -\d U_2$ etc, we can simplify this to
+\begin{align*}
+\d S &= \b[\b(\frac{\p S_1}{\p U_1}\b)_{V_1, N_1} - \b(\frac{\p S_2}{\p U_2}\b)_{V_2, N_2} \b] \d U_1 \\
+&\qquad  + \b[\b(\frac{\p S_1}{\p V_1}\b)_{U_1, N_1} - \b(\frac{\p S_2}{\p V_2}\b)_{U_2, N_2}\b]\d V_1 \\
+&\qquad\qquad+ \b[\b(\frac{\p S_1}{\p N_1}\b)_{U_1, V_1} - \b(\frac{\p S_2}{\p N_2}\b)_{U_2, V_2} \b]\d N_1 \\
+\end{align*}
+
+\clearpage
+
+\section*{Ensambles}
+
+In a microcanonical ensamble, the energy of the system is held constant. All microstates with the given energy are possible and of equal probability. Also known as a $NVE$-ensamble as the number of particles, volume and energy are constant.
+
+From wikipedia:
+In simple terms, the microcanonical ensemble is defined by assigning an equal probability to every microstate whose energy falls within a range centered at E. All other microstates are given a probability of zero. Since the probabilities must add up to 1, the probability P is the inverse of the number of microstates W within the range of energy,
+$P = 1/W$,
+The range of energy is then reduced in width until it is infinitesimally narrow, still centered at E. In the limit of this process, the microcanonical ensemble is obtained.
+
+\clearpage
+
+\section*{Phase space}
+
+In general, a system of $N$ particles is described by the particles position and momenta in all dimensions, these evolve in time according to some dynamical equations of the system, so we have
+$$q_i = q_i(t, q_0, p_0), \qquad p_i = p_i(t,q_0,p_0).$$
+Where $(q_0, p_0)$ are the inital conditions of the system. For most systems, the evolution can only be found numerically. A problem then, is that the systems are often chaotic, and so the finite precision in the initial conditions limits our possible solutions.
+
+A goal is to find the average of some quantity over a long time
+$$\bar{A} = \frac{1}{T}\int_0^T A(q(t), p(t)) \ \d t.$$
+And we will have to include states corresponding to all the parts of phase space visited, however, this requires knowledge of the phase trajectory, which we generally don't have.
+
+A solution put forth by Gibbs is to instead look at phase space as filled by a liquid, the density in phase space is then given by $\rho = \rho(q,p)$ and the number of systems in a volume element $\Delta q \Delta p$ is the given by $\rho(q,p)\Delta q \Delta p$. The greater the density is in a region of phase space, the greater the probability is to find the system in that part of phase space. And so we can now average over the density of the entire phase space to find thermodynamic quantities.
+
+In quantum mechanics, due to the Heisenberg uncertainty principle, a given particle state has the volume
+$$\d\omega = \frac{\d^f q\  \d^f p}{(2\pi \hbar)^f}.$$
+
+We of course choose the density of phase space in a manner that it is normalized in the sense that
+$$\int \d \omega \rho(q,p) = 1.$$
+Ensamble averages are then found from
+$$\langle A \rangle = \int \rho(q,p) A(q,p) \ \d \omega.$$
+
+It cannot be proven generally that the time-average, and the ensamble-average found from the density of phase space are equal, and we are now finding the ensamble-average through derivation, but obviously the time-average in experiment. For some systems they can be shown to be equal, but in general we have to simply invoke the ergodic hypothesis that state they are equal.
+
+\subsection*{Liouville's Theorem}
+To derive the behaviour of the density of phase space we can use the fact that the density of phase space is goverened by Hamilton's equations for each point. Also, no system can make discontinious jumps in the dynamical variables $q$ and $p$, and cannot start/stop exisiting, meaning the equation of continuity applies to the density
+$$\frac{\p \rho}{\p t} + \nabla \cdot \vec{J} = 0.$$
+Where $\vec{J}$ is the current of system points, which can be expressed as $\vec{J} = \rho\vec{V}$, where $\vec{V}$ is the velocity vector $\vec{V} = (\dot{\vec{q}}, \dot{\vec{p}})$. Writing out the nabla operator, we see that we can use Poisson brackets to compactily write the equation of continuity
+$$\nabla \cdot \vec{J} = \sum_i \b( \frac{\p p}{\p q_i}\frac{\p H}{\p p_i} - \frac{\p H}{\p q_i}\frac{\p \rho}{\p p_i}\b).$$
+\subsubsection*{Equation of continuity}
+$$\frac{\p p}{\p t} + \{\rho, H\} = 0.$$
+
+Now, the phase space density is generally a time-dependant field, $\rho(q,p,t)$ and so the total derivative is
+$$\frac{\d }{\d t} \rho = \frac{\p \rho}{\p t} + \{\rho, H\},$$
+which we see from the equation of continuity is zero. This is Liouville's theorem. Stated in words it says that the local density of phase space remains constant as seen by an observer moving with a system point.
+
+If we then follow an initial volume element with a constant density, it will remain at a constant volume, but generally change shape as time evolves. 
+
+An important consequence of Liouville's theorem is that if $\rho$ is initially constant throughout phase space, meaning all microstates are equally likely. It will remain so as time evolves.
+
+Ergodicity means that the system will eventually visit all of the phase space that is covered by the ensemble, and for ergodic system Liouvilles theorem implies that every microstate is equally likely to be visited with time.
 
 
+
+\subsection*{Poisson Bracket}
+In canonical coordinates, the Poisson bracket takes the form
+$$\{f,g\} = \sum_{i=1}^N \b(\frac{\p f}{\p q_i}\frac{\p g}{\p p_i} - \frac{\p f}{\p p_i}\frac{\p g}{\p q_i}\b).$$
+It has the same role as the commutator has in quantum mechanics.
+
+Any functions, $f, g, h$ of phase space and time follows
+\begin{itemize}
+	\item Anticommutativity: $\{f, g\} = - \{g, f\}$
+	\item Distributivity: $\{f+g, h\} = \{f, h\} + \{g, h\}$
+	\item Product rule: $\{fg, h\} = \{f, h\}g + f\{g, h\}$
+	\item If $k$ is time-dependant, but constant over phase space, then $\{f,k\} = 0$.
+\end{itemize}
+For cannonical coordinates
+\begin{itemize}
+	\item $\{q_i, q_j\} = 0$
+	\item $\{p_i, p_j\} = 0$
+	\item $\{p_i, q_j\} = \delta_{ij}$
+\end{itemize}
+
+Using the Poisson bracket, we can write Hamilton's equations as
+$$\dot{q} = \{q, H(q,p)\}, \qquad \dot{p} = \{p, H(q,p)\}.$$
+
+More generally, for \emph{any} function that is not explicitly dependant on time, but only $q$ and $p$
+$$\frac{d}{dt}f(q,p) = \{f, H\},$$
+if there is an explicit time-dependance we have
+$$\frac{d}{dt}f(q,p,t) = \{f, H\} + \frac{\p f}{\p t}.$$
+
+
+\clearpage
+
+\section*{Other}
+
+\subsubsection*{Stirling's approximation}
+Coarse
+$$\log n! = n \log n - n,$$
+Fine
+$$n! = \sqrt{2\pi n} n^n e^{-n}.$$
 
 \section*{Constants}
 
@@ -196,6 +309,8 @@ $k\cdot N_{\rm A}$ & $R = 8.314 \mbox{JK}^{-1}\mbox{mol}^{-1}$ \\ \hline
 \end{tabular}
 \end{center}
 
+
 \end{document}
+
 
 

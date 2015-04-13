@@ -5,19 +5,19 @@
 class vec3
 {
 private:
-    float m_vec[3];
+    double m_vec[3];
 public:
     // Assignment
     vec3();
-    vec3(float x, float y, float z);
+    vec3(double x, double y, double z);
 
     // Inline
-    inline float x() const { return m_vec[0]; }
-    inline float y() const { return m_vec[1]; }
-    inline float z() const { return m_vec[2]; }
-    inline float &operator[](int index) { return m_vec[index]; }
-    inline float operator[](int index) const { return m_vec[index]; }
-    inline float length_squared() { return m_vec[0]*m_vec[0] + m_vec[1]*m_vec[1] + m_vec[2]*m_vec[2]; }
+    inline double x() const { return m_vec[0]; }
+    inline double y() const { return m_vec[1]; }
+    inline double z() const { return m_vec[2]; }
+    inline double &operator[](int index) { return m_vec[index]; }
+    inline double operator[](int index) const { return m_vec[index]; }
+    inline double length_squared() { return m_vec[0]*m_vec[0] + m_vec[1]*m_vec[1] + m_vec[2]*m_vec[2]; }
 
     // Vector arithmetic operators
     vec3 operator +(vec3 rhs);
@@ -27,26 +27,29 @@ public:
     vec3 operator %(vec3 rhs);
 
     // Scalar arithmetic operators
-    vec3 operator +(float scalar);
-    vec3 operator -(float scalar);
-    vec3 operator *(float scalar);
-    vec3 operator /(float scalar);
+    vec3 operator +(double scalar);
+    vec3 operator -(double scalar);
+    vec3 operator *(double scalar);
+    vec3 operator /(double scalar);
 
     // Assignment operators
-    vec3 set(float x, float y, float z);
+    vec3 set(double x, double y, double z);
     vec3 operator +=(vec3 rhs);
     vec3 operator -=(vec3 rhs);
     vec3 operator *=(vec3 rhs);
     vec3 operator /=(vec3 rhs);
-    vec3 operator +=(float scalar);
-    vec3 operator -=(float scalar);
-    vec3 operator *=(float scalar);
-    vec3 operator /=(float scalar);
+    vec3 operator +=(double scalar);
+    vec3 operator -=(double scalar);
+    vec3 operator *=(double scalar);
+    vec3 operator /=(double scalar);
 
     // Other
-    float length();
+    double length();
     vec3 normalize();
     vec3 round();
+    vec3 floor();
+    double sum();
+
 
 private:
     // Printing
