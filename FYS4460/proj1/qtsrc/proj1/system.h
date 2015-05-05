@@ -18,7 +18,6 @@ public:
     vec3 r;
     vec3 v;
     vec3 F;
-    vec3 testF;
 
     Atom(double x, double y, double z);
     void reset_force();
@@ -46,10 +45,15 @@ public:
     vec3 cell_size;
     vector<Atom> atoms;
     vector<Cell> cells;
+    int Natoms;
+    double V;
+    double rho;
     double total_energy;
     double kinetic_energy;
     double potential_energy;
     double Ushift;
+    double pressure;
+    double temperature;
 
     System(int Nc);
     void initialize_FCC_lattice(int Nc);
@@ -58,6 +62,9 @@ public:
     void eliminate_drift();
     void enforce_periodic();
     void reset_all_forces();
+    void reset_pressure();
+    void update_pressure(int i);
+    void update_pressure();
     void calc_forces_between_pair(int i, int j);
     void calculate_forces();
     void assign_atoms_to_cells();

@@ -1,3 +1,0 @@
-\beamer@endinputifotherversion {3.24pt}
-\select@language {norsk}
-\beamer@sectionintoc {1}{Introduksjon}{1}{0}{1}

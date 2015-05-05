@@ -287,10 +287,45 @@ $$\frac{d}{dt}f(q,p) = \{f, H\},$$
 if there is an explicit time-dependance we have
 $$\frac{d}{dt}f(q,p,t) = \{f, H\} + \frac{\p f}{\p t}.$$
 
+\clearpage
+
+\section*{Microcannonical ensamble}
+A microcannonical ensamble is completely isolated, and so has constant $NVE$. The fundamental assumption of statistical mechanics states that all microstates in a microcannonical ensamble are equally likely.
+
+\section*{Cannonical ensamble}
+
+A cannonical ensamble is in thermal contact with a reservoir with temperature $T$. It can therefore exchange energy $E$ with the reservoir, but has $NVT$ constant. 
+
+To derive the statistics of the cannonical ensamble, we can treat the system-reservoir pair as a microcannonical ensamble, meaning all microstates are equally likely. Let us now assume there is a infinitesimal exchange of energy beween the reservoir and the system, we know that
+$$\d S_{\rm R} = \frac{1}{T}(\d U_{\rm R} + P \d V_{\rm R} - \mu \d N_{\rm R}).$$
+We throw away the $\d V$ and $\d N$ terms, and so we have
+$$S_{\rm R}(s_2) - s_{\rm R}(s_1) = \frac{1}{T}[U_{\rm R}(s_2) - U_{\rm R}(s_1)] = -\frac{1}{T}[E(s_2) - E(s_1)].$$
+Giving
+$$\frac{P(s_2)}{P(s_1)} = \frac{e^{-E(s_2)/kT}}{e^{-E(s_1)/kT}}.$$
+Giving the \textbf{Boltzmann factor}
+$$e ^{-E(s)/kT}.$$
+To get an actual probability, we need the normalization constant, giving the \textbf{Boltzmann distribution}
+$$P(s) = \frac{1}{Z}e^{-E(s)/kT},$$
+where 
+$$Z = \sum_s e^{-E(s)/kT}.$$
+The partition function is a constant in the sense that it does not depend on the microstate $s$, but it does change with the temperature $T$. In the limit $kT \to 0$, we see that $Z \to 1$ as the only contributing state is the ground state as all other possible microstates become supressed. As $kT$ increases, $Z$ grows, as more microstates become available to the system. If we shift all energies by a constant factor of $E_0$, the partition function picks up a factor $e^{-E_0/kT}$, but it is inconsequential as it cancels out when calculating the probabilities $P(s)$.
+
+Using the Boltzmann distribution, we can find expectancies as
+$$\bar{X} = \sum_s X(s) P(s) = \frac{1}{Z} \sum_s X(s) e^{-\beta E(s)}.$$
+
+For energy we find
+$$\bar{E} = - \frac{1}{Z}\frac{\p Z}{\p \beta} = -\frac{\p}{\p \beta}\ln Z.$$
+
+To find other quantitiez, we can calculate the Helmholtz free energy
+$$F = -kT \ln Z.$$
+Giving us
+$$S = -\bigg(\frac{\p F}{\p T}\bigg)_{V, N}, \qquad P = -\bigg(\frac{\p F}{\p V}\bigg)_{T, N}, \qquad \mu = \bigg(\frac{\p F}{\p N}\bigg)_{T, V}.$$
 
 \clearpage
 
 \section*{Other}
+
+$$e^{\hbar\omega/kT} \simeq 1 + \frac{\hbar \omega}{kT}, \qquad T \gg \hbar\omega/k.$$
 
 \subsubsection*{Stirling's approximation}
 Coarse
@@ -309,8 +344,213 @@ $k\cdot N_{\rm A}$ & $R = 8.314 \mbox{JK}^{-1}\mbox{mol}^{-1}$ \\ \hline
 \end{tabular}
 \end{center}
 
+\clearpage
+
+\section*{Einstein Solid}
+
+The Einstein solid is an attempt to describe the vibrations of the atoms in a regular lattice, it is based on two fundamental assumptions
+\begin{itemize}
+	\item Each atom in the lattice is an \emph{independant} 3D quantum harmonic oscialltor
+	\item All atoms oscillate with the same common frequency (this is the big contrast with the Debye model) 
+\end{itemize}
+
+Assuming we are looking at a lattice containing $N$ atoms, the first assumptions tells us we have $3N$ degrees of freedom, as each atom can vibrate in three independant directions. Each oscillator will be occupied by certain number of phonons, which are the quanta in lattice vibrations as photons are the quanta in electromagnetic oscillations. Phonons are bosons with no chemical potential ($\mu = 0$) so the Bose-Einstein distribution predicts that the average number of phonons per oscillator will be
+$$\langle n \rangle = \frac{1}{e^{\hbar \omega/kT} - 1}.$$
+As each phonon carries the energy $\hbar \omega$, we find the average energy per oscillator to be
+$$\langle \eps \rangle = \frac{\hbar \omega}{e^{\hbar \omega/kT} - 1}.$$
+Summing over all the degrees of freedom of the system gives the total internal energy as
+$$U = \frac{3N\hbar \omega}{e^{\hbar \omega/kT} - 1}.$$
+We can now find the specific heat
+$$C_V = 3Nk \bigg(\frac{\hbar \omega}{kT}\bigg)^2 \frac{e^{\hbar \omega/kT}}{(e^{\hbar \omega/kT}-1)^2}.$$
+We now introduce the characteristic Einstein temperature $T_E = \hbar \omega/k$ and we simplify the expression for the specific heat in the limits $T \ll T_E$ and $T \gg T_E$
+$$C_V = \begin{cases}
+	3Nk (\frac{\hbar\omega}{kT})^2 e^{-\hbar\omega/kT}, & T \ll T_E, \\
+	3Nk, & T \gg T_E.
+\end{cases}$$
+When the temperautre is high, we recove the Dulong-Petit law that predicts a constant heat capacity in agreement with the equipartition principle. However, when $T\to 0$ we see that $C_V \to 0$ as required by the third law, however, it goes to zero expoentially, while experiment shows that it should go as $C_V \propto T^3$.
+
+\clearpage
+
+\section*{Debye Theory of Solids}
+
+Instead of treating every atom as an independant harmonic oscillator, we instead focus on the phonons and treat it as a `phonon gas in a box' (the box being the solid).  The energy of a phonon is 
+$$\eps_n = \hbar \omega_n = \hbar v k_n = \frac{\hbar \pi v}{L}n,$$
+where $n$ is the mode of the phonon and $v$ is the speed of sound in the solid. The phonons follow a Bose-Einstein distribution, so the average energy of phonons in mode $n$ is then 
+$$\langle \eps_n \rangle = \frac{\eps_n}{e^{\eps_n/kT} - 1}$$
+
+Unlike for a photon gas, there is a minimum wavelength the phonon can have (two times the lattice spacing) and thus a maximum mode. For a cubic box, it will be $N_{\rm max} = \sqrt[3]{N}$ and so the total energy of all the phonons in the solid is
+$$U = 3\sum_{n_x=1}^{\sqrt[3]{N}}\sum_{n_y=1}^{\sqrt[3]{N}}\sum_{n_z=1}^{\sqrt[3]{N}} \langle \eps_n \rangle.$$
+Where we have multiplied the result by three, since sound waves can have three independant polarizations.
+
+Assuming $L$ is macroscopic, the density of modes will be very high, and we can change the sums into an integral. The three sums is actually a sum over a cubic box in $N$-space, but it will be simpler to instead integrate over an eigth-sphere with the same volume. The volume of the box is $N$ and so the sphere needs to have a radius of
+$$n_{\rm max} = \bigg(\frac{6N}{\pi}\bigg)^{1/3}.$$
+The angular integral will give $\pi/2$, so the total energy can then be written as
+$$U = \frac{3\pi}{2} \int_{0}^{n_{\rm max}}  n^2 \langle \eps_n \rangle \ \d n.$$
+Inserting the average energy gives
+$$U = \frac{3\pi}{2} \int_{0}^{n_{\rm max}} \frac{\hbar \pi v}{L}n^3 \frac{1}{e^{\hbar \pi v n/LkT} - 1} \ \d n.$$ 
+We now do the substitution $x \equiv \hbar \pi v n/LkT$.
+$$U = \frac{3\pi}{2} \frac{\hbar \pi v}{L} \bigg(\frac{LkT}{\hbar\pi v}\bigg)^4 \int_0^{x_{\rm max}} \frac{x^3}{e^x-1} \ \d x.$$
+Where 
+$$x_{\rm max} = \frac{\hbar\pi v}{LkT} \bigg(\frac{6N}{\pi}\bigg)^{1/3} \equiv \frac{T_D}{T},$$
+where we introudced the Debye temperature
+$$T_D = \frac{\hbar\pi v}{Lk} \bigg(\frac{6N}{\pi}\bigg)^{1/3}.$$
+We then have the total energy
+$$U = \frac{9NkT^4}{T_D^3}\int_0^{T/T_D} \frac{x^3}{e^x - 1} \ \d x.$$
+The integral can only be solved numerically. However, in the limits $T\ll T_D$ and $T \gg T_D$ we can simplify it.
+
+When $T\gg T_D$ the upper limit of the integral is much less than 1, and $x \ll 1$ so that $e^x \simeq 1 + x$. This gives
+$$U = \frac{9NkT^4}{T_D^3}\int_0^{T/T_D} x^2 \ \d x = \frac{9NkT^4}{T_D^3} \frac{T^3}{3T_D^3} = 3NkT.$$
+Which recovers the Dulong-Petit law
+$$C_V = 3Nk.$$
+
+When $T \ll T_D$, the upper limit is very large. The exponential in the denominator effectively kills the integrand when $x$ becomes large, so replacing the upper limit with $\infty$ introduces little error, giving
+$$U = \frac{9NkT^4}{T_D^3}\int_0^\infty x^2 \ \d x = \frac{9NkT^4}{T_D^3} \frac{\pi^4}{15} = \frac{3\pi^4}{5} \frac{NkT^4}{T_D^3}.$$
+Giving the heat capacity
+$$C_V = \frac{12\pi^4}{5}\bigg(\frac{T}{T_D}\bigg)^3Nk.$$
+Which gives us the Debye $T^3$ law.
+
+At $T = T_D$ the heat capacity has reached $95$ \% of it's maximum value, so as long as $T > T_D$ we can use the equipartition theorem without much trouble. Altough the Debye temperature can be calculated from speed of sound in a solid using the defintion, it is more common to choose the $T_D$ that makes the theoretical prediction best fit the measured heat capacity.
+
+\clearpage
+
+\section*{Bose-Einstein Condensation}
+
+We now turn to gases of bosons where the chemical potential is \emph{not} zero. Considering the system as $T \to 0$, we know that more and more particles will settle into the ground state. Looking at a boson gas in a $L^3$ box, the ground state will have energy
+$$\eps_0 = \frac{p^2}{2m} = \frac{\hbar^2k_0^2}{2m} = \frac{\hbar^2 \pi^2}{2mL^2}(1+1+1) = \frac{3\hbar^2 \pi^2}{2mL^2}.$$
+At any temperature, the system follows the Bose-Einstein distibution, so the number of particles in the ground state will be
+$$N_0 = \frac{1}{e^{(\eps_0 - \mu)/kT} - 1}.$$
+So we see that $\mu < \eps_0$ and $\mu \to \eps_0$ when $T\to 0$. In this limit, we can simplify the exponential
+$$N_0 = \frac{kT}{\eps_0 - \mu}.$$
+Now, we would be finished if we only knew $\mu$ as a function of $T$, but we don't. However, we do have a condition that can determine it
+$$\sum_s \frac{1}{e^{\eps_s -\mu/kT} - 1} = N.$$
+To use this condition, we transform it into an integral, this is valid when $kT \gg \eps_0$ so that the density of modes is high. Using the density of states
+$$g(\eps) = \frac{2}{\sqrt{\pi}}\bigg(\frac{m}{2\pi\hbar^2}\bigg)^{3/2} V \sqrt{\eps}.$$
+It is half that of the electron gas, as the electron gas has two spin orientations.
+$$N = \int_0^\infty g(\eps) \frac{1}{e^{(\eps-\mu)/kT}-1}\ \d \eps.$$
+
+If we assume that $\mu = 0$ we get
+$$N = 2.612\bigg(\frac{m kT}{2\pi \hbar^2}\bigg)^{3/2}V.$$
+Which can only be true for a single temperature $T$, we call this temperature $T_C$
+$$kT_c = 0.527 \frac{2\pi \hbar^2}{m}\bigg(\frac{N}{V}\bigg)^{2/3}.$$
+For temperatures $T>T_C$, we find $\mu < 0$, while for $T<T_C$ we find
+$$N_{\rm excited} = 2.612 \bigg(\frac{mkT}{2\pi\hbar^2}\bigg)^{3/2}V = N\bigg(\frac{T}{T_C}\bigg)^{3/2}, \qquad (T < T_C).$$
+
+\clearpage
+
+\section*{Thermodynamic potentials}
+
+To create a system from vacuum, we would need to suply the systems internal energy $U$. However, to make room for it in the environment, we also need to provide the work $PV$, where $P$ is the (constant) pressure of the environment, and $V$ is the total volume of the system. We define the \emph{enthalpy} to be 
+$$H \equiv U + PV.$$
+However, since the system will have some entropy $S$, it can absorb some energy from it's surrounding as heat to bring it to the same temperature. If the environment is at constant temperature $T$, the system will get the energy $TS$ for free, so the energy of the system is best described by \emph{Helmholtz' free energy}
+$$F \equiv U - TS.$$
+If we also include the $PV$-term, i.e., the cost of making room for the system, we have \emph{Gibb's free energy}
+$$G \equiv U - TS + PV.$$
+So we see that $G = F + PV = H - TS$. We can summarize the results as follows
+\begin{center}
+\includegraphics[width=0.3\textwidth]{potentials}
+\end{center}
+
+Now, in an isolated system, we know that the entropy always increases and will be maximized over long time scales. However, if we look at a system that is not isolated, but is in contact with a heat bath at constant temperature, the Helmholtz free energy of that system will be minimized. This is because the entropy of the system and reservoir combined will be maximized. Looking at the expression for the free energy $F = U - TS$, we see that the entropy of the system counts negative as expected, while the energy is positive. This is because the system will introduce entropy in the reservoir if it gives up energy to it, this is especially true at low temperatures $T$ as the entropy change per unit energy is proportional to $\frac{1}{T}$. Likewise, the Gibb's free energy is minimized for a system that has constant pressure and temperature, but can change volume and energy by interacting with it's environment
+\begin{itemize}
+	\item At constant energy and volume (isolated system) entropy increases.
+	\item At constant volume and temperature Helmholtz' free energy decreases.
+	\item At constant pressure and temperature Gibb's free energy decreases.
+\end{itemize}
+In all three cases we assume that $N$ is held constant. So that $NVE \to S\uparrow$, $NVT \to F\downarrow$, $NPT\to G\downarrow$. If we want to include material contact, we use the \emph{grand free energy}: $\Phi \equiv U - TS - \mu N$.
+
+\newpage
+
+\subsubsection*{Thermodynamic identities}
+(Write out the total differential, and then substitute in for $\d U$.)
+\begin{align*}
+\d U &= T\ \d S - P \ \d V + \mu \ \d N, \\
+\d H &= T \ \d S + V\ \d P + \mu \ \d N, \\
+\d F &=  - S \ \d T - P \ \d V + \mu \ \d N, \\
+\d G &= -S \ \d T + V\ \d P + \mu \ \d N.
+\end{align*}
+
+From these we find many importan partial derivatives, for example
+$$S = -\bigg(\frac{\p F}{\p T}\bigg)_{V, N}, \qquad P = -\bigg(\frac{\p F}{\p V}\bigg)_{T, N}, \qquad \mu = \bigg(\frac{\p F}{\p N}\bigg)_{T,V}$$
+$$S = -\bigg(\frac{\p G}{\p T}\bigg)_{P, N}, \qquad V = \bigg(\frac{\p G}{\p P}\bigg)_{T, N}, \qquad\quad \mu = \bigg(\frac{\p G}{\p N}\bigg)_{T,P}$$
+
+Here we assume there's only one kind of particle, is there are more we replace $\mu \ \d N$ with $\sum_i \mu_i \ \d N_i$.
+
+\clearpage
+
+\section{Phase Transition}
+
+We consider an isolated system of two phases in thermodynamic equilibrium, we know the total entropy will be maximized spontaneously
+$$S(U,V,N) = S_1(U_1,V_1,N_1) + S_2(U_2,V_2,N_2).$$
+Giving the total change in $S$ to be (in each partial derivative, the two free variables are held constant)
+$$\d S = \bigg[\frac{\p S_1}{\p U_1} - \frac{\p S_2}{\p U_2}\bigg]\ \d U_1 + \bigg[\frac{\p S_1}{\p V_1} - \frac{\p S_2}{\p V_2}\bigg]\ \d V_1 + \bigg[\frac{\p S_1}{\p N_1} - \frac{\p S_2}{\p N_2}\bigg]\ \d N_1.$$
+Now, if the system is at thermal equilbrium, we know that $\d S = 0$ is zero for any change in $U_1$, $V_1$ and $N_1$ independently, meaning all the coefficients have to be independant. Using the thermodynamic indentity we have
+$$\bigg(\frac{\p S}{\p U}\bigg)_{V, N} = \frac{1}{T}, \qquad \bigg(\frac{\p S}{\p V}\bigg)_{U, N} = \frac{P}{T}, \qquad \bigg(\frac{\p S}{\p N}\bigg)_{U, V} = -\frac{\mu}{T}.$$
+So we see that the equilbrium conditions are
+$$T_1 = T_2, \qquad P_1 = P_2, \qquad \mu_1 = \mu_2.$$
+
+\subsection*{Clausius-Clapeyron}
+We now consider the slope of the phase boundary between two co-existing phases. If we want to move along the curve, we will generally have to change the pressure and temperature in the right way in relation to each other, so that $\d P$ and $\d T$. The equilibrium condition then gives
+$$G_g = G_l \quad \To \quad -S_g \ \d T + v_g \ \d P = - S_l \ \d T + v_l \ \d P.$$
+Which gives the slope
+$$\bigg(\frac{\d P}{\d T}\bigg) = \frac{S_g - S_l}{V_g - V_l} = \frac{L}{T\Delta V}.$$
+Where $L$ is the \emph{latent heat}. Note that $L$ and $\Delta V$ are both extensive, so the slope of the phase boundary must be an intensive quantity.
+
+\section*{Entropy}
+Entropy is given by
+$$S = k \log \Omega.$$
+Where $\Omega$ is the multiplicity, i.e., the number of microstates the system can inhabit.
+
+For substances with $S_0 = 0$ (Sometimes referred to as the third law, but is not universally true), we can find $S(T)$ as
+$$S(T) = \int_0^T \frac{C_{P}(T)}{T} \ \d T,$$
+for this to be valid, we must have 
+$$\lim_{T \to 0} C_P(T) = 0.$$
+At phase transitions, we also have a finite, discontinious jumps, which will be proportional in size to the latent heats of the phase transistors. So just at above the boiling temperature for a substance, we can for example find the entropy as
+$$S(T_b) = S_s(0\to T_m) + \frac{\Lambda_m}{T_m} + S_l(T_m \to T_b) + \frac{\lambda_B}{T_b\lambda}.$$
+
+\clearpage
+
+\section*{Extensivity and Intensivit}
+\begin{itemize}
+	\item \textbf{Extensive:} $V$, $N$, $S$, $H$, $U$, $F$, $G$ 
+	\item \textbf{Intensive:} $T$, $P$, $\mu$, $\rho$
+\end{itemize}
+Extensive times intensive is extensive. Extensive divided by extensive is intensive. Extensive times extensive is neither. Extensive plus extensive is extensive and likewise for intensive, extensive plus intensive is \emph{not allowed}.
+
+\clearpage
+
+\section*{Third law of thermodynamics}
+ 
+The third law states that as $T \to 0$, the entropy must tend to some constant number $S(0) = S_0$. Sometimes the third law is formulated as $S\to0$, but this is not universially true, as there are some systems with a degenerated ground state. However, the specific heat capacity can be formulated as
+$$C_V = \bigg(\frac{\p U}{\p T}\bigg)_V = \bigg(\frac{\p U}{\p S}\bigg)_V\bigg(\frac{\p S}{\p T}\bigg)_V = T\bigg(\frac{\p S}{\p T}\bigg)_V = \bigg(\frac{\p S}{\p \ln T} \bigg)_V.$$
+And as $S \to \mbox{const}$ as $T \to 0$ and $\ln T \to \infty$, we see that $C_V \to 0$. (The same is true for $C_P$).
+
+We see that this must be the case from the fact that
+$$S_f - S(0) = \int_0^{T_{f}} \frac{C_V}{T} \ \d T.$$
+If $C_V$ does not go to zero as $T \to 0$ we see that the denominator causes the integral to diverge, and as $S(0)$ has to be finite, it would imply that $S_f$ diverges, which is clearly not the case.
+
+\clearpage
+
+\section*{Response Functions}
+
+Specific heats are just one example of response functions
+$$C_V = \bigg(\frac{\p U}{\p T}\bigg)_V, \qquad C_P = \bigg(\frac{\p H}{\p T}\bigg)_P.$$
+$$C_P = C_V + \bigg[P + \bigg(\frac{\p U}{\p V}\bigg)_T\bigg]\bigg(\frac{\p V}{\p T}\bigg)_P.$$
+
+$$C_X = \lim_{\Delta T \to 0} \bigg(\frac{\Delta Q}{\Delta T}\bigg)_X = T\bigg(\frac{\p S}{\p T}\bigg)_X.$$
+
+Other response functions are compressibilities
+$$K_X = -\frac{1}{V}\bigg(\frac{\p V}{\p V}\bigg)_X.$$
+And thermal expansion coefficient
+$$\alpha = \frac{1}{V}\bigg(\frac{\p V}{\p T}\bigg)_P.$$
+All these response functions are related and one can show that
+$$C_P - C_V = \frac{TV}{K_T}\alpha^2.$$
+$$K_T - K_S = \frac{TV}{C_P}\alpha^2.$$
+and
+$$\frac{C_P}{C_V} = \frac{K_T}{K_S}.$$
+For magnetic systems, the susceptibilities play the same roles as the compressbilities.
 
 \end{document}
 
 
 
+ 

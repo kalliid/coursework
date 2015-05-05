@@ -8,7 +8,6 @@ Atom::Atom (double x, double y, double z) {
 
 void Atom::reset_force() {
     F.set(0,0,0);
-    testF.set(0,0,0);
 }
 
 void Atom::add_F(vec3 Finc) {
@@ -63,6 +62,10 @@ System::System(int Nc) {
     double r6 = r2*r2*r2;
     double r12 = r6*r6;
     Ushift = -4*(1/r12 - 1/r6);
+
+    Natoms = 4*Nc*Nc*Nc;
+    V = sys_size.x()*sys_size.y()*sys_size.z();
+    rho = Natoms/V;
 }
 
 void System::initialize_FCC_lattice(int Nc) {
@@ -88,7 +91,7 @@ void System::initialize_uniform_velocities(double T) {
     // Set up RNG following Boltzmann distribution
     random_device rd;
     mt19937 gen(rd());
-    uniform_real_distribution<double> uniform_dist(-2*sqrt(2*k_b*T/m), 2*sqrt(2*k_b*T/m));
+    uniform_real_distribution<double> uniform_dist(-2*sqrt(2*T), 2*sqrt(2*T));
 
     for (Atom &atom : atoms)
         atom.v.set(uniform_dist(gen), uniform_dist(gen), uniform_dist(gen));
@@ -101,7 +104,7 @@ void System::initialize_boltzmann_velocities(double T) {
     // Set up RNG following Boltzmann distribution
     random_device rd;
     mt19937 gen(rd());
-    normal_distribution<double> boltzmann_dist(0, sqrt(k_b*T/m));
+    normal_distribution<double> boltzmann_dist(0, sqrt(T));
 
     for (Atom &atom : atoms)
         atom.v.set(boltzmann_dist(gen), boltzmann_dist(gen), boltzmann_dist(gen));
@@ -129,6 +132,10 @@ void System::reset_all_forces() {
         atom.reset_force();
 }
 
+void System::reset_pressure() {
+    pressure = 0;
+}
+
 void System::calc_forces_between_pair(int i, int j) {
     // Force on atom j from atom i and vice versa
     // Uses the minimum image convention
@@ -148,6 +155,7 @@ void System::calc_forces_between_pair(int i, int j) {
 }
 
 void System::calculate_forces() {
+    reset_pressure();
     reset_all_forces();
     assign_atoms_to_cells();
 
@@ -163,6 +171,8 @@ void System::calculate_forces() {
             for (Cell* neighbor : cell.neighbors)
                 for (int j : neighbor->atoms)
                     calc_forces_between_pair(i, j);
+
+            update_pressure(i);
         }
     }
 }
@@ -202,7 +212,7 @@ void System::update_energies() {
     potential_energy = 0;
     for (Cell cell : cells) {
         for (int i : cell.atoms) {
-            kinetic_energy + kinetic_energy_of_atom(i);
+            kinetic_energy += kinetic_energy_of_atom(i);
 
             // Local atoms
             for (int j : cell.atoms)
@@ -215,8 +225,19 @@ void System::update_energies() {
                     potential_energy += potential_energy_of_pair(i,j);
         }
     }
+    temperature = (2*kinetic_energy)/(3*Natoms);
     total_energy = kinetic_energy + potential_energy;
 }
+
+void System::update_pressure(int i) {
+    pressure += atoms[i].F.dot(atoms[i].r);
+}
+
+void System::update_pressure() {
+    pressure /= -3*V;
+    pressure += rho*k_b*temperature;
+}
+
 
 double System::kinetic_energy_of_atom(int i) {
     // Return the kinetic energy of atom i

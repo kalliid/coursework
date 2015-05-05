@@ -43,6 +43,9 @@ public:
     vec3 operator *=(double scalar);
     vec3 operator /=(double scalar);
 
+    // Vector products
+    double dot(vec3 &rhs);
+
     // Other
     double length();
     vec3 normalize();

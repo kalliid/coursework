@@ -1,0 +1,175 @@
+\documentclass[a4paper, 11pt, notitlepage, english]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc, url}
+\usepackage{textcomp}
+\usepackage{amsmath, amssymb}
+\usepackage{amsbsy, amsfonts}
+\usepackage{graphicx, color}
+\usepackage{parskip}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{flafter}
+
+
+\usepackage{geometry}
+\geometry{headheight=0.01mm}
+\geometry{top=24mm, bottom=29mm, left=39mm, right=39mm}
+
+\renewcommand{\arraystretch}{2}
+\setlength{\tabcolsep}{10pt}
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+%
+% Parametere for inkludering av kode fra fil
+%
+\usepackage{listings}
+\lstset{language=python}
+\lstset{basicstyle=\ttfamily\small}
+\lstset{frame=single}
+\lstset{keywordstyle=\color{red}\bfseries}
+\lstset{commentstyle=\itshape\color{blue}}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+%
+% Definering av egne kommandoer og miljøer
+%
+\newcommand{\dd}[1]{\ \text{d}#1}
+\newcommand{\f}[2]{\frac{#1}{#2}} 
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bra}[1]{\langle #1|}
+\newcommand{\ket}[1]{|#1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\braup}[1]{\langle #1 \left|\uparrow\rangle\right.}
+\newcommand{\bradown}[1]{\langle #1 \left|\downarrow\rangle\right.}
+\newcommand{\av}[1]{\left| #1 \right|}
+\newcommand{\op}[1]{\hat{#1}}
+\newcommand{\braopket}[3]{\langle #1 | {#2} | #3 \rangle}
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}
+\newcommand{\pp}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\ppn}[1]{\frac{\partial^2}{\partial #1^2}}
+\newcommand{\up}{\left|\uparrow\rangle\right.}
+\newcommand{\upup}{\left|\uparrow\uparrow\rangle\right.}
+\newcommand{\down}{\left|\downarrow\rangle\right.}
+\newcommand{\downdown}{\left|\downarrow\downarrow\rangle\right.}
+\newcommand{\updown}{\left|\uparrow\downarrow\rangle\right.}
+\newcommand{\downup}{\left|\downarrow\uparrow\rangle\right.}
+\newcommand{\bupup}{\left.\langle\uparrow\uparrow\right|}
+\newcommand{\bdowndown}{\left.\langle\downarrow\downarrow\right|}
+\newcommand{\bupdown}{\left.\langle\uparrow\downarrow\right|}
+\newcommand{\bdownup}{\left.\langle\downarrow\uparrow\right|}
+\renewcommand{\d}{{\rm d}}
+\renewcommand{\b}{\bigg}
+\newcommand{\Res}[2]{{\rm Res}(#1;#2)}
+\newcommand{\To}{\quad\Rightarrow\quad}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inner}[2]{\langle #1 , #2 \rangle}
+
+
+\newcommand{\bt}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\textsf{\textbf{#1}}}
+\newcommand{\I}{\boldsymbol{\mathcal{I}}}
+\newcommand{\p}{\partial}
+%
+% Navn og tittel
+%
+\author{}
+\title{Notes for project 1 in FYS4460}
+
+
+\begin{document}
+
+\section*{Thermostats}
+
+The most straight-forward and `naive' thermostat is normal velocity scaling. We know that the macroscopic temperature is measured from the kinetic energy
+$$\frac{3}{2}N k_b T = \langle E_k \rangle.$$
+If the temperature of our system is above or below our target temperature, that means the average kinetic energy of our particles is too low or to high respectively. We can thus manipulate the temperature of our system by scaling all the velocities in our system to reach the target temperature. If the temperature of our system is given as $T(t)$ and we scale all the velocities in our system by a factor of $\lambda$, we get a change in temperature of
+$$\Delta T = T(t+\Delta t) - T(t) = (\lambda^2 - 1)T(t).$$
+Solving for the scaling factor gives
+$$\lambda = \sqrt{T_0/T(t)}.$$
+Velocity scaling isn't very physical, for one it does not allow fluctations of the temperature, which are normally present in the cannonical ensamble.
+
+\subsection*{Berendsen temperature coupling}
+
+Instead of scaling the velocity straight to the target temperature, we could do it gradually. This is the basic idea of the Berendsen temperature coupling thermostat. We now let the gradient of the temperature change be proportional to the temperature difference between the system and the reservoir, just like Fouriers law predicts. 
+$$\frac{\d T}{\d t} = \frac{1}{\tau}(T(t) - T_0).$$
+the scaling parameter $\tau$ defines how strongly coupled the system is to the reservoir. This gives an exponential decay in the temperature difference between the reservoir and system, a timestep will give a temperature change
+$$\Delta T = \frac{\Delta t}{\tau}(T_0 - T(t)).$$
+And following the same scaling formula, this gives
+$$\frac{\Delta t}{\tau}(T_0 - T(t)) = (\gamma^2 - 1)T(t),$$
+solving for $\gamma$ now results in
+$$\gamma = \sqrt{1 + \frac{\Delta t}{\tau}\b(\frac{T_0}{T} - 1\b)}.$$
+The coupling constant $\tau$ has to be chosen carefully, in the limit $\tau \to \infty$ the thermostat is completely inactive, and we have a microcannonical ensamble. If $\tau$ is to small however, we approach the simple velocity scaling, meaning the temperature fluctations are to small ($\tau = \Delta t$ reproduces simple velocity scaling). In our projects we used values of $\tau \approx 20 \Delta t$, which agrees with the quoted value of $\tau \approx 0.1$ ps
+
+\subsection*{Use of several thermostats}
+
+One may use several thermostats in the same simulations, either for equilibriation and sampling phases. Or simultaneously for various substances to avoid the flying ice cube effect.
+
+\clearpage
+
+\section*{Microcannonical Ensamble}
+
+The microcannonical ensamble has constant energy, but the temperature will fluctate. We start our program with the atoms in a perfect FCC lattice, and stochastic starting velocities drawn from some form of given distribution (Maxwell, Boltzmann, uniform, etc). The system obviously does not start of in thermal equilibrium, and so needs time to equilibriate before we can do statistical sampling.
+
+\section*{Statistical sampling}
+
+The fundamental quantities in our simulation are the position and velocities of all the particles. From these we can easily find the kinetic energies of all the particles and the potential energy of all pair of atoms.
+
+To find the temperature and pressure of the system however, requires us to invoke various statistical mechanics theorems, like the equipartition theorem and the virial theorem.
+
+The equipartition theorem states that any quadratic degree of freedom in a system carries on average an energy of $\frac{1}{2}k_b T$ when the system is in thermal equilibrium. If we sum over all the quadratic degrees of freedom in our system, and there are three for every particle, we then get the total thermal energy $$\frac{3}{2}Nk_b T,$$ and this total thermal energy must be equal to the kinetic energy of the system, so we have 
+$$ \frac{3}{2}Nk_b T = \langle E_k \rangle.$$
+
+The virial theorem states
+$$P = \rho k_b T - \frac{1}{3}\langle \sum_{i<j} \vec{F}_{ij}\cdot \vec{r}_{ij}.$$
+Where $\rho = N/V$ is the particle density. Using the virial theorem, we can find the average pressure of the system from the positions of the atoms solely (the forces are given as functions of the positions).
+
+
+\section*{Units}
+
+We will measure distance in units of $\sigma$, so
+$$\bar{r} = \frac{r}{\sigma}.$$
+
+We measure energy in units of $\eps$, so we have
+$$\bar{U} = \frac{U}{\eps}.$$
+
+The force is given as the derivative of the potential
+$$F = -\frac{\d U}{\d r},$$
+substituting $\bar U$ and $\bar r$ gives
+$$F = \bigg(\frac{\eps}{\sigma}\bigg)\bigg(-\frac{\d \bar{U}}{\d \bar{r}}\bigg) = \bigg(\frac{\eps}{\sigma}\bigg)\bar{F},$$
+so we see that
+$$\bar{F} = \bigg(\frac{\sigma}{\eps}\bigg)F.$$
+
+We want Newton's 2.\ law to simplify to
+$$\bar{a} = \bar{F},$$
+let us see what this means. From the definition of acceleration we get
+$$a = \frac{\d^2 r}{\d t^2} = \frac{\sigma}{t_0^2} \frac{\d^2 \bar{r}}{d\bar{t}^2} = \frac{\sigma}{t_0^2}\bar{a}.$$ 
+So we have
+$$a = \frac{F}{m} \qquad \Rightarrow \qquad  \frac{\sigma}{t_0^2}\bar{a} = \bigg(\frac{\eps}{\sigma}\bigg)\frac{\bar{F}}{m} \qquad \Rightarrow \qquad \frac{\sigma}{t_0^2} = \bigg(\frac{\eps}{m\sigma}\bigg).$$
+Solving for $t$ gives
+$$t_0 = \sigma\sqrt{\frac{m}{\eps}}.$$
+Which will be our unit of time.
+
+This means we find the kinetic energy from
+$$K = \frac{1}{2}mv^2 = \frac{1}{2}\frac{\sigma}{mt_0^2}\bar{v}^2 = \frac{1}{2}\eps \bar{v}^2 \quad \Rightarrow \quad \bar{K} = \frac{1}{2}\bar{V}^2.$$
+
+And we can find the temperature from for example
+$$\frac{1}{2}mv_{\rm rms}^2 = \frac{3}{2}k_b T \quad \To \quad \frac{1}{2}\bar{v}_{\rm rms} = \frac{3}{2}\frac{k_b}{\eps} T \quad \To \quad \frac{1}{2}\bar{v}_{\rm rms} = \frac{3}{2}\bar {T},$$
+giving us
+$$\bar{T} = \frac{k_b}{\eps}T.$$
+
+\end{document}
+
+
+

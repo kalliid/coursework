@@ -9,6 +9,9 @@ public:
 
     Integrator(System* system);
     void Step();
+
+    void berendsen_thermostat(double tau);
+    void berendsen_thermostat(double tau, double Tbath);
 };
 
 class Verlet_integrator : public Integrator {
@@ -21,5 +24,7 @@ public:
     void velocity_verlet_step(double dt);
     void position_verlet_step(double dt);
 };
+
+
 
 #endif // INTEGRATOR_H
