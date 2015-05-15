@@ -76,6 +76,8 @@
 \newcommand{\eps}{\epsilon}
 \newcommand{\inner}[2]{\langle #1 , #2 \rangle}
 
+\renewcommand{\up}{\uparrow}
+\renewcommand{\down}{\downarrow}
 
 \newcommand{\bt}[1]{\boldsymbol{#1}}
 \newcommand{\mat}[1]{\textsf{\textbf{#1}}}
@@ -292,6 +294,21 @@ $$\frac{d}{dt}f(q,p,t) = \{f, H\} + \frac{\p f}{\p t}.$$
 \section*{Microcannonical ensamble}
 A microcannonical ensamble is completely isolated, and so has constant $NVE$. The fundamental assumption of statistical mechanics states that all microstates in a microcannonical ensamble are equally likely.
 
+\subsubsection*{Ergodic hypothesis}
+
+States that over long time periods, the time spent by a system in some region of phase space, i.e., in given microstates, with the same energy is proportional to the volume of that region. Stated simpler: All accesible microstates are equiprobable over long periods of time.
+
+\subsubsection*{Liouville's Theorem}
+
+States that for Hamiltonian systems, the local density of microstates following a particle path through phase space is constant as viewed by an observer moving with the ensamble. 
+
+ma
+where $D\rho/Dt$ is the material or total derivative, it gives the change in $\rho$ seen by a particle moving with the flow. 
+
+Lioville's theorem shows that flow in phase space is conservative and the microcannonical ensemble must be time independent. (If phase space is of uniform density, then it will stay so forever).
+
+Note that the ergodic hypothesis is one specific solution to the Liouville theorem equation, in fact, it is the simplest.
+
 \section*{Cannonical ensamble}
 
 A cannonical ensamble is in thermal contact with a reservoir with temperature $T$. It can therefore exchange energy $E$ with the reservoir, but has $NVT$ constant. 
@@ -311,10 +328,22 @@ $$Z = \sum_s e^{-E(s)/kT}.$$
 The partition function is a constant in the sense that it does not depend on the microstate $s$, but it does change with the temperature $T$. In the limit $kT \to 0$, we see that $Z \to 1$ as the only contributing state is the ground state as all other possible microstates become supressed. As $kT$ increases, $Z$ grows, as more microstates become available to the system. If we shift all energies by a constant factor of $E_0$, the partition function picks up a factor $e^{-E_0/kT}$, but it is inconsequential as it cancels out when calculating the probabilities $P(s)$.
 
 Using the Boltzmann distribution, we can find expectancies as
-$$\bar{X} = \sum_s X(s) P(s) = \frac{1}{Z} \sum_s X(s) e^{-\beta E(s)}.$$
+$$\langle X \rangle = \sum_s X(s) P(s) = \frac{1}{Z} \sum_s X(s) e^{-\beta E(s)}.$$
 
-For energy we find
-$$\bar{E} = - \frac{1}{Z}\frac{\p Z}{\p \beta} = -\frac{\p}{\p \beta}\ln Z.$$
+For the energy this can be written convieniently as
+$$\langle E \rangle = \frac{1}{Z}\sum_s E(s) e^{-\beta E(s)} = \frac{1}{Z} \sum_s \frac{\p}{\p \beta} e^{-\beta E(s)}.$$
+Giving
+$$\langle E \rangle = \frac{1}{Z}\frac{\p Z}{\p \beta}. $$
+Which can again be rewritten as
+$$\langle E \rangle = - \frac{\p }{\p \beta} \ln Z. $$
+
+For the energy squared, we get
+$$\langle E^2 \rangle = \frac{1}{Z}\frac{\p^2 Z}{\p \beta^2}.$$
+Which can be rewritten as
+$$\langle E^2 \rangle = \frac{\p^2}{\p \beta^2} \ln Z + \bigg[\frac{1}{Z} \frac{\p Z}{\p \beta}\bigg]^2 = \frac{\p^2}{\p \beta^2} \ln Z + \bigg[\frac{\p }{\p \beta}\ln Z \bigg]^2 = \frac{\p^2}{\p \beta^2} \ln Z  + \langle x \rangle^2.$$
+And so the variance is easily written as
+$$\langle \Delta E^2 \rangle = \langle E^2 \rangle - \langle E \rangle^2 = \frac{\p^2}{\p \beta^2} \ln Z.$$
+
 
 To find other quantitiez, we can calculate the Helmholtz free energy
 $$F = -kT \ln Z.$$
@@ -324,6 +353,11 @@ $$S = -\bigg(\frac{\p F}{\p T}\bigg)_{V, N}, \qquad P = -\bigg(\frac{\p F}{\p V}
 \clearpage
 
 \section*{Other}
+$$e^x \simeq 1 + x, \qquad x \ll 1.$$
+
+$$\ln(1-x) \approx -x, \qquad x \ll 1.$$
+$$(1-x)^k \approx 1-kx, \qquad x \ll 1.$$
+
 
 $$e^{\hbar\omega/kT} \simeq 1 + \frac{\hbar \omega}{kT}, \qquad T \gg \hbar\omega/k.$$
 
@@ -507,6 +541,10 @@ $$\lim_{T \to 0} C_P(T) = 0.$$
 At phase transitions, we also have a finite, discontinious jumps, which will be proportional in size to the latent heats of the phase transistors. So just at above the boiling temperature for a substance, we can for example find the entropy as
 $$S(T_b) = S_s(0\to T_m) + \frac{\Lambda_m}{T_m} + S_l(T_m \to T_b) + \frac{\lambda_B}{T_b\lambda}.$$
 
+The Gibbs entropy formula states
+$$S = -k \sum_s P_s \ln P_s.$$
+It is valid for both the microcanonical and canonical ensambles.
+
 \clearpage
 
 \section*{Extensivity and Intensivit}
@@ -548,6 +586,258 @@ $$K_T - K_S = \frac{TV}{C_P}\alpha^2.$$
 and
 $$\frac{C_P}{C_V} = \frac{K_T}{K_S}.$$
 For magnetic systems, the susceptibilities play the same roles as the compressbilities.
+
+\clearpage
+
+\section*{Fluctations}
+We find expectencies from the Boltzmann distribution from
+$$\langle X \rangle = \sum_s X(s) P(s) = \frac{1}{Z} \sum_s X(s) e^{-\beta E(s)}.$$
+This gives us
+$$\langle E \rangle = - \frac{\p }{\p \beta} \ln Z.$$
+And 
+$$\langle E^2 \rangle = \frac{\p^2}{\p \beta^2} \ln Z + \bigg[\frac{\p }{\p \beta}\ln Z \bigg]^2 = \frac{\p^2}{\p \beta^2} \ln Z  + \langle x \rangle^2.$$
+And so
+$$\langle \Delta E^2 \rangle = \frac{\p^2}{\p \beta^2} \ln Z.$$
+
+Heat capacity is given by
+$$C_V = \bigg(\frac{\p U}{\p T}\bigg)_V.$$
+And so from $\langle E \rangle$ we find
+$$C_V = -\frac{\p }{\p T} \frac{\p}{\p \beta} \ln Z = \frac{\p}{\p \beta} \frac{\p \beta}{\p T} \frac{\p}{\p \beta} \ln Z = \frac{1}{kT^2} \frac{\p^2}{\p \beta^2} \ln Z.$$
+Comparing $\langle \Delta E^2 \rangle$ to $C_V$ gives
+$$\langle \Delta E^2 \rangle = kT^2 C_V.$$
+Note that $C_V$ is proportional to $N$, so it follows that the energy fluctations of a system is proportional to the number of particles in that system. However, as the total energy is also proportional to $N$, i.e., $\langle E \rangle \propto N$, it follows that the \emph{relative} energy fluctuations of the system are inversely proportional to the square root of the number of particles:
+$$\frac{\sqrt{\langle \Delta E^2 \rangle}}{\langle E \rangle} \propto \frac{1}{\sqrt{N}}.$$
+
+If we look at a $NVT$ ensamble, the `constant temperature' is the temperature of the heat bath and so the system does actually have temperature fluctuations (in comparison, a $NVE$ ensamble has no fluctuation in energy). Assuming the system has an instantaenous energy fluctuation, it will lead to a temperautre change given by
+$$\Delta T  = \Delta E \bigg(\frac{\p T}{\p E}\bigg)_{N,V} = \frac{\Delta E}{C_V}.$$
+And so the mean square fluctuations in temperature will be
+$$\langle \Delta T \rangle = \frac{\langle \Delta E^2 \rangle}{C_V^2} = \frac{kT^2}{C_V}.$$
+So the mean square temperature fluctuations are inversely proportional to $N$. However, unlike the total energy, the temperature of the system is an intensive size
+and independent
+of $N$,
+ so the relative 
+temperature fluctuations will also be inversely proportional to the square root of the number of particles
+$$\frac{\sqrt{\Delta T^2}}{T} \propto \frac{1}{\sqrt{N}}.$$
+
+\clearpage
+
+\section*{Equipartition Theorem}
+
+The equipartition theorem states that any quadratic degree of freedom will carry an average energy of $kT/2$ when the system is in equilibirum. As an example, consider the ideal gas, which only has the kinetic energy of the gas particles (as the particles are non-interacting), the hamiltonian will be
+$$H = \sum_{i=1}^N \frac{1}{2}m({v_i}_x^2+{v_i}_y^2+{v_i}_z^2),$$
+and so the average kinetic energy of the ideal gas will be
+$$U = \frac{3}{2}NkT,$$
+at thermal equilibrium. Which leads to the law of Dulong-Petit that $C_V = 3Nk$ for an ideal gas.
+
+The equipartition theorem breaks down at low temperature as the discrete nature of energy levels, i.e, start to matter. The equipartition theorem only applies when in the high-temperature limit where the spacing between energy levels is much less than $kT$.
+
+\clearpage
+
+\section*{Random Walker}
+
+The symmetric walker is given by uncorrelated steps to the left and right with the same probability $p=q$ and often we start the particle in the origin $x_0 = 0$.
+$$x_N = \sum_{i=1}^n \delta x_i.$$
+We find the expectation as a difference equation, we have
+$$x_{i+1} = x_{i} + \delta x_i.$$
+Inserting for the step $\delta x_i$ gives
+$$x_{i+1} = \begin{cases}
+	x_i + a & \mbox{with probability } p, \\
+	x_i - a & \mbox{with probability } q,
+\end{cases}$$
+So we have
+$$\langle x_{i+1} \rangle = p(\langle x_i \rangle + a) + q(\langle x_i \rangle - a) = \langle x_i \rangle + (p-q)a.$$
+If $p=q=1/2$ we get
+$$\langle x_{i+1} \rangle = \langle x_i \rangle \quad \To \quad \langle x_n \rangle = x_0 = 0.$$
+
+Now we calculate the expectany of the square displacement, we have
+$$x_{i+1}^2 = x_{i}^2 + 2x_i\delta x_i + \delta x_i^2.$$
+Inserting for $\delta x_i$ gives
+$$x_{i+1}^2 = \begin{cases}
+	x_i^2 + 2x_ia + a^2 & \mbox{with probability } p, \\
+	x_i^2 - 2x_ia + a^2 & \mbox{with probability } q,
+\end{cases}$$
+so the expectancy becomes
+$$\langle x_{i+1}^2 \rangle = \langle x_i^2 \rangle 2(p-q)a \langle x_i \rangle + a^2.$$
+For the symmetric walker ($p=q$) we then get
+$$\langle x_{i+1}^2 \rangle = \langle x_i^2 \rangle + a^2 \quad \To \quad \langle x_n^2 \rangle = na^2.$$
+Which we can write as the linear diffusion
+$$\langle x \rangle(t) = 2Dt,$$
+for $D = a^2/\Delta t$.
+
+\clearpage
+
+\section*{Central Limit Theorem}
+
+Let $X$ be a stochastic variable that follows a distribution with a well-defined mean $\mu$ and finite variance $\sigma^2$. Then if take many indenpendant samples of $X$: $\langle x_i \rangle_{i=1}^{N}$. The central limit theorem states that as $N$ grows large, the sum of the samples $\sum_i x_i$ will follow a normal distribution. The distribution being sampled is often referred to as the \emph{parent distribution} and does not have to resemble a normal distribution.
+
+To be more specific, if we calculate the sample average
+$$\bar{X} = \frac{\sum_{i=1}^N X_i}{N}.$$
+Then $\bar{X}$ is also a stochastic variable. The expectancy of $\bar{X}$ will obviously be the mean $\mu$ by the law of large numbers. The CLT however, also guarantees that $\bar{X}$ will be (approximately) normal distributed with variance $\sigma^2/n$. If we instead of taking the sample average just take the sample sum, 
+$$S_n = \sum_{i=1}^N X_i,$$
+then the mean will be $N\mu$ and the variance will be $N\sigma^2$. If we want a $N(0, \sigma^2)$ distribution we can study $\sqrt{N}(S_n - \mu)$. And if we a standard normal distribution, we can study
+$$\frac{\sqrt{N}(S_n - \mu)}{\sigma}.$$
+
+\clearpage
+
+\section*{Langevin Equation}
+
+Ikke pensum?
+
+% We will now find the variance as a function of time analytically for the symmetric $p=1/2$ walker. For this walker, we now that the increment $x_i$ is positive with probability 1/2 and negative with probability $1/2$. So the position of the walker grows as
+% $$X_{i+1} = X_{i} \pm 1,$$
+% where the `$\pm$' refers to the different steps. From this, we easily find how the expectancy of the displacement grows
+% $$\langle X \rangle_{i+1} = \langle X \rangle_i + \frac{1}{2} - \frac{1}{2} = \langle X \rangle_i$$
+% So from the fact that $X_0 = 0$, we see that $\langle X \rangle_t = 0.$ By squaring the equation,
+% $$X_{i+1}^2 = X_{i}^2 \pm 2X_{i} + 1,$$
+% we can also find how the expectancy of the squared displacement grows
+% $$\langle X_{i+1}^2 \rangle = \langle X_{i}^2 \rangle + 1,$$
+% and so from $X^2_0 = 0$ we get $\langle X^2\rangle_t = t$.
+
+% The variance at time $t$ is then
+% $$\langle \Delta X^2 \rangle_t = \langle X^2 \rangle_t - \langle X \rangle_t^2 = t.$$
+% Which we may write as
+% $$\langle \Delta X^2 \rangle_t = 2Dt,$$
+% for $D=1/2$. 
+\clearpage
+
+\section*{Magnetic Systems}
+
+When looking at magnetic systems, the magnetic moment of particles can be aligned with or against a magnetic field, which will lead to work. This means the particle or system can perform work by changing their magnetization (or rather, the direction of their magnetization). We reflect this by changing the pressure-work to magnetic-work
+$$\d W = P\ \d V \quad \to \quad \d W = B\ \d M.$$
+Both $P$ and $M$ are intensive, while $V$ and $M$ are extensive, so this change makes sense. It follows that
+$$\d U = T\ \d S + B \ \d M.$$
+And from this identity we can derive many new partial derivatives
+$$T = \bigg(\frac{\p U}{\p S}\bigg)_M, \qquad B = \bigg(\frac{\p U}{\p M}\bigg)_S,$$
+we can also find new Maxwell relations.
+
+The enthalpy no changes to
+$$H(S, B) = U - BM.$$
+And the free energy becomes
+$$F(T, M) = U - TS.$$
+And so we get
+$$\d F = -S \ \d T + B\ \d M,$$
+giving
+$$S = -\bigg(\frac{\p F}{\p T}\bigg)_M, \qquad B = \bigg(\frac{\p F}{\p M}\bigg)_T,$$
+
+And similar for the Gibbs free energy
+$$G = U - BM - TS, \qquad \d G = - M\ \d B - S\ \d T.$$
+$$S = -\bigg(\frac{\p G}{\p T}\bigg)_B, \qquad M = \bigg(\frac{\p G}{\p B}\bigg)_T,$$
+
+The \emph{susceptibility} is the change in magnetization as a result of the change in field
+$$\chi = \bigg(\frac{\p M}{\p B}\bigg)_T.$$
+And we also define the spefific heat
+$$C_B = \bigg(\frac{\p H}{\p T}\bigg)_B.$$
+
+\subsection*{Magnetic materials}
+
+The interaction energy between a magnetic material and a magnetic field is given by $U_B = -MB$ and for weak fields, we can write the induced magnetic moment as $M = \chi B$. We divide materials into three classes. Diagmagnetic materials have negative susceptibilites, $\chi < 0$, and so the induced magnetic moment will increase the energy of the system, thus we must perform work to move the material into the magnetic field (diamagnetic materials are repelled by magnetic fields). Paramagnetic materials however, have positive susceptibilities, $\chi > 0$, and are thus attracted to magnetic fields. Paramagnetic materials that retain the induced magnetization even when removed from the external field are referred to as \emph{ferromagnetic}.
+
+\subsubsection*{Paramagnets}
+
+In an ideal paramagnet, every dipole will only react with the external magnetic field, and will not interact directly with it's closest neighbors. In most paramagnetic crystals, the interaction with neighboring atoms can be ignored without introducing to much error. Every dipole will then get an energy eigenvalues
+$$\eps_m = -g\mu_B B m, \quad m=-J, -J+1, \ldots, J-1, J.$$
+The partition function becomes
+$$Z = \sum_{m=-J}^J e^{\beta g\mu_B B M}.$$
+This is a geometric series and evaluates to
+$$Z = \frac{e^{(J+1)a} - e^{-aJ}}{e^a - 1} = \frac{\sinh \frac{2J+1}{2J}}{\sinh \frac{x}{2J}}.$$
+Where $x = \beta g \mu_B B J$. And from this the Gibbs free energy follows $G = -kT \log Z$, and so we find the expectency for the magnetization of a single dipole to be
+$$m = \langle \op{m}_z \rangle = -\frac{\p G}{\p B} = g\mu_B J B_J(x).$$
+Where Brillouin function
+$$B_J(x) = \frac{2J+1}{2J}\coth \frac{2J+1}{2J} x - \frac{1}{2J}\coth \frac{x}{2J}.$$
+For small values of $x$ it is approximately linear
+$$B_J(x) = \frac{J+1}{3J}x + \mathcal{O}(x^3).$$
+For large $x$, it approaches $1$ for all $J$. As the field gets strong, all dipoles align parallel to the field, so $\mu = g\mu_B J$
+For large spin we have
+$$B_J(x)\big|_{J\gg1} = L(x) = \coth x - \frac{1}{x},$$
+This is the Langevin function, it is the classical limit of magnetization.
+In the other limit, the minimum is $J=1/2$ and the Brillouin function simplifies to
+$$B_{\frac{1}{2}}(x) = 2\coth 2x - \coth x = \frac{1 + \coth^2 x}{\coth x} = \tanh x.$$
+
+With the exception of very small temperatures, we can use the linear approximation, this gives
+$$M = Nm = \frac{Ng^2\mu_B^2J(J+1)B}{3kT}.$$
+And the susceptiblity
+$$\chi = \frac{Ng^2\mu_b^2J(J+1)B}{3kT}.$$
+This is sometimes referred to as Curie's law, where 
+$$M = C \frac{B}{T}, \qquad \chi = \frac{C}{T}.$$
+
+\subsection*{Ferromagnetic materials}
+For high temperatures (much higher than the curie temperature $T_C$), a ferromagnetic material behaves as a paramagnetic one, as described by the Curie-Weiss law
+$$\chi = \frac{C}{T-T_C}.$$
+The big difference is there is a phase change at $T = T_C$ where the susceptibility diverges, at temperatures below the Curie temperature, the material spontaneously magnetize. Experiment shows that the susceptibility diverges like
+$$\chi \propto |T-T_C|^{-\gamma}.$$
+Where $\gamma = 1.4$. We also find that
+$$C_B \propto |T-T_C|^{-\alpha}.$$
+
+
+
+\subsection*{Interacting dipoles}
+
+However, in real materials, the orientation of a specific dipole will depend and affect the orientation of at least it's closest neighbors. A material where the magnetic dipoles tend to be oriented in the same direction is a \emph{ferromagnet}, this will lead to magnetic domains and the material can have a spontaneous magnetization even when there is no external magnetic field. A material where the dipoles tend to be oriented in the opposite direction of their neighbors is called a \emph{antiferromagnet}.
+
+A ferromagnet will have spontaneous magnetization at low temperatures, as the temperature increases, the magnetization reduces slowly. At the curie temperature there is a phase change and any total magnetization vanishes.
+
+\clearpage
+
+\section*{Ising model}
+
+We neglect any long range interaction between dipoles, and let only dipoles affect the closest dipoles. We focus on a single domain in a ferromagnet. (Note that the ising model is a very simple model, at low temperature the model fails, as it should describe the long-wavelength \emph{magnons}), however, at temperatures close to the Curie temperature, this simple model is remarkably good.
+
+We say that a neighboring pair of dipoles carry an energy $\eps$ if they are aligned the same way, and $-\eps$ if they are aligned oppositely. So we have
+$$U = - \eps \sum_{\mbox{neighboring pairs}} s_is_j.$$
+Calculating the partition function in 2D is very difficult as the number of system structures grows as $2^N$. 
+
+\subsection*{Exact solution in 1D}
+In 1D, each dipole only has two neighbors, so we can find the partition function exactly
+$$U = -\eps \sum_{i=1}^{N-1} s_i s_{i+1} = -\eps(s_1s_2 + s_2s_3 + \ldots s_{N-1}s_N).$$
+And so the partition function becomes
+$$Z = \sum_{s_1}\sum_{s_2}\cdots\sum_{s_N}e^{-\beta U(s_1,s_2,\ldots,s_N)} =  \sum_{s_1}\sum_{s_2}\cdots\sum_{s_N} e^{\beta \eps s_1s_2}e^{\beta \eps s_2s_3}\cdots e^{\beta \eps s_{N-1}s_{N}}.$$
+Where every sum is over $\pm 1$. Not that the last Boltzmann factor is the only one that depends on $s_N$, so we can pull all the other factors out of the $s_N$ sum, and we have
+$$Z = \sum_{s_1}\sum_{s_2}\cdots\sum_{s_N-1} e^{\beta \eps s_1s_2}e^{\beta \eps s_2s_3}\cdots e^{\beta \eps s_{N-2}s_{N-1}} \sum_{s_N} e^{\beta \eps s_{N-1}s_{N}}.$$
+And the final sum becomes
+$$\sum_{s_N} e^{\beta \eps s_{N-1}s_{N}} = e^{\beta \eps} + e^{-\beta \eps} = 2\cosh\beta \eps.$$
+We can now do the same for the $s_{N-1}$ sum, and get the same result. We do this all the way down to the $s_2$ sum and end up with
+$$Z = \sum_{s_1} \big(2\cosh \beta \eps \big)^{N-1}.$$
+The final sum only contributes a factor of 2, so we need to do an approximation
+$$Z = 2^N (\cosh \beta \eps)^{N-1} \approx (2 \cosh \beta \eps)^N.$$
+From this we get the energy
+$$U = -\frac{\p}{\p \beta} \ln Z = -N \frac{\sinh \beta \eps}{\cosh \beta \eps} \eps = - N\eps \tanh \beta \eps.$$
+Which goes to $-N\eps$ as $T\to 0$, i.e., all dipoles align as $T\to 0$ and $U \to 0$ as $T \to \infty$, i.e., all dipoles align randomly as high temperatures. (This is the same $Z$ and $U$ as for the paramagnet with $\eps = \mu B$, the difference is that the paramagnet makes all dipoles align along an external field, while the ising crystel just makes the dipoles align along their neighbors).
+
+The 1D exact solution has a smooth energy transistions and \emph{does not} give a critical temperature, to get the phase transistion we have to turn to the 2D ising model first solved by Onsager.
+
+\section*{Mean field theories}
+
+We now look at a single dipole with spin $s_i$, somewhere in the interior of the lattice. Let $n$ bethe number of nearest neighbors, we then have
+$$n = \begin{cases}
+	2 & \mbox{in 1D}; \\
+	4 & \mbox{in 2D (square lattice)}; \\
+	6 & \mbox{in 3D (simple cubic lattice)}; \\
+	8 & \mbox{in 3D (body-centered cubic lattice)}; \\
+	12 & \mbox{in 3D (face-centered cubic lattice)}. \\
+\end{cases}$$
+We now assume that the neighbors have frozen spins, and so our only degree of freedom is $s_i$. If we let $j$ run over all the nearest neighbors of $s_i$ we get
+$$E_\up = -\eps \sum_{j} s_j = -\eps\bar{s}, \qquad E_\down = \eps \bar{s}.$$
+And so the partition function for the isolated dipole becomes
+$$Z_i = e^{\beta \eps n \bar{s}} + e^{-\beta \eps n \bar{s}} = 2\cosh{\beta\eps n\bar{s}}.$$
+And from this partition function we can calculate the expectancy of $s_i$, getting
+$$\langle s_i \rangle = \frac{1}{Z_i}\bigg[e^{\beta \eps n \bar{s}} - e^{-\beta \eps n \bar{s}} \bigg] = \frac{2\cosh{\beta\eps n\bar{s}}}{2\cosh{\beta\eps n\bar{s}}} = \tanh{\beta\eps n\bar{s}}.$$
+
+Now the \textbf{fundamental approximation of the mean field approximation} is that we assume $\bar{s_i} = \bar{s}$. This means we assume the average magnetization is uniform across the entire lattice, and so all spins `see' the same neighborhood. This gives the equation
+$$\bar{s} = \tanh{\beta\eps n\bar{s}}.$$
+And $\bar{s}$ now refers to the average magnetization dipole alignment across the entire lattice.
+
+This equation is transcendental and cannot be solved on closed form. If we plot it out graphically, we see that we have to major cases. If $\beta \eps n < 1$, which implies $kT > n\eps$, the slope of the hyperbolic tangent is so low that there is only one solution, at $\bar{s} = 0$, i.e., there is no net magnetization of the material. For $k T < n\eps$, there are three solutions, an unstable solution at $\bar{s} = 0$ and two stable ones, located symmetrically around the center. This means the system will acquire a net nonzero magnetization, which is equally likely to be positive or negative.
+
+We see that the critical temperature is the temperature where $kT_c = n\eps$, since this is when we go from having a single to three solutions. The critical temperature is thus proportional to both the coupling strength and the number of neighbors, no shock there. Note that the mean field approximation predicts a critical temperature even in 1D, which we did not find in our analytical answer---this is simply because the simple mean field approximation is terrible in 1D.
+
+
+
+\clearpage
+
+
+
+\section*{Van der Waals equation}
+
 
 \end{document}
 
