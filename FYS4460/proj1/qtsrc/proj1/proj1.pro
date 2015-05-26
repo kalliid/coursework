@@ -7,14 +7,16 @@ SOURCES += main.cpp \
     vec3.cpp \
     io.cpp \
     integrator.cpp \
-    system.cpp
+    system.cpp \
+    tester.cpp
 
 HEADERS += \
     vec3.h \
     integrator.h \
     system.h \
     io.h \
-    parameters.h
+    parameters.h \
+    tester.h
 
 release {
     DEFINES += ARMA_NO_DEBUG

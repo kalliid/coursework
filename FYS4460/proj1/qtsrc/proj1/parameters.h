@@ -8,7 +8,7 @@ double const eps = 1.0318e-2;
 double const k_b = 8.617332e-5;
 double const b = 5.260/sigma; // Lattice constant for argon
 double const m = 39.948;      // Mass of Argon atom in amu
-double const dt = 1e-2;
+double const dt = 1e-3;
 
 double const rcut = 3.0;
 

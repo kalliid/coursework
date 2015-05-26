@@ -26,3 +26,24 @@ void Logger::write_current_state() {
     }
 }
 
+System Logger::resume_state(const char filename[]) {
+    FILE* infile = fopen(filename, "rb");
+    int Nc;
+
+    fread(&Nc, sizeof(int), 1, infile);
+
+    System sys = System(Nc);
+    sys.atoms.resize(sys.Natoms);
+
+    for (Atom &atom : sys.atoms) {
+        fread(&atom.r.m_vec, sizeof(double), 3, infile);
+        fread(&atom.v.m_vec, sizeof(double), 3, infile);
+    }
+    fclose(infile);
+
+    sys.calculate_forces();
+    sys.update_energies();
+
+    return sys;
+}
+

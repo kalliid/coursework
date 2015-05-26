@@ -4,9 +4,9 @@
 #include <iostream>
 class vec3
 {
-private:
-    double m_vec[3];
 public:
+    double m_vec[3];
+
     // Assignment
     vec3();
     vec3(double x, double y, double z);
@@ -53,6 +53,7 @@ public:
     vec3 floor();
     double sum();
 
+    double* array();
 
 private:
     // Printing

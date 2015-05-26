@@ -803,6 +803,9 @@ From this we get the energy
 $$U = -\frac{\p}{\p \beta} \ln Z = -N \frac{\sinh \beta \eps}{\cosh \beta \eps} \eps = - N\eps \tanh \beta \eps.$$
 Which goes to $-N\eps$ as $T\to 0$, i.e., all dipoles align as $T\to 0$ and $U \to 0$ as $T \to \infty$, i.e., all dipoles align randomly as high temperatures. (This is the same $Z$ and $U$ as for the paramagnet with $\eps = \mu B$, the difference is that the paramagnet makes all dipoles align along an external field, while the ising crystel just makes the dipoles align along their neighbors).
 
+The heat capacity then becomes
+$$C_B = \bigg(\frac{\p U}{\p T}\bigg)_B = \frac{Nk (\beta \eps)^2}{\cosh^2(\beta \eps)}.$$
+
 The 1D exact solution has a smooth energy transistions and \emph{does not} give a critical temperature, to get the phase transistion we have to turn to the 2D ising model first solved by Onsager.
 
 \section*{Mean field theories}
@@ -834,9 +837,92 @@ We see that the critical temperature is the temperature where $kT_c = n\eps$, si
 
 \clearpage
 
+\section*{Brownian Motion and the Langevin equation}
 
+\subsubsection*{Einstein Relation}
+A system of diffusive particles will be in equilibrium where there is a downward flux due to gravity, and an upward flux due to diffusion
+$$\mu C(x,t) mg = - D \frac{\p C}{\p z}.$$
+Where $z$ is the vertical coordinate, $mg$ is the gravitation on each particle, $D$ is the diffusion constant and $\mu$ is the mobility, which is the velocity a particle moves through a fluid with when acted on with a force $F$, so $\mu = v/F$.
+
+Now, due to equilbrium, the particles will follow a Boltzmann distribution along the height of the cylinder, as the potential field increases linearily upwards, so \textbf{at equilbrium}:
+$$C(x, t) \propto e^{-\beta mg z}.$$
+Which gives
+$$\frac{1}{C} \frac{\p C}{\p z} = -\beta m g.$$
+And so
+$$D = \mu k T.$$
+And this is the Einstein Relation. It links the mobility, a macroscopic observable that is independant of fluctuations, to a direct measurement of fluctations. It is therefore referred to as the fluctuation-dissipation relation, since $\mu$ determines the viscous dissipation that occurs when a particle is moved.
+
+\subsubsection*{Langevin equation}
+The langevin equation is Newton's 2.\ law for a Brownian particle. It is subject to viscous drag from the surrounding fluid, and also the impacts from local fluid molecules. Since there will be many random collisions affecting the particle, we can turn to the central limit theorem. If we let $\delta p_i$ denote the $x$-component of the momentum transfer. We denote the number of collisions during a time $\Delta t$ by $N$, so $\Delta P$ is the sum of all $N$ contributions. The momentum change over time corresponds to a force, which will have variance
+$$\langle F_x^2 \rangle = \frac{\langle \Delta P^2 \rangle}{\Delta t^2} \propto \frac{1}{\Delta t}.$$
+And if we solve the Langevin equation numerically, we can draw the force as a normal number, as long as the time-step is long enough for the force contributions to be uncorrelated.
+
+
+So we have $\langle \tilde{F} \rangle = 0$, and the viscous force is given by Stokes law, so we have
+$$m \frac{\d \vec{v}}{\d t} = -\alpha \vec{v} + \tilde{\vec{F}}.$$
+
+From the Langevin equation we can show that
+$$\langle x^2 \rangle(t) = \frac{2kT}{\alpha}\bigg(t - \frac{m}{\alpha}(1-e^{-\alpha t/m})\bigg).$$
+On a short time scale, ineratial effects, $m\d^2 x / \d t^2$ are important, on long time-scales, they are ignored, and we simplify to a random walker.
+$$\langle x^2 \rangle(t) = \begin{cases}
+			\frac{kT}{m}t^2 & \mbox{for } t \ll m/\alpha, \\
+			\frac{kT}{m}t & \mbox{for } t \gg m/\alpha. \\
+\end{cases} $$
+		
+% \langle x^2 \rangle(t) = \begin{cases} \frac{kT}{m}t^2 & \mbox{for t \ll m/\alpha} \\,  \frac{kT}{m}t & \mbox{for t \gg m/\alpha}.
+
+
+\clearpage
+
+\section*{Ideal gas}
+An ideal gas consist of $N$ particles, where each particle only carries an energy of
+$$\eps = \frac{p_x^2 + p_y^2 + p_z^2}{2m}.$$
+The Partition function must sum over all possible states
+$$Z = \sum_s e^{-\beta E(s)},$$
+so we must find some way to quantize momentum, putting the ideal gas in a box gives
+$$k_i = \frac{n\pi}{L}.$$
+And so we have $p_i = \hbar k_i = n\hbar \pi/L$, giving for one dimension:
+$$Z_{1d} = \sum_n e^{-\beta E_n} = \sum_n \exp \bigg(-\frac{\beta \hbar^2 \pi^2}{2mL^2} n^2\bigg).$$
+For a macroscopic $L$ and a $T$ not to close to 0, there will be extremly many modes, and so we can approximate the sum by the corresponding integral, giving
+$$Z_{1d} = \int_0^\infty \exp \bigg(-\frac{\beta \hbar^2 \pi^2}{2mL^2} n^2\bigg) \ \d n = \frac{\sqrt{\pi}}{2} \sqrt{\frac{2mL^2}{\beta \hbar^2 \pi^2}} = \sqrt{\frac{m}{2\pi \beta \hbar^2}} L = \frac{L}{l_Q}.$$
+Where we have defined the quantum wave-length
+$$l_Q \equiv \frac{2\pi\beta\hbar^2}{m}.$$ 
+In three dimensions, we then find
+$$Z_{3d} = \sum_{n_x}\sum_{n_y}\sum_{n_z} e^{-\beta E(n_x + n_y + n_z)} = \sum_{n_x} e^{-\beta E n_x} \sum_{n_y} e^{-\beta E n_y} \sum_{n_z} e^{-\beta E n_z} = \frac{L}{l_Q}\frac{L}{l_Q}\frac{L}{l_Q} = \frac{V}{v_q}.$$
+
+This is usually just written as
+$$Z = \int \frac{\d^3 p}{(2\pi \hbar)^3} e^{-\beta p^2/2m} = \frac{V}{v_q}.$$
+using semi-classical arguments.
+
+And so $$Z_n = \frac{1}{N!}\bigg(\frac{V}{v_q}\bigg)^N.$$
 
 \section*{Van der Waals equation}
+
+\clearpage
+
+\section*{Reactions}
+
+The chemical potentials at equilibrium follow the exact same formula as the reaction equation itself. Consider for example the creation and annihilation of electron-positron pairs
+$$e^{+} + e^{-} \Leftrightarrow \gamma.$$
+We then immediately have
+$$\mu_{e^+} + \mu_{e^-} = \mu_\gamma.$$
+And since we can reasonably assume that $\mu_{e^+} = \mu_{e^-}$ we get that they are both zero.  
+
+\clearpage
+
+\section*{Faktisk formelark}
+
+Vanlig $Z$, $U$, $C_V$ osv for
+\begin{itemize}
+	\item Harmonisk oscillator (Einstein Solid)
+	\item Paramagnet
+	\item Ideel gass
+	\item Fermiongass
+	\item Photongass
+\end{itemize}
+
+
+
 
 
 \end{document}

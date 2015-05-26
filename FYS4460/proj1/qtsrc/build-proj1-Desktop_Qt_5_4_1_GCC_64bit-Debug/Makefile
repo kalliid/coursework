@@ -52,12 +52,14 @@ SOURCES       = ../proj1/main.cpp \
 		../proj1/vec3.cpp \
 		../proj1/io.cpp \
 		../proj1/integrator.cpp \
-		../proj1/system.cpp 
+		../proj1/system.cpp \
+		../proj1/tester.cpp 
 OBJECTS       = main.o \
 		vec3.o \
 		io.o \
 		integrator.o \
-		system.o
+		system.o \
+		tester.o
 DIST          = /opt/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.4/gcc_64/mkspecs/common/shell-unix.conf \
 		/opt/Qt/5.4/gcc_64/mkspecs/common/unix.conf \
@@ -175,11 +177,13 @@ DIST          = /opt/Qt/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		integrator.h \
 		system.h \
 		io.h \
-		parameters.h ../proj1/main.cpp \
+		parameters.h \
+		tester.h ../proj1/main.cpp \
 		../proj1/vec3.cpp \
 		../proj1/io.cpp \
 		../proj1/integrator.cpp \
-		../proj1/system.cpp
+		../proj1/system.cpp \
+		../proj1/tester.cpp
 QMAKE_TARGET  = proj1
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = proj1
@@ -505,6 +509,9 @@ system.o: ../proj1/system.cpp ../proj1/system.h \
 		../proj1/vec3.h \
 		../proj1/parameters.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o system.o ../proj1/system.cpp
+
+tester.o: ../proj1/tester.cpp ../proj1/tester.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tester.o ../proj1/tester.cpp
 
 ####### Install
 

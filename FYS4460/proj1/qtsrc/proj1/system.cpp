@@ -1,9 +1,17 @@
 #include "system.h"
 
+Atom::Atom() {
+    r = vec3();
+    v = vec3();
+    F = vec3();
+    disp = vec3();
+}
+
 Atom::Atom (double x, double y, double z) {
     r = vec3(x, y, z);
     v = vec3();
     F = vec3();
+    disp = vec3();
 }
 
 void Atom::reset_force() {
@@ -54,6 +62,7 @@ void Cell::find_neighbors() {
 }
 
 System::System(int Nc) {
+    this->Nc = Nc;
     sys_size = vec3(Nc*b, Nc*b, Nc*b);
     construct_cells();
     link_cells();
@@ -66,7 +75,10 @@ System::System(int Nc) {
     Natoms = 4*Nc*Nc*Nc;
     V = sys_size.x()*sys_size.y()*sys_size.z();
     rho = Natoms/V;
+
+    measure_disp = false;
 }
+
 
 void System::initialize_FCC_lattice(int Nc) {
    // Generates the positions of all the atoms in a
@@ -84,32 +96,43 @@ void System::initialize_FCC_lattice(int Nc) {
    calculate_forces();
 }
 
-void System::initialize_uniform_velocities(double T) {
-    // Generates the initial velocities of all atoms in the system
-    // Each velocity is drawn independantly from a Boltzmann distribution
+//void System::initialize_uniform_velocities(double T) {
+//    // Generates the initial velocities of all atoms in the system
+//    // Each velocity is drawn independantly from a Boltzmann distribution
 
-    // Set up RNG following Boltzmann distribution
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_real_distribution<double> uniform_dist(-2*sqrt(2*T), 2*sqrt(2*T));
+//    // Set up RNG following Boltzmann distribution
+//    uniform_real_distribution<double> uniform_dist(-2*sqrt(2*T), 2*sqrt(2*T));
 
-    for (Atom &atom : atoms)
-        atom.v.set(uniform_dist(gen), uniform_dist(gen), uniform_dist(gen));
-}
+//    for (Atom &atom : atoms)
+//        atom.v.set(uniform_dist(gen), uniform_dist(gen), uniform_dist(gen));
+//}
 
 void System::initialize_boltzmann_velocities(double T) {
     // Generates the initial velocities of all atoms in the system
     // Each velocity is drawn independantly from a Boltzmann distribution
 
     // Set up RNG following Boltzmann distribution
-    random_device rd;
-    mt19937 gen(rd());
-    normal_distribution<double> boltzmann_dist(0, sqrt(T));
-
     for (Atom &atom : atoms)
-        atom.v.set(boltzmann_dist(gen), boltzmann_dist(gen), boltzmann_dist(gen));
+        atom.v.set(rng.boltzmann(T), rng.boltzmann(T), rng.boltzmann(T));
+    eliminate_drift();
 }
 
+void System::collision(int i, double Tbath) {
+    // Atom i collides with a heatbath of temp Tbath
+    atoms[i].v.set(rng.boltzmann(Tbath), rng.boltzmann(Tbath), rng.boltzmann(Tbath));
+}
+
+void System::start_measuring_displacement() {
+    measure_disp = true;
+}
+
+double System::find_mean_displacement() {
+    double tot_disp = 0;
+
+    for (Atom atom : atoms)
+        tot_disp += atom.disp.length_squared();
+    return tot_disp/Natoms;
+}
 
 void System::eliminate_drift() {
     // Removes any drift of the system by subtracting
@@ -152,6 +175,8 @@ void System::calc_forces_between_pair(int i, int j) {
 
     atoms[j].F += F;
     atoms[i].F -= F;
+
+    pressure -= r*F.length();
 }
 
 void System::calculate_forces() {
@@ -171,8 +196,6 @@ void System::calculate_forces() {
             for (Cell* neighbor : cell.neighbors)
                 for (int j : neighbor->atoms)
                     calc_forces_between_pair(i, j);
-
-            update_pressure(i);
         }
     }
 }
@@ -226,18 +249,10 @@ void System::update_energies() {
         }
     }
     temperature = (2*kinetic_energy)/(3*Natoms);
-    total_energy = kinetic_energy + potential_energy;
-}
-
-void System::update_pressure(int i) {
-    pressure += atoms[i].F.dot(atoms[i].r);
-}
-
-void System::update_pressure() {
     pressure /= -3*V;
     pressure += rho*k_b*temperature;
+    total_energy = kinetic_energy + potential_energy;
 }
-
 
 double System::kinetic_energy_of_atom(int i) {
     // Return the kinetic energy of atom i
@@ -262,4 +277,28 @@ Cell* System::get_cell(int i, int j, int k) {
     return &cells[i + j*Ncells.x() + k*Ncells.x()*Ncells.y()];
 }
 
+void System::save_state(const char filename[]) {
+    FILE* outfile = fopen(filename, "wb");
+    fwrite(&Nc, sizeof(int), 1, outfile);
+    for (Atom atom : atoms) {
+        fwrite(&atom.r.m_vec, sizeof(double), 3, outfile);
+        fwrite(&atom.v.m_vec, sizeof(double), 3, outfile);
+    }
+    fclose(outfile);
+}
+
+void System::resume_state(const char filename[]) {
+    FILE* infile = fopen(filename, "rb");
+    int Nc;
+    fread(&Nc, sizeof(int), 1, infile);
+
+    for (Atom &atom : atoms) {
+        fread(&atom.r.m_vec, sizeof(double), 3, infile);
+        fread(&atom.v.m_vec, sizeof(double), 3, infile);
+    }
+    fclose(infile);
+
+    calculate_forces();
+    update_energies();
+}
 
