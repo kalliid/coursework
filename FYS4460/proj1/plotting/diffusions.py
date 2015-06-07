@@ -1,16 +1,17 @@
 from pylab import *
 
-filename = ["../data/nsh_r2_Nc8_T800.dat",
-		    "../data/beren_r2_Nc8_T800",
-		    "../data/and_r2_Nc8_T800.dat"]
+filename = ["../data/diffusion_coeff_ber_Nc8_T800.dat", 
+	 		"../data/diffusion_coeff_nsh_Nc8_T800.dat", 
+	 		"../data/diffusion_coeff_non_Nc8_T800.dat",
+	 		"../data/diffusion_coeff_and_Nc8_T800.dat"]
 
 slopes = []
-color = ['r', 'b', 'k']
+color = ['r', 'b', 'g', 'k']
 
-for i in range(3):
+for i in range(4):
 	with open(filename[i], 'r') as infile:
-		int(infile.readline())
-		float(infile.readline())
+		# int(infile.readline())
+		# float(infile.readline())
 
 		lines = infile.readlines()
 		N = len(lines)
@@ -22,21 +23,25 @@ for i in range(3):
 	x = t[:,np.newaxis]
 	y = r2
 	a, _, _, _ = np.linalg.lstsq(x, y)
-	print "Sigma: ", a
+	print "Sigma: ", a/6.
 	slopes.append(a)
 	
 	plot(t, r2, color[i], linewidth=2.0)
 
-plot(t, slopes[0]*t, 'r--', linewidth=1.5)
-plot(t, slopes[1]*t, 'b--', linewidth=1.5)
-plot(t, slopes[2]*t, 'k--', linewidth=1.5)
+# plot(t, slopes[0]*t, 'r--', linewidth=1.5)
+# plot(t, slopes[1]*t, 'b--', linewidth=1.5)
+# plot(t, slopes[2]*t, 'g--', linewidth=1.5)
 
-xlabel('$t$ $[t_0]$', fontsize=22)
-ylabel(r'$\langle r^2 \rangle (t)$  $[\sigma^2/t_0] $', fontsize=22)
-legend(['Nose-Hoover Thermostat $\sigma = 1.23$', 'Berendsen Thermostat $\sigma = 1.20$', 'Andersen Thermostat, $\sigma=0.22$'], 'upper left')
+xlabel('$t$ $[t_0]$', fontsize=26)
+ylabel(r'$\langle r^2 \rangle (t)$  $[\sigma^2] $', fontsize=26)
+legend(['Nose-Hoover $D = 0.19$ $[\sigma^2/t_0]$', 'Berendsen $D = 0.19$ $[\sigma^2/t_0]$', 'Micro-cannonical, $D = 0.19$ $[\sigma^2/t_0]$', 'Andersen, $D=0.11$ $[\sigma^2/t_0]$'], 'upper left', fontsize=22)
 grid()
 
-savefig("../thermostat_diffs.pdf")
+ax = gca()
+for tick in ax.xaxis.get_major_ticks():
+	tick.label.set_fontsize(18) 
+for tick in ax.yaxis.get_major_ticks():
+	tick.label.set_fontsize(18) 
 
 show()
 

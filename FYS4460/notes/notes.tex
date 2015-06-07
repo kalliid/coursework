@@ -199,17 +199,22 @@ If we are doing many simulations of similar systems, saving the thermalized stat
 
 \subsubsection*{Micro-cannonical ensamble}
 
-An ensemble refers to all possible microstates a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles, $N$, volume $V$ and energy $E$. So if we put $N$ atoms in a box of $V$ and let them have total energy $E$, the ensemble are all the possible states these atoms could potentially have---this is of obviously an enormous amount of states. 
 
-The \emph{fundamental assumption of statistical mechanics} states that over time, any microstate is equally likely in the isolated system. This let's us calculate thermodynamic properties such as free energy, heat capacity, entropy and so on, at thermal equilibrium, by taking the ensemble average. MD is built on the idea that as we simulate our system's evolution over time, the system trajectory is representative over the entire ensemble, as our system is chaotic, we can be quite sure this is true. Time averages of our system should then be a good approximation to the ensemble average.
+An ensemble refers to all possible microstates a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles, $N$, volume $V$ and energy $E$. So if we put $N$ atoms in a box of $V$ and let them have total energy $E$, the ensemble are all the possible states these atoms could potentially have---this is obviously an enormous amount of states. 
+
+The \emph{fundamental assumption of statistical mechanics} states that over time, any microstate is equally likely in the isolated system. This let's us calculate thermodynamic properties such as free energy, heat capacity, entropy and so on, at thermal equilibrium, by taking the ensemble average. MD is built on the idea that if we can simulate a system's evolution over time, the trajectory is representative over the entire ensemble. As our system is chaotic, we can be quite sure this is sure. Time averages of our system's trajectory should then be a good approximation to the ensemble average---this is backed up by the ergodic hypothesis.
 
 \subsubsection*{Initialization}
 
-If we want to calculate ensemble-averages for the microcannonical ensemble, we must create a system with constant $NVE$. As $N$ and $V$ are both constant, we see that the particle density is always the same, this means we must initialize the system with the right $\rho$ for the phase we want to study, or our results will not be comparable to experiment.
+If we want to simulate a system that samples the micro-cannonical ensemble, we must create a system with constant $NVE$. As both $N$ and $V$ are constant, the particle density
+$$\rho = \frac{N}{V} = \mbox{constant}.$$
+This means we must initialize the system with the right $\rho$ for the phase we want to study, or our result will not be comparable to experiment.
 
-We usually start our system in a regular lattice, such as a FCC lattice. This is because it is quite easy to implement and safe. We then start the simulation by giving all atoms random velocities. The distribution is quite forgiving, but we know that the velocities will follow a Boltzmann distribution at equilibrium, so we might as well start them of with such a distribution, we need to eliminate the net drift by subtracting the averege velocity of all particles. 
+We usually start out system in a regular lattice, such as a FCC lattice. This is because it is quite easiy to implement, and is the structure the system will go to in it's solid phase. It is very safe, as all atoms are even spread out, we avoid having particles being to close to each other. We then start the simulation by giving the atoms all randomly distributed velocities. The distribution we draw the velocities for is quite forgiving, but as we know the system will end up having a Boltzmann distribution at equilibrium, we might as well start them of with such a distribution. After drawing velocities, we subtract any net motion of the system, we interested in internal motion---not center of mass motion.
 
 As we start our system with all atoms in a regular lattice, the system is definitly \emph{not} in thermal equilibrium. And we need to equilibriate the system. The lattice structure means the system has very low potential energy, and a high kinetic energy---over time these will even out, and so the kinetic energy will drop, and the potential energy will increase. This effectively means the temperature of the system will fall. It is important to think of the equilibriation of the system as part of the initialization, as we need to let the system get to equilibrium before we start measuring our time-average, or we will get wrong estimates. 
+
+We see that $N$ and $V$ are easily chosen, $E$ however, is harder. In practice, the easiest way to influence $E$ is by using a thermostat, let us first look at how we measure the temperature.
 
 \clearpage 
 
@@ -219,22 +224,16 @@ To measure the temperature of the system, we turn to the equipartition theorem. 
 $$\langle E_k \rangle = \frac{3}{2}Nk_bT.$$
 In the equipartition theorem, this is the ensemble average of the kinetic energy, but as mentioned, our time-average should be equivalent, so we can consider it the time-average of our system. So we have an estimate to the temperature
 $$T = \frac{2\langle E_k \rangle}{3Nk_b}.$$
-The equipartition theorem holds for relativistic systems, but starts to break when quantum effects become important, which happens at very low temperatures where degrees of freedom freeze out.
 
-The micro-cannonical ensemble has a constant $NVE$, and within the ensemble we can construct systems with different balances of the potential energy and kinetic energy of the system. This is why we must take an ensemble average of the kinetic energy to get the temperature. Likewise, in our simulation, the total energy is (near) constant, while the total kinetic energy will fluctuate. We thus take the time-averaged kinetic energy. In theory, these fluctuations always take place, but in the thermodynamic limit, where we let $N\to \infty$ and $V\to \infty$ while $\rho$ is held constant, the \emph{relative} fluctuations in the kinetic energy die out, and the temperature will be constant. We then see that temperature $T$ is fundamentally a macroscopic property, and for small systems it will fluctuate much.
+Now, for the equipartition theorem to be valid, we need to take this average. We could however, define a quantity called the kinetic temperature $T_k$, which is the \emph{instantaenous} temperature
+$$T_k = \frac{2 E_k}{3Nk_b},$$
+it is important to distinguish between this instantaneous temperature, and the real thermodynamic temperature.
+
+The micro-cannonical ensemble has a constant $NVE$, and within the ensemble we can construct systems with different balances of the potential energy and kinetic energy of the system. This is why we must take an ensemble average of the kinetic energy to get the temperature. Likewise, in our simulation, the total energy is (near) constant, while the total kinetic energy will fluctuate. We thus take the time-averaged kinetic energy. In theory, these fluctuations always take place, but in the thermodynamic limit, where we let $N\to \infty$ and $V\to \infty$ while $\rho$ is held constant, the \emph{relative} fluctuations in the kinetic energy die out, and the temperature will be constant. We then see that temperature $T$ is fundamentally a macroscopic property, and for small systems, $T_k$ will fluctuate much.
 
 \subsubsection*{Thermostats for initialization}
 
-When we are initializing the system, we draw velocities from a Boltzmann distribution with temperature $T_0$, but as we saw, this temperature will \emph{not} be the equilibrium temperature of the system, as a lot of the inital kinetic energy will turn into potential energy before we reach equilibrium. How then, can we study a system prepared to a given target temperature? To do this, we often use a thermostat. A thermostat up- or downregulates the temperature of a system. While a thermostat is working, we are not sampling a micro-cannonical ensamble, since the energy is not held constant. However, we can use a thermostat to bring the system to the target temperature, and then we can decouple the thermostat, we are now in a micro-cannonical ensemble with the desired temperature. 
-
-Possible thermostats:
-\begin{itemize}
-	\item Velocity scaling thermostats, such as the Berendsen thermostat
-	\item Collision thermostats, such as the Andersen thermostat
-	\item Lagrangian thermostats, such as Nosé-Hoover
-\end{itemize}
-Velocity scaling and collision thermostats are very simple to implement, since the work with any integrator. The biggest problems with using a simple velocity scaling thermostat is that you are effectively \emph{not} sampling the cannonical ensemble. However, if we are only using a thermostat for heating up our system in the initialization, we don't need it to sample the cannonical ensemble, so this is of no error. The Nosé-hoover requires us to change our integrator to implement it, and so that is more for actually simulating cannonical systems.
-
+When we are initializing the system, we draw velocities from a Boltzmann distribution with temperature $T_0$, but as we saw, this temperature will \emph{not} be the equilibrium temperature of the system, as a lot of the inital kinetic energy will turn into potential energy before we reach equilibrium. How then, can we study a system prepared to a given target temperature? To do this, we often use a thermostat. A thermostat up- or downregulates the temperature of a system. While a thermostat is working, we are not sampling a micro-cannonical ensamble, since the energy is not held constant. However, we can use a thermostat to bring the system to the target temperature (and thusly energy), and then we can decouple the thermostat, we are now in a micro-cannonical ensemble with the desired energy. 
 
 \clearpage
 
@@ -251,9 +250,10 @@ Velocity scaling and collision thermostats are very simple to implement, since t
 
 \subsubsection*{Micro-cannonical ensamble}
 
-An ensemble refers to all possible microstates a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles, $N$, volume $V$ and energy $E$. So if we put $N$ atoms in a box of $V$ and let them have total energy $E$, the ensemble are all the possible states these atoms could potentially have---this is of obviously an enormous amount of states. 
 
-The \emph{fundamental assumption of statistical mechanics} says that over time, any microstate is equally likely in the isolated system (ergodicity). This let's us calculate thermodynamic properties such as free energy, heat capacity, entropy and so on, at thermal equilibrium, by taking the ensemble average. MD is built on the idea that as we simulate our system's evolution over time, the system trajectory is representative over the entire ensemble, as our system is chaotic, we can be quite sure this is true. Time averages of our system should then be a good approximation to the ensemble average.
+An ensemble refers to all possible microstates a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles, $N$, volume $V$ and energy $E$. So if we put $N$ atoms in a box of $V$ and let them have total energy $E$, the ensemble are all the possible states these atoms could potentially have---this is obviously an enormous amount of states. 
+
+The \emph{fundamental assumption of statistical mechanics} states that over time, any microstate is equally likely in the isolated system. This let's us calculate thermodynamic properties such as free energy, heat capacity, entropy and so on, at thermal equilibrium, by taking the ensemble average. MD is built on the idea that if we can simulate a system's evolution over time, the trajectory is representative over the entire ensemble. As our system is chaotic, we can be quite sure this is sure. Time averages of our system's trajectory should then be a good approximation to the ensemble average---this is backed up by the ergodic hypothesis.
 
 This is then how we measure macroscopic quantities such as temperature and pressure from a MD simulation:
 \begin{itemize}
@@ -277,7 +277,7 @@ The quantity in the expectency is Clausius' virial. As before, this average is a
 
 \subsubsection*{Challenges}
 
-In both cases, it is obvious that we can only meassure these quantities at thermal equilibrium, as the fundamental relation we have is that the time-average of a system at equilibrium should estimate the ensemble average. However, it is apparent that we can calculate instantaneous values for the temperature $T$ and $P$. In fact, it is easy to plot the temperature against time for the system and so on. This can be conceptually dangerous.
+In both cases, we see that we need to take the time-average of the quantities. If we \emph{do not} take the time-average, but only look at the instantaneous values of these quantities we have variables that fluctuate quite a lot. The relative size of these fluctuations would die out as the system size increases, and so the definitions of $P$ and $T$ are fundamentally macroscopic, as they are valid in the thermodynamic limit $N\to\infty, V\to \infty, \rho=$ const. At the same time, we can easily calculate and plot the instantaneous values against time and so on. This can be conceptually dangerous.
 
 The main challenge here is that we are measuring a finite system. In the thermodynamic limit we are looking at $N\to \infty$ and $V\to \infty$ in the manner that $\rho = \mbox{const}$. This makes a big difference, as it can be shown that relative fluctations in the system are of order $1/\sqrt{N}$. In the thermodynamic limit, the temperature and pressure are constant and well-defined. In a finite system however, it is not always well-defined, as they are macroscopic quantities.
 
@@ -339,7 +339,7 @@ in 3D, (the numerical constant is 2 in 1D and 4 in 2D). From this we can estimat
 
 Should measure the real displacement of the particle, i.e., \emph{not} the minimum image convention. Several ways to do this, keep track of every time a particle moves through a wall. I instead measured the displacement by adding a new varible that was integrated up inside the velocity-verlet. The displacement was not used to calculate any other quantity than the mean displacement.
 
-I was struggling to get a proper $\langle r^2 (t) \rangle \propto t$ behaviour, turs out it was because my initialized temperature was to low, and I was working in a mostly solid phase, meaning there is little to no diffusion.
+I was struggling to get a proper $\langle r^2 (t) \rangle \propto t$ behaviour, turns out it was because my initialized temperature was to low, and I was working in a mostly solid phase, meaning there is little to no diffusion.
 
 You also have to initialize the system in the right manner. I was strugling a bit in the beginning, as I thought I had some error in the displacement measurement, turns out I was just trying to measure displacement in a solid phase, which is basicly $D = 0$.
 
@@ -347,7 +347,7 @@ You also have to initialize the system in the right manner. I was strugling a bi
 
 A random walker gives insight into diffusion, as it let's us study the motion of a single particle, and then let's us `upscale' the results. A random walker is a particle that has a position that is given as the sum of random increments
 $$X_i = \sum_{i=1}^N x_i, \qquad \To \qquad \langle r^2(t) \rangle \propto t.$$
-
+In our projects, we modeled a random walker on a percolating cluster and compared to mean square displacement found in nano-porous flow. There are many parallels we could draw between the two.
 
 \clearpage
 
@@ -430,13 +430,23 @@ The main idea of MD simulations on nano-porous materials can be summarized in th
 \end{enumerate}
 A common example is a matrix Silicon dioxide containing water (H$_2$O). This method often looks a lot like the one you would follow if doing experimental physics. You prepare a sample in some manner by manipulating temperatures, strains etc. and once we manage to make a material with the right parameters (porosities etc.), we study it's behaviour. For example one could slowly increase the size of the system while simultaneously cool it.
 
-In our simulations, a very important functionality is writing the current `state' of our entire system to a file. This is important for visualization, but also because we can then continue a simulation or start a brand new one from the saved state. This way we don't have to initialize and thermalize our system for every single run. 
+% In our simulations, a very important functionality is writing the current `state' of our entire system to a file. This is important for visualization, but also because we can then continue a simulation or start a brand new one from the saved state. This way we don't have to initialize and thermalize our system for every single run. 
 
-The way we generated the system in our project is to first simulate a LJ fluid. After the system has thermalized, we `freeze' all atoms in given regions, these atoms will no longer be able to move, and are thus part of a `non-deformable' matrix. The areas not frozen are now the pores in our system, we can remove the atoms in these regions and replace them with an other species.
+The way we generated the system in our project is to first simulate a LJ fluid. After the system has thermalized, we `freeze' all atoms in given regions, these atoms will no longer be able to move, and are thus part of a `non-deformable' matrix. They still contribute to the force calculations of the system, but their velocities and positions need not be integrated. The areas not frozen are now the pores in our system, we can remove the atoms in these regions and replace them with an other species, in our project we `replaced' them with a LJ fluid of half-density.
 
 \subsubsection*{Characterization and dynamics}
 
+Characterize the structure of such a material
+\begin{itemize}
+	\item Porosity $\phi$, the volume ratio of pore space. 
+	\item Permeability, $k$. Measure of how easy it is for a fluid to move through the porous material. It is affected by thing such as pore-size, how they are connected and torosity.
+\end{itemize}
+
 The simplest characterisitic is the porosity, $\phi$, which is the relative amount of pore space in volume. In my project I simply measured the number of frozen particles and estimated the porosity from the ratio $\phi \approx N_{\rm frozen}/N_{\rm total}$.
+
+To measure the permeability we model flow through the systen. When we model flow there are many interesting 
+
+
 
 When filling the pores with a fluid, there are interesting questions that arise---what is the density and pressure of the fluid, do they change with pore size? Can the fluid flow throughout the sample, or are the pores cut off from each other? To characterize the flow, we could for example measure $\langle r^2(t) \rangle$, i.e., the average squared displacement of all fluid atoms in the system as a function of time.
 
