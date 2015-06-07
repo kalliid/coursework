@@ -94,6 +94,26 @@ Introduce the Noose-Hover thermostat and measure rms-displacement using various
 thermostats. Discuss advantages and disadvantages of the various thermostats
 for various thermodynamic measures.
 
+\section*{Fluctuations}
+
+When measuring a constant temperature system, the temperature should fluctuate. In fact, this can easily be shown from the Boltzmann distribution. As we know the distribution of velocities in the gas, we know the first and second instantaneous kinetic energy of the system and can easily show that
+$$\frac{\sigma_{T_k}^2}{\langle T_k\rangle^2_{NVT}} = \frac{2}{3N}.$$
+So in any finite system, the relative IKT should fluctuate. In the thermodynamic limit $N\to\infty$ and the relative size of the fluctuations go to zero.
+
+If we use a naive velocity-scaling algorithm, we allow no such temperature fluctuations, thusly, we do not sample the cannonical ensemble, but rather an isokinetic system. 
+
+Frenkel \& Smit state that 
+\begin{itemize}
+	\item The ad hoc methods yield only the desired kinetic energy per perticle, but otherwise do not correspond to any known ensemble. Of course, any kind of temperature regulation, no matter how unphysical, can be used while preparing the system at a desired temperature (i.e., during equilibration). But, as efficient MD schemes exist that do generate a true canonical distribution, there is little need to use more suspect techniques to fix the temperature.
+\end{itemize}
+
+\section*{Andersson Thermostat}
+
+The Andersson thermostat can be considered a Monte Carlo method. It simulates connection with a heat bath stochastically. The stochastic nature of the collision ensures that all accesible constant-energy shells are visited according to their Boltzmann weight.
+
+The Andersson thermostat can be shown to sample the cannonical ensemble, this is explained in detail in Frenkel \& Smit. It is a good thermostat to obtain time-independant properties, such as the equation-of-state. However, it cannot be used to obtain dynamic (time-dependent) properties, such as the diffusion constant. This is due to unphysical dynamics in the system. The random collisions leads to random decorrelation of particles velocity, meaning a particle that would move far in a given a direction may suddenly switch direction, leading to a far smaller mean square displacement.
+
+Any property measured should be independent of the stochastic collision frequency over long time scales. The coupling-strength to the heat bath should not disturb measurements.
 
 \section*{Conclusion}
 
@@ -202,6 +222,32 @@ And we can find the temperature from for example
 $$\frac{1}{2}mv_{\rm rms}^2 = \frac{3}{2}k_b T \quad \To \quad \frac{1}{2}\bar{v}_{\rm rms} = \frac{3}{2}\frac{k_b}{\eps} T \quad \To \quad \frac{1}{2}\bar{v}_{\rm rms} = \frac{3}{2}\bar {T},$$
 giving us
 $$\bar{T} = \frac{k_b}{\eps}T.$$
+
+\section*{Nosé-Hoover}
+
+The equations of motions are as follows
+\begin{align*}
+\dot{r}_i &= v_i, \\
+\dot{v}_i &= \frac{F_i}{m} - \gamma v_i, \\
+\dot{\gamma} &= \frac{1}{Q}\bigg(\sum_{i} \frac{p_i^2}{m_i} - \frac{L}{\beta}\bigg).
+\end{align*}
+
+Fails for certain systems, due to conservation laws. Frenkel \& Smit shows this for a Harmonic Oscillator. The Anderssen thermostat does not have the same problem. This can be solved using Nosé-Hooved chains, where the additional heat baths compensate for the additional conservated properties.
+
+Much harder to implement, as it is no longer integrator-independant. We now have to also integrate the friciton variable $\gamma$. Through $\gamma$, the acceleration now explicitly depends on the velocity, and so we need to use a predictor-corrector scheme or iteratively solve them.
+
+\clearpage
+
+Possible plots
+\begin{itemize}
+	\item Show that the maxwell-distribution is achieved for all collision frequencies $\nu$.
+	\item Show that the diffusion coefficient is lowered as the collision frequency increases.
+\end{itemize}
+
+\clearpage
+
+
+
 
 \end{document}
 

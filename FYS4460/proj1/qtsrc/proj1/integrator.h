@@ -3,32 +3,34 @@
 
 #include "system.h"
 
-class Integrator{
+class Verlet_integrator {
 public:
     System* system;
     double Tbath;
 
-    Integrator(System* system);
-    void Step();
-
+    Verlet_integrator(System* system);
     void set_Tbath(double T);
-    void berendsen_thermostat();
-    void berendsen_thermostat(double tau);
-    void andersen_thermostat(double coll_freq);
-};
-
-class Verlet_integrator : public Integrator {
-    using Integrator :: Integrator;
-
-private:
     void kick(double dt);
     void drift(double dt);
-public:
     void velocity_verlet_step(double dt);
     void position_verlet_step(double dt);
+    void berendsen_thermostat(double tau);
+    void andersen_thermostat(double tau);
     void vv_berendsen_step(double dt, double tau);
     void vv_andersen_step(double dt, double coll_freq);
+};
 
+class Nose_hoover_integrator {
+public:
+    System* system;
+    double Tbath;
+    double gamma;
+
+    Nose_hoover_integrator(System *system);
+    void set_Tbath(double T);
+    void kick(double dt, double Q);
+    void drift(double dt);
+    void vv_nosehoover_step(double dt, double Q);
 };
 
 

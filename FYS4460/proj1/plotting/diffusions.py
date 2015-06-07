@@ -1,26 +1,23 @@
 from pylab import *
 
-infile1 = "../data/beren_r2_Nc8_T800"
-infile2 = "../data/anders_r2_Nc8_T800"
+filename = ["../data/nsh_r2_Nc8_T800.dat",
+		    "../data/beren_r2_Nc8_T800",
+		    "../data/and_r2_Nc8_T800.dat"]
 
 slopes = []
-color = 'r'
+color = ['r', 'b', 'k']
 
-for filename in infile1, infile2:
-
-	with open(filename, 'r') as infile:
-		Natoms = int(infile.readline())
-		Tbath = float(infile.readline())
+for i in range(3):
+	with open(filename[i], 'r') as infile:
+		int(infile.readline())
+		float(infile.readline())
 
 		lines = infile.readlines()
 		N = len(lines)
 		t = zeros(N); r2 = zeros(N)
 
-		for i in range(N):
-			t[i], r2[i] = lines[i].split()
-
-
-
+		for j in range(N):
+			t[j], r2[j] = lines[j].split()
 
 	x = t[:,np.newaxis]
 	y = r2
@@ -28,15 +25,15 @@ for filename in infile1, infile2:
 	print "Sigma: ", a
 	slopes.append(a)
 	
-	plot(t, r2, color, linewidth=2.0)
-	color = 'b'
+	plot(t, r2, color[i], linewidth=2.0)
 
 plot(t, slopes[0]*t, 'r--', linewidth=1.5)
 plot(t, slopes[1]*t, 'b--', linewidth=1.5)
+plot(t, slopes[2]*t, 'k--', linewidth=1.5)
 
 xlabel('$t$ $[t_0]$', fontsize=22)
 ylabel(r'$\langle r^2 \rangle (t)$  $[\sigma^2/t_0] $', fontsize=22)
-legend(['Berendsen Thermostat', 'Andersen Thermostat'], 'upper left')
+legend(['Nose-Hoover Thermostat $\sigma = 1.23$', 'Berendsen Thermostat $\sigma = 1.20$', 'Andersen Thermostat, $\sigma=0.22$'], 'upper left')
 grid()
 
 savefig("../thermostat_diffs.pdf")
@@ -65,3 +62,4 @@ show()
 # grid()
 # legend(['Measurements', 'Linear fit'], 'upper left', fontsize=14)
 # show()
+
