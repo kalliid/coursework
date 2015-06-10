@@ -26,7 +26,7 @@ for i in range(4):
 	print "Sigma: ", a/6.
 	slopes.append(a)
 	
-	plot(t, r2, color[i], linewidth=2.0)
+	plot(t, r2, color[i], linewidth=2.5)
 
 # plot(t, slopes[0]*t, 'r--', linewidth=1.5)
 # plot(t, slopes[1]*t, 'b--', linewidth=1.5)

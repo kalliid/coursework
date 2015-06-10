@@ -92,9 +92,6 @@
 
 \begin{document}
 
-\tableofcontents
-\clearpage
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%                                            %%%%%%
@@ -103,124 +100,72 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
 %%%%%%%%%%%%%%%%%%%%
 %%%  QUESTION 1  %%%
 %%%%%%%%%%%%%%%%%%%%
 
 \section{Molecular-dynamics algorithms}
-Discuss the algorithms for molecular-dynamics modeling:
-\begin{itemize}
-	\item Potentials
-	\item Integration
-	\item Cut-off
-	\item Periodic boundary Conditions
-	\item Initialization
-	\item Efficiency improvements
-\end{itemize}
-
+Discuss the algorithms for molecular-dynamics modeling: Potentials, Integration, Cut-off, Periodic boundary conditions, Initialization, Efficiency improvements
+	
 \subsubsection*{Potentials}
 
-The potential function is what describes the interaction between the particles, as the forces can be expressed as
-$$\vec{F} = -\nabla U.$$
-Thus, deciding what potential to use depends on what kind of system we want to study. Some potentials are defined between pairs of particles, so-called two-body potentials. If we want to model more complex behaviour, such as water molecules or chemical reactions, we might invoke three-body or many-body potentials.
-
-The potential we have been using mostly in our projects in the Leonnard-Jones potential, also called the 6--12 potential, it models systems of neutral atoms.
+Potentitals describe the interactions between particles through $\vec{F} = -\nabla U$. The simplest potentials are two-body, more complex potentials use three-body or many-body interactions. We have mostly been looking at the Leonnard-Jones potential 
 $$U(r) = 4\eps \bigg[\b(\frac{r}{\sigma}\b)^{12} - \b(\frac{r}{\sigma}\b)^6\bigg].$$
-This is a two-body potential, which depends on the distance between the atoms $r$. The 6-term describes attractive dipole-dipole van der Waal-forces, while the 12-term described Pauli repulsion. The $\eps$ and $\sigma$ give the strength and length scale of the potential, and is fitted to best fit the system we are studying.
-
-\begin{center}
-\includegraphics[width=0.75\textwidth]{1}
-\end{center}
-
-This potential is of course very simple, but it is perfect for illustrating MD principles, and it works well for idea gases. For more complex MD systems, we can turn to better and more complex potentials such as ReaxFF, there are tons of potentials in the litterature, with enormous varity in complexity and focus. (Weber-Stilling uses normal LJ plus a three-body interaction to describe silicon, the three-body part describes bending stiffness).
+LJ describes neutral atoms, it is a very simple potential, but is a good starting point for MD discussions. In practice, potentials are usually tailored for specific studies, and there are a vast amount of potentials in the litterature. Examples are Weber-Stilling and ReaxFF.
 
 \subsubsection*{Integration}
 
-To find the trajectory of the system over time, we must solve the classical equations of motion
-$$\frac{\d v}{\d t} = a(t), \qquad \frac{\d x}{\d t} = v(t), \qquad a(t) = \frac{F(t)}{m} = -\frac{\nabla U(r(t))}{m}.$$
-Note that these are a set of coupled ODEs, where $v$ describes the velocities of all particles in the system, and $r$ all positions. Now, to solve these, we realize that the derivative of $v$ only depends on the position $r$ and the derivative of $r$ only depends on the velocity $r$, this makes it ideal to solve with a leap-frog scheme. 
-
-However, we would like to avoid the staggered grid of the leap-frog method, so we instead turn to the velocity verlet algorithm. In practice we compute the velocity in two half-steps, we call it a half-kick/draft/half-kick, we have
+The time-evolution of the system is described by the equations of motion
+$$\frac{\d v}{\d t} = a(t) = -\frac{\nabla U}{m}, \qquad \frac{\d x}{\d t} = v(t).$$
+Where $v$ and $r$ describes all the degrees of freedom in the system. This system is perfect for the leapfrog algorithm, which is based on the midpoint method. We would rather not have a staggered grid, and thus turn to Verlet integration. In practice we turn to the velocity verlet 
 \begin{align*}
-v_{i + 1/2} &= v_i + a_i \frac{\Delta t}{2}, \\
-x_{i+1} &= x_i + v_{i+1/2}\Delta t, \\
-v_{i + 1} &= v_{i + 1/2} + a_{i+1} \frac{\Delta t}{2}.
+v_{i+1/2} = v_i + a_i (\Delta t /2), \\
+r_{i+1} = r_i + v_{i+1/2} \Delta t, \\
+v_{i+1} = v_{i+1} + a_{i+1} (\Delta t /2).
 \end{align*}
-Note that to perform the last step, we have to compute the new acceleration, which includes a force calculation, which is the most expensive part of the calculation. This is why we use velocity-verlet instead of position-verlet.
-
-Just like the leap-frog method, velocity-verlet is a midpoint method integration, and so has global error $\mathcal{O}(\Delta t^2)$. Now, many ODE integration schemes have better accuracy than this (like RK4), so why do we stick to velocity verlet? The main reason is that velocity-verlet is a \emph{symplectic} integrator, which basicly means that it obeys Liovioulle's theorem and preserves the area in phase space. Even though the energy conservation on short time scales will be worse than for a higher-accuracy method like RK4, the long-term stability will be much better for Velocity-verlet due to its symplectic nature. (Other benefits: Preserves time-reversability of the equations of motion. Conserves angular momentum for spherical symmetric potentials, like LJ. Of better order than euler methods, such as Euler-Cromer).
-
-Note that velocity-verlet is \emph{not} energy conserving on short time-scales, which the eq.\ of motions should be. There are higher higher order methods that \emph{are} symplectic, such as the Forest-Ruth algorithm, which is $\mathcal{O}(\Delta t^4$. These methods are usually harder to implement, and require several force calculations per time step, which are expensive. In many simulations, velocity verlet is simply good enough. Other times, we turn to algorithms such as PEFRL. 
+We opt for velocity verlet instead of position verlet because the most expensive operation is the forcecalculation, which is needed to find $a_{i+1}$. Velocity verlet has the same error as the leapfrog: global $\mathcal{O}(\Delta t^2)$. The main reasons we use velocity verlet however: Is time-reversability, and it's \emph{symplectic} nature. This means the long-time stability is much better than for say, RK4. Velocity verlet is very stable and easy to implement, could we do better? Of course we could, there are higher-order, symplectic integrators, such as Forest-Ruth and PEFRL. What integrator to use to solve ODE systems is a field in itself, so let us move on.
 
 \subsubsection*{Cut-off}
-
-The force calculation is expensive as the number of pairs in the system grows as $\mathcal{O}(N^2)$, in comparison, the velcoity-verlet is $\mathcal{O}(N)$ if we disregard the force calculation. However, if we look to our potential, it is obvious that the force between to atoms far away from each other is close to zero, so we can safely ignore these forces in the simulation. We do this by setting a cut-off value, so that $V(r>r_c) = 0$. We should then shift the whole potential up, so that it is still continious in $r_c$.
-
-Any pair of particles that are further away than $r_c$ can now be ignored in our force calculation. Since the particle density is intensive, the force calculation is now of order $\mathcal{O}(N)$. To know which pairs to `skip', we implement neighbor-lists. There are two types: Cell lists and verlet lists. In cell lists, we divide entire system into cells of sides at least $r_c$. For any atom, only atoms in its own cell or neighboring cells can be within $r_c$. We will have to build cell lists for every time step, but this isn't very costly. Verlet lists improve on this, by letting every atom have a list of all other atoms within $r_c + n\eps$. Here we let $\eps$ be of magnitude equal to the max distance an atom can travel in a single time step. We then only have to update the cell and verlet lists every $n$ time steps.
+The force-calculation is the most costly part of the integration, updating velocities and positions are a constant number of operations per particle so it is of order $\mathcal{O}(N)$, but calculating the forces requires us to loop over all paris, so it is obviously of order $\mathcal{O}(N^2)$. However, if we plot the LJ potential (or other potentials), we see that it effectively is flat for $r > 3\sigma$, and so the force is basicly zero over long distances. This means we can effectively ignore pairs of atoms that are far away from each other. This means we need to have a smart way to know what atoms are close to each other, this is done using neighbor lists. There are two kinds, cell lists and verlet lists. Both manage to keep track of what particles are close to each other in linear time, and as the particle density is constant $\rho = N/V$, the number of forces we need to calculate per atom will be constant, so we have effectively reduced the force calculation to a $\mathcal{O}(N)$ operation. The implementation of neighborlists is a must for big scale MD calculations. Note also that we should upscale our potential so that it is continious at the cut-off distance.
 
 \subsubsection*{Periodic Boundary Conditions}
 
-We need some boundary conditions. There are various posibilities, we could simulate particles in a box (hard walls) or in a vacuum (no walls). These aren't really interesting, as we are often trying to simulate bulk materials, we don't want boundary effects. We therefore use periodic boundary conditions, which are good at simulating a bulk material. If any particle would leave the box, it enters the opposite side of the box with its velocity maintained---this is justified by the concept of \emph{images}, there are many copies of the systems stacked in a regular grid, an atom leaving the system is replaced by a different one entering the opposite end.
-
-To properly evaluate the potential between pairs of particles we need to remember that there are extra images around our system, or we would get the wrong force for atoms close to the boundary. This is implemented by using the `minimum image convention', when calculating the distance between two particles, we need to look for the closest copy of that particle, which doesn't need to be in our box, but could be in the neighboring image. This means the biggest distance between two particles will always be $L/2$ in each dimension.
+As in any physics problem, we need boundary conditions. We could use hard walls or vacuum, but these are not very interesting. Usually we are intersted in finding bulk properties of matter, and so periodic boundary conditions lets us simulate a virtual subsystem of a infinitely large material. This means infinite copies of our system, called images, are stacked in a regular grid around our system. When a particle from our system drifts out one side of the box, an identical particle drifts into the system from the image on the other side. This means we have to use the minimum image convention to calculate distances between pairs of particles.
 
 \subsubsection*{Initialization}
 
-We also need initial condtions. We usually start with out atoms in a regular lattice. In our project we started with all our atoms in a face-centered lattice. This gives a very low potential energy, but it is very safe, as we don't accidently place atoms to close to each other. In addition we give atoms randomly distributed velocities. The distribution is quite forgiving, but we know that the velocities will follow a Boltzmann distribution at equilibrium, so we might as well start them of with such a distribution, we need to eliminate the net drift by subtracting the averege velocity of all particles.
-
-When the system starts it is definitly \emph{not} in thermal equilibrium, due to our regular spacing of atoms. This we will start of with some drastic changes as the system tends to thermal equilibrium, this process is known as \emph{equilibriation} or \emph{thermalization}. We for example expect the velocities of the system to drop rapidly, as the potential energy is very low at the start, and so kinetic energy will be converted to potential energy as the system tends to equilibrium. It is important we let the system really reach equilibrium before we do measurements on the syste, as we only want to study the equilibrium-values.
-
-Since the temperature of the system will change drasticly in the beginning of a simulation, we can use thermostats to prepare a system with a given temperature. After the system has reached the target temperature we must decouple the thermostat if we want to sample the micro-cannonical ensemble, or leave it on to sample the cannonical ensemble.
+We also need inital conditions. We have to be careful with placing atoms to close to each other due to the potential, so we start them out in a regular lattice, in our case FCC. In adition we give the atoms randomly distributed velocities, the distribution doesn't matter much, due to it being a chaotic system. But we drew them from the Boltzmann distribution, as this will be the equilibrium distribution. Net drift of the system is eliminated, we want to study internal motion, not net motion. An important part of initialization is letting the system reach equilibrium, \emph{before}, we do any measurements. Actually starting the system at thermal equilibrium is challenging, so just letting it tend to it over time is much better. We are studying a micro-canonical ensemble, aka NVE ensemble. We need to choose the right $NV$ values for the particle density to be correct, this cannot vary during simulation. Lastly we need the energy to be correct. As we start our system in a lattice, the potential energy is way to low for the kinetic energy, so during equilibriation the temperature of the system falls---starting the system out at the correct initial energy or temperature can therefore be a challenge, we therefore use a thermostat during initialization to bring the system to the right energy, and then decouple it before we do any measurements.
 
 \subsubsection*{Efficiency improvements}
 
-The cut-off is a hugh efficiency improvement, calculating a big MD system without it is near impossible. In addition we shoul rely on Newton's third law, $F_{ij} = -F_{ji}$ to cut our force-calculation in half. 
-
-MD simulation also lend themselves well to parallelization, we can do it through OpenMP and MPI. This let's us study large MD systems on super-computers.
-
-As always, there are many benefits from smart programming and smart compiling. Use of good C++-features such as inline functions, good use of data-structures, loop unrolling etc, we can get a considerable speed-up.
-
-If we are doing many simulations of similar systems, saving the thermalized state and loading it in might save us a lot of time, instead of having to re-initialize our system for every single simulation.
+As mentioned, cut-off and neighbor lists is an important improvent and absoloutely crucical for bigger simulations. In addition we can use Newton's third law $F_{ij} = -F_{ji}$ to cut the number of force calculations in half. MD simulations lend themselves well to parallelization, through both OpenMP and MPI. This also let's us study big systems om super-computers. As always, good code and compiling is also necessary. Use of good c++ features and the right data-structures (such as loop unrolling, inline functions, cache optmizing) can lead to incredible speed ups. Finally, a speed up I didn't think of initially was to save the thermalized to binary files, this let's us do many experiments on the same system without having to wait for equilibriation every time.
 
 \clearpage
 
-%%%%%%%%%%%%%%%%%%%%
-%%%  QUESTION 2  %%%
-%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%
+% %%%  QUESTION 2  %%%
+% %%%%%%%%%%%%%%%%%%%%
 
 \section{MD in the Microcannonical Ensamble}
-\begin{itemize}
-	\item Discuss initialization and initialization effects
-	\item Temperature measurements and fluctuations
-	\item Comment on use of thermostats for initialization
-\end{itemize}
+Discuss the initialization and initialization effects. Temperature measurements and flutuations. Comment on use of thermostats for initialization.
 
 \subsubsection*{Micro-cannonical ensamble}
 
-
-An ensemble refers to all possible microstates a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles, $N$, volume $V$ and energy $E$. So if we put $N$ atoms in a box of $V$ and let them have total energy $E$, the ensemble are all the possible states these atoms could potentially have---this is obviously an enormous amount of states. 
-
-The \emph{fundamental assumption of statistical mechanics} states that over time, any microstate is equally likely in the isolated system. This let's us calculate thermodynamic properties such as free energy, heat capacity, entropy and so on, at thermal equilibrium, by taking the ensemble average. MD is built on the idea that if we can simulate a system's evolution over time, the trajectory is representative over the entire ensemble. As our system is chaotic, we can be quite sure this is sure. Time averages of our system's trajectory should then be a good approximation to the ensemble average---this is backed up by the ergodic hypothesis.
+An ensemble refers to all possible microstates a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles, $N$, volume $V$ and energy $E$. So if we put $N$ atoms in a box of $V$ and let them have total energy $E$, the ensemble are all the possible states these atoms could potentially have---this is obviously an enormous amount of states. The \emph{fundamental assumption of statistical mechanics} states that over time, any microstate is equally likely in the isolated system. This let's us calculate thermodynamic properties such as free energy, heat capacity, entropy and so on, at thermal equilibrium, by taking the ensemble average. MD is built on the idea that if we can simulate a system's evolution over time, the trajectory is representative over the entire ensemble. As our system is chaotic, we can be quite sure this is sure. Time averages of our system's trajectory should then be a good approximation to the ensemble average---this is backed up by the ergodic hypothesis.
 
 \subsubsection*{Initialization}
 
-If we want to simulate a system that samples the micro-cannonical ensemble, we must create a system with constant $NVE$. As both $N$ and $V$ are constant, the particle density
-$$\rho = \frac{N}{V} = \mbox{constant}.$$
-This means we must initialize the system with the right $\rho$ for the phase we want to study, or our result will not be comparable to experiment.
+The initial conditions of our systems are the atom position and velocities. Also there are the system parameters $N$ and $V$, these cannot fluctuate at all in our system (unless we force them to), meaning the particle density is constant---effectively this means we have to chose the right particle density for the system we want to study, or our results will be pretty useless, as the won't be comparable to experiment.
 
-We usually start out system in a regular lattice, such as a FCC lattice. This is because it is quite easiy to implement, and is the structure the system will go to in it's solid phase. It is very safe, as all atoms are even spread out, we avoid having particles being to close to each other. We then start the simulation by giving the atoms all randomly distributed velocities. The distribution we draw the velocities for is quite forgiving, but as we know the system will end up having a Boltzmann distribution at equilibrium, we might as well start them of with such a distribution. After drawing velocities, we subtract any net motion of the system, we interested in internal motion---not center of mass motion.
+For the positions, we have to be careful about not placing atoms to close to each other, this would leave to overflow in the potential and forces. We therefore start out with all particles in a regular grid, in our case a FCC, meaning one particle on each cube corner (8) and one centered on every face (6). For velocities, we draw them from a random distribution. In our project we tried different distributions to show that it is quite forgiving. It is most practical to chose a Boltzmann distribution, as this is the distribution the system will tend to anyway. The Boltzmann distribution means every component of the velocity is normally distributed, with mean zero. We have to eliminate any net drift in the system after drawing the velocities, as we are interested in internal motion, and not any net drift of the system (net drift would mess with our temperature measurements, among other things).
 
-As we start our system with all atoms in a regular lattice, the system is definitly \emph{not} in thermal equilibrium. And we need to equilibriate the system. The lattice structure means the system has very low potential energy, and a high kinetic energy---over time these will even out, and so the kinetic energy will drop, and the potential energy will increase. This effectively means the temperature of the system will fall. It is important to think of the equilibriation of the system as part of the initialization, as we need to let the system get to equilibrium before we start measuring our time-average, or we will get wrong estimates. 
-
-We see that $N$ and $V$ are easily chosen, $E$ however, is harder. In practice, the easiest way to influence $E$ is by using a thermostat, let us first look at how we measure the temperature.
+And important part of initialization is to let the system reach equilibrium. As we are taking a time-average, we cannot start measuring before we reach thermal equilibrium, or our results would give the wrong predicitions. Due to our regular spacing of particle positions, it is definitly \emph{not} in thermal equilibrium at the start of the simulation, and we need to let the system evolve for some time before it reaches equilibrium.
 
 \clearpage 
 
 \subsubsection*{Temperature measurements and fluctuations}
 
-To measure the temperature of the system, we turn to the equipartition theorem. The equipartition theorem states that at thermal equilibrium, every quadratic degree in the systems Hamiltonian will carry an average energy of $\frac{1}{2}k_b T$. Every atom in our system has three quadratic degrees of freedom in their kinetic energy, so the expectancy of the total kinetic energy of the system will be 
+ To measure the temperature of the system, we turn to the equipartition theorem. The equipartition theorem states that at thermal equilibrium, every quadratic degree in the systems Hamiltonian will carry an average energy of $\frac{1}{2}k_b T$. Every atom in our system has three quadratic degrees of freedom in their kinetic energy, so the expectancy of the total kinetic energy of the system will be 
 $$\langle E_k \rangle = \frac{3}{2}Nk_bT.$$
 In the equipartition theorem, this is the ensemble average of the kinetic energy, but as mentioned, our time-average should be equivalent, so we can consider it the time-average of our system. So we have an estimate to the temperature
 $$T = \frac{2\langle E_k \rangle}{3Nk_b}.$$
@@ -242,18 +187,12 @@ When we are initializing the system, we draw velocities from a Boltzmann distrib
 %%%%%%%%%%%%%%%%%%%%
 
 \section{MD in the micro-canonical ensemble}
-\begin{itemize}
-\item How to measure macroscopic quantities, e.g., $T$, $P$, from MD simulation?
-\item What challenges do you expect? 
-\item What can it be used for?
-\end{itemize}
+
+How to measure macroscopic quantities, e.g., $T$, $P$, from MD simulation? What challenges do you expect? What can it be used for?
 
 \subsubsection*{Micro-cannonical ensamble}
 
-
-An ensemble refers to all possible microstates a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles, $N$, volume $V$ and energy $E$. So if we put $N$ atoms in a box of $V$ and let them have total energy $E$, the ensemble are all the possible states these atoms could potentially have---this is obviously an enormous amount of states. 
-
-The \emph{fundamental assumption of statistical mechanics} states that over time, any microstate is equally likely in the isolated system. This let's us calculate thermodynamic properties such as free energy, heat capacity, entropy and so on, at thermal equilibrium, by taking the ensemble average. MD is built on the idea that if we can simulate a system's evolution over time, the trajectory is representative over the entire ensemble. As our system is chaotic, we can be quite sure this is sure. Time averages of our system's trajectory should then be a good approximation to the ensemble average---this is backed up by the ergodic hypothesis.
+An ensemble refers to all possible microstates a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles, $N$, volume $V$ and energy $E$. So if we put $N$ atoms in a box of $V$ and let them have total energy $E$, the ensemble are all the possible states these atoms could potentially have---this is obviously an enormous amount of states. The \emph{fundamental assumption of statistical mechanics} states that over time, any microstate is equally likely in the isolated system. This let's us calculate thermodynamic properties such as free energy, heat capacity, entropy and so on, at thermal equilibrium, by taking the ensemble average. MD is built on the idea that if we can simulate a system's evolution over time, the trajectory is representative over the entire ensemble. As our system is chaotic, we can be quite sure this is sure. Time averages of our system's trajectory should then be a good approximation to the ensemble average---this is backed up by the ergodic hypothesis.
 
 This is then how we measure macroscopic quantities such as temperature and pressure from a MD simulation:
 \begin{itemize}
@@ -295,16 +234,13 @@ For the temperature, we must make sure we eliminate any drift in the system, as 
 
 \clearpage
 
-%%%%%%%%%%%%%%%%%%%%
-%%%  QUESTION 4  %%%
-%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%
+% %%%  QUESTION 4  %%%
+% %%%%%%%%%%%%%%%%%%%%
 
 \section{Measuring the diffusion constant in MD simulation}
-\begin{itemize}
-\item How to measure the diffusion constant in molecular dynamics simulations
-\item Limitations and challenges.
-\item Compare with methods and results from random walk modeling.
-\end{itemize}
+
+How to measure the diffusion constant in molecular dynamics simulations? Limitations and challenges. Compare with methods and results from random walk modeling.
 
 \subsubsection*{What is the diffusion constant?}
 
@@ -314,14 +250,15 @@ where $D$ is the diffusion constant, also known as the diffusion coefficient. It
 
 In our molecular dynamics, there is no concentration gradient, and so no net flux. However, there is still \emph{self-diffusion} in the system, meaning individual particles are still moving around in the box, there is a lot of microscopic motion going on. We can focus on the motion of a single particle, it will not have any tendency to move in any given direction, so $\langle r \rangle = 0$, it will however, not tend to be in the same place, so we can find the exepectency of the \emph{mean displacement}: $\langle r^2 \rangle(t)$. 
 
-The macroscopic diffusion is a result of the motion of all the indvidual particles in the gas, it is therefore not strange that you can predict the diffusion. From our study of random walkers, we know that we predict that
-$$\langle r^2(t) \rangle \propto 6D t,$$
-where the numerical factor of $6$ is only valid in three dimensions, it will be different for other dimensions.
+The macroscopic diffusion is a result of the motion of all the indvidual particles in the gas, it is therefore not strange that you can predict the diffusion. One way to model this is through the study of random walkers, where their displacement is given as a sum of a large number for random steps
+$$\vec{X}_n = \sum_{i=1}^n \vec{x}_i,$$
+Where $x_i$ follows some distribution. We can study this system both through monte carlo simulations, or analytically. For most distributions of $x_i$, we choose it to be symmetric, so that it has an equal chance to take a step in any given direction. From this we can easily show that
+$$\langle \vec{X}_n \rangle = 0, \qquad \langle \vec{X}_n^2 \rangle \propto n.$$
+For a walker that can move in 3D, it turns out this proportionality factor can be written as $6D$. So if we have a monte carlo simulations with a large number of random walkers in a box that starts out with a concentration gradient, we can predict the diffusion from the random distribution of the walkers. The random walker models tells us how the mean square displacement predicts the diffusion.
 
-Since our system has a large number of particles, we expect the average mean displacement to be a good estimate of the expectency of a single particle's mean displacement. We can therefore estimate the diffusion constant from the mean square displacement of all particles in the system
+Now, in our simulations, the particles definitly interact, unlike the simple random walkers. But that doesn't matter, the only thing that matters is the mean square displacement of the particles. That the particles crash and interact gets baked into the measure of mean square displacement. And since our system has a large number of particles, we expect the average square displacement to be a good estimate of the expectency of a single particle's square displacement. We can therefore estimate the diffusion constant from the mean square displacement of all particles in the system
 $$\langle r^2(t) \rangle = \frac{1}{N}\sum_{i=1^N} (\vec{r}(t) - \vec{r}_{0})^2.$$
-
-By plotting the mean displacement as a function of time, we can use linear regression to find the slope, which is proportional to $D$.
+By plotting the mean square displacement as a function of time, we can use linear regression to find the slope, which is proportional to $D$.
 
 \subsubsection*{Limitations and challenges}
 
@@ -329,25 +266,9 @@ We need to measure the \emph{real} displacement of all particles in the gas, i.e
 $$d_{i+1} = d_i + v_{i+1/2}\Delta t,$$
 however, I did \emph{not} enfore the PBCs, and the displacements $d_i$ did not affect the system in any way, unlike the minimum image positions, $r_i$. With this method, we start with $d_i = 0$ as we start measuring the displacement, this way, we don't have to keep track of $r_i(0)$.
 
-We should also simulate the system over long time scales, so we get a better linear fit, which will give a higher precision in the diffusion constant. It is important that the system is thermalized properly before we start measuring the mean square displacement or we will get a wrong estimate of $D$.
+It is as always important to initalize the system correctly, the mean square displacement should only be measured after the system has reach thermal equilibrium, or we will get wrong values. We should also initialize the system in the right phase. I was strugling to find the proper $\langle r^2(t) \rangle \propto t$ behaviour, but I had initialized a solid phase system without realizing it, so it was not strange that there was effectively no diffusion.
 
-For a random walker, we know that
-$$\langle r^2(t) \rangle = 6 D t,$$
-in 3D, (the numerical constant is 2 in 1D and 4 in 2D). From this we can estimate the diffusion constant. By plotting the measured mean square displacement as a function of time (after the system has been thermalized) we can measure the slope, which will be proportional to the slope.
-
-\subsubsection*{Limitations and challenges}
-
-Should measure the real displacement of the particle, i.e., \emph{not} the minimum image convention. Several ways to do this, keep track of every time a particle moves through a wall. I instead measured the displacement by adding a new varible that was integrated up inside the velocity-verlet. The displacement was not used to calculate any other quantity than the mean displacement.
-
-I was struggling to get a proper $\langle r^2 (t) \rangle \propto t$ behaviour, turns out it was because my initialized temperature was to low, and I was working in a mostly solid phase, meaning there is little to no diffusion.
-
-You also have to initialize the system in the right manner. I was strugling a bit in the beginning, as I thought I had some error in the displacement measurement, turns out I was just trying to measure displacement in a solid phase, which is basicly $D = 0$.
-
-\subsubsection*{Compare to random walker}
-
-A random walker gives insight into diffusion, as it let's us study the motion of a single particle, and then let's us `upscale' the results. A random walker is a particle that has a position that is given as the sum of random increments
-$$X_i = \sum_{i=1}^N x_i, \qquad \To \qquad \langle r^2(t) \rangle \propto t.$$
-In our projects, we modeled a random walker on a percolating cluster and compared to mean square displacement found in nano-porous flow. There are many parallels we could draw between the two.
+Finally have also studied nano-porous systems, and it is then not inherentily obvious how we should measure the mean square displacement. Should we ignore the particles that are in closed-of pores and only include the particles in the transport-available porosity? It is not immediately obvious how one should go about if we want to understand how quick diffusion through a porous system will be.
 
 \clearpage
 
@@ -356,27 +277,21 @@ In our projects, we modeled a random walker on a percolating cluster and compare
 %%%%%%%%%%%%%%%%%%%%
 
 
-\section{Measuring the radial distribution function in \\ molecular dynamics simulations}
-\begin{itemize}
-\item How can you measure the radial distribution function in molecular \\ dynamics
-simulations.
-\item What does it tell?
-\item What challenges will you face?
-\end{itemize}
+\section{Measuring the radial distribution function in MD}
+How can you measure the radial distribution function in molecular dynamics? What does it tell? What challenges will you face?
 
 \subsubsection*{Definition}
 
-The radial distribution function is the probability density of finding a pair of atoms a distance $r$ away from each other, it is therefore also known as the pair correlation function. If we select an atom in the system as a reference atom, we can also formulate it as the particle density in a spherical shell of radius $r$ from the reference atom. It is usually normalized so that
-$$\lim_{r\to \infty} g(r) = 1,$$
-which means we must divide the probability by the total particle density of the system, so the local-time-averaged density of a given point a distance $r$ from the reference point is given by $\rho g(r)$.
+To understand the radial distribution function, $g(r)$, it is easiest to select a reference atom in the system. The radial distribution function then gives the probability of finding another atom a distance $r$ away from the reference particle (i.e, it is a probability density), for this reason it is allso called the pair correlation function. Another way to interpret it is to say that it is the particle density in a spherical shell a distance $r$ from the reference particle. It is normalized with respect to the ideal gas, so that
+$$\lim_{r \to \infty} g(r) = 1,$$
+and so we can find a local time-averaged density from $\rho g(r)$. For an Ideal gas $g(r) = 1$ since the time-averaged density is $\rho$ for the whole system.
 
 \subsubsection*{Measuring it in simulation}
 
-The pair correlation function is a probability density of a pair of atoms being a distance $r$ apart. If we then find the distance $r_{ij}$ for every pair of atom in the system, we can bin them into a histogram to estimate the probability density function. Looping over the pair of all atoms and finding the distance between them is already done in the force function, so this is not anything new. We must remember to normalize the bins with respect to the volume of the bins.
-
+In a molecular dynamics simulation, we have accesss to the positions and velocities of all our atoms at any time step---all other properties must be dervied from this. To find the radial distribution function, we only need to look at the positions of the particles. From our definition we see that we can choose a reference atom, and then calculate the distance to all other atoms, bin the results and the resulting histogram should give an estimation of the pair correlation function. We should do this using all atoms in the system as a reference atom---of course, this is a very inefficient way to do it. We can simply instead calculate the distance between all pairs in the system and bin those. 
 \subsubsection*{Use of the pair correlation function}
 
-The pair correlation function can be measured indirectly through neutron and x-ray scattering on a substance. This let's us compare our model to experiments, and verify them.
+The pair correlation function can be measured indirectly through neutron and x-ray scattering of matter. This is a way to compare model with experiment and verify our theory and numerical methods.
 
 The pair correlation function tells us something about the average distribution of particles, and thus something about the structure of matter. It will for example be very different for a liquid, a gas and a solid. A solid has a very regular lattice structure, and so the pair correlation function can give us information about this lattice structure.
 
@@ -384,9 +299,9 @@ It turns out that the pair correlation function can be used to predict many macr
 
 \subsubsection*{What challenges will you face?}
 
-It is not initially obvious what type of binning you should choose. Should you use a linear spacing of $r$-values, or linear in $r^3$ perhaps? It is important to to remember to divide by the correct bin shell volume, and normalize in the correct manner. All these choices depend on each other, so the exact implementation must be consist.
+As we are binning the pair distances, it is not immedietly obvious how you should bin the results. Should you use linear spacing of $r$-values, or perhaps linear in $r^3$. We also have to divide by the correct bin-sizes and normalize in the correct manner. All these choices depend on each other, so the exact implementation must be consistent, and it is easy to make errors.
 
-It is of course costly to compute the RDF, as we have to loop over all particle pairs in the system, this is of order $\mathcal{O}(N^2)$, which also gives a large dataset. We might want to do this for many time-steps. A way to reduce this cost is to implement cut-off in a similar manner to the force calculation. We know that $\lim r \to \infty g(r) = 1$, so we might assume that as long as $r > r_{\rm cut}$ we are close enough to 1, and disregard all pairs with distance larger than this. We can then use the cell lists that are already used in the force calculations.
+It is of course costly to compute the RDF, as we have to loop over all particle pairs in the system, this is of order $\mathcal{O}(N^2)$, which also gives a large dataset. We might want to do this for many time-steps. A way to reduce this cost is to implement cut-off in a similar manner to the force calculation. We know that $g(r)$ tends to 1 as $r$ grows large, so we might assume that as long as $r > r_{\rm cut}$ we are close enough to 1, and disregard all pairs with distance larger than this. We can then use the cell lists that are already used in the force calculations.
 
 \clearpage
 
@@ -395,10 +310,10 @@ It is of course costly to compute the RDF, as we have to loop over all particle 
 %%%%%%%%%%%%%%%%%%%%
 
 \section{Thermostats in molecular-dynamics simulations}
-Discuss the micro-canonical vs the canonical ensamble in molecular-dynamics
-simulations: How can we obtains results from a canonical ensemble? Introduce
-two thermostats, and describe their behavior qualitatively. How can you use
+Discuss the micro-canonical vs the canonical ensamble in molecular-dynamics simulations: How can we obtains results from a canonical ensemble? Introduce two thermostats, and describe their behavior qualitatively. How can you use
 such a thermostat for rapid initialization of a micro-canonical simulation?
+
+See project 4
 
 \clearpage
 
@@ -415,57 +330,45 @@ such a thermostat for rapid initialization of a micro-canonical simulation?
 %%%%%%%%%%%%%%%%%%%%
 
 \section{Generating a nanoporous material}
-\begin{itemize}
-	\item Discuss how we prepare a nanoporous matrix with a given porosity.
-	\item How do we characterize the structure of such a material and the dynamics of a fluid in such
+Discuss how we prepare a nanoporous matrix with a given porosity. How do we characterize the structure of such a material and the dynamics of a fluid in such
 a material?
-\end{itemize}
 
-\subsubsection*{Generation}
-The main idea of MD simulations on nano-porous materials can be summarized in three steps
+\subsubsection*{Introduction}
+The main idea of MD simulations on a nano-porous materials can be summarized in three steps
 \begin{enumerate}
 	\item First we generate a nano-porous matrix (this is the `solid' material with holes in)
 	\item Then we fill the holes with a fluid
 	\item Now we do `normal MD simulation' on the fluid, focusing on the measurements connected to our interests. 
 \end{enumerate}
-A common example is a matrix Silicon dioxide containing water (H$_2$O). This method often looks a lot like the one you would follow if doing experimental physics. You prepare a sample in some manner by manipulating temperatures, strains etc. and once we manage to make a material with the right parameters (porosities etc.), we study it's behaviour. For example one could slowly increase the size of the system while simultaneously cool it.
+A common example can be to generate a matrix of Silicon dioxide and fill it with water. This method looks a lot like the one you would follow if doing experimental physics, you prepare a sample in some manner by manipulating temperatures, strains and so forth---and once a material with the right propoerties (porosities etc.) have been made, we can study it's behaviors.
 
-% In our simulations, a very important functionality is writing the current `state' of our entire system to a file. This is important for visualization, but also because we can then continue a simulation or start a brand new one from the saved state. This way we don't have to initialize and thermalize our system for every single run. 
+\subsubsection*{Generating a solid matrix}
 
-The way we generated the system in our project is to first simulate a LJ fluid. After the system has thermalized, we `freeze' all atoms in given regions, these atoms will no longer be able to move, and are thus part of a `non-deformable' matrix. They still contribute to the force calculations of the system, but their velocities and positions need not be integrated. The areas not frozen are now the pores in our system, we can remove the atoms in these regions and replace them with an other species, in our project we `replaced' them with a LJ fluid of half-density.
+The first step is to generate the solid matrix of the nano-porous system. We do this by simulating a bulk material of the material we are interested in. We then `freeze' a subset of the atoms in the system, they are no longer allowed to move. How do we choose what atoms to freeze? There are many ways, we could do as we do in percolation and let every atom be frozen with probability $p$, but this would give \emph{very} small pores. A simple way to get pores of the correct size is simply to carve out atoms. In our project for example, we created both a small system with a cylindrical pore, and a larger system with randomly distributed spherical pores with radii uniformly distributed in some range. This let's us carve out pores of a given size, untill our system has a given porosity.
+
+After the solid matrix has been generated, we remove the particles that are not frozen. We can now fill in with particles of whatever fluid we want to study. In our project we only used Argon LJ atoms, and so to have a reasonable difference in `solid matrix' and `fluid', we filled the pores with a LJ fluid of half-density, effectively by removing only half of the atoms in the pores.
+
+We can now do `normal' MD simulation on the fluid particles. The atoms in the solid matrix contribute to the force calculations, but their motion are ignored in the integration of the equations of motion, so they do not move at all. In more complex MD simulations, they can be allowed to vibrate, like real solid matrices would.
 
 \subsubsection*{Characterization and dynamics}
 
-Characterize the structure of such a material
+After generating such a structure, we want to characterize it. There are two properties we have studied
 \begin{itemize}
 	\item Porosity $\phi$, the volume ratio of pore space. 
 	\item Permeability, $k$. Measure of how easy it is for a fluid to move through the porous material. It is affected by thing such as pore-size, how they are connected and torosity.
 \end{itemize}
 
-The simplest characterisitic is the porosity, $\phi$, which is the relative amount of pore space in volume. In my project I simply measured the number of frozen particles and estimated the porosity from the ratio $\phi \approx N_{\rm frozen}/N_{\rm total}$.
+The simplest characteristic is the porosity, $\phi$, it is simply the relative amount of pore space in volume, $V_{\rm pore}/V_{\rm total}$. In my project I simply counted the number of frozen atoms and estimated the porosity from $1 - N_{\rm frozen}/N_{\rm total}$.
 
-To measure the permeability we model flow through the systen. When we model flow there are many interesting 
+The permeability is a measure of how easy it is for a fluid to move through the material. It is what I like to call a \emph{lump} parameter, as we lump many different factors into it. It will for example depend on the porosity, the transport-available porosity, the size of the pores, the torosity and so on. To measure the permeability we simulate flow across the system by applying a pressure difference to it, by measuring the amount of flow, we can predict the permeability.
 
-
-When filling the pores with a fluid, there are interesting questions that arise---what is the density and pressure of the fluid, do they change with pore size? Can the fluid flow throughout the sample, or are the pores cut off from each other? To characterize the flow, we could for example measure $\langle r^2(t) \rangle$, i.e., the average squared displacement of all fluid atoms in the system as a function of time.
-
-I project 1, we were studying a bulk material, but now we would like to see how pressure is a function of space as well. To do this, we could divide our system into cells, and calculate the pressure in every cell individually, just like we measured the total pressure in the bulk material earlier. If we use the cell lists, we know that only neighboring cells will affect a given cell by a force, and so this will give the correct pressure.
-
-When I measured the average square displacement, I found that it was a linear function with time, just like normal diffusion outside the nano-porous material. I figure this is because the porosity is high enough, and dependant on how the matrix is made. In a system with many small non-connected pores for example, $\langle r(t)^2 \rangle$ would increase at the start of the simulation but should flatten out as all the fluid atoms in a given pore are restricted to move in a small volume.
-
-Lastly we can measure flow of the fluid through the sample by affect all fluid atoms by an external force---think for example of how gravity causes rain to flow down into sand. We use Darcy's law
+It is not only the material itself that will affect the flow and the dynamics, what fluid we put into the system will of course also matter. The two main ways we have studied the dynamics of the fluid is measuring self-diffusion in the system. We can relate this self-diffusion to that of the bulk liquid at the same density. The diffusion coefficient in the porous-material should be smaller, as the material is restricting the motion of individual particles. The other way is to apply a pressure gradient to the system, which leads to flow. This flow is described by Darcy's law
 $$U = \frac{k}{\mu}(\rho g - \nabla P),$$
-where $\rho$ is the density, $g$ is the gravitational acceleration. Since $\rho g = Nmg/V$ we replace $\rho g$ with $nF$ where $n$ is the particel density. Darcy law describes the balance between the pressure gradient $\nabla P$ and the external force. The constants $k$ and $\mu$ are the mediums permeability and the fluids viscosity respectively. And $U$ is the volume-flux (i.e., the volume of the fluid that flows through a given cross-section (for example the boundary) for a given time).
-
-Now, from Darcy's law, we can ignore $\nabla P$ in our system, as we don't have hydrostatic conditions, so we have
+here $\rho g$ describes gravity and $\nabla P$ a pressure gradient from hydrostatic conditions. The parameter $k$ is the permeability and $\mu$ is the viscosity. We rewrite $\rho g$ to a global force $Nmg/V = nF_x$. So we apply a global force to all particles in the system, this will lead to flow for all particles in the transport-available porosity, and we can measure the discharge, for example the periodic boundary.
 $$U = \frac{k}{\mu}nF_x.$$
-
-Now, there are two unknown quantities, so measuring $U$ isn't enough. Now, the permeability $k$ is matrix-dependant and the viscosity $\mu$ is fluid-dependant. We can estimate $\mu$ for a fluid by measuring the velocity profile of flow through a cylindrical pore, which we expect to have the shape
-$$u(r) = \frac{\Delta p}{L} \frac{1}{4\mu}(a^2 - r^2).$$
-Where $\Delta p$ is the pressure difference (at each end of the cylinder) that leads to flow. For us this is $\Delta p = \rho g \Delta h = nFL$. 
-
-By simulating the flow through a cylinder, at a stationary state (no acceleration), we can now estimate the fluid viscosity, and we can then estimate the permeability for other systems through Darcy's law by measuring the volume flux. Note that the particle density enters into the viscosity, and so it will be different for a high-density and a low-density fluid of the same species. If we are looking at different nanoporous systems we should fill them with a fluid with the same density if we want to use the same viscosity to estimate the permeability!
-
+Now, there are still two unknown quantities. We circumvent this by measuring flow through a known system. In a cylindrical pore, we know that the flow should have a velocity profile that is
+$$u(r) = \frac{\Delta P}{L} \frac{1}{4\mu}(a^2 -r^2).$$
+So from this we can find the viscosity of the fluid $\mu$. As long as we keep the particle density $\rho$ equal in our nano-porous system, we should be able to use the same viscosity, and thus find the permeability of our nano-porous system.
 
 \clearpage
 
@@ -474,11 +377,8 @@ By simulating the flow through a cylinder, at a stationary state (no acceleratio
 %%%%%%%%%%%%%%%%%%%%
 
 \section{Diffusion in a nano-porous material}
-\begin{itemize}
-\item How can you measure the diffusion constant for a low-density fluid in a nanoporous system? 
-\item Discuss what results you expect
-\item Compare with bulk liquid and larger-scale porous medium
-\end{itemize}
+
+How can you measure the diffusion constant for a low-density fluid in a nanoporous system? Discuss what results you expect. Compare with bulk liquid and larger-scale porous medium.
 
 \subsubsection*{The diffusion constant}
 
@@ -488,12 +388,11 @@ where $D$ is the diffusion constant, also known as the diffusion coefficient. It
 
 In our molecular dynamics, there is rarely a concentration gradient, and so no net flux. However, there is still \emph{self-diffusion} in the system, meaning individual particles are still moving around in the box, there is a lot of microscopic motion going on. Predicting the motion of a single atom is difficult, as the microscopic motion is chaotic---we can however talk about the expected motion. For example, most particles won't have a tendency to move in any given direction, so we have $\langle r(t) \rangle = 0$, it will however, tend to not stay in the same place, so we can find the expectancy of the squared displacement: $\langle r^2(t) \rangle$. For a system of many particles, the mean squared displacement will be very close to the expectency, and it turns out that
 $$\langle r^2(t) \rangle \propto t.$$
-For many systems. In 3D, it turns out that the proportionality constant here is $6D$. We might ask what happens if $\langle r^2 \rangle \not\propto t$, in which case I think Fick's law fails.
+It turns out that the proportionality constant here is $6D$, this we find through models of random walkers.
 
-From this equation, we can estimate the diffusion constant by measuring the mean displacement of all particles in the system over time, and fitting the result to a linear curve.
+From this equation, we can estimate the diffusion constant by measuring the mean square displacement of all particles in the system over time, and fitting the result to a linear curve.
 $$\langle r^2(t) \rangle = \frac{1}{N}\sum_{i=1^N} (\vec{r}(t) - \vec{r}_{0})^2.$$
-
-This approach works for both bulk liquids as well as porous systems. In a porous system we of course neglect including matrix atoms, we should probably also neglect the particles trapped in pores - as they cannot contribute to macroscopic diffusion, which is what we are actually trying to categorize here.
+Note that this approach works for non-interacting random walkers, interacting particles in a bulk liquid \emph{and} nano-porous systems. Why? Beacuse the interactions affect the mean square displacement, the bridge from the microscopic mean square displacement to the macroscopic diffusion is only a mathematical fact. In a porous system we of course neglect including matrix atoms, we should probably also neglect the particles trapped in pores - as they cannot contribute to macroscopic diffusion, which is what we are actually trying to categorize here.
 
 Since our system has a large number of particles, we expect the average mean displacement to be a good estimate of the expectency of a single particle's mean displacement. We can therefore estimate the diffusion constant from the mean square displacement of all particles in the system
 $$\langle r^2(t) \rangle = \frac{1}{N}\sum_{i=1^N} (\vec{r}(t) - \vec{r}_{0})^2.$$
@@ -502,7 +401,7 @@ $$\langle r^2(t) \rangle = \frac{1}{N}\sum_{i=1^N} (\vec{r}(t) - \vec{r}_{0})^2.
 
 We have gained a lot of intuition about the diffusion in a nano-porous medium from our studies of percolating systems. Depending on the porosity of the material and the size and geometry of the pores, a nano-porous material might have diffusion throughout, or the pores can be closed of from each other.
 
-In any case, we always expect a lower diffusion coefficient in a nano-porous material than in a bulk material. This is rather obvious, as random motions will generally disperse over a larger area if it goes unobstructed, as opposed to having to go through thigh pores, bending geometries on so on. In general we have an \emph{effective} diffusion, which we can write as
+In any case, we always expect a lower diffusion coefficient in a nano-porous material than in a bulk material. This is rather obvious, as random motions will generally disperse over a larger area if it goes unobstructed, as opposed to having to go through thight pores, bending geometries on so on. In general we have an \emph{effective} diffusion, which we can write as
 $$D_e = \frac{D \eps_t \delta}{\tau},$$
 here $\eps_t$ is the \emph{transport-available} porosity, which means the ratio of the system which is available for macroscopic transport---i.e., the total volume of the system, minus the solid matrix, minus pores that are too small, minus dead-ends and blind pores (pores not connected to the rest of the pore system). The transport-available porosity is like the backbone in the percolating system. 
 
@@ -512,10 +411,9 @@ And finally we have $\tau$, the \emph{tortuosity}, which is a mathematical prope
 
 \subsubsection*{Compare with diffusion in a bulk liquid and in larger-scale porous medium}
 
-To summarize. In all three systems, we expect the system to follow Fick's law of mass transportation, but with a different diffusion coefficient. We also expect the mean square displacement of indivdiual particles in the pore-system to be proportional to time $\langle r^2 (t) \rangle = 6dt$, so we can measure the diffusion coefficient in all systems with the same tools.
+To summarize, all three systems will have a mean square displacement that is proportional to time $t$, and thus all three systems follow Fick's law of mass transportioan, but with a different diffusion coefficient. So we can measure the diffusion coefficient in all systems from measuring the mean square displacement over time.
 
 The difference is that we expect the diffusion coefficient to be lower for porous mediums than in bulk, as $\eps_t < 1$, $\tau \geq 1$ and $\delta \leq 1$. For nano-porous we expect the diffusion coefficent to be even smaller, even for the same transport porosity, as the constrictivity is much larger $\delta_{np} < \delta_{p}$, we might also expect the torosity to become larger $\tau_{np} > \tau_{p}$.
-
 
 \clearpage
 
@@ -524,40 +422,33 @@ The difference is that we expect the diffusion coefficient to be lower for porou
 %%%%%%%%%%%%%%%%%%%%
 
 \section{Flow in a nano-porous material}
-\begin{itemize}
-	\item Discuss how to induce flow in a nano-porous material. 
-	\item How can you check your model?
-	\item Calculate the fluid viscosity and measure the permeability?
-	\item What challenges do you expect?
-\end{itemize}
+Discuss how to induce flow in a nano-porous material.  How can you check your model? Calculate the fluid viscosity and measure the permeability? What challenges do you expect? 
 
-We start of by generating a nano-porous material, this is done by many ways---in our project we simulated a Leonnard-Jones system, after the system has thermalized, we `freeze' all the atoms, and cut out the pores following a random distribution of spheres. The atoms in the solid matrix are not allowed to move in our further simulations of the system, but they do contribute to the force calculations. We fill the pores with new particles (in our simulation, we used the same type of particles, but at half the particle density, in more realistic simulations however, we might have solid material like Si$_2$O filled with H$_2$O). The added particles are allowed to move, but as the solid matrix is frozen, and usually of a much higher density, the fluid can only move inside the pores.
+\subsubsection*{Introduction}
+
+We start by generating a nano-porous material. This is done in many ways, but we simulated a bulk Leonnard-Jones system, and after thermalization we froze all the the atoms and cut out pores following a random distribution of spheres untill we had reached our desired porosity, that is the ratio of porous volume to the total system volume. The pores are then filled with a fluid, they can be a completely different species, but in our system we just used a LJ fluid at half-density. The atoms in the solid-matrix are still `frozen', so they contribute to the force calculations, but they don't move at all, they are ignored in the integration of the equations of motions.
 
 \subsubsection*{Inducing and measuring flow}
 
-If the pores form a connected system, particles can move throughout the system, from one end to the other, this leads to the possibility of macroscopic flow through the system. In normal stochastic simulation of a micro-cannonical ensamble, this flow won't happen, as there is no preassure differential in the system. So how can we induce and measure this flow? We impose a global force on the system.
+If the pores form a connected system, particles can move throughout the system, from one end to the other, this leads to the possibility of macroscopic flow through the system. In normal stochastic simulation of a micro-cannonical ensamble, this flow won't happen, as there is no pressure differential in the system. So how can we induce and measure this flow? We impose a global force on the system. From Darcy's law, we know
+$$U = \frac{k}{\mu}(\rho g - \nabla P).$$
+This law describes the water flow through aquefiers, that is, porous rock. Here $U$ is the discharge, volume flux per area per time, $k$ is the permeability of the rock, $\mu$ the viscosity of the fluid, $\rho g$ is gravity, which causes the flow, and $\nabla P$ is a pressure gradient, usually resulting from hydrostatic conditions.
 
-To answer these questions, we turn to Darcy's law, which for example describes how water flows through aquefiers.
-$$U = \frac{k}{\mu}(\nabla P - \rho g).$$
-Here $U$ is the volume flux of the water, also called discharge, $k$ is the mediums permeability, and $\mu$ is the fluid's viscosity, $\nabla P$ is the pressure gradient and $\rho g$ is the gravitational force on the water. Darcy's law tells us there are two reasons for volume fluxs in the aquefier system. If there is a pressure differential, there will be a tendency for water to flow from high to low pressure. But gravity also forces water to flow downwards into the ground. In nature, this leads to hydrostatic conditions, where $\nabla P = \rho g$.
-
-Now, in our system, we replace gravity with a general external force acting on all particles equally, $\rho g = \frac{N mg}{V} = n F$, where $n$ is the particle density. In our system, we use periodic boundary conditions, so we won't have a build-up of hydrostatic conditions, and we can generally ignore the pressure gradient
-$$U = -\frac{k}{\mu}n F_x.$$
-Now, we know the particle density $\rho$, and impose the force $F_x$. We measure the discharge $U$, usually through the periodic boundary condition.
+In our system, we dont have gravity, but we can replace it with a constant global force $\rho g = Nmg/V = nF_x$. And as we have PBCs and not hard walls, we won't have hydrostatic build-up of pressure, so there is no pressure gradient, we get
+$$U = \frac{k}{\mu}nF_x.$$
+So we impose $F_x$ over time and measure $U$ (only under stationary flow!). There are then two unknowns, the permability and the viscosity. We can only find their ratio.
 
 \subsubsection*{Calculate the fluid viscosity and measure the permeability}
 
-The challenge is that both the permeability, $k$, and the viscosity, $\rho$ are unknown. To circumvent this, we use results from a known system, in our case we used the velocity profile through a cylindrical pore, which we expect to have the shape
-$$u(r) = \frac{\Delta p}{L} \frac{1}{4\mu}(a^2 - r^2),$$
-where $\Delta p$ is the pressure difference at each end of the cylinder, which is given by $\delta p = nFL$. We see that the flow is fastest in the center of the cylinder, far away from the walls. Close to the walls, there is little flow. 
+To circumvent the two unknowns, we can turn to a known system, with a known permability. In our case we chose to look at a cylindrical pore, which we expect to have a very specific flow profile at stationary flow
+$$u(r) = \frac{\Delta P}{L} \frac{1}{4\mu} (a^2 -r^2),$$
+where $\Delta P$ is the pressure difference at each end of the cylinder, and $L$ is the length of the cylinder, we get $\Delta P/L = nFL/L = nF$. We see that flow is fastest in the center of the cylinder, far from the walls, and close to the wall there is effectively no flow, from the fluid-to-wall interaction.
 
-We can measure the velocity profile at a stationary state by measuring and binning the results for various $r$ into a histogram. This gives us the velocity profile, and we can estime the viscosity $\mu$. The viscosity is fluid dependant, and we can use this parameter in other nano-porous systems. So we can now estime the permeability $k$ of different nano-porous systems. 
+We can measure the velocity profile at a stationary state by measuring and binning the flow velocity for various $r$ into a histogram. This gives us the velocity profile, and lets us estimate the viscosity $\mu$. This viscosity is fluid depdenant, and we can use the same value for it for other nano-porous systems, at least for a constant particle density in the fluid. This lets estimate the permability of a nano-porous system.
 
 \subsubsection*{Challenges}
 
-We should measure the discharge from Darcy's law and the velocity profile in a cylindrical pore at a stationary state (no net acceleration), it is therefore important to let our simulation run long enough before sampling.
-
-We should also be a little careful with transfering the viscosity of a fluid. For one, it depends non-trivially on the particle density $n$, so we should only use it for various NPSs if we maintain a relatively equal particle density.
+A challenge is reaching stationary flow, this could take a while. We also have to be a bit careful about transporting the viscosity, if we change $\rho$, we should expect the viscosity to change as well. A different challenge is measuring the discharge $U$ and the flow profile in the correct manner. Are we measuring $volume flux$, $volume flux over area and time$? Darcy's law is formulated in many different manners, and it is important to be self-consistent.
 
 \clearpage
 
@@ -734,11 +625,8 @@ $$G(s) = \begin{cases}
 	1 & \mbox{for } s \ll s_\xi, \\
 	0 & \mbox{for } s \gg s_\xi, \\
 \end{cases}.$$
-So it is likely that our system has clusters smaller than the characteristic cluster size, but not many clusters larger than it. If we plot a log-log plot against $s$ we find the following:
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{12.pdf}
-\end{figure} \\[-4cm]
+So it is likely that our system has clusters smaller than the characteristic cluster size, but not many clusters larger than it. 
+
 Now, the only $p$-dependance in $G(s)$ is through $s_\xi$, and we find that $s_\xi$ diverges as $p\to 1$, this is because $p_c = 1$ in 1D. As $p \to 1$ we can rewrite 
 $$s_\xi \simeq \frac{1}{1-p},$$
 And so we see that $s_\xi$ diverges as a power law when $p \to p_c$, this will be the case in any dimensionality
@@ -747,6 +635,8 @@ This divergence obviously only occurs in infinite systems. It is easily understo
 
 We can measure $\sigma$ by finding $s_\xi$ for different $p$ as $p \to p_c$. Hopefully $s_\xi$ follows a power law. There is a challenge here involved with our system being finite. We could also use data collapse, if we plot the different $n(s,p)$ curves as functions of $s/s_\xi$, we could try different $\sigma$ values untill all the curves collapse to a universal curve, this is the correct $\sigma$ value.
 
+In two-dimensional systems, $s_\xi$ also diverges. But here we start to distingiush between the mass of a cluster, and its extent. So we distinguish between $s_\xi$ and $\xi$. Both diverge, but $s_\xi$ scales faster
+$$s_\xi \propto \xi^{D}, \qquad D < d.$$ 
 
 \clearpage
 
@@ -930,19 +820,13 @@ To create a random matrix, we draw a $L\times L$ matrix of random numbers unifor
 %%%%%%%%%%%%%%%%%%%%
 
 \section{The cluster number density}
-Introduce the cluster number density and its applications: 
-\begin{itemize}
-	\item Definition
-	\item Measurement
-	\item Scaling
-	\item Data-collapse
-\end{itemize}
+Introduce the cluster number density and its applications: Definition, Measurement, Scaling, Data-collapse.
 
 \subsubsection*{Definition}
 
-The cluster number density is the probability of a random site being a specific site in a cluster of size $s$. It will have the normalization condition
+Let us consider a $L\times L$ system. Every site is occupied with probability $p$, for a big cluster this means that $p$ is the porosity. A system will contain many clusters of varying sizes, and perheps one or more spanning clusters. The cluster number density gives the probability distribution of the finite clusters, we have the normalization 
 $$\sum_s sn(s,p) + P(p) = p,$$
-because any site is either not occupied $(1-p)$, part of the spanning cluster $P$, or part of a finite-sized cluster $n(s,p)$.
+Here, $P(p)$ is the spanning cluster density, and $sn(s,p)$ is the probability of a random site to belong to a cluster of size $s$. Note that the probability is given as $s n(s,p)$ so $n(s,p)$, which is the cluster number density can be defined as the probability of a random site in system to be a specific site in a cluster of size $s$.
 
 \subsubsection*{Measurement}
 
@@ -950,53 +834,23 @@ We generate a $L\times L$ percolation system. We label all clusters and find the
 $$\overline{n(s,p)} = \frac{N_S}{L^{d}},$$
 where $N_S$ is the number of clusters of site $S$. Usually we want to do this many times, to get better data, so we generate $M$ such systems, and keep track of the running total of clusters of size $s$.
 $$\overline{n(s,p)} = \frac{N_S(M)}{ML^{d}}.$$
-Now, there are very many different possible values of $s$, so we want to use binning, Meaning we combine results for close-lying $s$-values. This gives us a histogram that estimates the probability density $n(s,p)$. However, it turns out $n(s,p)$ is a probability density with a fat tail, meaning large $s$-values are not very likely, but more likely than in a expoential distribution (so called Black Swan behaviour of power laws). If we use uniform bin sizes, this means we will have very many bins without any hits in them! To solve this problem, we use logarithmic binning, meaning we let the bins grow in size as we get larger and larger $s$-values, in an exponential fashion. When using non-uniform bin sizes, we must remember to divide by the correct bin size to get the right probability density in the end, or the tail ends of the probability density would become exponentially overexposed.
+Note that we only count the number of clusters of size $s$, we do not count their masses, this is beacuse we are looking for $n(s,p)$ alone, \emph{not} $sn(s,p)$. Now, there are very many different possible values of $s$, so we want to use binning, Meaning we combine results for close-lying $s$-values. This gives us a histogram that estimates the probability density $n(s,p)$. However, it turns out $n(s,p)$ is a probability density with a fat tail, meaning large $s$-values are not very likely, but more likely than in a expoential distribution (so called Black Swan behaviour of power laws). If we use uniform bin sizes, this means we will have very many bins without any hits in them! To solve this problem, we use logarithmic binning, meaning we let the bins grow in size as we get larger and larger $s$-values, in an exponential fashion. When using non-uniform bin sizes, we must remember to divide by the correct bin size to get the right probability density in the end, or the tail ends of the probability density would become exponentially overexposed.
 
 \subsubsection*{Scaling}
-To describe the scaling of the cluster number density, let us consider the 1D case, where we have
-$$n(s,p) = (1-p)^2 p^s = (1-p)^2 e^{-s/s_\xi}.$$
-This function has two different behaviors, When $s \leq s_\xi$ it falls slowly, but as $s > s_\xi$ there is an exponential fall-off. We call this behaviour cut-off. Close to $p_c$ we can simplify
-$$s_\xi = -\frac{1}{\ln p} \simeq \frac{1}{1-p},$$
-so we get
-$$n(s,p) = s_\xi^{-2} e^{-s/s_\xi} = s^{-2} \bigg( \frac{s^2}{s_\xi^2} e^{-s/s_\xi}\bigg) = s^{-2} F\bigg(\frac{s}{s_\xi}\bigg).$$
-This result is true in general
-$$n(s,p) = n(s,p_c)F\bigg(\frac{s}{s_\xi}\bigg), \qquad n(s,p_c) = Cs^{-\tau}, \qquad s_\xi = s_0|p-p_c|^{-1/\sigma}.$$
-If we plot $s^\tau n(s,p)$ we are only plotting the cut-off function, and if we plot this as a function of $s/s_\xi$, it should be the same for all results in the same system. This is known as data collapse, since all the curves collapse to a single universal curve when we eliminate the $s_\xi$ dependence.
+To describe the scaling of the cluster number density, let us consider the 1D case, where the CND is known on closed-form
+$$n(s,p) = (1-p)^2 p^s = (1-p)^2 e^{s \ln p} = (1-p^2) e^{-s/s_\xi}.$$
+Now, for a constant $p$, the first term is just a normalization, so the exponential term describes the scaling. We see that it is relatively flat as long as $s \ll s_\xi$, but drops of exponentially as $s > s_\xi$. Here $s_\xi$ is called the characteristic cluster size, it can be rewritten to
+$$s_\xi = -\frac{1}{\ln p} = \frac{1}{1-p} = |p-p_c|^{1/\sigma}.$$
+This result is true in all dimensions, so the characteristic cluster size diverges as $p\to p_c$ as a power law. This means the behaviour of $n(s,p)$ where $p \neq p_c$ is only similar to that when $p=p_c$ when $s \ll s_\xi$. We can describe this by introducing a cut-off function
+$$n(s,p) = s^{-2} \bigg(\frac{s^2}{s_\xi^2} e^{-s/s_\xi} \bigg) = s^{-2} F\bigg(\frac{s}{s_\xi}\bigg).$$
+So we have baked the $s_\xi$ dependence into the cut-off function, so we have
+$$n(s,p) = n(s,p_c) F\bigg(\frac{s}{s_\xi}\bigg).$$
+This is true in general. Where
+$$n(s,p_c) = Cs^{-\tau}, \qquad s_\xi = s_0|p-p_c|^{-1/\sigma}, \qquad F\bigg(\frac{s}{s_\xi}\bigg)\to 0 \mbox{ for } s\gg s_\xi.$$
 
+\subsubsection*{Data collapse}
+As we all $p$-dependence has been put into $F(s/s_\xi)$ through the characteristic cluster size $s_\xi$, the cut-off function should be universal for all $p$ if we plot it as a function of $s/s_\xi$. This is what is known as a data collapse. As we can gather data from simulations for a lot of different $p$, which will give curves that are different, but if we plot it in a manner that takes into account the $p$-dependence, all our data should `collapse' into a universal curve. Now, there will some small deviations due to noise, but the curves should be very similar. If there are systematic deviations, we know there is some systematic error in our program.
 
-To describe the scaling of the cluster number density, let us consider the 1D case, where we have
-$$n(s,p) = (1-p)^2 p^s = G(s)(1-p)^2.$$
-Now, for a given $p$ value, the $(1-p)^2$ factor is just a constant, so let us look at the $G(s)$ function, it is given as
-$$G(s) = p^s = e^{s \ln p} = e^{-s/s_\xi}, \qquad s_\xi = -\frac{1}{\ln p}.$$
-Here we have introduced the characteristic cluster size, $s_\xi$. We see that $G(s)$ is quite constant when $s \ll s_\xi$, but when $s > s_\xi$ it decays exponentially, and so it is effectively 0 as soon as $s \gg s_\xi$. This means for a given system, we do not expect to find any clusters much larger than $s_\xi$.
-
-Now, let us see what happens when $p$ grows. As $p\in[0,1]$, we find that $s_\xi = -1/\ln p \in (0, \infty)$, and so as $p$ grows, $s_\xi$ grows. In a log-log plot of $G(s)$ vs $s$ we will se a very flat function, untill we hit $s_\xi$, when it falls off.
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{12.pdf}
-\end{figure}
-
-
-Now, for $p\to 1$, $s_\xi \to \infty$, so the characteristic cluster size diverges, this can be shown from $-1/\ln p = 1/(1-p)$, so we have
-$$s_\xi = (1-p)^{-1}.$$
-This phenomenon is true for any dimension, where $s_\xi$ diverges as $p\to p_c$,
-$$s_\xi = |p-p_c|^{-1/\sigma}.$$
-
-Now, why does $s_\xi$ diverge. It is because as $p\to p_c$ we are getting close to a spanning cluster (infinite in size), but we aren't quite there yet. When $p$ crosses over, so $p > p_c$, there is a spanning cluster, and the characteristic cluster size falls down as a power law again, as the spanning cluster starts `eating' the larger clusters in the system.
-
-\subsubsection*{Data-collapse}
-
-We see that $G(s)$ looked different for various $p$-values. This is because there is a $p$-dependence through $s_\xi$. We can get rid of the $s_\xi$ dependence by plotting $G(s/s_\xi)$ instead. In that case, all the curves move on top of each other. This is what is known as a \emph{data-collapse}. If we have a numerical data-set, or something gotten from experiments, we can plot our data as a function of $s/s_\xi$, and we then know that our results should have no $p$-dependence, all the datasets should collapse into 1, there will be some small differences due to noise, but if there are any large deviations---we know there must be some systematic error in our experiment.
-
-
-
-Now, the cluster number density was given by
-$$n(s,p) = G(s)(1-p)^2.$$
-Now, plotting this as a function of $s_\xi$ does not lead to data collapse, due to the normalization factor, but we can fix this by using the approximation of the logarithm close to $p_c$, so that $(1-p)^2 = s_\xi^{-2}$, so we have
-$$n(s,p) = G(s) \bigg(\frac{s}{s_\xi}\bigg) s^{-2} = s^{-2} F\bigg(\frac{s}{s_\xi}\bigg).$$
-The behaviour is general for all dimensions, but the factor 2 changes
-$$n(s,p) = s^{-\tau} F\bigg(\frac{s}{s_\xi}\bigg).$$
-Here $F$ act's as the cut-off function. When we plot $F$ as a function $s/s_\xi$ we predict a data-collapse.
 
 \clearpage
 
@@ -1152,47 +1006,6 @@ $$P \propto (p-p_c)^\beta, \quad \beta < 1, \qquad \sigma \propto (p-p_c)^\mu, \
 If we instead look at the system size dependence. Let us look at the conductance as a function of $\xi$ and $L$: $G(\xi, L)$. When $L \ll \xi$ the system will behave as it is close to $p = p_c$. When $L \gg \xi$ we can divide our system into subscells of size $\xi^d$ because it is self-similar (all subcells will look identical). Every subcell now appears to be close to $p = p_c$ and so every subcell will have conductivity $G(\xi, \xi)$. We then find the total conductance from
 $$G(\xi, L) = \sigma \frac{A}{L} = G(\xi, \xi) \bigg(\frac{L}{\xi}\bigg)^{d-2}.$$
 So in 2D, $G(\xi, L)$ remains constant as $L$ grows much larger than $\xi$, in 3D the conductance grows with growing $L$ indefinitely, as the area grows quadratically and the length of the sample only grows linearily. 
-
-\clearpage
-
-\section*{Appendix}
-
-\subsubsection*{Box-Muller transform}
-
-The Box-Muller transform is a way to convert randomly drawn numbers from $[0,1)$ to standard normally distributed numbers. There are two versions of the Box-Muller transform, the basic and the polar. Both versions draw to independant uniformely random numbers, $u$ and $v$ from $(0,1)$ and generate two normal numbers at once using trigonometric functions. The difference is that the polar form implements rejection sampling. If the random numbers $u$ and $v$ are such $u^2 + v^2 \geq 1$, we reject the pair and draw two new ones. Initially this seems inefficient, (we need roughly 1.3 input numbers per output number) but the computation from $u$ and $v$ to normal numbers is computationally cheaper and for most modern computers trigonometric functions are much more expensive than drawing rand numbers.
-
-\section*{Questions}
-
-Are the signs in Darcy's Law as given in project 2 opposite? Look at wikipedia. Why would the volume flux be \emph{opposite} of the applied force? The law now says that flow goes \emph{against} the pressure gradient (from low pressure to high pressure).
-
-When applying a global force to our system, why doesn't the energy of the system increse indefinitly? The particles affected by the global force are accelerating, and we have no energy flow out of the system, no?
-
-
-If we lock $L$ and vary $p$, we can use the same underlying matrix and check it versus different $p$ values, we can then find the $p'$ value that makes that exact matrix percolate. Is this a better approach than generating a new random matrix for each $p$? Why/why not? 
-
-\section*{Nice formulations}
-
-\subsubsection*{Microcanonical ensemble $NVE$}
-\begin{itemize}
-	\item System is isolated
-	\item Total energy is fixed, constant $E$
-	\item Every accesible microstate is equiprobable, so $\Omega$ is multiplicity, 
-	$$P(s) = \frac{\Omega(s)}{\sum_s \Omega(s)}.$$
-	\item Satisfies ergodicity, time averages can be replaced with ensemble averages.
-\end{itemize}
-
-\subsubsection*{Canonical ensemble $NVT$}
-\begin{itemize}
-	\item System is not isolated. Can exchange energy with a heat bath. Total energy of heat bath + system is constant. The equilibrium energy of the system is constant
-	\item The equilibrium $T$ is fixed, but it will fluctuate.
-	\item Probabilities in the system are given by Boltzmann distribution
-	\item Approaches the microcannonical ensemble in the thermodynamic limit, as relative fluctuations go as $\propto 1/\sqrt{N}$.
-\end{itemize}
-
-Why do we use cannonical ensemble? It is easier to study cannonical ensemble than isolated ensemble in experiments. It also guarantees stability in the energy.
-
-Fluctuations in pressure are not a worry, the only worry is that the pressure we are simulating at is far to low or far to high, we must be sure that our particle densitiy is what we want it to be at at the start of the simulation.
-
 
 
 \end{document}

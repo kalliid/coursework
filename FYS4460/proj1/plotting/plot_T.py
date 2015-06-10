@@ -1,28 +1,28 @@
 from pylab import *
 
 filename = ["../data/Tfluct_ber_Nc8_T800.dat",
-		    "../data/Tfluct_and_Nc8_T800.dat",
-		    "../data/Tfluct_nsh_Nc8_T800.dat"]
+            "../data/Tfluct_and_Nc8_T800.dat",
+            "../data/Tfluct_coeff_nsh_Nc8_T800.dat",
+            "../data/Tfluct_coeff_non_Nc8_T800.dat"]
 
 slopes = []
-color = ['r', 'b', 'g']
+color = ['r--', 'b', 'g']
 
 for i in range(3):
 	with open(filename[i], 'r') as infile:
-		T = float(infile.readline())
+		# T = float(infile.readline())
 
 		lines = infile.readlines()
 		N = len(lines)
-		T = zeros(N)
+		t = zeros(N); T = zeros(N)
 
 		for j in range(N):
-			T[j] = lines[j]
+			t[j], T[j] = lines[j].split()
 
-	dt = 1e-3
-	t = array([k*dt for k in range(N)])
-	plot(t, T, color[i], linewidth=2.0)
+	t = linspace(0,2,2000)
+	plot(t, T[1000:3000], color[i], linewidth=2.0)
 
-	print "%e" % sqrt(var(T)/(average(T)**2))
+	print "%e" % sqrt(var(T[1000:3000])/(average(T[1000:3000])**2))
 
 print "%e" % sqrt(2/(3.*2048))
 
@@ -37,8 +37,8 @@ print "%e" % sqrt(2/(3.*2048))
 plot([-1,-1], [-1, -1], 'k--')
 xlabel(r'$t$ $[t_0]$', fontsize=26)
 ylabel(r'$T$ $[\epsilon/k_b]$', fontsize=26)
-legend(['Berendsen Thermostat, rel. fluct = 9.82e-3', 'Andersen Thermostat, rel. fluct = 1.69e-2', 'Nose-Hoover, rel. fluct = 1.77e-2', 'Theoretical rel. fluct = 1.80e-2'], 'lower right', fontsize=22)
-axis([0, max(t)	, 650, 900])
+legend(['Berendsen Thermostat, rel. fluct = 9.37e-3', 'Andersen Thermostat, rel. fluct = 1.85e-2', 'Nose-Hoover, rel. fluct = 1.73e-2', 'Theoretical rel. fluct = 1.80e-2'], 'lower right', fontsize=22)
+axis([0, 2, 650, 900])
 # savefig("../thermostat_diffs.pdf")
 
 ax = gca()

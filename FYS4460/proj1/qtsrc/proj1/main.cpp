@@ -132,19 +132,43 @@ void find_rms_displacement(const string thermostat, char* init_state, char* logf
 int main() {
     char init_state[] = "../../data/fluctstudies_Nc8_T800.state";
 
-    char outfile1[] = "../../data/Tfluct_ber_Nc8_T800.dat";
-    char outfile2[] = "../../data/Tfluct_and_Nc8_T800.dat";
-    char outfile3[] = "../../data/Tfluct_coeff_nsh_Nc8_T800.dat";
-    char outfile4[] = "../../data/Tfluct_coeff_non_Nc8_T800.dat";
+//    char outfile1[] = "../../data/Tfluct_ber_Nc8_T800.dat";
+//    char outfile2[] = "../../data/Tfluct_and_Nc8_T800.dat";
+//    char outfile3[] = "../../data/Tfluct_coeff_nsh_Nc8_T800.dat";
+//    char outfile4[] = "../../data/Tfluct_coeff_non_Nc8_T800.dat";
+
+    char outfile1[] = "../../data/relfluct_nsh_Nc8_T800_tau15";
+    char outfile2[] = "../../data/relfluct_nsh_Nc8_T800_tau50";
+    char outfile3[] = "../../data/relfluct_nsh_Nc8_T800_tau150";
+    char outfile4[] = "../../data/relfluct_nsh_Nc8_T800_tau300";
+
+    char outfile5[] = "../../data/relfluct_ber_Nc8_T800_tau15";
+    char outfile6[] = "../../data/relfluct_ber_Nc8_T800_tau50";
+    char outfile7[] = "../../data/relfluct_ber_Nc8_T800_tau150";
+    char outfile8[] = "../../data/relfluct_ber_Nc8_T800_tau300";
+
+    char outfile9[] = "../../data/relfluct_and_Nc8_T800_tau15";
+    char outfile10[] = "../../data/relfluct_and_Nc8_T800_tau50";
+    char outfile11[] = "../../data/relfluct_and_Nc8_T800_tau150";
+    char outfile12[] = "../../data/relfluct_and_Nc8_T800_tau300";
 
     double Tbath = 800/T0;
-    double tau = 100*dt;
-    int iters = 5000;
+    int iters = 1000;
 
-    find_Tfluct("ber",  init_state, outfile1, Tbath, tau, iters);
-    find_Tfluct("and",  init_state, outfile2, Tbath, tau, iters);
-    find_Tfluct("nsh",  init_state, outfile3, Tbath, tau, iters);
-    find_Tfluct("none", init_state, outfile4, Tbath, tau, iters);
+//    find_Tfluct("nsh",  init_state, outfile1, Tbath, 15*dt,  iters);
+//    find_Tfluct("nsh",  init_state, outfile2, Tbath, 50*dt,  iters);
+//    find_Tfluct("nsh",  init_state, outfile3, Tbath, 150*dt, iters);
+//    find_Tfluct("nsh",  init_state, outfile4, Tbath, 300*dt, iters);
+
+//    find_Tfluct("ber",  init_state, outfile5, Tbath, 15*dt,  iters);
+//    find_Tfluct("ber",  init_state, outfile6, Tbath, 50*dt,  iters);
+//    find_Tfluct("ber",  init_state, outfile7, Tbath, 150*dt, iters);
+//    find_Tfluct("ber",  init_state, outfile8, Tbath, 300*dt, iters);
+
+    find_Tfluct("and",  init_state, outfile9,  Tbath, 15*dt,  iters);
+    find_Tfluct("and",  init_state, outfile10, Tbath, 50*dt,  iters);
+    find_Tfluct("and",  init_state, outfile11, Tbath, 150*dt, iters);
+    find_Tfluct("and",  init_state, outfile12, Tbath, 300*dt, iters);
 
 //    find_rms_displacement("ber",  init_state, outfile1, Tbath, tau, iters);
 //    find_rms_displacement("and",  init_state, outfile2, Tbath, tau, iters);
