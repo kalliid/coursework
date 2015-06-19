@@ -92,6 +92,84 @@
 
 \begin{document}
 
+\section*{Project 4 - Nosé-Hover Thermostat}
+
+In statistical mechanics, we try to predict thermodynamic properties for a system or substance, such as ase equation of state, phase transisitons, specific heats, susceptilibites and so on. To do this analytically, we often have to look to very simple, idealized systems, such as the ising model, ideal paramagnets, Einstein and Debye solids and so on. Molecular dynamics can be used to look at more realistic and complex examples, but in essence tries to do the same thing.
+
+An \emph{ensemble} refers to all possible configurations a system can inhabit under given conditions. In the micro-cannonical ensamble, these conditions are constant number of particles $N$, volume $V$ and energy $E$. So if we put $N$ atoms into a box of size $V$ and let them be completely isolated, so no energy flows out or into the box---the ensamble are all the states those atoms could arrange themselves in, this is obviously an enormous amount of states. The \emph{fundamental assumption of statistical mechanics} states that over time, any of these microstate is equally likely in the micro-canonical ensemble. From this we can calculate thermodynamic properties by simply taking the average over the entire ensamble, over all possible configurations. 
+
+For more complex systems we have no hope to take the ensamble average, but we can simulate the system and it's time evolution through molecular dynamics. The time evolution of the system will then be a trajectory through phase space, as the configuration of the system will change over time. The main idea is that this trajectory is representative of the whole ensemble. From the ergodic hypothesis and the chaotic nature of our system, we can be quite sure this is true. This means a time-average over our simulated trajectory, is a good approximation to the ensemble average, and thus to the thermodynamic properties of the system in question.
+
+\begin{itemize}
+	\item Initialize a system and let it reach equilibrium
+	\item Measure the system over long time
+	\item The time-average now estimates the ensemble-average
+\end{itemize}
+
+\subsubsection*{Canonical ensamble}
+
+Now, the micro-canonical ensemble has constant $NVE$, but we can define other ensembles, like the canonical ensemble. In this case we still have a constant number of particles and volume, but the box is now thermally coupled to a heat bath, so energy can enter or exit the system as heat. We then call the system a $NVT$ ensemble, because the temperature of the system will tend to the heat bath system. The canonical ensemble might be more useful for MD simulations, because it lies closer to experimental conditions. In a lab, we can never truely isolate a system, so a heat bath is often used.
+
+Even though we call it a $NVT$ ensemble, note that for a finite sized canonical system, such as those we simulate, there will be natural fluctuations in the temperature of the system. From the Boltzmann distribution, which govern the canonical ensamble, we can derive average quantities and thus variances. And with this technique we find that the temperature of the system should fluctuate as
+$$\frac{\sigma_T}{\langle T \rangle} = \sqrt{\frac{2}{3N}},$$
+so the relative fluctuations decrease with system size, and so in the thermodynamic limit $N\to \infty$ the fluctuations dissapear. In that case the energy fluctuations also die out, and so the micro-canonical and canonical ensembles collapse onto each other.
+
+To generate a MD simulation that samples the canonical ensamble, we need some technique to couple it to a virtual heat bath. We call such a technique a thermostat, as it regulates the temperature of the system to keep it close to the target temperature. There are many different thermostats available, of varying degree of complexity and accuracy. We will look at three of these
+\begin{itemize}
+	\item Berendsen thermostat
+	\item Anderssen thermostat
+	\item Nosé-Hover thermostat.
+\end{itemize}
+
+\subsubsection*{Temperature}
+
+To measure the temperature of the system, we turn to the equipartition theorem, which states that at thermal equilibrium, every quadratic degree of freedom in the systems Hamiltonian will carry an average energy of $\frac{1}{2}k_b T$. The velocity of every atom in the system contributes three quadratic degrees of freedom, and so the average kinetic energy at equilibrium should be
+$$\langle E_k \rangle = \frac{3}{2}N k_b T,$$
+here, the average is an ensemble average. For a micro-cannonical ensemble, the constant quantities are $NVE$, so only the \emph{total} energy is constant, this means the kinetic energy of the various possible microstates will vary. Now, as we know the velocity of every atom in our system, we can easily compute the kinetic energy of our system. Again, the total energy is (nearly) constant, but the kinetic energy will fluctuate. To get a good estimate for the temperature, we should therefore take the time-average.
+$$T = \frac{2\langle E_k \rangle}{3Nk_b}.$$
+
+\subsubsection*{Berendsen}
+
+The Berendsen thermostat works by directly rescaling all velocities in the system, we multiply the velocities of all particles by a factor so that we get a temperature change per time step
+$$\Delta T = \frac{\Delta t}{\tau}(T_0 - T(t)).$$
+Where the relaxation time, $\tau$, is a parameter that describes the coupling to the heat bath. A low $\tau$ gives a very tight coupling to the heat bath, a higher $\tau$ gives a loose coupling. $\tau \to \infty$ is a microcanonical ensemble. It turns out the Berendsen thermostat does \emph{not} sample a canonical ensemble. This is obvious from $\tau = dt$ where there are no $T$-fluctuations, but it can be shown it isn't accurat for any $\tau$.
+
+\subsubsection*{Anderssen}
+
+The Anderssen thermostat works by stochastically modelling collisions with a heath bath. For any time step, we draw random numbers for every particle, if it is below some collision treshold according to a collision frequency $\nu$. We draw a new velocity vector from the Boltzmann distribution from the heat bath temperature for the particle. The coupling is given through $\nu = 1/\tau$.
+
+It can be shown that Anderssen correctly reproduces the cannonical ensemble. But the trajectory through phase space becomes discontinious, which disturbs any dynamic measurement. Time-averaged measurements are not disturbed, but any time-dependant measurement becomes wrong. I will illustrate this by plotting the mean square displacement.
+
+\subsubsection*{Nosé-Hover}
+
+The Nosé-Hover works by including the heat bath as two additional degrees of freedom in the system. This changes the equations of motion for the system. The new lagrangian of the system has been chosen so that when the total system follows a micro-cannonical ensemble, the real degrees of freedom sample a canonical distribution.
+$$L = \sum_i \frac{1}{2}m_i(s\dot{r}_i)^2 - u(r) + \frac{1}{2}Q\dot{s}^2 - \frac{g}{\beta}\ln s.$$
+The $g$-parameter is $3N+1$ for Nosé formalism, which uses $s$ as a time-scaling parameter. So in this formalism, the real time step is not constant. In Hoover-formalism $g = 3N$, the time scaling does not occur, and the real time step is again constant. In this case, you can introduce the friction parameter $\gamma = \dot{s}/s$, in this case, we don't need to solve the equations of motion for $s$ or $p_s$ at all, we can instead only include $\gamma$ in the equations of motions, in MD units we get
+$$\dot{v} = F - \gamma v, \qquad \dot{r} = v, \qquad \dot{\gamma} = \frac{1}{Q}\bigg(2K - 3NT_0\bigg).$$
+So the velocity verlet becomes
+\begin{align*}
+v_{i+1/2} &= v_{i} + (F_i - \gamma_i v_i)\frac{\Delta t}{2} \\
+\gamma_{i+1/2} &= \gamma_i + \frac{1}{Q}(2K_i - 3NT_0)\frac{\Delta t}{2}. \\
+r_{i+1} &= r_{i} + v_{i+1/2}\Delta t \\
+v_{i+1} &= v_{i+1/2} + (F_{i+1} - \gamma_{i+1} v_{i+1/2})\frac{\Delta t}{2} \\
+\gamma_{i+1} &= \gamma_{i+1/2} + \frac{1}{Q}(2K_{i+1} - 3NT_0)\frac{\Delta t}{2}.	
+\end{align*}
+
+So the Nosé-Hover thermostat has to be implemented into the integrator itself, and makes the velocity-verlet scheme semi-implicit. This is different from Anderssen and Berendsen, which can be added to any integration scheme.
+
+\subsubsection*{Conclusions}
+
+Berendsen is very simple to both understand and implement. It works great for initialization, but does not sample the canonical distribution, so it is a poor choice if our goal is to simulate canonical system.
+
+Anderssen is also quite simple to understand and implement. It is not time-reversible or deterministic as it is stochastic. It does however sample the canonical distribution, so in many cases it can be perfect. It does however disturb dynamic quantities, so should never be used when measuring time-dependant properties.
+
+Nosé-Hover is more complex and difficult to understand and implement, it turns the equations of motions semi-implicit. It is both deterministic and samples the canonical distribution. There are however problems for some systems with conservation laws, and in some cases that Anderssen thermostat works better (this is shown in Frenkel \& Smit). For other systems one should implement Nosé-Hover chains.
+
+
+
+\clearpage
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%                                            %%%%%%
